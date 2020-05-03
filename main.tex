@@ -1,4 +1,4 @@
-\documentclass[fontsize=11pt,paper=a5]{scrbook}
+\documentclass[fontsize=11pt,paper=a5,oneside]{scrbook}
 %\usepackage{fourier}
 %\usepackage{lmodern} % Improvement over cmtt
 %\usepackage{cmbright}
@@ -33,6 +33,12 @@
 
 % comment before publication
 %\usepackage{showlabels}
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
 
 \usepackage[english]{babel}
 \usepackage{hyperref}
@@ -105,7 +111,10 @@ linktoc=page}
 
 \title{Hamiltonian Mechanics}
 \author{Marcello Seri}
-\date{\today}
+\date{\today\\
+\vspace{10cm}
+{\small\doclicenseThis}
+}
 
 % trick for bibliography in subfiles -- part 1
 \def\biblio{\bibliographystyle{plainnat}\bibliography{../book}}
@@ -115,6 +124,7 @@ linktoc=page}
 \def\biblio{}
 
 \maketitle
+
 \tableofcontents
 
 \chapter*{Preface}
