@@ -1,4 +1,4 @@
-\documentclass[fontsize=11pt,paper=a5,oneside]{scrbook}
+\documentclass[english,fontsize=11pt,paper=a5,oneside]{scrbook}
 %\usepackage{fourier}
 %\usepackage{lmodern} % Improvement over cmtt
 %\usepackage{cmbright}
@@ -40,7 +40,7 @@
     version={4.0},
 ]{doclicense}
 
-\usepackage[english]{babel}
+\usepackage{babel}
 \usepackage{hyperref}
 \hypersetup{
 colorlinks,
@@ -115,21 +115,37 @@ linktoc=page}
 \small{University of Groningen}\vspace{-.2cm}\\
 \small\href{mailto:m.seri@rug.nl}{m.seri (at) rug.nl}
 }
-\date{\today\vspace{8.5cm}\\
-\small{\doclicenseThis}
-}
+\date{}
 
 % trick for bibliography in subfiles -- part 1
 \def\biblio{\bibliographystyle{plainnat}\bibliography{../book}}
 
+\usepackage{scrhack}
 \begin{document}
 % trick for bibliography in subfiles -- part 2
 \def\biblio{}
 
 \maketitle
 
+\cleardoublepage
+
+\thispagestyle{empty}
+\null\vfill
+\begin{center}
+    Version 1.0\\
+    \today
+\end{center}
+\vfill
+\small{\doclicenseThis}
+
+\cleardoublepage
+
+\pagenumbering{roman}
 \tableofcontents
 
+\cleardoublepage
+
+\pagenumbering{arabic}
 \chapter*{Preface}
 
 The main reference for this course is \cite{book:arnold}, although we will deviate from the structure of the book or use alternative approaches for some of the proofs.
