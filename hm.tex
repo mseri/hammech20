@@ -67,6 +67,7 @@ linktoc=page}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\T}{\mathbb{T}}
+\newcommand{\bS}{\mathbb{S}}
 
 \newcommand{\bx}{\bm{x}}
 \newcommand{\bp}{\bm{p}}
@@ -169,7 +170,7 @@ On the latter, we will only briefly discuss resonances and mostly focus on KAM t
 
 Topics that I intend to include over time include contact mechanics, non-holonomic mechanics/sub-riemannian geometry, numerical methods, rigid bodies, mathematical billiards, integrability via Lax pairs...
 
-Before concluding, let me emphasize two non-standard notational conventions that I decided to adopt from \cite{book:arnold}: in the rest of this manuscript we will denote $(\cdot,\cdot)$ the inner products, also in Euclidean spaces when they correspond to the standard scalar product, and $[\cdot,\cdot]$ the exterior products, also in $\R^3$ when I could have instead used the cross product. \emph{I have revisited my choice here and this year I will try to update the notation.}
+Last year there were two non-standard notational conventions that I decided to adopt from \cite{book:arnold}: $(\cdot,\cdot)$ denoted the inner products, also in Euclidean space when it corresponds to the standard scalar product, and $[\cdot,\cdot]$ the exterior product, also in $\R^3$ where I could have instead used the cross product. \emph{I have revisited my choice here and this year I will try to update the notation to something closer to my analysis on manifolds notes \cite{lectures:aom:seri}.}
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
@@ -205,14 +206,28 @@ The mechanics of the particle is encoded in \emph{Newton's second law of motion}
     \bm F = m \ddot{\bx}.
 \end{equation}
 \end{tcolorbox}
-Let's leave it here for now, we will come back to it in the next part of the lecture.
+Let's leave it here for now, we will come back to it later on.
+\medskip
 
 In general we will consider systems of $N$ point particles.
 These will be described by a set of $N$ position vectors $\bx_k = (x_k, y_k ,z_k)$ with masses $m_k$, $k = 1, \ldots, N$.
 For convenience we will denote $\bx = (\bx_1, \ldots, \bx_N)\in\R^{3N}$, and $\bm{m} = (m_1, \ldots, m_N)\in\R^N$.
 We call $\bx(t)$ the \emph{configuration} of the system at time $t$ in the \emph{configuration space} $\R^{3N}$.
 
-We say that a system of $N$ particles has \emph{$n$ degrees of freedom} if we need $n$ independent parameters to uniquely specify the system configuration. Note that, in general, the $n$ degrees of freedom do not have to be the cartesian coordinates of the point particles. We call \emph{generalized coordinates} any set of $n$ parameters $q = (q^1, \ldots, q^n)$ that uniquely determine the configuration of a system with $n$ degrees of freedom, and \emph{generalized velocities} their time derivatives $\dot q = (\dot q^1, \ldots, \dot q^n)$. The \emph{state} of the system is then characterized by the set of (generalized) coordinates and velocities $(q,\dot q) = \left(q^1, \ldots, q^n,\dot q^1, \ldots, \dot q^n\right)$. If you recall differential geometry, you may correctly guess that the generalized coordinates will be points on some manifold $q\in M$ and the state will be a point in the tangent bundle $(q, \dot q)\in TM$, i.e. $\dot q \in T_q M$ (see section~\ref{sec:lagrangianonmanifold}).
+\begin{example}\label{example:gcoords}
+    For example a system of two rigid pendulums in space constrained to oscillate on a vertical plane, is described by two position vectors, so $\bx = (\bx_1, \bx_2)\in\R^{6}$.
+    However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described by $q = (q^1, q^2) \in \bS^1\times\bS^1 \simeq \T^2$.
+\end{example}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\linewidth,trim={0 1cm 0 1cm}, clip]{{images/HM-1.1}.pdf}
+\end{figure}
+
+We say that a system of $N$ particles has \emph{$n$ degrees of freedom} if we need $n$ independent parameters to uniquely specify the system configuration\footnote{As Example~\ref{example:gcoords} shows, the $n$ degrees of freedom do not have to be the cartesian coordinates of the point particles.}. We call \emph{generalized coordinates} any set of $n$ parameters $q = (q^1, \ldots, q^n)$ that uniquely determine the configuration of a system with $n$ degrees of freedom, and \emph{generalized velocities} their time derivatives $\dot q = (\dot q^1, \ldots, \dot q^n)$. The \emph{state} of the system is then characterized by the set of (generalized) coordinates and velocities $(q, \dot q) = \left(q^1, \ldots, q^n,\dot q^1, \ldots, \dot q^n\right)$.
+
+If you recall differential geometry, you may (correctly) guess that the generalized coordinates will be points on some differentiable manifold $q\in M$ and the state will be a point in its tangent bundle $(q, \dot q)\in TM$, i.e. $\dot q \in T_q M$ (see also section~\ref{sec:lagrangianonmanifold}).
+\medskip
 
 We have now all the elements to translate the \emph{Newtonian principle of determinacy} in mathematical terms. 
 In 1814, Laplace \cite{book:laplace} wrote
@@ -221,16 +236,14 @@ In 1814, Laplace \cite{book:laplace} wrote
     We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.
 \end{quotation}
 
-\begin{tcolorbox}
-In other words, the initial state $\left(q(t_0), \dot q(t_0)\right)$ uniquely determines the evolution of the system $\left(q(t),\dot q(t)\right)$ for $t > t_0$.
-\end{tcolorbox}
-
-It follows from Picard-Lindel\"of theorem, about existence and uniqueness of solutions of initial value problems, that the Newtonian principle of determinacy (modulo some minimal regularity requirements) is locally satisfied by the \emph{equations of motion} of the mechanical system, i.e. second order differential equations derived from Newton's law.
+In other words, this principle states that the initial state $\left(q(t_0), \dot q(t_0)\right)$ uniquely determines its evolution $\left(q(t),\dot q(t)\right)$ for $t > t_0$.
+Picard-Lindel\"of theorem\footnote{Also known as existence and uniqueness of solutions of initial value problems} implies that the Newtonian principle of determinacy is locally satisfied\footnote{Modulo some minimal regularity requirements.} by the \emph{equations of motion} of the mechanical system, i.e. second order differential equations derived from Newton's law.
 
 \subsection{Motion in one degree of freedom}
+
 Before temporarily moving to Lagrangian mechanics, let's anticipate some of the concepts in some simple cases.
 
-\begin{example}[horizontal spring and pendulum]\label{ex:sprPen}
+\begin{example}[Horizontal spring and pendulum]\label{ex:sprPen}
 
     Consider an idealized system consisting of a point particle of mass $m$ attached to a spring with stiffness $k$, sliding on a frictionless surface.
     Assume that the motion is one-dimensional along the axis of the spring and let $x$ denote the displacement of the system from its equilibrium position (i.e. the position in which the spring is completely at rest: not compressed nor extended). We consider this system to exclude gravitational forces from the picture.
