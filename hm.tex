@@ -73,6 +73,9 @@ linktoc=page}
 \newcommand{\bp}{\bm{p}}
 \newcommand{\bv}{\bm{v}}
 
+\newcommand{\lag}{\langle}
+\newcommand{\rag}{\rangle}
+
 \let\d\relax
 \DeclareMathOperator{\d}{d}
 \DeclareMathOperator{\D}{D}
@@ -133,7 +136,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.2\\
+    Version 1.3\\
     \today
 \end{center}
 \vfill
@@ -282,12 +285,12 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
 
     Due to our choice of coordinates, the gravitational attraction of the sun acts in direction $-\bx(t)$. \emph{Newton's law of universal gravitation} says that such force is proportional to
     \begin{equation}
-        \frac{GmM}{|\bm{0}-\bx(t)|^2} = \frac{GmM}{|\bx(t)|^2},
+        \frac{GmM}{\|\bm{0}-\bx(t)\|^2} = \frac{GmM}{\|\bx(t)\|^2},
     \end{equation}
     where $G \sim 6.674 \cdot 10^{-11} \frac{m^3}{s^2\,kg}$ is called \emph{gravitational constant}.
     Once we collect all the elements into Newton's second law \eqref{eq:newton}, we obtain the equation of motion
     \begin{equation}\label{eq:keplerex}
-        m \ddot{\bx}(t) = - G\frac{mM}{|\bx(t)|^2} \frac{\bx(t)}{|\bx(t)|}.
+        m \ddot{\bx}(t) = - G\frac{mM}{\|\bx(t)\|^2} \frac{\bx(t)}{\|\bx(t)\|}.
     \end{equation}
     This is an autonomous second order ordinary differential equation on the configuration space $\R^3\setminus\big\{\bm{0}\big\}$.
     Providing the initial conditions $\bx(0)=\bx_0$ and $\dot{\bx}(0)=\bv_0$, we can explicitly solve \eqref{eq:keplerex}.
@@ -297,7 +300,7 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
     
     On the tangent bundle $(\R^3\setminus\big\{\bm{0}\big\})\times\R^3$, let us define the total energy
     \begin{equation}\label{eq:energyKepler}
-        E(\bx,\bv) = \frac{1}{2}m|\bv|^2 - \frac{GmM}{|\bx|},
+        E(\bx,\bv) = \frac{1}{2}m\|\bv\|^2 - \frac{GmM}{\|\bx\|},
     \end{equation}
     the angular momentum
     \begin{equation}
@@ -305,7 +308,7 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
     \end{equation}
     and the Laplace-Runge-Lenz vector
     \begin{equation}
-        A(x,v) = m \bv \wedge L(\bx, \bv) + \frac{G m^2 M^2}{m+M} \frac{\bx}{|\bx|}.
+        A(x,v) = m \bv \wedge L(\bx, \bv) + \frac{G m^2 M^2}{m+M} \frac{\bx}{\|\bx\|}.
     \end{equation}
     Along the solutions of \eqref{eq:keplerex}, let us define $E(t):=E(\bx(t),\dot\bx(t))$ and, similarly, $L(t)$ and $A(t)$. Then, there exist solutions such that $L(t) = L(0) \neq 0$ for all times, and also $E(t) = E(0)$ and $A(t) = A(0)$. Furthermore, a solution that lives on the ``submanifold'' defined by
     \begin{equation}
@@ -334,7 +337,9 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
 
 \section{Hamilton's variational principle}\label{sec:varpri}
 
-Throughout this section we assume that we are considering a system with $n$ degrees of freedom, whose configuration space is $\R^n$.
+\begin{tcolorbox}
+    Throughout this section we assume that our system has $n$ degrees of freedom whose configuration space is $\R^n$.    
+\end{tcolorbox}
 We will see that the generalization to manifolds is almost immediate.
 
 In order to leave more space to discuss Hamiltonian systems and their geometry, we will be brief in our account of Lagrangian mechanics and calculus of variations. For a more detailed account refer to \cite[Part II]{book:arnold}.
@@ -347,7 +352,7 @@ According to this principle, the equations of motion of a mechanical system are 
 \begin{example}
     The lagrangian of a non-relativistic particle with mass $m > 0$ in a potential $U : \R^n \to \R$ is
     \begin{equation}
-        L(q, \dot q, t) = \frac12 m |\dot q|^2 - U(q),
+        L(q, \dot q, t) = \frac12 m \|\dot q\|^2 - U(q),
     \end{equation}
     which is the difference between the so-called kinetic energy of the particle and its so-called potential energy.
     We will come back to this shortly.
@@ -364,16 +369,17 @@ Given a curve $\gamma:[t_1, t_2] \to \R^n$, we define the \emph{action} function
 
 To make this precise, we will need to recall some preliminary concepts and make sense of differentiation in $\infty$-dimensional spaces.
 
-Let $X$ and $Y$ be Banach spaces\footnote{Banach space: normed vector space which is complete with respect to the norm induced by the metric}  and $G\subset X$ an open subset of $X$.
-A function $f: G \to Y$ is call \emph{Fre\'echet differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that
+Let $X$ and $Y$ be Banach spaces\footnote{Banach space: complete normed vector.}  and $G\subset X$ an open subset of $X$.
+A function $f: G \to Y$ is call \emph{Fre\'echet differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that\footnote{Here, $g = o(\|h\|_X)$ if
+\begin{equation}
+    \lim_{\|h\| \to 0} \frac{\|g(h)\|_Y}{\|h\|_X} = 0.
+\end{equation}
+}
 \begin{equation}\label{eq:frechetdiff}
     f(x+h) = f(x) + Ah + o(\|h\|_X)
 \end{equation}
-for any $h$ in a sufficiently small neighborhood of $0\in X$.
-Here, $g = o(\|h\|_X)$ if
-\begin{equation}
-    \lim_{\|h\| \to 0} \frac{\|g(h)\|_Y}{\|h\|_X} = 0
-\end{equation}
+for any $h$ in a sufficiently small neighborhood of $0\in X$. Alternatively, you can say asymptotically as $\|h\|_X\to 0$.
+
 As in the finite-dimensional case, $A$ is uniquely determined and is called \emph{Fr\'echet derivative} of $f$ at $x$ and denoted $D f(x)$.
 
 \begin{remark}
@@ -425,55 +431,55 @@ and the evolution of the system is described by the critical points with respect
             &= \int_{t_1}^{t_2} 
                 L(\gamma, \dot \gamma, s) \d s \\
             &\quad + \int_{t_1}^{t_2} \left[
-                \left(
+                \left\lag
                     \frac{\partial L}{\partial q}(\gamma, \dot \gamma, s),\;
                     h(s)
-                \right)
-                + \left(
+                \right\rag
+                + \left\lag
                     \frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\;
                     \dot h(s)
-                \right)
+                \right\rag
             \right] \d s \\
             &\quad + O(\|h\|^2_X),
         \end{split}
     \end{equation}
-    where the inner product $(\cdot,\cdot)$ is to the usual scalar product in $\R^n$.
+    where the inner product $\lag\cdot,\cdot\rag$ is to the usual scalar product in $\R^n$.
 
     Therefore,
     \begin{equation}
         \begin{split}
             S(\gamma+h) - S(\gamma) &= \int_{t_1}^{t_2} \left[
-                \left(\frac{\partial L}{\partial q}(\gamma, \dot \gamma, s),\; h(s)\right)
-                + \left(\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\; \dot h(s)\right)
+                \left\lag\frac{\partial L}{\partial q}(\gamma, \dot \gamma, s),\; h(s)\right\rag
+                + \left\lag\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\; \dot h(s)\right\rag
             \right] \d s\\
             &\quad + O(\|h\|^2_X)\\
-            &= \left(\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\; h(s)\right) \Big|_{t_0}^{t_1} \\
-            &\quad + \int_{t_1}^{t_2} \left(
+            &= \left\lag\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\; h(s)\right\rag \Big|_{t_1}^{t_2} \\
+            &\quad + \int_{t_1}^{t_2} \left\lag
                 \frac{\partial L}{\partial q}(\gamma, \dot \gamma, s)
                 - \frac{\d}{\d s}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s)
-            ,\; h(s)\right) \d s\\
+            ,\; h(s)\right\rag \d s\\
             &\quad + O(\|h\|^2_X).
         \end{split}
     \end{equation}
 
     The differential $DS(\gamma): X \to \R$ can now be read from the equation above and is well defined as bounded linear operator for all $\gamma\in X$.
 
-    For $h\in X_0$, the first term $\left(\frac{\partial L}{\partial \dot q}(q, \dot q, s),\; h(s)\right)\Big|_{t_0}^{t_1}$ has to vanish. Therefore, for $\gamma$ to be a critical point for $S$ it follows that the inner product
+    For $h\in X_0$, the first term $\left\lag\frac{\partial L}{\partial \dot q}(q, \dot q, s),\; h(s)\right\rag\Big|_{t_1}^{t_2}$ has to vanish. Therefore, for $\gamma$ to be a critical point for $S$ it follows that the inner product
     \begin{equation}
-        \left(
+        \left\lag
             \frac{\partial L}{\partial q}(\gamma, \dot \gamma, s)
             - \frac{\d}{\d s}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s)
-        ,\; h(s)\right) = 0 \quad\mbox{for all } h\in X_0.
+        ,\; h(s)\right\rag = 0 \quad\mbox{for all } h\in X_0.
     \end{equation}
 
-    Due to the arbitrariness of $h$, this implies
+    Due to the arbitrariness of $h$, after a relabelling of the time, this implies
     \begin{equation}
-        \frac{\partial L}{\partial q}(\gamma, \dot \gamma, s)
-            - \frac{\d}{\d s}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s) = 0,
+        \frac{\partial L}{\partial q}(\gamma, \dot \gamma, t)
+            - \frac{\d}{\d t}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, t) = 0,
     \end{equation}
     which, expanded, means
     \begin{equation}
-        \frac{\d}{\d t}\frac{\partial L}{\partial \dot q^i}(\gamma, \dot \gamma, s) - \frac{\partial L}{\partial q^i}(\gamma, \dot \gamma, s) = 0, \quad i=1,\ldots n.
+        \frac{\d}{\d t}\frac{\partial L}{\partial \dot q^i}(\gamma, \dot \gamma, t) - \frac{\partial L}{\partial q^i}(\gamma, \dot \gamma, t) = 0, \quad i=1,\ldots n.
     \end{equation}
 \end{proof}
 
@@ -582,31 +588,31 @@ We will now see how we can derive Newton's laws from Hamilton's principle as a c
 \begin{theorem}
 The lagrangian of an isolated point particle in an inertial system of coordinates has the form 
 \begin{equation}\label{eq:singleptlag}
-    L(\bm{x}, \dot{\bm{x}}) = \frac{m\,\dot{\bm{x}}^2}2
+    L(\bm{x}, \dot{\bm{x}}) = \frac{m\,\|\dot{\bm{x}}\|^2}2
 \end{equation}
 where $m$ is a constant called \emph{mass} of the point particle.
 \end{theorem}
 \begin{proof}
     The invariance from translations implies that the lagrangian must be independent from $t$ and $\bx$, while the invariance from orthogonal transformations implies that it must be dependent on the square of the velocities:
     \begin{equation}
-        L = L(\dot\bx^2), \quad \dot\bx^2 := (\dot \bx, \dot \bx).
+        L = L(\|\dot\bx\|^2), \quad \|\dot\bx\|^2 := \lag\dot \bx, \dot \bx\rag.
     \end{equation}
-    The invariance with respect to uniform motion now implies that the lagrangian must actually be proportional to $\dot\bx^2$.
+    The invariance with respect to uniform motion now implies that the lagrangian must actually be proportional to $\|\dot\bx\|^2$.
     Indeed, with the galilean transformation
     \begin{equation}
         \bx \mapsto \bx + \epsilon \bm{v}t,
     \end{equation}
     in the limit $\epsilon \to 0$, we get
     \begin{equation}
-        L(\dot\bx^2) \mapsto L(\dot\bx^2) + 2\epsilon\,(\bm{v}, \dot\bx)\,\frac{\partial}{\partial \dot\bx^2}L(\dot\bx^2) + O(\epsilon^2).
+        L(\|\dot\bx\|^2) \mapsto L(\|\dot\bx\|^2) + 2\epsilon\,\lag\bm{v}, \dot\bx\rag\,\frac{\partial}{\partial \|\dot\bx\|^2}L(\|\dot\bx\|^2) + O(\epsilon^2).
     \end{equation}
-    The invariance of the lagrangian implies that the linear term in $\epsilon$ should be a total derivative $\frac{\d }{\d t} f(t, \bx) = 2\,(\bm{v}, \dot\bx)\,L'(\dot\bx^2)$ but this can happen iff it's linear in $\dot\bx^2$, in particular this means that $L'(\dot\bx^2) = \mathrm{const} =: \frac{m}2$.
+    The invariance of the lagrangian implies that the linear term in $\epsilon$ should be a total derivative $\frac{\d }{\d t} f(t, \bx) = 2\,\lag\bm{v}, \dot\bx\rag\,L'(\|\dot\bx\|^2)$ but this can happen iff it's linear in $\|\dot\bx\|^2$, in particular this means that $L'(\|\dot\bx\|^2) = \mathrm{const} =: \frac{m}2$.
     
     Finally, for any constant value $m$, the lagrangian \eqref{eq:singleptlag} is invariant with respect to $\bx \mapsto \bx + \bm{v}t$:
     \begin{equation}
-        \frac{m \dot\bx^2}2 \mapsto
-        \frac{m \dot\bx^2}2 + m\,(\bm{v},\dot\bx) + \frac{m \bm{v}^2}2
-        = \frac{m \dot\bx^2}2 + \frac{\d }{\d t}\left(m\,(\bm{v},\bx) + \frac{m \bm{v}^2 t}2\right).
+        \frac{m \|\dot\bx\|^2}2 \mapsto
+        \frac{m \|\dot\bx\|^2}2 + m\,\lag\bm{v},\dot\bx\rag + \frac{m \bm{v}^2}2
+        = \frac{m \|\dot\bx\|^2}2 + \frac{\d }{\d t}\left(m\,\lag\bm{v},\bx\rag + \frac{m \bm{v}^2 t}2\right).
     \end{equation}
 \end{proof}
 
@@ -614,30 +620,30 @@ where $m$ is a constant called \emph{mass} of the point particle.
 In an inertial frame of reference, an isolated point particle either does not move or is in uniform motion with constant velocity.
 \end{corollary}
 \begin{proof}
-    It follows immediately bu computing the Euler-Lagrange equations for \eqref{eq:singleptlag}:
+    It follows immediately by computing the Euler-Lagrange equations for \eqref{eq:singleptlag}:
     \begin{equation}
-        \frac{\d}{\d t} \frac{\partial L}{\partial \dot x_i} - \frac{\partial L}{\partial x_i} = m \ddot x_i = 0, \qquad i=1,2,3.
+        \frac{\d}{\d t} \frac{\partial L}{\partial \dot x^i} - \frac{\partial L}{\partial x^i} = m \ddot x^i = 0, \qquad i=1,2,3.
     \end{equation}
 \end{proof}
 
 Remembering the additive property of the lagrangians, we can show that for a system of $N$ particles, which do not interact, the lagrangian is the sum
 \begin{equation}\label{eq:freel}
-    L = \sum_{k=1}^N \frac{m_k \dot{\bx}_k^2}{2}.
+    L = \sum_{k=1}^N \frac{m_k \|\dot{\bx}_k\|^2}{2}.
 \end{equation}
 We call lagrangians of this form \emph{free}.
 
 \begin{remark}
     The above definition of mass becomes only meaningful, when we take the additive property into account.
     A lagrangian can always be multiplied by an arbitrary constant without affecting the equations of motions;
-    such multiplications then amount to a change in the unit of mass.
+    such multiplications then amounts to a change in the unit of mass.
     The ratios of the masses remain unchanged by this and it is only these ratios which are physically meaningful.
 \end{remark}
 
 To include interaction between the points in this picture, we need to add to the free lagrangian \eqref{eq:freel} a function $-U(\bx_1, \ldots, \bx_N)$ which depends on the nature of the interactions:
 \begin{equation}\label{eq:mechlag}
-    L := T-U := \sum_{k=1}^N \frac{m_k \dot{\bx}_k^2}{2} -U(\bx_1, \ldots, \bx_N).
+    L := T-U := \sum_{k=1}^N \frac{m_k \|\dot{\bx}_k\|^2}{2} -U(\bx_1, \ldots, \bx_N).
 \end{equation}
-The first sum, $T = \sum_{k=1}^N \frac{m_k \dot{\bx}_k^2}{2}$, is call \emph{kinetic energy} of the particles, while the function $U = U(\bx_1, \ldots, \bx_N)$ is called \emph{potential energy}. Lagrangians of the form $T-U$ are often called \emph{natural}.
+The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\bx}_k\|^2}{2}$, is call \emph{kinetic energy} of the particles, while the function $U = U(\bx_1, \ldots, \bx_N)$ is called \emph{potential energy}. Lagrangians of the form $T-U$ are often called \emph{natural}.
 
 \begin{theorem}
     The equations of motion of a system of $N$ point particles with natural lagrangian \eqref{eq:mechlag} are of the form
@@ -675,7 +681,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 \begin{example}\label{ex:kepler1}
     The motion of $N$ point particles with masses $m_1, \ldots, m_N$ in a their gravitational field, is described by the lagrangian
     \begin{equation}
-        L = \sum\frac{m_k \dot{\bx}_k^2}{2} + \sum_{k < l} G \frac{m_k m_l}{|\bx_k - \bx_l|},
+        L = \sum\frac{m_k \|\dot{\bx}_k\|^2}{2} + \sum_{k < l} G \frac{m_k m_l}{\|\bx_k - \bx_l\|},
     \end{equation}
     where $G$ is the gravitational constant.
 
@@ -683,7 +689,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 
     In such case, the motion of the planet is described by the lagrangian of a point particle with a Newtonian gravitational potential
     \begin{equation}
-        L = \frac{m\dot\bx^2}{2} + \frac{G M m}{|\bx|},
+        L = \frac{m\|\dot\bx\|^2}{2} + \frac{G M m}{\|\bx\|},
     \end{equation}
     whose equation of motion should remind you of \eqref{eq:keplerex} from Example~\ref{ex:Kepler0}.
 \end{example}
@@ -691,34 +697,35 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 To understand better why $T$ in \eqref{eq:mechlag} is called kinetic energy, it is useful to look at its relations with Newton's second law \eqref{eq:newton2}:
 \begin{equation}
     \frac{\d}{\d t} T
-        = m (\dot \bx(t), \ddot \bx(t)) 
-        = \left(\dot \bx(t), \bm{F}(\bx(t))\right).
+        = m \lag\dot \bx(t), \ddot \bx(t)\rag
+        = \left\lag\dot \bx(t), \bm{F}(\bx(t))\right\rag.
 \end{equation}
 This confirms the intuitive notion that the kinetic energy should increase if a force pushes the particle in the direction of the current motion and should decrease when it pulls the particle in the opposite direction.
 
 There is more, in fact
 \begin{equation}
-    T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left(\dot \bx(t), \bm{F}(\bx(t))\right)\; \d t,
+    T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\lag\dot \bx(t), \bm{F}(\bx(t))\right\rag\; \d t,
 \end{equation}
 which is to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e. the integral of $\bm{F}$ along the curve $\bx(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think to $F(\bx) \cdot \d\bx$ as the infinitesimal contribution of the vector field to the acceleration.
 
 \begin{remark}
 For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\bx_0 = \bx(t_0)$ and $\bx_1 = \bx(t_1)$ if and only if $\curl \bm{F} = 0$, which in turns is true if and only if there is $U:\R^3\to\R$ such that $\bm{F} = -\nabla U$.
 
-In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $V:\R^n\to\R$, unique up to an additive constant, such that $\bm{F} = -\nabla U$.
+In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $U:\R^n\to\R$, unique up to an additive constant, such that $\bm{F} = -\nabla U$.
 
 You can read about this also in \cite[Chapter 2.5]{book:arnold} and \cite[Theorem 6.3 and 8.1]{book:knauf}.
 \end{remark}
 
-Forces that can be written in the form $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$, for some function $U$, are called \emph{conservatives}. We will understand better why in a couple of sections.
+Forces that can be written in the form $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$, for some function $U$, are called \emph{conservative}.
+We will understand better why in a couple of sections.
 
 Not all the forces in nature are conservative, and in that case the results of this section do not directly apply.
-We don't have to go very far to see an example of this, but we can also see that the lagrangian approach can be easily extended to include it.
+We don't have to go very far to see an example of this, but we can also see that the lagrangian approach can be easily extended to include non-conservative forces.
 
 \begin{example}\label{exa:magnetic}
     Mechanical systems affected by an external magnetic field $\bm B$ can be described in the lagrangian formalism by adding a linear term in the velocities to a natural lagrangian \eqref{eq:mechlag}:
     \begin{equation}\label{eq:magLag}
-        \tilde L = L + \frac ec \sum (\bm A(\bx_k), \dot \bx_k).
+        \tilde L = L + \frac ec \sum_{i=1}^N \lag\bm A(\bx_k), \dot \bx_k\rag.
     \end{equation}
     Here the constant $e$ is the electric charge of the point particles and $c$ is the speed of light in vacuum.
     The magnetic field is given by $\bm B = \curl \bm A$, the vector field $\bm A$ is called magnetic vector potential.
@@ -728,11 +735,13 @@ We don't have to go very far to see an example of this, but we can also see that
     \begin{exercise}\label{exe:magnetic}
         Show that the equations of motion \eqref{eq:newton2} corresponding to a magnetic lagrangian \eqref{eq:magLag} are given by
         \begin{equation}
-            m_k \ddot\bx_k = \bm{F}_k + \frac ec [\dot\bx_k, \bm B(\bx_k)]
+            m_k \ddot\bx_k = \bm{F}_k + \frac ec \dot\bx_k \wedge \bm B(\bx_k)
         \end{equation}
-        where the exterior product $[\cdot,\cdot]$ is the usual vector product in $\R^3$ and, as mentioned above, $\bm B = \curl \bm A$ is the magnetic field.
+        where the exterior product corresponds the usual vector product in $\R^3$ and, as mentioned above, $\bm B = \curl \bm A$ is the magnetic field.
 
-        The additional term $\frac ec [\dot\bx_k, \bm B(\bx_k)]$ is the \emph{Lorenz force} acting on the $k$th particle of charge $e$ immersed in the magnetic field $\bm B$.
+        The additional term $\frac ec \dot\bx_k\wedge \bm B(\bx_k)$ is the \emph{Lorenz force} acting on the $k$th particle of charge $e$ immersed in the magnetic field $\bm B$.
+
+        For a beautiful geometric discussion of this problem, refer to \cite[Chapter 8.3]{book:amr} (which is Chapter 9.3 in the forthcoming 3rd edition).
     \end{exercise}
     
     Note that the magnetic vector potential is not unique!
@@ -762,12 +771,14 @@ If we describe the motion in terms of generalized coordinates
 \end{equation}
 a direct application of the chain rule will allow us to rewrite the lagrangian as
 \begin{equation}
-    L = T - U, \qquad\mbox{where}\qquad T=\frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U=U(q),
+    L = T - U,
+    \qquad\mbox{where}
+    \begin{cases}
+        T:= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U = U(q),\\
+        g_{kl} (q) := \sum_{j=1}^N \left\lag\frac{\partial\bx_j}{\partial q^k}, \frac{\partial \bx_j}{\partial q^l}\right\rag
+    \end{cases}
 \end{equation}
-where, again, we use Einstein summation convention and
-\begin{equation}
-    g_{kl} (q) = \sum_{j=1}^N \left(\frac{\partial\bx_j}{\partial q^k}, \frac{\partial \bx_j}{\partial q^l}\right).
-\end{equation}
+and, again, we used Einstein summation convention.
 
 If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\bx = (x,y,z)$,
 \begin{equation}
@@ -786,7 +797,7 @@ The term $g_{kl} (q)$ should also ring a bell in the context of this example: th
 \begin{equation}\label{eq:arclen}
     \begin{aligned}
         s = \int_{t_1}^{t_2} \sqrt{\d s^2} = \int_{t_1}^{t_2} \sqrt{g_{kl}(q)\dot q^k \dot q^l} \;\d t,\quad
-        g_{kl} (q) = \left(\frac{\partial\bx}{\partial q^k}, \frac{\partial \bx}{\partial q^l}\right).
+        g_{kl} (q) = \left\lag\frac{\partial\bx}{\partial q^k}, \frac{\partial \bx}{\partial q^l}\right\rag.
     \end{aligned}
 \end{equation}
 We can compute what $\d s^2$ looks like for the three coordinates above.
@@ -805,9 +816,13 @@ and in spherical coordinates, see Figure~\ref{fig:sphcoords},
 You can see that there is a striking resemblance between the squared arc length elements and the lagrangian functions above.
 
 Let's consider the more general situation of local coordinates $(q^1, \ldots, q^n)$ on a smooth manifold $M$.
-We will only recall the main terminology here, for a review of these concepts refer to \cite[Chapter 4.18]{book:arnold}, \cite[Appendix A]{book:knauf}, \cite[Chapter 4]{book:marsdenratiu} or your favorite book of differential geometry (mine is \cite{book:lee}, which is freely downloadable through the University library).
+We will only recall the main terminology here, for a review of these concepts refer to \cite[Chapter 4.18]{book:arnold}, \cite[Appendix A]{book:knauf}, \cite[Chapter 4]{book:marsdenratiu}, your favourite book of differential geometry\footnote{Mine is \cite{book:lee}, which is freely accessible through the University library} or my beautiful lecture notes \cite{lectures:aom:seri}.
 
-We denote $T_q M$ the \emph{tangent space} of $M$ at $q$, and $TM = \cup_{q\in M} T_q M$ the \emph{tangent bundle} of $M$. The latter is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$. Local coordinates on $M$ induce local coordinates $(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)$ on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
+We denote $T_q M$ the \emph{tangent space} of $M$ at $q$, and $TM = \cup_{q\in M}\{q\}\times T_q M$ the \emph{tangent bundle} of $M$. The latter is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$.
+
+Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require their transition maps $\phi\circ\psi$ to also be diffeomorphisms.
+
+Local coordinates $(q^1,\ldots,q^n)$ on $M$ induce local coordinates $(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)$ on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
 \begin{equation}
     \dot q^i(v) = v^i,\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n}.
 \end{equation}
@@ -824,17 +839,18 @@ To emphasize once more the importance of the chain rule in this business, a loca
     \end{equation}
     transform as components of the cotangent bundle $T^* M$ over $M$:
     \begin{equation}
-        \tilde p_i = \frac{\partial q^k}{\partial \dot{\tilde q}^i} p_k, \quad i=1,\ldots,n.
+        \tilde p_i = \frac{\partial q^k}{\partial {\tilde q}^i} p_k, \quad i=1,\ldots,n.
     \end{equation}
     Furthermore, show that the matrix of second derivatives with respect to the coordinates $\dot q$ of the lagrangian transforms as a $(0,2)$-tensor, i.e.
     \begin{equation}
         \frac{\partial^2 L}{\partial \dot{\tilde q}^i \partial \dot{\tilde q}^j} =
-        \frac{\partial q^k}{\partial \dot{\tilde q}^i}\frac{\partial q^l}{\partial \dot{\tilde q}^j}
+        \frac{\partial q^k}{\partial {\tilde q}^i}\frac{\partial q^l}{\partial {\tilde q}^j}
         \frac{\partial^2 L}{\partial \dot{q}^k \partial \dot{q}^l}.
     \end{equation}
+    \emph{Hint: use Euler-Lagrange equation.}
 \end{exercise}
 
-The manifold $M$ is called \emph{configuration space}, its tangent bundle $TM$ is called \emph{phase space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system. A smooth function $L=L(q,\dot q, t)$ on $TM\times R$ is called \emph{lagrangian} of the mechanical system. The lagrangian is called \emph{non--degenerate} if
+The manifold $M$ is called \emph{configuration space}, its tangent bundle $TM$ is called \emph{state space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system.  A smooth function $L=L(q,\dot q, t)$ on $TM\times R$ is called \emph{lagrangian} of the mechanical system. The lagrangian is called \emph{non--degenerate} if
 \begin{equation}
     \det %\left(
         \left(\frac{\partial^2 L}{\partial \dot{q}^i \partial \dot{q}^j}\right)_{1\leq i,j\leq n} 
@@ -859,16 +875,14 @@ Under the time-independence and non--degeneracy conditions, the lagrangian defin
 As we have seen, for a system of $N$ point particles, the configuration space is simply $M=\R^{3N}$. Mechanical systems on more general configuration spaces usually appear once we consider systems with certain type of constraints or systems that have undergone symmetry reductions.
 Bear some patience, we will come back to this soon.
 
-An important class of mechanical systems is defined on riemannian manifolds: a riemannian manifold $(M, g)$ is a smooth manifold $M$ equipped with an inner product $g_q$ on $T_q M$ which varies smoothly with $q$. One way of defining this is to attach to the manifold $M$ a structure of riemannian metric
+An important class of mechanical systems is defined on riemannian manifolds: a riemannian manifold $(M, g)$ is a smooth manifold $M$ equipped with an inner product $g_q$ on $T_q M$ which varies smoothly with $q$, i.e. a symmetric $(0,2)$-tensor with the positive definite matrix $g_{ij}(q)$. Locally,
 \begin{equation}
-    \d s^2 = g_{ij}(q) \d q^i \d q^j,
+    \d s^2 = g_{ij}(q) \d q^i \d q^j.
 \end{equation}
-i.e. a symmetric $(0,2)$-tensor with the positive definite matrix $g_{ij}(q)$.
-You can proceed as in the previous exercise and check that this definition is invariant with respect to changes of coordinates.
 
 The length of curves on $M$ is then defined as in \eqref{eq:arclen} and angles between tangent vectors are defined using the inner product on $T_qM$:
 \begin{equation}
-    (v, w) = g_{ij}(q) v^i w^j, \qquad v,w\in T_q M.
+    \lag v, w\rag_g = g_{ij}(q) v^i w^j, \qquad v,w\in T_q M.
 \end{equation}
 As in the Euclidean space, arc lengths of curves are invariant with respect to monotonic changes of parametrization,
 \begin{equation}
@@ -877,7 +891,7 @@ As in the Euclidean space, arc lengths of curves are invariant with respect to m
 
 Replacing the scalar product, i.e. the inner product in the Euclidean space, we can define the kinetic energy of a point particle with mass $m$ as
 \begin{equation}
-    T = \frac{m}2 g_{ij}(q)\dot q^i\dot q^j = \frac m2 (\dot q, \dot q).
+    T = \frac{m}2 g_{ij}(q)\dot q^i\dot q^j = \frac m2 \lag\dot q, \dot q\rag_g.
 \end{equation}
 
 \begin{exercise}\label{exe:geodesic1}
@@ -956,7 +970,7 @@ where $U(q)$ is a smooth function on $M$.
 
 \begin{remark}
     It  is  often  necessary  to  deal  with  mechanical  systems  in  which the interactions between different bodies take the form of constraints.
-    These constraints can  be  very  complicated  and  hard  to  incorporate,  when  working directly  with  the differential  equations  of  motion.
+    These constraints can  be  very  complicated  and  hard  to  incorporate  when  working directly  with  the differential  equations  of  motion.
     It  is  often  easier  to  construct  a  lagrangian out of the kinetic and potential energy of the system and derive the correct equations of motion from there.
     These will often be of the form \eqref{eq:LagrangianM}.
 \end{remark}
@@ -1786,7 +1800,7 @@ This does not look like a symmetry in our sense, but it is worth investigating i
 \begin{example}[Kepler's third law]
     Recall Kepler's problem lagrangian from Examples~\ref{ex:Kepler0} and~\ref{ex:kepler1}:
     \begin{equation}
-        L = \frac{m \dot \bx^2}{2} + \frac{\alpha}{|\bx|}, \quad \alpha >0.
+        L = \frac{m \dot \bx^2}{2} + \frac{\alpha}{\|\bx\|}, \quad \alpha >0.
     \end{equation}
     In this case, the potential is homogeneous of degree $-1$. Therefore $1-k/2 = 3/2$, which means that the planet orbit is invariant with respect to the transformations
     \begin{equation}
@@ -2120,11 +2134,11 @@ We can then use \eqref{eq:barycoords} and rewrite the equations of motion
 \end{equation}
 into the single equation
 \begin{equation}
-    m \ddot \bx = -\nabla U(|\bx|), \quad m = \frac{m_1m_2}{m_1+m_2}.
+    m \ddot \bx = -\nabla U(\|\bx\|), \quad m = \frac{m_1m_2}{m_1+m_2}.
 \end{equation}
-These are the equations of motion of a point particle in a \emph{central} potential $U(|\bx|)$, i.e. with lagrangian
+These are the equations of motion of a point particle in a \emph{central} potential $U(\|\bx\|)$, i.e. with lagrangian
 \begin{equation}\label{eq:centralpot}
-    L = \frac{m \dot\bx^2}{2} - U(|\bx|).
+    L = \frac{m \|\dot\bx\|^2}{2} - U(\|\bx\|).
 \end{equation}
 After solving the equations of motion of this system with \emph{three} degrees of freedom, one can recover the dynamic of the original two bodies, i.e. a system with \emph{six} degrees of freedom, using \eqref{eq:barycoords}.
 \end{example}
@@ -2139,7 +2153,7 @@ This means that the lagrangian \eqref{eq:centralpot} has three constants of moti
 
 For convenience, let's rewrite the equations of motion for \eqref{eq:centralpot} as
 \begin{equation}
-    m\ddot \bx = - U'(r)\frac{\bx}{x}, \quad x = |\bx|, \quad U'(x)=\frac{\d U(x)}{\d x}.
+    m\ddot \bx = - U'(r)\frac{\bx}{x}, \quad x = \|\bx\|, \quad U'(x)=\frac{\d U(x)}{\d x}.
 \end{equation}
 
 \begin{theorem}
@@ -2238,7 +2252,7 @@ In the plane, this translates into being confined into an annular region as depi
 
 \subsection{Kepler's problem}
 
-Let's go back to Example~\ref{ex:kepler2}, and replace $U$ with the Newtonian gravitational potential $k/|\bx|$ (see Examples~\ref{ex:Kepler0} and \ref{ex:kepler1}).
+Let's go back to Example~\ref{ex:kepler2}, and replace $U$ with the Newtonian gravitational potential $k/\|\bx\|$ (see Examples~\ref{ex:Kepler0} and \ref{ex:kepler1}).
 The effective potential \eqref{eq:effpotcp}, in this case is
 \begin{align}
     U_{\mathrm{eff}} (r) = -\frac kr + \frac {M^2}{2 m r^2}, \quad &k = G \frac{m_1^2 m_2^2}{m_1+m_2} > 0,\\
@@ -2418,7 +2432,7 @@ In Example~\ref{ex:Kepler0}, we mentioned a third conserved quantity for the Kep
 \begin{exercise}
     Show that the components of the Laplace-Runge-Lenz vector
     \begin{equation}
-        \bm{L} := [\dot \bx, \bm{M}] - k \frac{\bx}{|\bx|}
+        \bm{L} := [\dot \bx, \bm{M}] - k \frac{\bx}{\|\bx\|}
     \end{equation}
     are first integrals for the Kepler problem.
 \end{exercise}
