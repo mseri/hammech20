@@ -980,54 +980,57 @@ where $U(q)$ is a smooth function on $M$.
 
 Consider the equation
 \begin{equation}\label{eq:oscillator}
-    \ddot x = - F(x).
+    \ddot x = - F(x), \qquad F:\R\to\R, \quad t\in R.
 \end{equation}
-It should be no surprise that introducing the auxiliary variable $y(t) = \dot x(t)$, \eqref{eq:oscillator} is equivalent to the system of first order equations
+It should come at no surprise, that introducing the auxiliary variable $y(t) = \dot x(t)$, \eqref{eq:oscillator} is equivalent to the system of first order equations
 \begin{equation}\label{eq:oscillatorfirstorder}
     \left\lbrace
     \begin{aligned}
         \dot x &= y \\
-        \dot y &= -F(x)
+        \dot y &= F(x)
     \end{aligned}
     \right..
 \end{equation}
+The solutions of \eqref{eq:oscillatorfirstorder} are parametric curves\footnote{Usually called integral curves of the ordinary differential equation.} $(x(t),y(t))$ in the $(x,y)$-space.
 
-By the chain rule, $\frac{\d y}{\d t} = \frac{\d y}{\d x} \frac{\d x}{\d t}$. Therefore
-\begin{equation}
-    - \frac{F(x)}y = \frac{\dot y}{\dot x} = \frac{\d y}{\d x},
+If $y\neq0$, we can apply the chain rule, $\frac{\d y}{\d t} = \frac{\d y}{\d x} \frac{\d x}{\d t}$, to get
+\begin{equation}\label{eq:lef}
+    \frac{F(x)}y = \frac{\dot y}{\dot x} = \frac{\d y}{\d x}.
 \end{equation}
-which can be rephrased as $y \d y + F(x) \d x = 0$.
-The first thing that this tells us, is that the solutions of \eqref{eq:oscillatorfirstorder} are integral curves in the $(x,y)$-space.
-Furthermore, such timeless equation can be exactly solved!
+Reasoning formally\footnote{For a rigorous understanding of this, you can refer to \cite[Equation (5.1) with $f=y$ and Remark 5.1.3]{lectures:aom:seri}.} for a moment, we can rephrase this as $y \d y - F(x) \d x = 0$.
 
-Let $U(x)$ be such that $F(x) = \frac{\d U}{\d x}$. Define $H(x, y) = \frac12 y^2 + U(x)$, i.e. the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$.
-The function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
+Getting rid of time and considering equation \eqref{eq:lef} comes with a price, the solution is now an implicit curve $y(x)$, but also with a huge advantage: this new equation can be solved exactly!
+
+Let $U(x)$ be such that $F(x) = -\frac{\d U}{\d x}$ and define $H(x, y) = \frac12 y^2 + U(x)$, i.e. the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$.
+Such function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
 
 \begin{theorem}\label{thm:ham1}
-    Let $H(x, y) := \frac12 y^2 + U(x)$ with $U(x)$ such that $F(x) = \frac{\d U}{\d x}$.
-    Then, the level curves $H(x,y) = C$ are the integral curves of the line elements field $y \d y + F(x) \d x = 0$.
+    Let $H(x, y) := \frac12 y^2 + U(x)$ with $U(x)$ such that $F(x) = -\frac{\d U}{\d x}$.
+    Then, the level curves $H(x,y) = C$ are the integral curves of \eqref{eq:oscillatorfirstorder}.
 \end{theorem}
 \begin{proof}
 The proof is surprisingly simple:
 \begin{align*}
     \dot H &= \frac{\partial H}{\partial x}\frac{\d x}{\d t} + \frac{\partial H}{\partial y}\frac{\d y}{\d t} \\
-    & = \frac{\d U}{\d x} y + y (-F(x))
-    = y F(x) - y F(x) = 0.
+    & = -\frac{\d U}{\d x} y + y F(x)
+    = -y F(x) + y F(x) = 0.
 \end{align*}
 \end{proof}
 
-The fact that $H(x,y)$ remains constant on the trajectories is crucial, when this happens we say that the total energy of the system is a \emph{conserved quantity}.
-A curve $(x(t), y(t))$ spanned by a solution of \eqref{eq:oscillatorfirstorder} is called \emph{phase curve}.
+The fact that $H(x,y)$ remains constant on the trajectories is crucial: when this happens we say that the total energy of the system is a \emph{conserved quantity}.
+A curve $(x(t), y(t))$ spanned by a solution of \eqref{eq:oscillatorfirstorder} is called a \emph{phase curve}.
 
-Note that this theorem applies to Example~\ref{ex:sprPen}.
+\begin{example}
+Note that th Theorem~\ref{thm:ham1} applies to Example~\ref{ex:sprPen}.
 \begin{itemize}
     \item In the case of the spring, also called \emph{harmonic oscillator}, $U(x) = \frac12 \omega^2 x^2$ and the integral curves are of the form $y^2 + \omega^2 x^2 = C$.
     Recalling \eqref{eq:springsol}, $C = \omega^2 R^2 \geq 0$ and the curves are ellipses parametrized by $C$. 
     This will be a very important example throughout the course.
     \item In the case of the pendulum, $U(x) = -\omega^2 \cos(x)$ and the integral curves are solutions of $\frac12 y^2 - \omega^2 \cos(x) = C$, $C \geq -\omega^2$.
-    You can see that we immediately describe the evolution of the system even though we cannot easily give a time parametrization of the motion itself.
+    Even though we cannot easily give a time parametrization of the motion itself, this formalism allows us to immediately describe the evolution of the system.
     We will come back to this fact in more generality in the next section.
 \end{itemize}
+\end{example}
 
 \begin{figure}[ht]
     \centering
@@ -1036,7 +1039,7 @@ Note that this theorem applies to Example~\ref{ex:sprPen}.
     \label{fig:pendulum}
 \end{figure}
 
-From these examples we already see that phase curves can consist of only one point. In such case they are called \emph{equilibrium} positions.
+From these examples we already see that phase curves can consist of only one point. In such case they are called \emph{equilibrium} points.
 
 \subsection{The conservation of energy}\label{sec:energy}
 
