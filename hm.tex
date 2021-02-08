@@ -160,7 +160,7 @@ The approach I am taking has been heavily influenced by \cite{book:arnold, book:
 The book \cite{book:knauf}, in addition to being a good introduction to many topics in classical mechanics that we will not have time to discuss during the lectures, can be freely accessed from within the university using the \href{https://link.springer.com/book/10.1007%2F978-3-662-55774-7}{SpringerLink} service.
 Most of the topics covered in this course can be found on \cite{book:knauf} in chapters 1, 6, 8, 10, 11, 13, 15. I believe this book presents an almost accessible proof of the KAM theorem.
 
-I had lots of fun reading \cite{schwichtenberg2019no}, if none of the references above satisfies you, consider having a look. Anf for an unusual approach to the matter, centered on making everything explicitly computable by a computer, you can have a look at the marvellous \cite{book:sicm}. Finally, a good and enjoyable classical reference is \cite{goldstein2013classical}.
+I had lots of fun reading \cite{schwichtenberg2019no}, if none of the references above satisfies you, consider having a look. And for an unusual approach to the matter, centered on making everything explicitly computable by a computer, you can have a look at the marvellous \cite{book:sicm}. Finally, a good and enjoyable classical reference is \cite{goldstein2013classical}.
 
 These notes are not (yet) exhaustive.
 They will be updated throughout the course, and it will likely take a few years of course iterations before they stabilize.
@@ -169,13 +169,15 @@ Some topics, examples and exercises discussed in class will not be in these note
 Throughout the course, we will discuss the main ideas in Newtonian, Lagrangian and Hamiltonian mechanics and the relations between them.
 We will discuss symmetries and phase space reduction, normal modes and small oscillations.
 We will then move to study action--angle coordinates and integrability, and finally we will discuss perturbation theory.
-On the latter, we will only briefly discuss resonances and mostly focus on KAM theory and Nekhoroshev theorem.
+On the latter, we will only briefly discuss resonances and mostly focus on KAM theory and the Nekhoroshev theorem.
 
-Topics that I intend to include over time include contact mechanics, non-holonomic mechanics/sub-riemannian geometry, numerical methods, rigid bodies, mathematical billiards, integrability via Lax pairs...
+Topics that I intend to add over time include: contact mechanics, non-holonomic mechanics/sub-riemannian geometry, numerical methods, rigid bodies, mathematical billiards, integrability via Lax pairs...
 
 Last year there were two non-standard notational conventions that I decided to adopt from \cite{book:arnold}: $(\cdot,\cdot)$ denoted the inner products, also in Euclidean space when it corresponds to the standard scalar product, and $[\cdot,\cdot]$ the exterior product, also in $\R^3$ where I could have instead used the cross product. \emph{I have revisited my choice here and this year I will try to update the notation to something closer to my analysis on manifolds notes \cite{lectures:aom:seri}.}
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
+
+I am extremely grateful to Albert \v{S}ilvans, \emph{your name here}, for their careful reading of the notes and their useful comments and corrections.
 
 \chapter{Classical mechanics, from Newton to Lagrange and back}
 
@@ -185,7 +187,7 @@ For a deeper and more detailed account, we refer the readers to \cite{book:arnol
 
 \section{Newtonian mechanics}
 
-Our main interest will be in describing equations of motion of a idealized \emph{point particle}.
+Our main interest will be in describing equations of motion of an idealized \emph{point particle}.
 This is a point--like object obtained by ignoring the dimensions of the physical object. Note that this can be done in many cases, for example when describing planetary motion around the sun, we can consider the planet as point particles.
 Of course this is not a universal simplification, for example we cannot do it if we want to describe the motion of a planet around its axes.
 
@@ -240,7 +242,7 @@ In 1814, Laplace \cite{book:laplace} wrote
 \end{quotation}
 
 In other words, this principle states that the initial state $\left(q(t_0), \dot q(t_0)\right)$ uniquely determines its evolution $\left(q(t),\dot q(t)\right)$ for $t > t_0$.
-Picard-Lindel\"of theorem\footnote{Also known as existence and uniqueness of solutions of initial value problems.} implies that the Newtonian principle of determinacy is locally satisfied\footnote{Modulo some minimal regularity requirements.} by the \emph{equations of motion} of the mechanical system, i.e. second order differential equations derived from Newton's law.
+The Picard-Lindel\"of theorem\footnote{Also known as ``Existence and uniqueness of solutions of initial value problems".} implies that the Newtonian principle of determinacy is locally satisfied\footnote{Modulo some minimal regularity requirements.} by the \emph{equations of motion} of the mechanical system, i.e., second order differential equations derived from Newton's law.
 
 \subsection{Motion in one degree of freedom}
 
@@ -248,9 +250,9 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
 
 \begin{example}[Horizontal spring and pendulum]\label{ex:sprPen}
     Consider an idealized system consisting of a point particle of mass $m$ attached to a spring with stiffness $k$, sliding on a frictionless surface.
-    Assume that the motion is one-dimensional along the axis of the spring and let $x$ denote the displacement of the system from its equilibrium position (i.e. the position in which the spring is completely at rest: not compressed nor extended). We consider this system to exclude gravitational forces from the picture.
+    Assume that the motion is one-dimensional along the axis of the spring and let $x$ denote the displacement of the system from its equilibrium position, i.e., the position in which the spring is completely at rest: not compressed nor extended. We consider this system to exclude gravitational forces from the picture.
     
-    Hooke's law states that the restoring force $F$ exerted by the spring on whatever is pulling its free end scales linearly with respect to the distance it's been pulled: i.e. $F(x) = - k x$. According to \eqref{eq:newton}, then, the motion of the point particle is given by
+    Hooke's law states that the restoring force $F$ exerted by the spring on whatever is pulling its free end scales linearly with respect to the distance it's been pulled: i.e., $F(x) = - k x$. According to \eqref{eq:newton}, then, the motion of the point particle is given by
     \begin{equation}\label{eq:spring}
         m \ddot{x} = - k x \qquad\mbox{or}\qquad \ddot{x} = - \omega^2 x \quad\mbox{where } \omega = \sqrt{k/m}.
     \end{equation}
@@ -265,10 +267,10 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
 \medskip
 
     Consider, now, a point particle of mass $m$ attached to a pivot on the ceiling via a rigid rod of length $l$.
-    Assume that the motion to be frictionless and happening only in the vertical direction.
-    Let $x$ denote the angle of displacement of the system from its equilibrium position (i.e. a pendulum vertically hanging down from the ceiling), with positive sign on the right hand side of the vertical.
+    Assume the motion is frictionless and happening only in the vertical direction.
+    Let $x$ denote the angle of displacement of the system from its equilibrium position, i.e., the lowest point on the arc of motion. Take the angle at equilibrium to be zero, with positive sign on the right hand side of the vertical, and negative on the left.
     
-    The force acting of the pendulum is Earth's gravitational attraction. According to \eqref{eq:newton}, then, the motion of the point particle is given by
+    The force acting on the pendulum is Earth's gravitational attraction. According to \eqref{eq:newton}, then, the motion of the point particle is given by
     \begin{equation}
         m l \ddot{x} = - m g \sin(x) \qquad\mbox{or}\qquad \ddot{x} = - \omega^2 \sin(x) \quad\mbox{where } \omega = \sqrt{g/l}.
     \end{equation}
@@ -281,13 +283,13 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
 
 \begin{example}[Idealized motion of the Earth around the Sun]\label{ex:Kepler0}
 
-    Let us approximate the Sun with a point particle of mass $M$ positioned at the origin $\bm{0}\in\R^3$ of the Euclidean space. In this solar system, with the sun fixed at the origin, we will describe the Earth by a point particle of mass $m$ whose position (and motion) is described by a vector $\bx(t)\in\R^3$.
+    Let us approximate the Sun with a point particle of mass $M$ positioned at the origin $\bm{0}\in\R^3$ of the Euclidean space. In this solar system, with the Sun fixed at the origin, we will describe the Earth by a point particle of mass $m$ whose position (and motion) is described by a vector $\bx(t)\in\R^3$.
 
-    Due to our choice of coordinates, the gravitational attraction of the sun acts in direction $-\bx(t)$. \emph{Newton's law of universal gravitation} says that such force is proportional to
+    Due to our choice of coordinates, the gravitational attraction of the Sun acts in direction $-\bx(t)$. \emph{Newton's law of universal gravitation} says that such a force is proportional to
     \begin{equation}
         \frac{GmM}{\|\bm{0}-\bx(t)\|^2} = \frac{GmM}{\|\bx(t)\|^2},
     \end{equation}
-    where $G \sim 6.674 \cdot 10^{-11} \frac{m^3}{s^2\,kg}$ is called \emph{gravitational constant}.
+    where $G \sim 6.674 \cdot 10^{-11} \frac{m^3}{s^2\,kg}$ is called the \emph{gravitational constant}.
     Once we collect all the elements into Newton's second law \eqref{eq:newton}, we obtain the equation of motion
     \begin{equation}\label{eq:keplerex}
         m \ddot{\bx}(t) = - G\frac{mM}{\|\bx(t)\|^2} \frac{\bx(t)}{\|\bx(t)\|}.
@@ -295,7 +297,7 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
     This is an autonomous second order ordinary differential equation on the configuration space $\R^3\setminus\big\{\bm{0}\big\}$.
     Providing the initial conditions $\bx(0)=\bx_0$ and $\dot{\bx}(0)=\bv_0$, we can explicitly solve \eqref{eq:keplerex}.
 
-    Behind differential equations in classical mechanics lies a surprising geometrical structure in which conserved quantities will play a special role.
+    Behind differential equations in classical mechanics lies a surprising geometrical structure in which conserved quantities play a special role.
     These can help to obtain extensive insights on the solution of classical equations of motion without the need to explicitly solve the equations (which would be, in general, impossible).
     
     On the tangent bundle $(\R^3\setminus\big\{\bm{0}\big\})\times\R^3$, let us define the total energy
@@ -331,7 +333,7 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
     \end{split}
     \end{equation}
 
-    This is an example of central force field, and is one of the most prominent and most important examples in this course.
+    This is an example of a central force field, and is one of the most prominent and most important examples in this course.
     The impatient reader can find in \cite[Ch. 1]{book:knauf} a nice and compact derivation of Kepler's laws and the invariants above from \eqref{eq:keplerex} and its solutions.
 \end{example}
 
@@ -347,7 +349,7 @@ This, however, should not confuse you: Lagrangian mechanics plays a role as larg
 
 In fact, one should not be surprised if there are many sources claiming that the most general formulation of the equations of motion in classical mechanics comes from the \emph{principle of least action} or \emph{Hamilton's variational principle}. Indeed, as we will see this sits at the roots of Lagrangian mechanics and the Euler-Lagrange equations.
 
-According to this principle, the equations of motion of a mechanical system are characterized by a function $L \equiv L(q, \dot q, t) : T\R^n \times \R \to \R$, called \emph{lagrangian (function)} of the system.
+According to this principle, the equations of motion of a mechanical system are characterized by a function $L \equiv L(q, \dot q, t) : T\R^n \times \R \to \R$, called the \emph{lagrangian (function)} of the system.
 
 \begin{example}
     The lagrangian of a non-relativistic particle with mass $m > 0$ in a potential $U : \R^n \to \R$ is
@@ -369,8 +371,8 @@ Given a curve $\gamma:[t_1, t_2] \to \R^n$, we define the \emph{action} function
 
 To make this precise, we will need to recall some preliminary concepts and make sense of differentiation in $\infty$-dimensional spaces.
 
-Let $X$ and $Y$ be Banach spaces\footnote{Banach space: complete normed vector.}  and $G\subset X$ an open subset of $X$.
-A function $f: G \to Y$ is call \emph{Fre\'echet differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that\footnote{Here, $g = o(\|h\|_X)$ if
+Let $X$ and $Y$ be Banach spaces\footnote{Banach space: complete normed vectorspace.}  and $G\subset X$ an open subset of $X$.
+A function $f: G \to Y$ is call \emph{Fr\'echet differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that\footnote{Here, $g = o(\|h\|_X)$ if 
 \begin{equation}
     \lim_{\|h\| \to 0} \frac{\|g(h)\|_Y}{\|h\|_X} = 0.
 \end{equation}
@@ -380,12 +382,12 @@ A function $f: G \to Y$ is call \emph{Fre\'echet differentiable} at $x\in G$, if
 \end{equation}
 for any $h$ in a sufficiently small neighborhood of $0\in X$. Alternatively, you can say asymptotically as $\|h\|_X\to 0$.
 
-As in the finite-dimensional case, $A$ is uniquely determined and is called \emph{Fr\'echet derivative} of $f$ at $x$ and denoted $D f(x)$.
+As in the finite-dimensional case, $A$ is uniquely determined and is called the \emph{Fr\'echet derivative} of $f$ at $x$ and is denoted $D f(x)$.
 
 \begin{remark}
     \begin{enumerate}
-        \item In the finite dimensional setting, Fr\'echet differentiability corresponds to total differentiability. In analogy with the finite dimensional case, Fr\'echet's differentiability implies the continuity of the mapping.
-        \item The analogy with the finite dimensional case goes further. Indeed, chain rule, mean value theorem, implicit functions theorem, inverse mapping theorem and statements about local extremes with and without constraints, all hold also for differentiable functions on Banach spaces.
+        \item In the finite dimensional setting, Fr\'echet differentiability corresponds to total differentiability. As with the finite dimensional case, Fr\'echet's differentiability implies the continuity of the mapping.
+        \item The analogy with the finite dimensional case goes further. Indeed, the chain rule, mean value theorem, implicit functions theorem, inverse mapping theorem and statements about local extremes with and without constraints, all hold also for differentiable functions on Banach spaces.
         \item Requiring the operator $A$ to be bounded is crucial. In $\infty$-dimensional normed spaces, the linearity of an image does not imply continuity.
         \item In calculus of variation, the curve $h$ from the small neighborhood of $0\in X$, is usually called a variation and denoted $\delta x$.
     \end{enumerate}
@@ -405,7 +407,7 @@ It is possible to show that the space of curves
     \|\gamma\|_X :=
     \|\gamma\|_\infty + \|\dot \gamma\|_\infty + \|\ddot \gamma\|_\infty,
 \end{equation}
-is a Banach space, and $X_0 = \big\{h\in X \mid h(0) = h(t) = 0\big\}$ with the induced norm, is a Banach subspace of $X$.
+is a Banach space, and $X_0 = \big\{h\in X \mid h(0) = h(t) = 0\big\}$ with the induced norm, is a Banach subspace of $X$. % do you mean h(t_1)=h(t_2)=0? The end point argument in the proof of the next theorem does not make sense otherwise. 
 
 Therefore, the action defined above is a functional
 \begin{equation}
@@ -414,7 +416,7 @@ Therefore, the action defined above is a functional
 and the evolution of the system is described by the critical points with respect to $X_0$ of $S$ on the space of $\gamma \in X$ with prescribed endpoints.
 
 \begin{theorem}
-    Let $L = L(q, \dot q, t) : \R^{n}\times\R^{n}\times\R \to \R$ be differentiable.
+    Let $L = L(q, \dot q, t) : T\R^{n}\times\R \to \R$ be differentiable.
     The equations of motion for the mechanical system with lagrangian $L$ satisfy the \emph{Euler-Lagrange equations}
     \begin{equation}\label{eq:eulerlagrange}
         \frac{\d}{\d t}\frac{\partial L}{\partial \dot q^i} - \frac{\partial L}{\partial q^i} = 0, \quad i=1,\ldots n.
@@ -428,7 +430,7 @@ and the evolution of the system is described by the critical points with respect
     \begin{equation}
         \begin{split}
             S(\gamma + h) &= \int_{t_1}^{t_2} L(\gamma + h, \dot \gamma + \dot h, s) \d s \\
-            &= \int_{t_1}^{t_2} 
+            &= \int_{t_1}^{t_2} % not clear how this step happens, specifically where the inner product comes from, maybe a comment on the procedure beforehand
                 L(\gamma, \dot \gamma, s) \d s \\
             &\quad + \int_{t_1}^{t_2} \left[
                 \left\lag
@@ -462,9 +464,9 @@ and the evolution of the system is described by the critical points with respect
         \end{split}
     \end{equation}
 
-    The differential $DS(\gamma): X \to \R$ can now be read from the equation above and is well defined as bounded linear operator for all $\gamma\in X$.
+    The differential $DS(\gamma): X \to \R$ can now be read from the equation above and is well-defined and is a bounded linear operator for all $\gamma\in X$.
 
-    For $h\in X_0$, the first term $\left\lag\frac{\partial L}{\partial \dot q}(q, \dot q, s),\; h(s)\right\rag\Big|_{t_1}^{t_2}$ has to vanish. Therefore, for $\gamma$ to be a critical point for $S$ it follows that the inner product
+    For $h\in X_0$, the first term $\left\lag\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\; h(s)\right\rag\Big|_{t_1}^{t_2}$ has to vanish. Therefore, for $\gamma$ to be a critical point for $S$ it follows that the inner product
     \begin{equation}
         \left\lag
             \frac{\partial L}{\partial q}(\gamma, \dot \gamma, s)
@@ -472,7 +474,7 @@ and the evolution of the system is described by the critical points with respect
         ,\; h(s)\right\rag = 0 \quad\mbox{for all } h\in X_0.
     \end{equation}
 
-    Due to the arbitrariness of $h$, after a relabelling of the time, this implies
+    Our choice of $h$ is arbitrary, so after a relabelling of the time, this implies
     \begin{equation}
         \frac{\partial L}{\partial q}(\gamma, \dot \gamma, t)
             - \frac{\d}{\d t}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, t) = 0,
@@ -500,7 +502,7 @@ and the evolution of the system is described by the critical points with respect
 \end{remark}
 
 \begin{corollary}
-    If the lagrangian of the system is \emph{non--degenerate}, i.e. it satisfies the condition
+    If the lagrangian of the system is \emph{non--degenerate}, i.e., it satisfies the condition
     \begin{equation}
             \det \left(\frac{\partial^2 L}{\partial\dot q^i \partial\dot q^j}
         \right)_{1\leq i,j\leq n} \neq 0
@@ -509,7 +511,7 @@ and the evolution of the system is described by the critical points with respect
 \end{corollary}
 
 \begin{proof}
-    For a non--degenerate lagrangian, the Euler-Lagrange equations can be rewritten in the form
+    For a non--degenerate lagrangian, the Euler-Lagrange equations can be rewritten in the form %by the implicit function theorem?
     \begin{equation}
         \ddot q^i = f^i(q,\dot q, t)
         := \Lambda^{ij}\left(\frac{\partial L}{\partial q^j} - \frac{\partial^2 L}{\partial \dot q^j \partial q^k} \dot q^k - \frac{\partial^2 L}{\partial\dot q^j \partial t}\right),
@@ -551,7 +553,7 @@ In other words, we can use Euler-Lagrange equations as the equations of motion o
     One way, is by using the \emph{principle of additivity}.
     \begin{tcolorbox}
         Assume that a mechanical system is the combination of two subsystems, say $A$ and $B$.
-        Let $L_A$ and $L_B$ their respective lagrangian as if they were isolated (or \emph{closed}) systems.
+        Let $L_A$ and $L_B$ be their respective lagrangian as if they were isolated (or \emph{closed}) systems.
         The principle of additivity says that by moving the two subsystems farther apart from each other, in the limit of infinite distance, the lagrangian of the full system tends to the limit lagrangian
         \begin{equation}
             L_{\lim} = L_A + L_B.
@@ -574,7 +576,7 @@ The \emph{galilean principle of relativity} says that there exist coordinate sys
 
 Although the discussion on the group theoretical aspects of classical mechanics, which very much relates to this discussion, is very interesting and fascinating we will not discuss it here further, we leave \cite{book:marsdenratiu} as an interesting reference.
 
-For our concerns, an inertial system of coordinate on the galilean space-time is an isomorphism with the ``standard'' galilean structure $\R\times\R^3$.
+For our concerns, an inertial system of coordinates on the galilean space-time is an isomorphism with the ``standard'' galilean structure $\R\times\R^3$.
 If $(t, \bx) \in \R\times \R^3$ is an element of the ``standard'' galilean space-time, we call \emph{galilean transformations} the transformations $(t,\bx) \to (\tilde t, \tilde{\bx})$ listed below
 \begin{enumerate}
     \item translations: $\tilde t = t + t_0$, $\tilde{\bx} = \bx + \bx_0$, for $t_0\in\R$, $\bx_0\in\R^3$;
@@ -590,7 +592,7 @@ The lagrangian of an isolated point particle in an inertial system of coordinate
 \begin{equation}\label{eq:singleptlag}
     L(\bm{x}, \dot{\bm{x}}) = \frac{m\,\|\dot{\bm{x}}\|^2}2
 \end{equation}
-where $m$ is a constant called \emph{mass} of the point particle.
+where $m$ is a constant called the \emph{mass} of the point particle.
 \end{theorem}
 \begin{proof}
     The invariance from translations implies that the lagrangian must be independent from $t$ and $\bx$, while the invariance from orthogonal transformations implies that it must be dependent on the square of the velocities:
@@ -634,8 +636,8 @@ We call lagrangians of this form \emph{free}.
 
 \begin{remark}
     The above definition of mass becomes only meaningful, when we take the additive property into account.
-    A lagrangian can always be multiplied by an arbitrary constant without affecting the equations of motions;
-    such multiplications then amounts to a change in the unit of mass.
+    A lagrangian can always be multiplied by an arbitrary constant without affecting the equations of motion;
+    such multiplication then amounts to a change in the unit of mass.
     The ratios of the masses remain unchanged by this and it is only these ratios which are physically meaningful.
 \end{remark}
 
@@ -643,7 +645,7 @@ To include interaction between the points in this picture, we need to add to the
 \begin{equation}\label{eq:mechlag}
     L := T-U := \sum_{k=1}^N \frac{m_k \|\dot{\bx}_k\|^2}{2} -U(\bx_1, \ldots, \bx_N).
 \end{equation}
-The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\bx}_k\|^2}{2}$, is call \emph{kinetic energy} of the particles, while the function $U = U(\bx_1, \ldots, \bx_N)$ is called \emph{potential energy}. Lagrangians of the form $T-U$ are often called \emph{natural}.
+The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\bx}_k\|^2}{2}$, is called \emph{kinetic energy} of the particles, while the function $U = U(\bx_1, \ldots, \bx_N)$ is called \emph{potential energy}. Lagrangians of the form $T-U$ are often called \emph{natural}.
 
 \begin{theorem}
     The equations of motion of a system of $N$ point particles with natural lagrangian \eqref{eq:mechlag} are of the form
@@ -653,7 +655,7 @@ The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\bx}_k\|^2}{2}$, is call \emph
     where $\bm{F}_k = -\frac{\partial U}{\partial \bm{x}_k}$, $\quad k=1,\ldots,N$.
 \end{theorem}
 
-The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point particle, and yous should immediately recognize \emph{Newton's second law} in \eqref{eq:newton2}.
+The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point particle, and you should immediately recognize \emph{Newton's second law} in \eqref{eq:newton2}.
 
 \begin{exercise}\label{ex:N3l1}
     Prove \emph{Newton's third law}, i.e. for each of the $k$ point particles it holds
@@ -679,7 +681,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 \end{example}
 
 \begin{example}\label{ex:kepler1}
-    The motion of $N$ point particles with masses $m_1, \ldots, m_N$ in a their gravitational field, is described by the lagrangian
+    The motion of $N$ point particles with masses $m_1, \ldots, m_N$ in their gravitational field, is described by the lagrangian
     \begin{equation}
         L = \sum\frac{m_k \|\dot{\bx}_k\|^2}{2} + \sum_{k < l} G \frac{m_k m_l}{\|\bx_k - \bx_l\|},
     \end{equation}
@@ -687,14 +689,14 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 
     To study the \emph{approximate} description of the motion of a planet of mass $m$ around the Sun, which has mass $M \gg m$, one can assume the effects of the planet on the Sun to be negligible and ignore the interaction with the other planets.
 
-    In such case, the motion of the planet is described by the lagrangian of a point particle with a Newtonian gravitational potential
+    In such a case, the motion of the planet is described by the lagrangian of a point particle with a Newtonian gravitational potential
     \begin{equation}
         L = \frac{m\|\dot\bx\|^2}{2} + \frac{G M m}{\|\bx\|},
     \end{equation}
     whose equation of motion should remind you of \eqref{eq:keplerex} from Example~\ref{ex:Kepler0}.
 \end{example}
 
-To understand better why $T$ in \eqref{eq:mechlag} is called kinetic energy, it is useful to look at its relations with Newton's second law \eqref{eq:newton2}:
+To understand better why $T$ in \eqref{eq:mechlag} is called kinetic energy, it is useful to look at its relation with Newton's second law \eqref{eq:newton2}:
 \begin{equation}
     \frac{\d}{\d t} T
         = m \lag\dot \bx(t), \ddot \bx(t)\rag
@@ -706,10 +708,10 @@ There is more, in fact
 \begin{equation}
     T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\lag\dot \bx(t), \bm{F}(\bx(t))\right\rag\; \d t,
 \end{equation}
-which is to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e. the integral of $\bm{F}$ along the curve $\bx(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think to $F(\bx) \cdot \d\bx$ as the infinitesimal contribution of the vector field to the acceleration.
+which is to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e. the integral of $\bm{F}$ along the curve $\bx(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\bx) \cdot \d\bx$ as the infinitesimal contribution of the vector field to the acceleration.
 
 \begin{remark}
-For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\bx_0 = \bx(t_0)$ and $\bx_1 = \bx(t_1)$ if and only if $\curl \bm{F} = 0$, which in turns is true if and only if there is $U:\R^3\to\R$ such that $\bm{F} = -\nabla U$.
+For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\bx_0 = \bx(t_0)$ and $\bx_1 = \bx(t_1)$ if and only if $\curl \bm{F} = 0$, which in turn is true if and only if there is a $U:\R^3\to\R$ such that $\bm{F} = -\nabla U$.
 
 In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $U:\R^n\to\R$, unique up to an additive constant, such that $\bm{F} = -\nabla U$.
 
@@ -725,19 +727,19 @@ We don't have to go very far to see an example of this, but we can also see that
 \begin{example}\label{exa:magnetic}
     Mechanical systems affected by an external magnetic field $\bm B$ can be described in the lagrangian formalism by adding a linear term in the velocities to a natural lagrangian \eqref{eq:mechlag}:
     \begin{equation}\label{eq:magLag}
-        \tilde L = L + \frac ec \sum_{i=1}^N \lag\bm A(\bx_k), \dot \bx_k\rag.
+        \tilde L = L + \frac ec \sum_{i=1}^N \lag\bm A(\bx_i), \dot \bx_i\rag.
     \end{equation}
     Here the constant $e$ is the electric charge of the point particles and $c$ is the speed of light in vacuum.
     The magnetic field is given by $\bm B = \curl \bm A$, the vector field $\bm A$ is called magnetic vector potential.
     
-    We will not see this in the course, but magnetic phenomenons have a natural description only in the relativistic approach. We see an hint of this fact here, in that \eqref{eq:magLag} is not invariant with respect to the galilean transformations.
+    We will not see this in the course, but magnetic phenomenons have a natural description only in the relativistic approach. We see a hint of this fact here, in that \eqref{eq:magLag} is not invariant with respect to the galilean transformations.
     
     \begin{exercise}\label{exe:magnetic}
         Show that the equations of motion \eqref{eq:newton2} corresponding to a magnetic lagrangian \eqref{eq:magLag} are given by
         \begin{equation}
             m_k \ddot\bx_k = \bm{F}_k + \frac ec \dot\bx_k \wedge \bm B(\bx_k)
         \end{equation}
-        where the exterior product corresponds the usual vector product in $\R^3$ and, as mentioned above, $\bm B = \curl \bm A$ is the magnetic field.
+        where the exterior product corresponds to the usual vector product in $\R^3$ and, as mentioned above, $\bm B = \curl \bm A$ is the magnetic field.
 
         The additional term $\frac ec \dot\bx_k\wedge \bm B(\bx_k)$ is the \emph{Lorenz force} acting on the $k$th particle of charge $e$ immersed in the magnetic field $\bm B$.
 
@@ -816,11 +818,11 @@ and in spherical coordinates, see Figure~\ref{fig:sphcoords},
 You can see that there is a striking resemblance between the squared arc length elements and the lagrangian functions above.
 
 Let's consider the more general situation of local coordinates $(q^1, \ldots, q^n)$ on a smooth manifold $M$.
-We will only recall the main terminology here, for a review of these concepts refer to \cite[Chapter 4.18]{book:arnold}, \cite[Appendix A]{book:knauf}, \cite[Chapter 4]{book:marsdenratiu}, your favourite book of differential geometry\footnote{Mine is \cite{book:lee}, which is freely accessible through the University library} or my beautiful lecture notes \cite{lectures:aom:seri}.
+We will only recall the main terminology here, for a review of these concepts refer to \cite[Chapter 4.18]{book:arnold}, \cite[Appendix A]{book:knauf}, \cite[Chapter 4]{book:marsdenratiu}, your favourite book of differential geometry\footnote{Mine is \cite{book:lee}, which is freely accessible through the University library} or my beautiful\footnote{If I do say so, myself.} lecture notes \cite{lectures:aom:seri}.
 
 We denote $T_q M$ the \emph{tangent space} of $M$ at $q$, and $TM = \cup_{q\in M}\{q\}\times T_q M$ the \emph{tangent bundle} of $M$. The latter is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$.
 
-Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require their transition maps $\phi\circ\psi$ to also be diffeomorphisms.
+Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(U\cap V)\to\phi(U\cap V)$ are also diffeomorphisms.
 
 Local coordinates $(q^1,\ldots,q^n)$ on $M$ induce local coordinates $(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)$ on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
 \begin{equation}
@@ -850,7 +852,7 @@ To emphasize once more the importance of the chain rule in this business, a loca
     \emph{Hint: use Euler-Lagrange equation.}
 \end{exercise}
 
-The manifold $M$ is called \emph{configuration space}, its tangent bundle $TM$ is called \emph{state space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system.  A smooth function $L=L(q,\dot q, t)$ on $TM\times R$ is called \emph{lagrangian} of the mechanical system. The lagrangian is called \emph{non--degenerate} if
+The manifold $M$ is called \emph{configuration space}, its tangent bundle $TM$ is called \emph{state space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system.  A smooth function $L=L(q,\dot q, t)$ on $TM\times R$ is called the \emph{lagrangian} of the mechanical system. The lagrangian is called \emph{non--degenerate} if
 \begin{equation}
     \det %\left(
         \left(\frac{\partial^2 L}{\partial \dot{q}^i \partial \dot{q}^j}\right)_{1\leq i,j\leq n} 
@@ -872,11 +874,11 @@ It turns out\footnote{Truth be told, we are hiding some extra complications invo
 which have the exact same form as \eqref{eq:eulerlagrange}.
 Under the time-independence and non--degeneracy conditions, the lagrangian defines a dynamical system on the tangent bundle $TM$.
 
-As we have seen, for a system of $N$ point particles, the configuration space is simply $M=\R^{3N}$. Mechanical systems on more general configuration spaces usually appear once we consider systems with certain type of constraints or systems that have undergone symmetry reductions.
+As we have seen, for a system of $N$ point particles, the configuration space is simply $M=\R^{3N}$. Mechanical systems on more general configuration spaces usually appear once we consider systems with certain types of constraints or systems that have undergone symmetry reductions.
 Bear some patience, we will come back to this soon.
 \medskip
 
-An important class of mechanical systems is defined on riemannian manifolds: a riemannian manifold $(M, g)$ is a smooth manifold $M$ equipped with an inner product $g_q$ on $T_q M$ which varies smoothly with $q$, i.e. a symmetric $(0,2)$-tensor on $TM$ whose matrix representation $g_{ij}(q)$ is positive definite. Locally,
+An important class of mechanical systems is defined on riemannian manifolds: a riemannian manifold $(M, g)$ is a smooth manifold $M$ equipped with an inner product $g_q$ on $T_q M$ which varies smoothly with $q$, i.e., a symmetric $(0,2)$-tensor on $TM$ whose matrix representation $g_{ij}(q)$ is positive definite. Locally,
 \begin{equation}
     g = g_{ij}(q) \d q^i \d q^j =: \d s^2.
 \end{equation}
@@ -890,7 +892,7 @@ As in the Euclidean space, arc lengths of curves are invariant with respect to m
     t = t(\tau),\quad \tau_1\leq \tau\leq \tau_2, \quad \frac{\d t}{\d \tau}\neq 0.
 \end{equation}
 
-Replacing the scalar product, i.e. the inner product in the Euclidean space, we can define the kinetic energy of a point particle with mass $m$ as
+Replacing the scalar product, i.e., the inner product in the Euclidean space, we can define the kinetic energy of a point particle with mass $m$ as
 \begin{equation}
     T = \frac m2 \lag\dot q, \dot q\rag_g = \frac{m}2 g_{ij}(q)\dot q^i\dot q^j.
 \end{equation}
@@ -917,10 +919,10 @@ Solutions of \eqref{eq:geodesic} are the \emph{geodesic curves} on the riemannia
 %Later on, we will come back to this as well.
 
 \begin{example}\label{ex:sphericalP}
-    Let us consider a spherical pendulum of mass $m$ and length $l$, i.e. a point particle of mass $m$ moving without friction on the surface of a sphere of radius $l$.
+    Let us consider a spherical pendulum of mass $m$ and length $l$, i.e., a point particle of mass $m$ moving without friction on the surface of a sphere of radius $l$.
     Let's ignore gravity for the moment.
     
-    The system ha two degrees of freedom, its configuration space $M$ is a 2-sphere $S^2$ of radius $l$.
+    The system has two degrees of freedom, its configuration space $M$ is a 2-sphere $S^2$ of radius $l$.
     Using spherical coordinates $(\theta, \phi)$ -- see also Figure~\ref{fig:sphcoords} -- and \eqref{eq:spharc}, we find the free lagrangian
     \begin{equation}\label{eq:LsphericalP}
         L = \frac m2 l^2(\dot \theta^2 + \dot \phi^2 \sin^2\theta).
@@ -983,7 +985,7 @@ Consider the equation
 \begin{equation}\label{eq:oscillator}
     \ddot x = F(x), \qquad F:\R\to\R, \quad t\in R.
 \end{equation}
-It should come at no surprise, that introducing the auxiliary variable $y(t) = \dot x(t)$, \eqref{eq:oscillator} is equivalent to the system of first order equations
+It should come as no surprise, that introducing the auxiliary variable $y(t) = \dot x(t)$, \eqref{eq:oscillator} is equivalent to the system of first order equations
 \begin{equation}\label{eq:oscillatorfirstorder}
     \left\lbrace
     \begin{aligned}
@@ -1003,7 +1005,7 @@ Reasoning formally\footnote{For a rigorous understanding of this, you can refer 
 Getting rid of time and considering equation \eqref{eq:lef} comes with a price, the solution is now an implicit curve $y(x)$, but also with a huge advantage: this new equation can be solved exactly!
 
 Let $U(x)$ be such that $F(x) = -\frac{\d U}{\d x}$ and define $H(x, y) = \frac12 y^2 + U(x)$, i.e. the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$.
-Such function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
+The function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
 
 \begin{theorem}\label{thm:ham1}
     Let $H(x, y) := \frac12 y^2 + U(x)$ with $U(x)$ such that $F(x) = -\frac{\d U}{\d x}$.
@@ -1013,7 +1015,7 @@ Such function $H$ is called the \emph{total energy} of the mechanical system and
 The proof is surprisingly simple:
 \begin{align*}
     \dot H &= \frac{\partial H}{\partial x}\frac{\d x}{\d t} + \frac{\partial H}{\partial y}\frac{\d y}{\d t} \\
-    & = -\frac{\d U}{\d x} y + y F(x)
+    & = \frac{\d U}{\d x} y + y F(x)
     = -y F(x) + y F(x) = 0.
 \end{align*}
 \end{proof}
@@ -1022,9 +1024,9 @@ The fact that $H(x,y)$ remains constant on the trajectories is crucial: when thi
 A curve $(x(t), y(t))$ spanned by a solution of \eqref{eq:oscillatorfirstorder} is called a \emph{phase curve}.
 
 \begin{example}
-Note that th Theorem~\ref{thm:ham1} applies to Example~\ref{ex:sprPen}.
+Note that Theorem~\ref{thm:ham1} applies to Example~\ref{ex:sprPen}.
 \begin{itemize}
-    \item In the case of the spring, also called \emph{harmonic oscillator}, $U(x) = \frac12 \omega^2 x^2$ and the integral curves are of the form $y^2 + \omega^2 x^2 = C$.
+    \item In the case of the spring, also called the \emph{harmonic oscillator}, $U(x) = \frac12 \omega^2 x^2$ and the integral curves are of the form $y^2 + \omega^2 x^2 = C$.
     Recalling \eqref{eq:springsol}, $C = \omega^2 R^2 \geq 0$ and the curves are ellipses parametrized by $C$. 
     This will be a very important example throughout the course.
     \item In the case of the pendulum, $U(x) = -\omega^2 \cos(x)$ and the integral curves are solutions of $\frac12 y^2 - \omega^2 \cos(x) = C$, $C \geq -\omega^2$.
@@ -1047,7 +1049,7 @@ From these examples we already see that phase curves can consist of only one poi
 Let's see how general is the phenomenon described in the previous section.
 
 \begin{tcolorbox}
-    Given a mechanical system, the function $I = I(q, \dot q, t)$ of the coordinates, their time derivatives and (possibly) time, is called \emph{(first) integral}, or \emph{constant of motion} or \emph{conserved quantity}, if the total derivative of the function $I$ is zero:
+    Given a mechanical system, the function $I = I(q, \dot q, t)$ of the coordinates, their time derivatives and (possibly) time, is called the \emph{(first) integral}, or \emph{constant of motion} or \emph{conserved quantity}, if the total derivative of the function $I$ is zero:
     \begin{equation}\label{eq:firstintegralD}
         \frac{\d}{\d t}I =
             \frac{\partial I}{\partial q^i} \dot q^i + 
@@ -1117,7 +1119,7 @@ is conserved.
 \begin{exercise}
     \begin{enumerate}
         \item Derive formula \eqref{eq:energyFromL} for a natural lagrangian on a riemannian manifold $(M,g)$.
-        \item Given any lagrangian of the form $L = L(q, \dot q)$ on $TM$, show that the definition of energy \eqref{eq:energy1} does not depend on the choice of of local coordinates on $M$. (Hint: look at Exercise~\ref{exe:coordinatesInd}).
+        \item Given any lagrangian of the form $L = L(q, \dot q)$ on $TM$, show that the definition of energy \eqref{eq:energy1} does not depend on the choice of local coordinates on $M$. (Hint: look at Exercise~\ref{exe:coordinatesInd}).
         \item Consider the following free lagrangian on a riemannian manifold $(M, g)$:
         \begin{equation}
             L = \frac12 g_{ij}(q)\dot q^i \dot q^j.
@@ -1153,14 +1155,14 @@ As we have seen in Section~\ref{sec:bdf}, the conservation of energy,
 \begin{equation}\label{eq:cenergy1}
     \frac{m \dot x^2}{2} + U(x) = E \in\R \mbox{ constant},
 \end{equation}
-allows us to explicitly describe phase curves, i.e. solutions of the equations of motion in the plane $(x, y := \dot x)$.
+allows us to explicitly describe phase curves, i.e., solutions of the equations of motion in the plane $(x, y := \dot x)$.
 On each phase curve the value of the energy is constant, so the phase curve lies entirely in one energy level (the set of points $H(x,y)=E$).
 
 More explicitly, we can use \eqref{eq:cenergy1} to integrate the equations of motion
 \begin{equation}
     m \ddot x = - \frac{\d U(x)}{\d x}
 \end{equation}
-by quadrature, i.e. solving the equation as
+by quadrature, i.e., solving the equation as
 \begin{equation}
     t_2 - t_1 = \frac m2 \int_{x_1}^{x_2} \frac{\d x}{\sqrt{E-U(x)}},
 \end{equation}
@@ -1175,7 +1177,7 @@ Thanks to time reversibility, the time of travel between $x_1^*$ and $x_2^*$ is 
     T(E) = \sqrt{2m} \int_{x^*_1}^{x^*_2} \frac{\d x}{\sqrt{E-U(x)}}.
 \end{equation}
 
-A special subset of these finite motions is the one on the critical points of the force, i.e. the points $x^*$ such that 
+A special subset of these finite motions is the one on the critical points of the force, i.e., the points $x^*$ such that 
 \begin{equation}
     \frac{\partial U}{\partial x}(x^*) = 0.
 \end{equation}
@@ -1249,12 +1251,12 @@ See also \cite[Chapter 2.4]{book:arnold}, especially Figures 10, 11 and 12.
     This is an example of a more general phenomenon that we will discuss soon in details.
 \end{example}
 
-Before concluding this chapter let's discuss a final example where we can make use of non cartesian generalized coordinate.
+Before concluding this chapter let's discuss a final example where we can make use of non cartesian generalized coordinates.
 
 \begin{example}[Double pendulum]\label{ex:2pendulum}
     A double pendulum consists of two point particles of masses $m_1$ and $m_2$, connected by massless rods of lengths $l_1$ and $l_2$. The first pendulum is attached to the ceiling by a fixed pivot while the second one is attached to the point particle of the first pendulum.
 
-    Denote $x_1$ and $x_2$ the angle that each of the pendulum make with respect to the corresponding vertical, oriented counterclockwise: a value of $0$ means that the pendulum is vertical with the mass lying below the pivot.
+    Denote $x_1$ and $x_2$ the angles that each of the pendulums make with respect to the corresponding vertical, oriented counterclockwise: a value of $0$ means that the pendulum is vertical with the mass lying below the pivot.
     
     The lagrangian $L_1 = T_1 - U_1$ of the first particle is the same as for a simple pendulum:
     \begin{equation}
@@ -1312,7 +1314,7 @@ Consider the system of independent harmonic oscillators
 \end{equation}
 This can be explicitly solved: the equations are completely uncoupled and we know that the phase portrait of $x_1$ consists of circles while the phase portrait of $x_2$ consists of ellipses.
 
-Together, the two equations define have a 4 dimensional phase space. The curves in the phase space are combinations of closed curves in each phase space and describe a 2-torus.
+Together, the two equations define a 4 dimensional phase space. The curves in the phase space are combinations of closed curves in each phase space and describe a 2-torus.
 
 We know from the previous part of this section that the energy of each oscillator is conserved, as well as the total energy:
 \begin{equation}
@@ -1334,12 +1336,12 @@ On the configuration plane $(x_1, x_2)$, the motion that we observe is
 \begin{equation}
     x(t) = \left( R_1 \cos(t + \phi_1),\, R_2 \cos(\omega t + \phi_2) \right).
 \end{equation}
-This is contained in a rectangle $[-R_1,R_1]\times[-R_2,R_2]$. When $\omega$ is irrational, the trajectory fills the rectangle while they are closed curves inside the rectangle when it is rational.
+This is contained in a rectangle $[-R_1,R_1]\times[-R_2,R_2]$. When $\omega$ is irrational, the trajectory fills the rectangle, whereas they are closed curves inside the rectangle when it is rational. % not always closed, the top right example in the figure corresponds to a rational omega but it is not closed.
 See also \cite[Exercise 6.34]{book:knauf} and \cite[Chapter 2.5, Example 2]{book:arnold}.
 \end{example}
 
 \begin{exercise}[Huygens problem]
-    Determine the form of even potentials, $U(x) = U(-x)$, giving rise to \emph{isochronal} oscillations, i.e. whose period $T$ does not depend on $E$.
+    Determine the form of even potentials, $U(x) = U(-x)$, giving rise to \emph{isochronal} oscillations, i.e., whose period $T$ does not depend on $E$.
 
     Use your result to study the following problem.
     A point particle of mass $m$ moves without friction under the effect of a gravitational potential with uniform acceleration $g$ on the curve
