@@ -31,6 +31,15 @@
 % uncomment to tag only the referred equations (post-production)
 \mathtoolsset{showonlyrefs,showmanualtags}
 
+\usepackage[font=footnotesize]{caption}
+\usepackage{xparse, picins}
+\DeclareDocumentCommand \addpic{O{0.4\textwidth} m g}{\parpic[r]{%
+\begin{minipage}{#1}
+    \includegraphics[width=\textwidth]{#2}%
+    \IfNoValueTF{#3}{}{\captionof{figure}{\footnotesize #3}}
+\end{minipage}
+}}
+
 % comment before publication
 %\usepackage{showlabels}
 
@@ -495,8 +504,8 @@ and the evolution of the system is described by the critical points with respect
     \end{equation}
     It does \textbf{not} have to be a minimum. However, under some additional conditions it can be proven to be a \emph{local} minimum.
     For example, if the matrix of second derivatives
-    \begin{equation}
-        \left(
+    \begin{equation}\label{eq:hsd}
+        \Lambda := \left(
             \frac{\partial^2 L}{\partial\dot q^i \partial\dot q^j}
         \right)_{1\leq i,j\leq n}
     \end{equation}
@@ -520,7 +529,7 @@ and the evolution of the system is described by the critical points with respect
         := \Lambda^{ij}\left(\frac{\partial L}{\partial q^j} - \frac{\partial^2 L}{\partial \dot q^j \partial q^k} \dot q^k - \frac{\partial^2 L}{\partial\dot q^j \partial t}\right),
         \quad i=1,\ldots,n.
     \end{equation}
-    Here $\left(\Lambda^{ij}\right) = \left(\Lambda^{ij}(q, \dot q, t)\right)$ are the coefficients of the inverse to the matrix $\Lambda = \left(\frac{\partial^2 L}{\partial \dot q^i \partial \dot q^j}\right)$, i.e., 
+    Here $\left(\Lambda^{ij}\right) = \left(\Lambda^{ij}(q, \dot q, t)\right)$ are the coefficients of the inverse to the matrix \eqref{eq:hsd}, i.e., 
     \begin{equation}
         \Lambda^{ik} \frac{\partial^2 L}{\partial \dot q^k \partial \dot q^j} = \delta_{ij},
     \end{equation}
@@ -610,7 +619,7 @@ where $m\in\R$ is a constant called the \emph{mass} of the point particle.
     \end{equation}
     in the limit $\epsilon \to 0$, we can apply a Taylor expansion around $\|\dot\bx\|^2$ to get
     \begin{equation}
-        L(\|\dot\bx\|^2) \mapsto L(\|\dot\bx\|^2) + 2\epsilon\,\lag\bm{v}, \dot\bx\rag\,\frac{\partial L}{\partial \|\dot\bx\|^2}(\|\dot\bx\|^2) + O(\epsilon^2).
+        L(\|\dot\bx\|^2) \mapsto L(\|\dot\bx\|^2) + 2\epsilon\,\lag\bm{v}, \dot\bx\rag\,L'(\|\dot\bx\|^2) + O(\epsilon^2).
     \end{equation}
     The invariance of the equations of motion then implies that the linear term in $\epsilon$ should be a total derivative $\frac{\d }{\d t} f(t, \bx) = 2\,\lag\bm{v}, \dot\bx\rag\,L'(\|\dot\bx\|^2)$.
     This can happen iff $\dot f(t, \bx) = 0$ and $\lag \frac{\partial f}{\partial \bx}, \dot x\rag  = 2\,\lag\bm{v}, \dot\bx\rag L'(\|\dot\bx\|^2)$ is linear also in $\|\dot\bx\|^2$.
@@ -830,9 +839,9 @@ We will only recall the main terminology here, for a review of these concepts re
 
 We denote $T_q M$ the \emph{tangent space} of $M$ at $q$, and $TM = \cup_{q\in M}\{q\}\times T_q M$ the \emph{tangent bundle} of $M$. The latter is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$.
 
-Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(U\cap V)\to\phi(U\cap V)$ are also diffeomorphisms.
+Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(W)\to\phi(W)$ are also diffeomorphisms.
 
-Local coordinates $(q^1,\ldots,q^n)$ on $M$ induce local coordinates $(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)$ on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
+Local coordinates $(q^1,\ldots,q^n)$ on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)\] on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
 \begin{equation}
     \dot q^i(v) = v^i,\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n}.
 \end{equation}
@@ -857,7 +866,7 @@ To emphasize once more the importance of the chain rule in this business, a loca
         \frac{\partial q^k}{\partial {\tilde q}^i}\frac{\partial q^l}{\partial {\tilde q}^j}
         \frac{\partial^2 L}{\partial \dot{q}^k \partial \dot{q}^l}.
     \end{equation}
-    \emph{Hint: use Euler-Lagrange equation.}
+    \textit{Hint: use Euler-Lagrange equation.}
 \end{exercise}
 
 The manifold $M$ is called \emph{configuration space}, its tangent bundle $TM$ is called \emph{state space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system.  A smooth function $L=L(q,\dot q, t)$ on $TM\times R$ is called the \emph{lagrangian} of the mechanical system. The lagrangian is called \emph{non--degenerate} if
@@ -936,12 +945,12 @@ Solutions of \eqref{eq:geodesic} are the \emph{geodesic curves} on the riemannia
         L = \frac m2 l^2(\dot \theta^2 + \dot \phi^2 \sin^2\theta).
     \end{equation}
     Due to the discussion above, we immediately can say that the point particle moves on the geodesics of the sphere.
-
-    \begin{exercise}
-        Start from a free lagrangian in cartesian coordinates.
-        As we are imposing that the particle lives on the surface of the sphere, change variables using the appropriate spherical coordinates to derive \eqref{eq:LsphericalP}.
-    \end{exercise}
 \end{example}
+
+\begin{exercise}
+    Start from a free lagrangian in cartesian coordinates.
+    As we are imposing that the particle lives on the surface of the sphere, change variables using the appropriate spherical coordinates to derive \eqref{eq:LsphericalP}.
+\end{exercise}
 
 \begin{figure}[ht]
     \centering
@@ -1107,7 +1116,11 @@ is conserved.
     \begin{equation}\label{eq:energyFromL}
         E = 2T - T + U = T + U.
     \end{equation}
-    Defining the kinetic momentum $\bp_k := m_k \dot \bx_k$, we get $E = H(q,p) := \frac{1}{m_k}\|\bp_k\|^2 + U$, the sum of kinetic and potential energies, as in \eqref{eq:energyKepler} and Theorem \ref{thm:ham1}.
+    We call $\bp_k := m_k \dot \bx_k$ the kinetic momentum, replacing it in the equation above we get that
+    \begin{equation}
+        E = H(q,p) := \frac{1}{m_k}\|\bp_k\|^2 + U
+    \end{equation}
+    is the sum of kinetic and potential energies, as in \eqref{eq:energyKepler} and Theorem \ref{thm:ham1}.
 \end{example}
 
 \begin{remark}
@@ -1127,13 +1140,13 @@ is conserved.
 \begin{exercise}
     \begin{enumerate}
         \item Derive formula \eqref{eq:energyFromL} for a natural lagrangian on a riemannian manifold $(M,g)$.
-        \item Given any lagrangian of the form $L = L(q, \dot q)$ on $TM$, show that the definition of energy \eqref{eq:energy1} does not depend on the choice of local coordinates on $M$. (Hint: look at Exercise~\ref{exe:coordinatesInd}).
+        \item Given any lagrangian of the form $L = L(q, \dot q)$ on $TM$, show that the definition of energy \eqref{eq:energy1} does not depend on the choice of local coordinates on $M$.\\\textit{Hint: look at Exercise~\ref{exe:coordinatesInd}.}
         \item Consider the following free lagrangian on a riemannian manifold $(M, g)$:
         \begin{equation}
             L = \frac12 g_{ij}(q)\dot q^i \dot q^j.
         \end{equation}
         We have already seen in Exercise \ref{exe:geodesic1} that the solutions of the Euler-Lagrange equations are geodesic curves.
-        Show that geodesic curves have constant speed, i.e. $(\dot q, \dot q) = \mathrm{const}$.
+        Show that geodesic curves have constant speed, i.e. $\lag\dot q, \dot q\rag = \mathrm{const}$.
         %\item Consider a time-dependent lagrangian $L = L(q,\dot q, t)$. Show that $\frac{\d}{\d t} E = \frac{\partial E}{\partial t}$.
     \end{enumerate}
 \end{exercise}
@@ -1190,7 +1203,7 @@ A special subset of these finite motions is the one on the critical points of th
     \frac{\partial U}{\partial x}(x^*) = 0.
 \end{equation}
 In this case, the phase curve is made of a single point on the $x$-axis: if we start with the initial conditions $x(0) = x^*$ and $\dot x(0) = 0$, the system will stay there forever. These points are called \emph{equilibrium points}.
-
+%
 Any other motion, not bounded by two points $x^*$, is going to be infinite (or semi-infinite).
 
 See also \cite[Chapter 2.4]{book:arnold}, especially Figures 10, 11 and 12.
@@ -1218,6 +1231,7 @@ See also \cite[Chapter 2.4]{book:arnold}, especially Figures 10, 11 and 12.
 \end{remark}
 
 \begin{example}\label{ex:small-osc}
+    
     Looking back at Example \ref{ex:sprPen}, the lagrangian of a pendulum of length $l$ and mass $m$ is given by
     \begin{equation}
         L = \frac{ml^2 \dot x^2}2 + mgl \cos x,
@@ -1264,7 +1278,7 @@ Before concluding this chapter let's discuss a final example where we can make u
 \begin{example}[Double pendulum]\label{ex:2pendulum}
     A double pendulum consists of two point particles of masses $m_1$ and $m_2$, connected by massless rods of lengths $l_1$ and $l_2$. The first pendulum is attached to the ceiling by a fixed pivot while the second one is attached to the point particle of the first pendulum.
 
-    Denote $x_1$ and $x_2$ the angles that each of the pendulums make with respect to the corresponding vertical, oriented counterclockwise: a value of $0$ means that the pendulum is vertical with the mass lying below the pivot.
+    \addpic[0.35\textwidth]{{images/HM-1.12}.pdf} Denote $x_1$ and $x_2$ the angles that each of the pendulums make with respect to the corresponding vertical, oriented counterclockwise: a value of $0$ means that the pendulum is vertical with the mass lying below the pivot.
     
     The lagrangian $L_1 = T_1 - U_1$ of the first particle is the same as for a simple pendulum:
     \begin{equation}
@@ -1364,14 +1378,13 @@ See also \cite[Exercise 6.34]{book:knauf} and \cite[Chapter 2.5, Example 2]{book
     \end{equation}
     Find the lagrangian of the system and determine the shape of the curve so that the oscillations are isochronal.
 
-    This is called Huygens problem: he was studying it to win a competition for the best maritime chronometer.
-
-    Hint: use the natural parametrization for the curve: $\dot x^2 + \dot y^2 = 1$.
+    This is called Huygens problem: he was studying it to win a competition for the best maritime chronometer.\\
+    \textit{Hint: use the natural parametrization for the curve: $\dot x^2 + \dot y^2 = 1$.}
 \end{exercise}
 
 \begin{exercise}[The isoperimetric problem]
     In the $(x,y)$-plane in $P\subset \R^3$ you are given a curve $\gamma:[t_1,t_2]\to P$ connecting the points $(x_1, y_1, 0)$ and $(x_2, y_2, 0)$. Revolve this curve around the $x$-axis.
-    
+    %
     For which curve does the corresponding surface of revolution have minimal area?
 \end{exercise}
 
@@ -2196,8 +2209,8 @@ If we denote $z$ the component parallel to the angular momentum, the first integ
     \begin{equation}
         m r^2 \dot \phi = \mathrm{const}
     \end{equation}
-    to prove the \emph{Kepler's second law}: the area swept by the position vector of a point particle in a central potential in the time interval $[t, t+\delta t]$ does not depend on $t$. Which is a rephrasing of the better known: a line segment joining a planet and the Sun sweeps out equal areas during equal intervals of time.
-    (Hint: how do you compute the area of the sector?)
+    to prove the \emph{Kepler's second law}: the area swept by the position vector of a point particle in a central potential in the time interval $[t, t+\delta t]$ does not depend on $t$. Which is a rephrasing of the better known: a line segment joining a planet and the Sun sweeps out equal areas during equal intervals of time.\\
+    \textit{Hint: how do you compute the area of the sector?}
 \end{exercise}
 
 \begin{theorem}
@@ -5165,9 +5178,8 @@ In this case, the function $S$ becomes $S(q,b) = \sum_{i=1}^n W_i(q^i, b)$ and t
             1 + \epsilon Q \sin(P) + \sum_{j=2}^\infty \frac{(2j-1)!!}{(j+1)!}2^j \epsilon^j \sin^j(P) Q^{j}
             \right).
     \end{align}
-    Show that it is a canonical transformation and compute its generating function.
-    
-    Hint: use the following series expansion $\sqrt{1-x} = 1 - \frac{x}{2} + \sum_{j=2}^\infty \frac{(2j-3)!!}{j! 2^j} x^j$.
+    Show that it is a canonical transformation and compute its generating function.\\
+    \textit{Hint: use the following series expansion $\sqrt{1-x} = 1 - \frac{x}{2} + \sum_{j=2}^\infty \frac{(2j-3)!!}{j! 2^j} x^j$.}
 \end{exercise}
 
 \begin{exercise}
@@ -5406,7 +5418,7 @@ whose corresponding solution is simply
         is a subgroup of $\R^n$, called the \emph{isotropy} subgroup.
 
         \begin{exercise}
-            Show that the subgroup $\Gamma$ does not depend on $x_0$ (Hint: $\Gamma$ is transitive). 
+            Show that the subgroup $\Gamma$ does not depend on $x_0$. \textit{Hint: $\Gamma$ is transitive.} 
             Furthermore, $\Gamma$ is a \emph{discrete} subgroup of $\R^n$, that is, there is an open set $U \ni \bm 0$ such that $U\cap\Gamma = \{\bm 0\}$.
         \end{exercise}
 
