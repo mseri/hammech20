@@ -136,7 +136,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.3.1\\
+    Version 1.3.2\\
     \today
 \end{center}
 \vfill
@@ -177,7 +177,7 @@ Last year there were two non-standard notational conventions that I decided to a
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
-I am extremely grateful to Albert \v{S}ilvans for their careful reading of the notes and their useful comments and corrections.
+I am extremely grateful to Anouk Pelzer, Robbert Scholtens and Albert \v{S}ilvans for their careful reading of the notes and their useful comments and corrections.
 
 \chapter{Classical mechanics, from Newton to Lagrange and back}
 
@@ -517,10 +517,11 @@ and the evolution of the system is described by the critical points with respect
         := \Lambda^{ij}\left(\frac{\partial L}{\partial q^j} - \frac{\partial^2 L}{\partial \dot q^j \partial q^k} \dot q^k - \frac{\partial^2 L}{\partial\dot q^j \partial t}\right),
         \quad i=1,\ldots,n.
     \end{equation}
-    Here, the sum over the repeated indices\footnote{For example, $y^{ji} x_i \equiv \sum_i y^{ji} x_i$} is implied and the matrix $\left(\Lambda^{ij}\right) = \left(\Lambda^{ij}(q, \dot q, t)\right)$ is the inverse to $\left(\frac{\partial^2 L}{\partial \dot q^i \partial \dot q^j}\right)$:
+    Here $\left(\Lambda^{ij}\right) = \left(\Lambda^{ij}(q, \dot q, t)\right)$ are the coefficients of the inverse to the matrix $\Lambda = \left(\frac{\partial^2 L}{\partial \dot q^i \partial \dot q^j}\right)$, i.e., 
     \begin{equation}
-        \Lambda^{ik} \frac{\partial^2 L}{\partial \dot q^k \partial \dot q^j} = \delta_{ij}.
+        \Lambda^{ik} \frac{\partial^2 L}{\partial \dot q^k \partial \dot q^j} = \delta_{ij},
     \end{equation}
+    and it is crucial to remember that we are always using Einstein's convention\footnote{That is, we are summing over repeated indices, for example, $y^{ji} x_i \equiv \sum_i y^{ji} x_i$.}.
 \end{proof}
 
 In other words, we can use Euler-Lagrange equations as the equations of motion of a mechanical system with non--degenerate lagrangian.
@@ -547,7 +548,7 @@ In other words, we can use Euler-Lagrange equations as the equations of motion o
     Similarly, \emph{the lagrangian of a mechanical system does not change if it is multiplied by a constant factor: $\tilde L = \alpha L$}.
 
     As an aside, quantum mechanical systems no longer remain invariant under the transformations above. Transformations of the first type lead to rather subtle and interesting effects related to topology, while the number $\alpha$ is related to Planck's constant. 
-    \medskip
+    \end{remark}
 
     Coming back to our discussion: with so much freedom, how does one choose a normalization for the lagrangian then?
     One way, is by using the \emph{principle of additivity}.
@@ -559,7 +560,7 @@ In other words, we can use Euler-Lagrange equations as the equations of motion o
             L_{\lim} = L_A + L_B.
         \end{equation}
     \end{tcolorbox}
-\end{remark}
+
 
 \subsection{Dynamics of point particles: from Lagrange back to Newton}\label{sec:dynamicspps}
 
@@ -590,9 +591,9 @@ We will now see how we can derive Newton's laws from Hamilton's principle as a c
 \begin{theorem}
 The lagrangian of an isolated point particle in an inertial system of coordinates has the form 
 \begin{equation}\label{eq:singleptlag}
-    L(\bm{x}, \dot{\bm{x}}) = \frac{m\,\|\dot{\bm{x}}\|^2}2
+    L(\dot{\bm{x}}) = \frac{m\,\|\dot{\bm{x}}\|^2}2
 \end{equation}
-where $m$ is a constant called the \emph{mass} of the point particle.
+where $m\in\R$ is a constant called the \emph{mass} of the point particle.
 \end{theorem}
 \begin{proof}
     The invariance from translations implies that the lagrangian must be independent from $t$ and $\bx$, while the invariance from orthogonal transformations implies that it must be dependent on the square of the velocities:
@@ -600,22 +601,24 @@ where $m$ is a constant called the \emph{mass} of the point particle.
         L = L(\|\dot\bx\|^2), \quad \|\dot\bx\|^2 := \lag\dot \bx, \dot \bx\rag.
     \end{equation}
     The invariance with respect to uniform motion now implies that the lagrangian must actually be proportional to $\|\dot\bx\|^2$.
-    Indeed, with the galilean transformation
+    For convenience, let's first look at the case of small velocities: applying the galilean transformation
     \begin{equation}
         \bx \mapsto \bx + \epsilon \bm{v}t,
     \end{equation}
-    in the limit $\epsilon \to 0$, we get
+    in the limit $\epsilon \to 0$, we can apply a Taylor expansion around $\|\dot\bx\|^2$ to get
     \begin{equation}
-        L(\|\dot\bx\|^2) \mapsto L(\|\dot\bx\|^2) + 2\epsilon\,\lag\bm{v}, \dot\bx\rag\,\frac{\partial}{\partial \|\dot\bx\|^2}L(\|\dot\bx\|^2) + O(\epsilon^2).
+        L(\|\dot\bx\|^2) \mapsto L(\|\dot\bx\|^2) + 2\epsilon\,\lag\bm{v}, \dot\bx\rag\,\frac{\partial L}{\partial \|\dot\bx\|^2}(\|\dot\bx\|^2) + O(\epsilon^2).
     \end{equation}
-    The invariance of the lagrangian implies that the linear term in $\epsilon$ should be a total derivative $\frac{\d }{\d t} f(t, \bx) = 2\,\lag\bm{v}, \dot\bx\rag\,L'(\|\dot\bx\|^2)$ but this can happen iff it's linear in $\|\dot\bx\|^2$, in particular this means that $L'(\|\dot\bx\|^2) = \mathrm{const} =: \frac{m}2$.
-    
-    Finally, for any constant value $m$, the lagrangian \eqref{eq:singleptlag} is invariant with respect to $\bx \mapsto \bx + \bm{v}t$:
+    The invariance of the equations of motion then implies that the linear term in $\epsilon$ should be a total derivative $\frac{\d }{\d t} f(t, \bx) = 2\,\lag\bm{v}, \dot\bx\rag\,L'(\|\dot\bx\|^2)$.
+    This can happen iff $\dot f(t, \bx) = 0$ and $\lag \frac{\partial f}{\partial \bx}, \dot x\rag  = 2\,\lag\bm{v}, \dot\bx\rag L'(\|\dot\bx\|^2)$ is linear also in $\|\dot\bx\|^2$.
+    In particular this means that $L'(\|\dot\bx\|^2) = \mathrm{const} =: \frac{m}2$, that is, the lagrangian is of the form \eqref{eq:singleptlag} for some constant value $m\in\R$.
+    Finally, the lagrangian \eqref{eq:singleptlag} is transformed by a general galilean transformation $\bx \mapsto \bx + \bm{v}t$ into
     \begin{equation}
         \frac{m \|\dot\bx\|^2}2 \mapsto
         \frac{m \|\dot\bx\|^2}2 + m\,\lag\bm{v},\dot\bx\rag + \frac{m \bm{v}^2}2
-        = \frac{m \|\dot\bx\|^2}2 + \frac{\d }{\d t}\left(m\,\lag\bm{v},\bx\rag + \frac{m \bm{v}^2 t}2\right).
+        = \frac{m \|\dot\bx\|^2}2 + \frac{\d }{\d t}\left(m\,\lag\bm{v},\bx\rag + \frac{m \bm{v}^2 t}2\right),
     \end{equation}
+    and thus the equations of motion remain invariant under the transformation.
 \end{proof}
 
 \begin{corollary}[Newton's first law]
@@ -743,7 +746,7 @@ We don't have to go very far to see an example of this, but we can also see that
 
         The additional term $\frac ec \dot\bx_k\wedge \bm B(\bx_k)$ is the \emph{Lorenz force} acting on the $k$th particle of charge $e$ immersed in the magnetic field $\bm B$.
 
-        For a beautiful geometric discussion of this problem, refer to \cite[Chapter 8.3]{book:amr} (which is Chapter 9.3 in the forthcoming 3rd edition).
+        For a beautiful geometric discussion of this problem, you can refer to \cite[Chapter 8.3]{book:amr} (this has moved to Chapter 9.3 in more recent editions).
     \end{exercise}
     
     Note that the magnetic vector potential is not unique!
