@@ -668,7 +668,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
     \begin{equation}
         \bm{F}_k = -\sum_{j\neq k} \bm{F}_j.
     \end{equation}
-    (Hint: use the invariance with respect to spatial translations.)
+    \textit{Hint: use the invariance with respect to spatial translations or sneak peek forward to the conservation of total momentum.}
 \end{exercise}
 
 \begin{remark}
@@ -679,11 +679,12 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 \end{remark}
 
 \begin{example}
-    Consider the vertical motion of a point particle of mass $m$ in the external field with potential $U(z) = m g z$. Here $g$ is the gravitational acceleration $g \sim 9.8 m s^{-2}$. The natural lagrangian of the system is
+    Consider the vertical motion of a point particle of mass $m$ in the external field with potential $U(z) = m g z$, see also Example~\ref{ex:sprPen}. The natural lagrangian of the system is
     \begin{equation}
         L = \frac{m\dot z^2}2 - mgz,
     \end{equation}
     which corresponds to the equation of motion $\ddot z = -g$: this is the equation of motion of a point particle in free fall towards Earth. In agreement with Galileo's law, the acceleration is constant and does not depend from the mass.
+    
 \end{example}
 
 \begin{example}\label{ex:kepler1}
@@ -712,16 +713,17 @@ This confirms the intuitive notion that the kinetic energy should increase if a 
 
 There is more, in fact
 \begin{equation}
-    T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\lag\dot \bx(t), \bm{F}(\bx(t))\right\rag\; \d t,
+    T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\lag\dot \bx(t), \bm{F}(\bx(t))\right\rag\; \d t = \int_{\bx_0}^{\bx_1} \left\lag\bm{F}(\bx), \d \bx\right\rag,
 \end{equation}
-which is to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e. the integral of $\bm{F}$ along the curve $\bx(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\bx) \cdot \d\bx$ as the infinitesimal contribution of the vector field to the acceleration.
+where $\bx_i := \bx(t_i)$.
+This is equivalent to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e. the integral of $\bm{F}$ along the curve $\bx(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\bx) \cdot \d\bx$ as the infinitesimal contribution of the vector field to the acceleration.
 
 \begin{remark}
-For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\bx_0 = \bx(t_0)$ and $\bx_1 = \bx(t_1)$ if and only if $\curl \bm{F} = 0$, which in turn is true if and only if there is a $U:\R^3\to\R$ such that $\bm{F} = -\nabla U$.
-
-In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $U:\R^n\to\R$, unique up to an additive constant, such that $\bm{F} = -\nabla U$.
-
-You can read about this also in \cite[Chapter 2.5]{book:arnold} and \cite[Theorem 6.3 and 8.1]{book:knauf}.
+For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\bx_0 = \bx(t_0)$ and $\bx_1 = \bx(t_1)$ if and only if $\curl \bm{F} = 0$, which in turn is true if and only if there is a $U:\R^3\to\R$ such that $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$.
+%
+In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $U:\R^n\to\R$, unique up to an additive constant, such that $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$.
+%
+You can read more about this in \cite[Chapter 2.5]{book:arnold} and \cite[Theorem 6.3 and 8.1]{book:knauf}.
 \end{remark}
 
 Forces that can be written in the form $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$, for some function $U$, are called \emph{conservative}.
@@ -780,7 +782,7 @@ If we describe the motion in terms of generalized coordinates
 a direct application of the chain rule will allow us to rewrite the lagrangian as
 \begin{equation}
     L = T - U,
-    \qquad\mbox{where}
+    \quad\mbox{where}\quad
     \begin{cases}
         T:= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U = U(q),\\
         g_{kl} (q) := \sum_{j=1}^N \left\lag\frac{\partial\bx_j}{\partial q^k}, \frac{\partial \bx_j}{\partial q^l}\right\rag
