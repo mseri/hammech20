@@ -136,7 +136,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.3.2\\
+    Version 1.3.3\\
     \today
 \end{center}
 \vfill
@@ -177,7 +177,7 @@ Last year there were two non-standard notational conventions that I decided to a
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
-I am extremely grateful to Anouk Pelzer, Robbert Scholtens and Albert \v{S}ilvans for their careful reading of the notes and their useful comments and corrections.
+I am extremely grateful to Riccardo Bonetto, Anouk Pelzer, Robbert Scholtens and Albert \v{S}ilvans for their careful reading of the notes and their useful comments and corrections.
 
 \chapter{Classical mechanics, from Newton to Lagrange and back}
 
@@ -266,7 +266,7 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
     Clearly, once we know the initial conditions, the full evolution of the solution $x(t)$ is known, in agreement with Newton's principle of determinacy.
 
     \begin{figure}[ht!]
-        \includegraphics[width=\linewidth]{images/{HM-1.2}.pdf}
+        \includegraphics[width=.9\linewidth]{{images/HM-1.2}.pdf}
     \end{figure}
 
     Consider, now, a point particle of mass $m$ attached to a pivot on the ceiling via a rigid rod of length $l$.
@@ -668,7 +668,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
     \begin{equation}
         \bm{F}_k = -\sum_{j\neq k} \bm{F}_j.
     \end{equation}
-    (Hint: use the invariance with respect to spacial translations.)
+    (Hint: use the invariance with respect to spatial translations.)
 \end{exercise}
 
 \begin{remark}
@@ -910,7 +910,7 @@ Replacing the scalar product, i.e., the inner product in the Euclidean space, we
     \end{equation}
     have the form
     \begin{equation}\label{eq:geodesic}
-        \ddot q^k = \Gamma_{ij}^k(q) \dot q^i \dot q^j, \quad k=1,\ldots, n,
+        \ddot q^k + \Gamma_{ij}^k(q) \dot q^i \dot q^j = 0, \quad k=1,\ldots, n,
     \end{equation}
     where $\Gamma_{ij}^k(q)$ are the Christoffel symbols of the Levi-Civita connection associated with the metric $\d s^2$:
     \begin{equation}
@@ -1334,7 +1334,7 @@ The level curves $H=E$ describe a 3-sphere in $\mathbb{R}^4$, which are foliated
 \begin{figure}[ht]
     \centering
     \includegraphics[width=.75\linewidth,trim={0 50pt 0 50pt},clip]{images/lissajous.pdf}
-    \caption{Some casually selected Lissajous figures. The top right example is a degenerate ellipse squeezed to a line, i.e., a closed curve.}
+    \caption{Some casually selected Lissajous figures. The top right example (in orange) and the one in the center at the bottom (in purple) are degenerate closed curves squeezed to a line.}
     \label{img:lissajous}
 \end{figure}
 
