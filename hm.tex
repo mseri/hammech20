@@ -145,7 +145,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.3.5\\
+    Version 1.3.6\\
     \today
 \end{center}
 \vfill
@@ -1841,7 +1841,7 @@ This does not look like a symmetry in our sense, but it is worth investigating i
     This should remind you of \emph{Kepler's third law}: the square of the orbital period of a planet is directly proportional to the cube of the semi--major axis of its orbit, in symbols $\frac{T^2}{X^3} \sim \mathrm{const}$.
 \end{example}
 
-\section{The spherical pendulum}
+\section{The spherical pendulum}\label{sec:sphpen}
 Let's come back to the spherical pendulum, introduced in Example~\ref{ex:sphericalP}.
 Assume it moves in the presence of constant gravitational acceleration $g$ pointing downwards.
 It's an exercise in trigonometry to see that the lagrangian in spherical coordinates takes the form
@@ -2146,7 +2146,7 @@ Let's go back to Examples~\ref{ex:Kepler0} and \ref{ex:kepler1}.
 Consider a closed systems of two point particles with masses $m_{1,2}$.
 We now know that, in an inertial frame of reference, their natural lagrangian musth have the form
 \begin{equation}
-    L = \frac{m_1 \dot\bx_1^2}{2} + \frac{m_2 \dot\bx_2^2}{2} - U(\|\bx_1 - \bx_2\|).
+    L = \frac{m_1 \|\dot\bx_1\|^2}{2} + \frac{m_2 \|\dot\bx_2\|^2}{2} - U(\|\bx_1 - \bx_2\|).
 \end{equation}
 We have anticipated that such systems possesses many first integrals, so we can expect to be able to use them to integrate the equations of motion as in some previous examples.
 If we fix the origin in the barycenter of the system, we get
@@ -2625,7 +2625,7 @@ As before we can define the constrained motion by minimizing the corresponding a
 \end{example}
 
 \begin{exercise}
-    Use D'Alembert principle to compute the constraint force acting on the spherical pendulum under the effect of the gravitational potential.
+    Use D'Alembert principle to compute the constraint force acting on the spherical pendulum\footnote{Section~\ref{sec:sphpen}.} under the effect of the gravitational potential.
     
     Assume, then, that the constraint force can act only radially outward. Imagine, for example that the point particle is a pebble set in motion on a frictionless and impenetrable ball of dry ice at rest.
     When and where will the particle leave the sphere?
@@ -6031,7 +6031,7 @@ There is a full classification of normal form for resonant systems due to Moser,
 If you formally write down the equations of motion, you can convince yourself that if all the series were to be convergent, the hamiltonian system could be easily integrated.
 In fact, the question of convergence of \eqref{eq:ictbnf} for $n>1$ is a rather delicate problem, related to the existence of first integrals with certain analyticity properties.
 
-For further details, please refer to \cite[Chapter 6.5]{book:celletti}, \cite[Chapter 8.3]{book:arnoldcelestial} and \cite[Chapters 15.2 and 15.3]{book:knauf}, as suggested also at the beginning of this section.
+For further details, please refer to \cite{Broer_2009}, \cite[Chapter 6.5]{book:celletti}, \cite[Chapter 8.3]{book:arnoldcelestial} or \cite[Chapters 15.2 and 15.3]{book:knauf}, as suggested also at the beginning of this section.
 
 % \subsection{The collinear triatomic molecule, reprise}
 
