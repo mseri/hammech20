@@ -145,7 +145,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.3.6\\
+    Version 1.3.7\\
     \today
 \end{center}
 \vfill
@@ -204,12 +204,12 @@ For us, a point particle usually carries a \emph{mass} $m$.
 Its \emph{position} in space is described by the position vector $\bx = (x, y ,z)$.
 Keep in mind that $\bx : \R\to\R^3$ is a function of time, denoted by $t$, as the instantaneous state of the system is supposed to evolve, but we will omit the dependence on $t$ in most cases. 
 
-The \emph{velocity} of the point particle is given by the rate of change of the position vector, i.e. its derivative with respect to time
+The \emph{velocity} of the point particle is given by the rate of change of the position vector, i.e., its derivative with respect to time
 \begin{equation}
     \bv = \der{\bx}{t} =: \dot{\bx} = (\dot{x}, \dot{y}, \dot{z}).
 \end{equation}
 
-We call \emph{acceleration}, the rate of change of the velocity, i.e. the second derivative
+We call \emph{acceleration}, the rate of change of the velocity, i.e., the second derivative
 \begin{equation}
     \bm{a} = \der{^2\bx}{t^2} =: \ddot{\bx} = (\ddot{x}, \ddot{y}, \ddot{z}).
 \end{equation}
@@ -240,7 +240,7 @@ We call $\bx(t)$ the \emph{configuration} of the system at time $t$ in the \emph
 
 We say that a system of $N$ particles has \emph{$n$ degrees of freedom} if we need $n$ independent parameters to uniquely specify the system configuration\footnote{As Example~\ref{example:gcoords} shows, the $n$ degrees of freedom do not have to be the cartesian coordinates of the point particles.}. We call \emph{generalized coordinates} any set of $n$ parameters $q = (q^1, \ldots, q^n)$ that uniquely determine the configuration of a system with $n$ degrees of freedom, and \emph{generalized velocities} their time derivatives $\dot q = (\dot q^1, \ldots, \dot q^n)$. The \emph{state} of the system is then characterized by the set of (generalized) coordinates and velocities $(q, \dot q) = \left(q^1, \ldots, q^n,\dot q^1, \ldots, \dot q^n\right)$.
 
-If you recall differential geometry, you may (correctly) guess that the generalized coordinates will be points on some differentiable manifold $q\in M$ and the state will be a point in its tangent bundle $(q, \dot q)\in TM$, i.e. $\dot q \in T_q M$ (see also section~\ref{sec:lagrangianonmanifold}).
+If you recall differential geometry, you may (correctly) guess that the generalized coordinates will be points on some differentiable manifold $q\in M$ and the state will be a point in its tangent bundle $(q, \dot q)\in TM$, i.e., $\dot q \in T_q M$ (see also section~\ref{sec:lagrangianonmanifold}).
 \medskip
 
 We have now all the elements to translate the \emph{Newtonian principle of determinacy} in mathematical terms. 
@@ -673,7 +673,7 @@ The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\bx}_k\|^2}{2}$, is called \em
 The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point particle, and you should immediately recognize \emph{Newton's second law} in \eqref{eq:newton2}.
 
 \begin{exercise}\label{ex:N3l1}
-    Prove \emph{Newton's third law}, i.e. for each of the $k$ point particles it holds
+    Prove \emph{Newton's third law}, i.e., for each of the $k$ point particles it holds
     \begin{equation}
         \bm{F}_k = -\sum_{j\neq k} \bm{F}_j.
     \end{equation}
@@ -725,7 +725,7 @@ There is more, in fact
     T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\lag\dot \bx(t), \bm{F}(\bx(t))\right\rag\; \d t = \int_{\bx_0}^{\bx_1} \left\lag\bm{F}(\bx), \d \bx\right\rag,
 \end{equation}
 where $\bx_i := \bx(t_i)$.
-This is equivalent to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e. the integral of $\bm{F}$ along the curve $\bx(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\bx) \cdot \d\bx$ as the infinitesimal contribution of the vector field to the acceleration.
+This is equivalent to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e., the integral of $\bm{F}$ along the curve $\bx(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\bx) \cdot \d\bx$ as the infinitesimal contribution of the vector field to the acceleration.
 
 \begin{remark}
 For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\bx_0 = \bx(t_0)$ and $\bx_1 = \bx(t_1)$ if and only if $\curl \bm{F} = 0$, which in turn is true if and only if there is a $U:\R^3\to\R$ such that $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$.
@@ -852,7 +852,7 @@ To emphasize once more the importance of the chain rule in this business, a loca
 \end{equation}
 
 \begin{exercise}[To review a bit of differential geometry that we will also need later on]\label{exe:coordinatesInd}
-    Let $L=L(q,\dot q):TM \to \R$ be a smooth function. Show that the \emph{linear momenta}, i.e. the derivatives
+    Let $L=L(q,\dot q):TM \to \R$ be a smooth function. Show that the \emph{linear momenta}, i.e., the derivatives
     \begin{equation}
         p_i := \frac{\partial L}{\partial \dot q^i}, \quad i=1,\ldots,n,
     \end{equation}
@@ -1021,7 +1021,7 @@ Reasoning formally\footnote{For a rigorous understanding of this, you can refer 
 
 Getting rid of time and considering equation \eqref{eq:lef} comes with a price, the solution is now an implicit curve $y(x)$, but also with a huge advantage: this new equation can be solved exactly!
 
-Let $U(x)$ be such that $F(x) = -\frac{\d U}{\d x}$ and define $H(x, y) = \frac12 y^2 + U(x)$, i.e. the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$.
+Let $U(x)$ be such that $F(x) = -\frac{\d U}{\d x}$ and define $H(x, y) = \frac12 y^2 + U(x)$, i.e., the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$.
 The function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
 
 \begin{theorem}\label{thm:ham1}
@@ -1132,7 +1132,7 @@ is conserved.
     Looking at the lagrangian itself, we see that it is minimal when the potential energy is large and maximal when the kinetic energy is large.
     So, the lagrangian measures in some sense how `active' a system is: the higher the kinetic energy the more active a system is, and the higher the potential energy the less active the system.
     %
-    The principle of least action tells us that nature is lazy: she likes to find a compromise that minimizes its activity over time, i.e. its total action.
+    The principle of least action tells us that nature is lazy: she likes to find a compromise that minimizes its activity over time, i.e., its total action.
 
     You can read a nice historical account on how scientists came up with the principle of least action in \cite{lectures:baez}.
 \end{remark}
@@ -1146,7 +1146,7 @@ is conserved.
             L = \frac12 g_{ij}(q)\dot q^i \dot q^j.
         \end{equation}
         We have already seen in Exercise \ref{exe:geodesic1} that the solutions of the Euler-Lagrange equations are geodesic curves.
-        Show that geodesic curves have constant speed, i.e. $\lag\dot q, \dot q\rag = \mathrm{const}$.
+        Show that geodesic curves have constant speed, i.e., $\lag\dot q, \dot q\rag = \mathrm{const}$.
         %\item Consider a time-dependent lagrangian $L = L(q,\dot q, t)$. Show that $\frac{\d}{\d t} E = \frac{\partial E}{\partial t}$.
     \end{enumerate}
 \end{exercise}
@@ -1430,7 +1430,7 @@ Let's make another example before entering into the gist of the matter.
 
 It seems that we can expect other conserved quantities. However, before being able to give a precise statement we need to introduce some preliminary concepts.
 
-Let $M$ be a smooth manifold. A smooth map $\phi : M \to M$ is called \emph{diffeomorphism} if it is invertible and its inverse $\phi^{-1}$ is smooth. At each point $q\in M$ we can define the \emph{differential} of $\phi$, i.e. the linear map $\phi_*$ between tangent spaces (sometimes also denoted $\d\phi_q$)
+Let $M$ be a smooth manifold. A smooth map $\phi : M \to M$ is called \emph{diffeomorphism} if it is invertible and its inverse $\phi^{-1}$ is smooth. At each point $q\in M$ we can define the \emph{differential} of $\phi$, i.e., the linear map $\phi_*$ between tangent spaces (sometimes also denoted $\d\phi_q$)
 \begin{equation}
     \phi_*: T_q M \to T_{\phi(q)} M,
     \quad \phi_* v = \phi_*(q) v := \frac{\d}{\d t} \phi(q + t v) \Big|_{t=0},
@@ -1459,7 +1459,7 @@ A fundamental property of symmetries of mechanical systems is summarized by the 
     Let $\Phi$ be the symmetry of a mechanical system. If $q(t)$ is a solution of the Euler-Lagrange equations, then $\Phi(q(t))$ satisfies the same equations.
 \end{theorem}
 
-The converse is generally not true: i.e. in general it is not true that if $\Phi$ maps solutions to solutions, then $\Phi$ is a symmetry.
+The converse is generally not true: i.e., in general it is not true that if $\Phi$ maps solutions to solutions, then $\Phi$ is a symmetry.
 
 We are almost there.
 Before being able to introduce Noether theorem we need one last definition.
@@ -1560,7 +1560,7 @@ Although I prefer the presentation of the proof in \cite[Chapter 20.B]{book:arno
 
 \begin{exercise}
     Assume that the one--parameter group of diffeomorphisms $\Phi_s$ is \emph{not} a symmetry for $(M,L)$ in the sense of our definition, but \emph{preserves the action $S$ associated to the lagrangian}.
-    In that case, the invariance condition \eqref{eq:invariance} holds only up to total derivatives \cite[Chapter 4.20]{book:gelfand}, i.e. there is a function $f(q)$ on $M$ such that
+    In that case, the invariance condition \eqref{eq:invariance} holds only up to total derivatives \cite[Chapter 4.20]{book:gelfand}, i.e., there is a function $f(q)$ on $M$ such that
     \begin{equation}
         L\left( q + s X(q), \dot q + s \frac{\partial X}{\partial q} \dot q\right)
         = L(q, \dot q) + s \frac{\d}{\d t}f(q) + O(s^2).
@@ -1608,7 +1608,7 @@ Since $\hat\bx$ is arbitrary, this means that also $\bm{P}$ is conserved.
 
 This should be intuitively clear: one point in space is much the same as any other. So why would a system of particles speed up to get somewhere else, when its current position is just as good? This manifests itself as conservation of momentum.
 
-This fact can be also interpreted in the following way: the sum of all forces acting on the point particles in the closed system is zero, i.e. Newton's third law $\sum_k \bm{F}_k = 0$. Which, you have already figured out by solving Exercise \ref{ex:N3l1}.
+This fact can be also interpreted in the following way: the sum of all forces acting on the point particles in the closed system is zero, i.e., Newton's third law $\sum_k \bm{F}_k = 0$. Which, you have already figured out by solving Exercise \ref{ex:N3l1}.
 
 \begin{example}[The baricenter]
     Consider the galilean transformation $t \mapsto t$, $\bx \mapsto \bx' + \bm{v}t$.
@@ -1643,7 +1643,7 @@ This fact can be also interpreted in the following way: the sum of all forces ac
 \begin{exercise}
     Consider, as in Example~\ref{exa:magnetic} and Exercise~\ref{exe:magnetic}, a closed system of charged point particles in the presence of a uniform constant magnetic field $\bm{B}$. Define
     \begin{equation}
-        \widetilde{\bm{P}} := \bm{P} + \frac{e}c \bm{B}\times \bm{X},
+        \widetilde{\bm{P}} := \bm{P} + \frac{e}c \bm{B}\wedge \bm{X},
     \end{equation}
     where $\bm{P}$ is the total momentum of the system when $\bm{B} = 0$ and $\bm{X}$ is the barycenter.
     Show that for such system, $\widetilde{\bm{P}}$ is a conserved quantity.
@@ -1757,7 +1757,7 @@ The claim follows from the arbitrariness of $\bm{X}$.
 \end{proof}
 
 \begin{example}
-    Consider a natural lagrangian \eqref{eq:mechlag} with an \emph{axial symmetry}, i.e. whose potential is invariant by simultaneous rotations around a fixed axis.
+    Consider a natural lagrangian \eqref{eq:mechlag} with an \emph{axial symmetry}, i.e., whose potential is invariant by simultaneous rotations around a fixed axis.
     For convenience let's say that such axis corresponds to the $z$ axis.
     Looking back at the proof above, we can infer that the conserved quantity will not be the full total momentum $\bm{M} = (M_x, M_y, M_z)$ but instead only its $z$ component:
     \begin{equation}
@@ -1907,12 +1907,12 @@ We have already seen a few cases in which, by a small perturbation near a stable
 
 In this section we will see that this phenomenon is much more general (and useful) by showing that the motion of systems close to equilibrium is described by a number of \emph{decoupled simple harmonic oscillators}, each ringing at a different frequency.
 
-Let's revisit what we saw in Sections~\ref{sec:bdf} and \ref{sec:1deg-again} in slightly more generality and in a more organic way. Let's consider the Newton equation for a closed system with one degree of freedom in the presence of conservative forces, i.e. an equation like \eqref{eq:oscillator}:
+Let's revisit what we saw in Sections~\ref{sec:bdf} and \ref{sec:1deg-again} in slightly more generality and in a more organic way. Let's consider the Newton equation for a closed system with one degree of freedom in the presence of conservative forces, i.e., an equation like \eqref{eq:oscillator}:
 \begin{equation}
     \ddot x = F(x).
 \end{equation}
 
-As we saw in Example~\ref{ex:small-osc}, it makes sense to ask ourselves what does the motion look like around an equilibrium point $x^*$, i.e. a point such that $F(x^*) = 0$.
+As we saw in Example~\ref{ex:small-osc}, it makes sense to ask ourselves what does the motion look like around an equilibrium point $x^*$, i.e., a point such that $F(x^*) = 0$.
 To analyze this in more details, we \emph{linearize} the equation. 
 Let $x(t)$ be a small perturbation around $x^*$. For convenience,
 \begin{equation}
@@ -2018,7 +2018,7 @@ If $\lambda\neq 0$ a general solution then has the form
 \end{equation}
 even in the case some eigenvalues come with multiplicities.
 
-In conclusion, to decompose a motion into characteristic oscillations, it's enough to project the initial conditions onto the \emph{characteristic directions}, i.e. the eigenvectors of $h - \lambda g$, and solve the corresponding one-dimensional problems.
+In conclusion, to decompose a motion into characteristic oscillations, it's enough to project the initial conditions onto the \emph{characteristic directions}, i.e., the eigenvectors of $h - \lambda g$, and solve the corresponding one-dimensional problems.
 
 \begin{remark}
     As opposed to general systems of linear differential equations, resonance terms of the form $t^\alpha e^{i \omega t}$, $\alpha\in\big\{1,2,\ldots,n\big\}$, do not arise in lagrangian systems (even in the case of eigenvalues with multiplicity).
@@ -2130,7 +2130,7 @@ which satisfy
 \begin{equation}
     \ddot{\bm{\xi}}_l = 0, \quad l=1,\ldots, L.
 \end{equation}
-Thus, in systems with continuous symmetries, to each such continuous symmetry there is an associated zero mode, i.e. a mode with $\omega_l = 0$, of the small oscillations problem.
+Thus, in systems with continuous symmetries, to each such continuous symmetry there is an associated zero mode, i.e., a mode with $\omega_l = 0$, of the small oscillations problem.
 
 \begin{remark}
 We have already seen an example of this in Section~\ref{sec:triatomic}: the normal mode $\bm{\xi}_1=(1,1,1)^T$ of the triatomic molecule is the zero mode corresponding to the invariance of the system with respect to horizontal translations.
@@ -2167,11 +2167,11 @@ into the single equation
 \begin{equation}
     m \ddot \bx = -\nabla U(\|\bx\|), \quad m = \frac{m_1m_2}{m_1+m_2}.
 \end{equation}
-These are the equations of motion of a point particle in a \emph{central} potential $U(\|\bx\|)$, i.e. with lagrangian
+These are the equations of motion of a point particle in a \emph{central} potential $U(\|\bx\|)$, i.e., with lagrangian
 \begin{equation}\label{eq:centralpot}
     L = \frac{m \|\dot\bx\|^2}{2} - U(\|\bx\|).
 \end{equation}
-After solving the equations of motion of this system with \emph{three} degrees of freedom, one can recover the dynamic of the original two bodies, i.e. a system with \emph{six} degrees of freedom, using \eqref{eq:barycoords}.
+After solving the equations of motion of this system with \emph{three} degrees of freedom, one can recover the dynamic of the original two bodies, i.e., a system with \emph{six} degrees of freedom, using \eqref{eq:barycoords}.
 \end{example}
 
 In the remainder of this section, we will study the symmetries of systems of the form \eqref{eq:centralpot} to study its dynamics.
@@ -2202,7 +2202,7 @@ Introducing polar coordinates $(r,\phi)$ in the plane \eqref{eq:planarCP}, our l
 \begin{equation}
     L = \frac{m}{2} \left(\dot r^2 + r^2 \dot \phi^2\right) - U(r),
 \end{equation}
-i.e. a system of two-degrees of freedom with a cyclic coordinate $\phi$.
+i.e., a system of two-degrees of freedom with a cyclic coordinate $\phi$.
 If we denote $z$ the component parallel to the angular momentum, the first integral corresponding to $\phi$ is
 \begin{equation}\label{eq:cyclicphi}
     \frac{\partial L}{\partial \dot \phi} = m r^2 \dot \phi = M_z.
@@ -2347,7 +2347,7 @@ Choosing $C=0$, we can rewrite the equation of the trajectory as
     r = \frac{p}{1+e\,\cos\phi}, \qquad p:=\frac{M^2}{km}, \quad e:=\sqrt{1+\frac{2EM^2}{k^2 m}},
 \end{equation}
 which is the equation of a conic section with a focus at the origin, focal parameter $p$ and eccentricity $e$, in agreement with \emph{Kepler's first law}.
-Choosing $C=0$, means that we have chosen the angle $\phi$ such that $\phi=0$ corresponds to the \emph{perihelion} of the trajectory, i.e. the closest point to the focus.
+Choosing $C=0$, means that we have chosen the angle $\phi$ such that $\phi=0$ corresponds to the \emph{perihelion} of the trajectory, i.e., the closest point to the focus.
 \medskip
 
 We can now confirm the last claim in Example~\ref{ex:Kepler0}.
@@ -2355,7 +2355,7 @@ Indeed, with some knowledge about conic sections one can conclude that \eqref{eq
 \begin{equation}
     a = \frac{p}{1-e^2}, \quad b = \frac{p}{\sqrt{1-e^2}}.
 \end{equation}
-Furthermore, when $E=0$, i.e. $e = 1$, we have a parabola and, finally, for $E>0$, i.e. $e >1$ an hyperbola.
+Furthermore, when $E=0$, i.e., $e = 1$, we have a parabola and, finally, for $E>0$, i.e., $e >1$ an hyperbola.
 
 We can also look at the time one body spends along parts of the orbit by looking at \eqref{eq:timedep}:
 \begin{equation}
@@ -2489,7 +2489,7 @@ Let's try again. Consider now a natural lagrangian \eqref{eq:mechlag}
 \begin{equation}
     L(\bx, \dot\bx) = \sum_{k=1}^N \frac{m_k \dot \|\bx_k\|^2}{2} - U(\bx_1, \ldots, \bx_N)
 \end{equation}
-whose point particles are forced to satisfy a number of \emph{holonomic constraints}, i.e. relationships between the coordinates of the form
+whose point particles are forced to satisfy a number of \emph{holonomic constraints}, i.e., relationships between the coordinates of the form
 \begin{equation}\label{eq:holonomic}
     f_1(\bx_1, \ldots,\bx_N) = 0, \;\ldots,\; f_l(\bx_1, \ldots,\bx_N) = 0
 \end{equation}
@@ -2505,7 +2505,7 @@ Hamilton's principle is then applied to curves which satisfy the relations \eqre
     \emph{D'Alembert principle} states that the evolution of a mechanical system with constraints can be seen as the evolution of a closed system in the presence of additional forces called \emph{constraint forces}.
 \end{tcolorbox}
 
-To be more precise, assume that the $l$ equations \eqref{eq:holonomic} are \emph{independent}, i.e. that they define a smooth submanifold $Q\subset M$ of the configuration space $M=\R^{3N}$ with maximal dimension $\dim Q = 3N-l$.
+To be more precise, assume that the $l$ equations \eqref{eq:holonomic} are \emph{independent}, i.e., that they define a smooth submanifold $Q\subset M$ of the configuration space $M=\R^{3N}$ with maximal dimension $\dim Q = 3N-l$.
 The tangent space $T_qQ \subset \R^{3N}$ is a linear subspace of the ambient tangent space $T_q \R^{3N}$ and its orthogonal complement is a linear subspace of dimension $l$ spanned by the gradients of the functions $f_1, \ldots, f_l$. 
 For a brief but more comprehensive discussion of this you can look at \cite[Chapter 2.8]{lectures:aom:seri}.
 
@@ -2542,7 +2542,7 @@ For a brief but more comprehensive discussion of this you can look at \cite[Chap
 \end{proof}
 
 \begin{remark}
-    The theorem above is often stated as follows: in a constrained system, the total work of the constraint forces on any virtual variations, i.e. vectors $\delta\bx$ tangent to the submanifold $Q$, is zero.
+    The theorem above is often stated as follows: in a constrained system, the total work of the constraint forces on any virtual variations, i.e., vectors $\delta\bx$ tangent to the submanifold $Q$, is zero.
     One can understand this by observing that for such tangent vectors
     \begin{equation}\label{eq:orthogonalconstraint}
         \sum_{k=1}^N \left\lag\bm{R}_k, \delta\bx_k\right\rag = 0.
@@ -2568,7 +2568,7 @@ Constrained motions have also a nice intrinsic description in terms of a mechani
 
 This can be further generalized to mechanical systems which are constrained on the tangent bundle $TM$ of a manifold $M$ of dimension $n$.
 In such case, let  $L=L(x,\dot x)$ be a non degenerate lagrangian on $TM$, and consider a smooth submanifold $Q\subset M$ of dimension $m$ with local coordinates $(q^1,\ldots,q^n)$.
-Assume that $Q$ is \emph{regular} with respect to the lagrangian, i.e. such that the restriction of $\left(\frac{\partial^2 L}{\partial \dot x^i \partial\dot x^j}\right)_{i,j=1,\ldots,m}$ to $Q$ is still non degenerate:
+Assume that $Q$ is \emph{regular} with respect to the lagrangian, i.e., such that the restriction of $\left(\frac{\partial^2 L}{\partial \dot x^i \partial\dot x^j}\right)_{i,j=1,\ldots,m}$ to $Q$ is still non degenerate:
 \begin{equation}
     \det\left(\frac{\partial^2 L}{\partial \dot x^i \partial\dot x^j}\frac{\partial x^i}{\partial q^k}\frac{\partial x^j}{\partial q^l}\right)_{k,l=1,\ldots,n} \neq 0.
 \end{equation}
@@ -2683,10 +2683,10 @@ Then \eqref{eq:hamdgex} simplifies into
 \begin{equation}
     \d g = x \d u - \frac{\partial f}{\partial y} \d y,
 \end{equation}
-i.e. $g=g(y,u)$ could be considered a function of just $y$ and $u$.
+i.e., $g=g(y,u)$ could be considered a function of just $y$ and $u$.
 Inverting $x = x(y,u)$, we could write down $g$ explicitly as
 \begin{equation}
-    g(y,u) = u x(y,u) - f(x(y, u), y).
+    g(y,u) = u\, x(y,u) - f(x(y, u), y).
 \end{equation}
 
 We have just described an operation which takes a function $f(x,y)$ to a different function $g(y,u)$ where $u = \frac{\partial f}{\partial x}$ \emph{without losing any information}: we can recover $f(x,y)$ from $g(y,u)$ by observing that
@@ -2727,6 +2727,8 @@ Poisson and Hamilton have formalized the transformation that we described in the
     where $p = (p_1, \ldots, p_n) \in T^*_q M$ is the conjugate momentum to $q$ defined via $p_i := \frac{\partial L(q,\dot q)}{\partial \dot q^i}$, $i=1,\ldots,n$.
 \end{tcolorbox}
 It follows from Exercise~\ref{exe:coordinatesInd} that the definition above does not depend on the choice of local coordinates.
+
+% TODO: add explanation in terms of fibered derivatives
 
 If it is not yet clear to you how the momenta are associated to the cotangent bundle, I promise you will not have to wait long. But if you are really impatient you could already have a look at Remark~\ref{rem:ptocot}.
 
@@ -2812,7 +2814,7 @@ We call \emph{hamiltonian system} a system of differential equations of the form
     Let's start with a simple prototypical example: a particle in $\R^3$ moving under the influence of a potential $U(\bx)$.
     We are, by now, very accustomed to the corresponding natural lagrangian
     \begin{equation}
-        L(\bx,\dot \bx) = \frac{\dot \bx^2}{2m} - U(\bx).
+        L(\bx,\dot \bx) = \frac{m \dot \bx^2}{2} - U(\bx).
     \end{equation}
     In this case
     \begin{equation}
@@ -2822,7 +2824,7 @@ We call \emph{hamiltonian system} a system of differential equations of the form
 
     The hamiltonian is then given by
     \begin{equation}
-        H(\bp,\bx) = (\bp, \dot\bx) - L = \frac {m\bp^2}2 + U(\bx),
+        H(\bp,\bx) = \langle\bp, \dot\bx\rangle - L = \frac {\bp^2}{2m} + U(\bx),
     \end{equation}
     which should remind you of Theorem~\ref{thm:ham1}.
     Hamilton's equation are then simply
@@ -2847,7 +2849,7 @@ Recall that
 \begin{equation}
     \d s^2 = g_{ij}(q)\d q^i \d q^j.
 \end{equation}
-Denote $(g^{ij}(q))$ the inverse of the metric matrix $(g_{ij}(q))$, i.e. the matrix such that $g_{ik}(q)g_{kj}(q) = \delta^i_j$ for all $i,j=1,\ldots,n$.
+Denote $(g^{ij}(q))$ the inverse of the metric matrix $(g_{ij}(q))$, i.e., the matrix such that $g^{ik}(q)g_{kj}(q) = \delta^i_j$ for all $i,j=1,\ldots,n$.
 
 The Legendre transform of $L$ is, then, the hamiltonian
 \begin{equation}
@@ -2878,32 +2880,34 @@ the geodesics are the projections of the integral curves of the (co)geodesic flo
     Show that a simple substitution allows to recover Euler-Lagrange equations of Exercise~\ref{exe:geodesic1}, which gives the geodesic flow on the tangent bundle $TM$.
 \end{exercise}
 
-As we know that the hamiltonian is the total energy of the system and that the total energy is conserved, this immediately implies that $g_{ij}(q) \dot q^i \dot q^j = (\dot q, \dot q) = \mathrm{const}$. Which is one of our previous exercises.
+As we know that the hamiltonian is the total energy of the system and that the total energy is conserved, this immediately implies that $g_{ij}(q) \dot q^i \dot q^j = \langle\dot q, \dot q\rangle_g = \mathrm{const}$.
+Which was one of our previous exercises.
 \end{example}
 
 \begin{remark}\label{rem:ptocot}
 The previous example provides a good opportunity to discuss the nature of the momentum.
 Let $(M, g)$ be a riemannian manifold.
-The riemannian metric, or riemannian metric tensor, is a bilinear form $(\cdot, \cdot)$ on the tangent spaces of $M$.
+The riemannian metric, or riemannian metric tensor, is a bilinear form $\langle\cdot, \cdot\rangle_g$ on the tangent spaces of $M$.
 In local coordinates $q\in M$, we can associate to the metric a matrix $g_{ij}(q)$.
 With an abuse of notation, we say that $g_{ij}(q)$ is a $(0,2)$-tensor.
 
 Every $(0,2)$-tensor $g_{ij}(q)$ canonically defines a map
 \begin{equation}
-    \hat g: TM \to T^*M, \qquad T_q M \ni v \mapsto \hat g_q(v) := p := (v, \cdot) \in T^*_q M.
+    \hat g: TM \to T^*M, \qquad T_q M \ni v \mapsto \hat g_q(v) := p := \langle v, \cdot\rangle_g \in T^*_q M.
 \end{equation}
 Such tensor is called \emph{non--degenerate} if the map $T_qM \to T_q^* M$ is an isomorphism for all $q\in M$.
-Such isomorphism allows one to identify tangent and cotangent spaces and, in particular, to define a dual bilinear form $(\cdot, \cdot)^*$ on $T^*M$ using the original form on $TM$:
+Such isomorphism allows one to identify tangent and cotangent spaces and, in particular, to define a dual bilinear form $\langle\cdot, \cdot\rangle_g^*$ on $T^*M$ using the original form on $TM$:
 \begin{equation}
-    (w_1, w_2)^* = (\hat g_q^{-1} w_1, \hat g_q^{-1} w_2), \quad w_1,w_2 \in T^*_q M.
+    \langle w_1, w_2\rangle_g^* = \langle\hat g_q^{-1} w_1, \hat g_q^{-1} w_2\rangle_g, \quad w_1,w_2 \in T^*_q M.
 \end{equation}
 The matrix of this dual form coincides with the inverse of the metric matrix:
 \begin{equation}
-    (\d q^i, \d q^j)^* = g^{ij}(q).
+    \langle\d q^i, \d q^j\rangle_g^* = g^{ij}(q).
 \end{equation}
 Which, in more algebraic terms and with the same abuse of notation, means that the inverse matrix $(g^{ij}(q))$ is a $(2,0)$-tensor.
 
-The isomorphisms between the tangent and cotangent spaces defined above are what is commonly known as \emph{musical isomorphism}: the \emph{flat} and \emph{sharp} maps respectively correspond to the mapping $\beta:TM\to T^*M$ and $\sharp:T^*M\to TM$ such that $v^\beta(w) = (v,w)$ and $(p^\sharp, v) = p(v)$. See also \cite[Chapter 11]{book:lee}.
+The isomorphisms between the tangent and cotangent spaces defined above are what is commonly known as \emph{musical isomorphism}: the \emph{flat} and \emph{sharp} maps respectively correspond to the mapping $\beta:TM\to T^*M$ and $\sharp:T^*M\to TM$ such that $v^\beta(w) = \langle v,w\rangle_g$ and $\langle p^\sharp, v\rangle = p(v)$.
+See also \cite[Chapter 11]{book:lee} or \cite[Example 6.1.9]{lectures:aom:seri}.
 \end{remark}
 
 \begin{example}
@@ -2959,7 +2963,7 @@ The isomorphisms between the tangent and cotangent spaces defined above are what
 We saw the Lagrangian for charged particles in an electromagnetic field in Example~\ref{exa:magnetic} and in Exercise~\ref{exe:magnetic}.
 In the simpler case of a single particle, the lagrangian takes the form 
 \begin{equation}
-    L(\bx,\dot \bx) = \frac{m \dot{\bx}^2}{2} - U(\bx) + \frac ec (\bm A(\bx), \dot \bx).
+    L(\bx,\dot \bx) = \frac{m \dot{\bx}^2}{2} - U(\bx) + \frac ec \langle\bm A(\bx), \dot \bx\rangle.
 \end{equation}
 The conjugate momentum to the position is then given by
 \begin{equation}\label{eq:magMom}
@@ -2973,20 +2977,20 @@ Inverting \eqref{eq:magMom}, we get
 \end{equation}
 so the hamiltonian is
 \begin{align}
-    H(\bx, \bp) &= (\bp, \dot\bx) - L \\
-    &= \frac1m\ \left( \bp, \bp - \frac{e}{c}\bm A(\bx)\right) -
-        \frac1{2m}\left(\bp - \frac{e}{c}\bm A(\bx)\right)^2 \\
+    H(\bx, \bp) &= \langle\bp, \dot\bx\rangle - L \\
+    &= \frac1m\ \left\langle \bp, \bp - \frac{e}{c}\bm A(\bx)\right\rangle -
+        \frac1{2m}\left\|\bp - \frac{e}{c}\bm A(\bx)\right\|^2 \\
         &\quad + U(\bx)
-        - \frac e{mc} \left(\bm A(\bx), \bp - \frac{e}{c}\bm A(\bx)\right)
+        - \frac e{mc} \left\langle\bm A(\bx), \bp - \frac{e}{c}\bm A(\bx)\right\rangle
         \\
-    &= \frac1{2m}\left(\bp - \frac{e}{c}\bm A(\bx)\right)^2 + U(\bx).
+    &= \frac1{2m}\left\|\bp - \frac{e}{c}\bm A(\bx)\right\|^2 + U(\bx).
 \end{align}
 The corresponding Hamilton's equation read
 \begin{equation}
     \left\lbrace
     \begin{aligned}
-        \dot \bx_i &= \frac{\partial H}{\partial \bp_i} = \frac1m \left(\bp_i - \frac{e}{c}(\bm A(\bx))^i\right)\\
-        \dot \bp_i &= -\frac{\partial H}{\partial \bx_i} = -\frac{\partial U(\bx)}{\partial \bx_i} + \frac{e}{mc} \left(\bp_j - \frac{e}{c}(\bm A(\bx))^j\right)\frac{\partial (\bm A(\bx))^j}{\partial \bx_i}
+        \dot \bx^i &= \frac{\partial H}{\partial \bp_i} = \frac1m \left(\bp_i - \frac{e}{c}(\bm A(\bx))^i\right)\\
+        \dot \bp_i &= -\frac{\partial H}{\partial \bx^i} = -\frac{\partial U(\bx)}{\partial \bx^i} + \frac{e}{mc} \left(\bp_j - \frac{e}{c}(\bm A(\bx))^j\right)\frac{\partial (\bm A(\bx))^j}{\partial \bx^i}
     \end{aligned}
     \right.
 \end{equation}
@@ -3059,7 +3063,8 @@ Finally, observe from the first equation in \eqref{eq:magHeq} that $x$ being a c
     \begin{equation}
         L(q,\dot q) = (\dot q, p(\dot q)) - H(q, p(\dot q)) = -mc^2 \sqrt{1-\frac{\dot q^2}{c^2}}
     \end{equation}
-    is not defined on the whole $\R^3\times\R^3$! This is because the hamiltonian is degenerate: as you can check computing the determinant of the matrix $\frac{\partial^2 H}{\partial p^2}$.
+    is not defined on the whole $\R^3\times\R^3$!
+    % This is because the hamiltonian is degenerate: as you can check computing the determinant of the matrix $\frac{\partial^2 H}{\partial p^2}$.
 \end{example}
 
 \section{Poisson brackets and first integrals of motion}\label{sec:poisson}
@@ -3119,7 +3124,7 @@ One crucial property of the Poisson bracket is enunciated by the following theor
 
 \begin{theorem}\label{thm:poissondtdF}
     Let $H=H(q,p)$ be the hamiltonian of an hamiltonian system \eqref{eq:Hamsys} and $F=F(q,p)\in\cC^\infty(T^*M)$.
-    Then,
+    Then, along the flow $(q(t), p(t))$ of $H$, we have
     \begin{equation}
         \frac{\d}{\d t} F = \frac{\partial F}{\partial q^i} \dot q^i + \frac{\partial F}{\partial p_i} \dot p_i = \big\{F,H\big\}.
     \end{equation}
@@ -3141,7 +3146,7 @@ This corollary implies some further interesting corollaries.
 \end{corollary}
 \begin{proof}
     By the previous corollary $\big\{F,H\big\} = \big\{G,H\big\} = 0$.
-    Jacobi identity then implies that $\big\{\big\{F,G\big\},H\big\} = 0$, i.e. $\big\{F,G\big\}$ is a first integral of $H$.
+    Jacobi identity then implies that $\big\{\big\{F,G\big\},H\big\} = 0$, i.e., $\big\{F,G\big\}$ is a first integral of $H$.
 \end{proof}
 
 \begin{corollary}
@@ -3180,7 +3185,7 @@ In fact, we can reformulate this corollary as follows.
     \end{equation}
     and the hamiltonian system \eqref{eq:Hamsys} can be rewritten as
     \begin{equation}
-        \dot x^k = J^{kl} \frac{\partial g}{\partial x^l}, \qquad k=1,\ldots,2n,
+        \dot x^k = J^{kl} \frac{\partial H}{\partial x^l}, \qquad k=1,\ldots,2n,
     \end{equation}
     or, more compactly,
     \begin{equation}\label{eq:hamsysJ}
@@ -3194,15 +3199,14 @@ Let $L=L(q,\dot q,t): TM\times\R\to\R$, $q=(q^1,\ldots,q^n)\in M$, be the time-d
 Also in this case we can arrive to canonical equations of the form \eqref{eq:Hamsys}, however these will be on the extended space $T^*M\times\R^2$. The local coordinates $(q^1,\ldots,q^n, p_1, \ldots,p_n, q^{n+1}, p_{n+1})$ on $T^*M\times\R^2$ are such that $q^i, p_i$ remain the same for $i\leq n$,
 \begin{equation}
     q^{n+1} = t, \quad\mbox{and}\quad
-    p_{n+1} = -E,
+    p_{n+1} = E,
 \end{equation}
-where $E$ is a new independent variable.
-The hamiltonian then becomes
+where $E$ is a new independent variable, and the new hamiltonian is
 \begin{align}
-    \hat H &= H(q^1, \ldots, q^n, p_1, \ldots, p_n) + p_{n+1}\dot q^{n+1} \\
-    &= H(q^1, \ldots, q^n, p_1, \ldots, p_n) - E
+    \hat H &= H(q^1, \ldots, q^n, p_1, \ldots, p_n, t) - p_{n+1}\dot q^{n+1} \\
+    &= H(q^1, \ldots, q^n, p_1, \ldots, p_n, t) - E.
 \end{align}
-where $H$ is given by the usual formula
+Here, $H$ is given by the usual formula
 \begin{equation}
     H = \sum_{i=1}^n p_i \dot q^i - L(q, \dot q, t), \quad \dot q^i = \dot q^i(q,p,t).
 \end{equation}
@@ -3212,16 +3216,16 @@ The corresponding hamiltonian system is
     & \dot q^i = \frac{\partial \hat H}{\partial p_i}, \quad 
       \dot p_i = -\frac{\partial \hat H}{\partial q^i}, \quad
       i=1,\ldots,n\\
-    & \dot t = \frac{\partial \hat H}{\partial (-E)} = 1, \quad {(-\dot E)} = -\frac{\partial \hat H}{\partial t}.
+    & \dot t = \frac{\partial \hat H}{\partial (E)} = 1, \quad {(\dot E)} = -\frac{\partial \hat H}{\partial t}.
 \end{align}
-The first $2n$ equations above are equivalent to the Euler-Lagrange equations for $L$ and the equation for $q^{n+1} = t$ tells us that $t$ is the same as in the original lagrangian and the final equation is simply the variation of the energy
+The first $2n$ equations above are equivalent to the Euler-Lagrange equations for $L$, the equation for $q^{n+1} = t$ tells us that $t$ is the same as in the original lagrangian and the final equation is simply the variation of the energy
 \begin{equation}
     \dot E = \frac{\partial H}{\partial t}.
 \end{equation}
-which is the additional equation appearing 
-If we restrict ourselves to the levelset $H - E = \hat H = 0$, then $E$ needs to satisfy the additional equation for the energy
+
+If we restrict ourselves to the zero levelset $\hat H = H - E = 0$, then the hamiltonian system is equivalent to the Euler-Lagrange equations for $L$ and the equation
 \begin{equation}
-    E = H = \sum_{i=1}^n p_i \dot q^i - L(q, \dot q, t),
+    E = \sum_{i=1}^n p_i \dot q^i - L(q, \dot q, t),
 \end{equation}
 which completes the recovering of the original dynamics.
 
@@ -3393,23 +3397,23 @@ Let's try to clarify this with some important examples.
 \begin{example}[Fermat principle and geometric optics]
     Propagation of light in an isotropic medium is described by the hamiltonian
     \begin{equation}
-        H(\bx, \bp) = c(\bx) |\bp|,
+        H(\bx, \bp) = c(\bx) \|\bp\|,
     \end{equation}
     where $c(\bx) > 0$ gives the speed of light at the point $\bx$.
-    
+    %
     Using the procedure described above, one arrives at
     \begin{equation}
-        \dot \bx = c(\bx)\frac{\bp}{|\bp|}, \quad
-        |\bp| = \frac{E}{c(\bx)},
+        \dot \bx = c(\bx)\frac{\bp}{\|\bp\|}, \quad
+        \|\bp\| = \frac{E}{c(\bx)},
     \end{equation}
     which imply
     \begin{equation}
-        (\bp, \d\bx) = |\bp||\d \bx| = \frac{E}{c(\bx)}|\d\bx|.
+        \langle\bp, \d\bx\rangle = \|\bp\|\|\d \bx\| = \frac{E}{c(\bx)}\|\d\bx\|.
     \end{equation}
 
     For the action \eqref{eq:variationalMaupertuis} we end up with
     \begin{equation}
-        S_0 = E \int_{\bx_1}^{\bx_2} \frac{|\d\bx|}{c(\bx)},
+        S_0 = E \int_{\bx_1}^{\bx_2} \frac{\|\d\bx\|}{c(\bx)},
     \end{equation}
     which is $E$ multiplied by the time of propagation of light between the points $\bx_1$ and $\bx_2$.
 
@@ -3427,7 +3431,7 @@ Let's try to clarify this with some important examples.
     \end{theorem}
 
     You can see how this is used to study mirages in \cite[Example 8.34]{book:knauf}.
-    For a nice account of geometric optics refer to \cite[Chapter 8.7]{book:knauf}, while if you ar interested in an historical perspective \cite{book:broer}.
+    For a nice account of geometric optics refer to \cite[Chapter 8.7]{book:knauf}, an interesting historical take is presented in \cite{book:broer}.
 \end{example}
 
 \section{Canonical transformations}
@@ -3450,14 +3454,14 @@ In the coordinates $x=(x^1, \ldots, x^{2n})$ on $T^*M$ defined in Section~\ref{s
 \begin{equation}
     x(x^1,\ldots,x^{2n}) \mapsto \Phi(x) = \left(\Phi^1(x), \ldots, \Phi^{2n}(x)\right),
 \end{equation}
-and \eqref{eq:automorphism} takes the form
+and \eqref{eq:automorphism} takes the form (\textbf{exercise})
 \begin{equation}\label{eq:cantrafocoord}
     \frac{\partial\Phi^k(x)}{\partial x^i} J^{ij} \frac{\partial\Phi^l(x)}{\partial x^j} = J^{kl},\quad k,l=1,\ldots,2n.
 \end{equation}
 
 \begin{example}
     The transformation $\Phi: (q,p) \mapsto (p, -q)$ is a canonical transformation.
-
+    %
     To show it, it is enough to verify how the Poisson bracket acts on the coordinate functions. Let, as usual, \begin{equation}
         x=(x^1, \ldots,x^{2n})=(q^1,\ldots,q^n,p_1,\ldots,p_n)
     \end{equation}
@@ -3469,7 +3473,7 @@ and \eqref{eq:automorphism} takes the form
         &\big\{Q^i, P_j\big\} = \big\{p_i, -q^j\big\} = \big\{q^j, p_i\big\} = \delta^j_i
     \end{align}
     for any $i,j=1,\ldots,n$.
-    If $\widetilde x = (\widetilde x^1, \ldots, \widetilde x^{2n})= (Q^1, \ldots, Q^n, P_1,\ldots,P_n)$, the above can be rewritten as $\big\{x^i, x^j\big\} = J^{ij} = \big\{\widetilde x^i, \widetilde x^j\big\} = \Phi^* \big\{x^i, x^j\big\}$.
+    If $\widetilde x = (\widetilde x^1, \ldots, \widetilde x^{2n})= (Q^1, \ldots, Q^n, P_1,\ldots,P_n)$, the above can be rewritten as $\Phi^*\big\{x^i, x^j\big\} = \Phi^* J^{ij} = J^{ij} = \big\{\widetilde x^i, \widetilde x^j\big\} = \big\{\Phi^* x^i, \Phi^* x^j\big\}$.
 \end{example}
 
 \begin{example}\label{ex:hamlift1}
@@ -3483,8 +3487,8 @@ and \eqref{eq:automorphism} takes the form
         &Q = \phi(q),\\ 
         &\phi^* P = p, \qquad (\phi^* P)_i = \frac{\partial \phi^j(q)}{\partial q^i} P_j.
     \end{align}
-    Here we are abusing slightly the notation, it is more conventional to write $p = (\d\phi_{x_1})^* P$.
-    For a more detailed account, you can have a look at \cite[Chapter 6.3 and in particular formula (6.3.4)]{book:marsdenratiu}.
+    Here we are abusing slightly the notation, it is more conventional to write $p = (\d\phi_{q})^* P$.
+    For a more detailed account, you can have a look at \cite[Chapter 6.3 and in particular formula (6.3.4)]{book:marsdenratiu} or \cite[Proposition 6.2.8]{lectures:aom:seri}.
 \end{example}
 
 \begin{exercise}
@@ -3493,12 +3497,11 @@ and \eqref{eq:automorphism} takes the form
         x \mapsto A x,
     \end{equation}
     were $A$ is a $2n\times2n$ matrix.
-    Show that the transformation is canonical if and only if $A$ satisfies the following equation
+    Show that the transformation is canonical if and only if $A$ satisfies the identity
     \begin{equation}
-        A G A^T = G, \quad G=\begin{pmatrix}
-            0&\Id\\-\Id&0
-        \end{pmatrix}.
+        A J A^T = J,
     \end{equation}
+    where $J$ is the symplectic matrix.
 \end{exercise}
 
 The following theorem should clarify why canonical transformations are important for us.
@@ -3511,7 +3514,7 @@ The following theorem should clarify why canonical transformations are important
     \begin{equation}
         \frac{\d}{\d t} f(x) = \big\{f(x), H(x)\big\}\Big|_{x=x(t)}.
     \end{equation}
-    Which for $f(\widetilde x(t)) = \Phi^* f(x(t))$, reduces to
+    Which for $f(\widetilde x(t)) = f(\Phi(x(t))) = \Phi^* f(x(t))$, reduces to
     \begin{equation}
         \frac{\d}{\d t} f(\widetilde x(t)) = \big\{f(\Phi(x)), H(x)\big\}.
     \end{equation}
@@ -3534,7 +3537,7 @@ To investigate in more details the connections between canonical transformations
 In the rest of this section we will show that hamiltonian flows can be associated to hamiltonian vector fields which define one--parameter groups of canonical transformations. These will allow us to define hamiltonian symmetries and state the hamiltonian version of Noether theorem.
 
 \begin{tcolorbox}
-    A vector field $X$ on the manifold $T^* M$ is called ab \emph{infinitesimal symmetry} of the Poisson bracket if for any two functions $f,g \in \cC^\infty(T^*M)$ it holds
+    A vector field $X$ on the manifold $T^* M$ is called an \emph{infinitesimal symmetry} of the Poisson bracket if for any two functions $f,g \in \cC^\infty(T^*M)$ it holds
     \begin{equation}\label{eq:infsymm}
         X\big\{f,g\big\} = \big\{X f, g\big\} + \big\{f, X g\big\}.
     \end{equation}
@@ -3556,7 +3559,7 @@ Given a function $H$ on $T^* M$, Leibnitz rule for the Poisson bracket \eqref{eq
     f \mapsto \big\{f,H\big\}, \quad f\in\cC^\infty(T^*M),
 \end{equation}
 is a first-order differential operator.
-Using the identification between derivations, i.e. first-order differential operators, and vector fields we can associate to the operator \eqref{eq:Hambrace} a vector field $X_H$ such that
+Using the identification between derivations, i.e., first-order differential operators, and vector fields we can associate to the operator \eqref{eq:Hambrace} a vector field $X_H$ such that
 \begin{equation}
     X_H f = \big\{f, H\big\}.
 \end{equation}
@@ -3577,33 +3580,35 @@ In the coordinates $x = (x^1, \ldots, x^{2n})$ on $T^*M$, the field has the comp
     \end{equation}     
 \end{remark}
 
-We have constructed a mapping of the space of smooth functions on $T^*M$ into the space of smooth vector fields on it
+We have constructed a mapping of the space of smooth functions on $T^*M$ into the space $\mathrm{Vec(T^* M)}$ of smooth vector fields on it
 \begin{equation}\label{eq:antimapping}
     \cC^\infty (T^*M) \to \mathrm{Vec(T^* M)}, \quad H \mapsto X_H.
 \end{equation}
-The Lie bracket \cite{book:lee},
+
+The Lie bracket of vector fields on a smooth manifold $N$ \cite{book:lee},
 \begin{equation}
-    [X,Y] f := X(Y f) - Y(X f), \qquad f\in\cC^\infty(M), \quad X,Y\in\mathrm{Vec}(M),
+    [X,Y] f := X(Y f) - Y(X f), \qquad f\in\cC^\infty(N), \quad X,Y\in\mathrm{Vec}(N),
 \end{equation}
-defines a natural Lie algebra structure on the space of vector fields, so it seems reasonable to ask if and how this relates to Poisson bracket.
+defines on $\mathrm{Vec}(N)$ a natural Lie algebra structure.
+In our case, $N = T^* M$ and it seems perfectly reasonable to ask if and how this bracket can be related to Poisson bracket.
 Jacobi identity comes to the rescue, leading to the following beautiful relation.
 
 \begin{theorem}\label{thm:antihom}
-    The mapping \eqref{eq:antimapping} in an \emph{anti-homomorphism} of Lie algebras, i.e. for any two functions $H_1$ and $H_2$ on $T^*M$, 
+    The mapping \eqref{eq:antimapping} in an \emph{anti-homomorphism} of Lie algebras, i.e., for any two functions $F$ and $G$ on $T^*M$, 
     \begin{equation}
-        [X_{H_1}, X_{H_2}] = - X_{\big\{H_1, H_2\big\}}.
+        [X_{F}, X_{G}] = - X_{\big\{F, G\big\}}.
     \end{equation}
 \end{theorem}
 \begin{proof}
     By definition of Lie bracket and of hamiltonian vector field, we have
     \begin{align}
-        [X_{H_1}, X_{H_2}] &= X_{H_1}(X_{H_2} f) - X_{H_2}(X_{H_1} f) \\
-        &= \big\{\big\{f, H_2\big\}, H_1\big\} - \big\{\big\{f, H_1\big\}, H_2\big\}.
+        [X_{F}, X_{G}] &= X_{F}(X_{G} f) - X_{G}(X_{F} f) \\
+        &= \big\{\big\{f, G\big\}, F\big\} - \big\{\big\{f, F\big\}, G\big\}.
     \end{align}
     Jacobi identity \eqref{eq:JacobiId} then gives
     \begin{align}
-        \big\{\big\{f, H_2\big\}, H_1\big\} - \big\{\big\{f, H_1\big\}, H_2\big\} &= - \big\{f,\big\{H_1,H_2\big\}\big\} \\
-        &= - X_{\big\{H_1, H_2\big\}} f.
+        \big\{\big\{f, G\big\}, F\big\} - \big\{\big\{f, F\big\}, G\big\} &= - \big\{f,\big\{F,G\big\}\big\} \\
+        &= - X_{\big\{F, G\big\}} f.
     \end{align}
 \end{proof}
 
@@ -3676,7 +3681,7 @@ Even though we only proved the local existence of the hamiltonian generator ther
     \end{equation}
     Show that the hamiltonian generator of the canonical transformations $\Phi_t$ depends linearly on the coordinates $p_1, \ldots, p_n$ and is given by the following formula
     \begin{align}
-        & H(q,p) = (p, X(q)) = p_i X^i(q) \label{eq:linhamp}\\
+        & H(q,p) = \langle p, X(q) \rangle = p_i X^i(q), \label{eq:linhamp}\\
         & X(q) = (X^1(q), \ldots, X^n(q)), \quad X(q) = \frac{\d}{\d t} \phi_t(q)\Big|_{t=0}.
     \end{align}
 \end{exercise}
@@ -3713,18 +3718,14 @@ We can finally state the hamiltonian counterpart of Noether theorem.
 The first part of the proof follows from Theorem~\ref{thm:vf-infsym} and the following corollary of Theorem~\ref{thm:antihom}.
 
 \begin{corollary}[of Theorem~\ref{thm:antihom}]
-    Given two hamiltonians $H$, $F$ in involution, i.e. $[H,F]=0$, then the two hamiltonian systems
+    Let $H, F \in \cC^\infty(T^*M)$ be two hamiltonian functions in involution, i.e., $\{H,F\}=0$.
+    Then, their flows, respectively denoted here by $\Phi_t^H$ and $\Phi_s^F$, commute:
     \begin{equation}
-        \frac{\d}{\d t} x = \big\{x, H\big\} \qquad\mbox{and}\qquad \frac{\d}{\d s} x = \big\{x, F\big\}
+        \Phi_t^H \circ \Phi_s^F = \Phi_s^F \circ \Phi_t^H.
     \end{equation}
-    commute:
-    \begin{equation}
-        \frac{\d}{\d s}\frac{\d}{\d t} x = \frac{\d}{\d t} \frac{\d}{\d s} x.
-    \end{equation}
-    Here we denoted $x$ any local coordinate on $T^*M$.
 \end{corollary}
 
-For the second part of the theorem, it is enough to observe that the hamiltonian generator of the group constructed in the second part of the proof of Theorem~\ref{thm:vf-infsym} commutes with the hamiltonian, i.e. it is a first integral.
+For the second part of the theorem, it is enough to observe that the hamiltonian generator of the group constructed in the second part of the proof of Theorem~\ref{thm:vf-infsym} commutes with the hamiltonian, i.e., it is a first integral.
 \end{proof}
 
 \begin{example}
@@ -3995,8 +3996,8 @@ We call the map $\Phi^*$ the \emph{pullback} of $\theta$.
 
 The pullback of differential forms has two properties which make it rather useful:
 \begin{enumerate}
-    \item it is compatible with the exterior product, i.e. if $\theta_1$ and $\theta_2$ are differential forms on $M$, then $\Phi^{*}(\theta_1 \wedge \theta_2) = \Phi^{*}\theta_1 \wedge \Phi^{*}\theta_2$;
-    \item it is compatible with the exterior derivative, i.e. if $\theta$ is a differential form on $M$, then $\Phi^{*}(\d\theta) = \d(\Phi^{*}\theta)$
+    \item it is compatible with the exterior product, i.e., if $\theta_1$ and $\theta_2$ are differential forms on $M$, then $\Phi^{*}(\theta_1 \wedge \theta_2) = \Phi^{*}\theta_1 \wedge \Phi^{*}\theta_2$;
+    \item it is compatible with the exterior derivative, i.e., if $\theta$ is a differential form on $M$, then $\Phi^{*}(\d\theta) = \d(\Phi^{*}\theta)$
 \end{enumerate}
 
 \begin{tcolorbox}
@@ -4176,7 +4177,7 @@ Here we will present a very hands-on proof, on the line of \cite[Problem 22-19]{
     \begin{equation}
         X_{p_1} = \frac{\partial}{\partial q^1},
     \end{equation}
-    i.e. $X_{p_1}$ generates translations in the coordinate $q^1$.
+    i.e., $X_{p_1}$ generates translations in the coordinate $q^1$.
     Being $X_{p_1} p_1 = 0$, the function $p_1$ cannot depend on $q^1$ in these new local coordinates, thus we can instead choose the local system of coordinates $(q^1, p_1, y^1, \ldots, y^{n-2})$.
     Furthermore, $X_{p_1} q^1 = 1$ implies that
     \begin{equation}
@@ -4266,7 +4267,7 @@ To start with, let's prove the following lemma.
         &=
         (1-\delta_i^j) \d p_i \wedge \d q^i \wedge \d p_j \wedge \d q^j,
     \end{align}
-    i.e. only the terms with different indices survive.
+    i.e., only the terms with different indices survive.
     Therefore, in the exterior product of $n$ copies of the two form $\omega = \d p_1 \wedge \d q^1 + \cdot + \d p_n \wedge \d q^n$, there are $n!$ terms surviving, all equal to $\d p_1 \wedge \d q^1 \wedge \cdots \wedge \d p_n \wedge \d q^n$.
 \end{proof}
 
@@ -4326,7 +4327,7 @@ Integrable systems will be central to our study of perturbation theory and play 
 \section{Lagrangian submanifolds}
 
 \begin{tcolorbox}
-    We call \emph{lagrangian} any submanifold $\Lambda \subset T^*M$, $\dim M = n$, if $\dim \Lambda = n$ and the symplectic two--form $\omega$ vanishes on the corresponding tangent subbundle, i.e. $\omega(u,v) = 0$ for all $u,v \in T\Lambda$.
+    We call \emph{lagrangian} any submanifold $\Lambda \subset T^*M$, $\dim M = n$, if $\dim \Lambda = n$ and the symplectic two--form $\omega$ vanishes on the corresponding tangent subbundle, i.e., $\omega(u,v) = 0$ for all $u,v \in T\Lambda$.
 \end{tcolorbox}
 
 As we will see by the end of this section, lagrangian submanifold have a crucial property: if a trajectory of the hamiltonian intersects one of them, then it is fully contained in it.
@@ -4346,7 +4347,7 @@ such that the $2n\times n$ matrix $\left(\frac{\partial f_i}{\partial q^j}, \fra
     \end{equation}
 \end{theorem}
 \begin{proof}
-    Let $X_{f_i}$ be the vector fields generated by the $f_i$, i.e. $\omega(X_{f_i}, \cdot)=-\d f_i$. The derivative of $f_i$ in the direction of $X_{f_j}$ is given by
+    Let $X_{f_i}$ be the vector fields generated by the $f_i$, i.e., $\omega(X_{f_i}, \cdot)=-\d f_i$. The derivative of $f_i$ in the direction of $X_{f_j}$ is given by
     \begin{equation}
         X_{f_j}f_i = \big\{f_i,f_j\big\}.
     \end{equation}
@@ -4463,9 +4464,9 @@ We will start by recalling a few of our previous results.
 
 Let $M$, as usual, be a smooth manifold of dimension $n$.
 %
-If $T^*M$ is endowed with a Poisson bracket structure, we saw that a diffeomorphism $\Phi:T^*M\to T^*M$ is a canonical transformation if its pullback $\Phi^*:\cC^\infty(T^*M)\to\cC^\infty(T^*M)$ is an automorphism of the Lie algebra, i.e. $\Phi^*\big\{f,g\big\} = \big\{\Phi^* f, \Phi^* g\big\}$, see \eqref{eq:automorphism}.
+If $T^*M$ is endowed with a Poisson bracket structure, we saw that a diffeomorphism $\Phi:T^*M\to T^*M$ is a canonical transformation if its pullback $\Phi^*:\cC^\infty(T^*M)\to\cC^\infty(T^*M)$ is an automorphism of the Lie algebra, i.e., $\Phi^*\big\{f,g\big\} = \big\{\Phi^* f, \Phi^* g\big\}$, see \eqref{eq:automorphism}.
 
-Moreover, we know from Theorem~\ref{thm:ctiffs} that any canonical transformation $\Phi:T^*M\to T^*M$ of a symplectic manifold $(T^*M,\omega)$ is a symplectomorphism, i.e. $\Phi^* \omega = \omega$.
+Moreover, we know from Theorem~\ref{thm:ctiffs} that any canonical transformation $\Phi:T^*M\to T^*M$ of a symplectic manifold $(T^*M,\omega)$ is a symplectomorphism, i.e., $\Phi^* \omega = \omega$.
 
 We have also seen that a hamiltonian $H(q,p)$ with canonical coordinates $(q,p)$ on $T^*M$ gives rise to the hamiltonian system
 \begin{equation}
@@ -4504,7 +4505,7 @@ The starting point for the construction of the generating function is Theorem~\r
 
 \subsection{The generating function $S_1$}
 
-Assume, now, that the $2n$ functions $(q^i, Q^i)$ are independent, i.e. they define a system of coordinates on the manifold $T^*M$. Recall that this is possible if the Jacobian determinant of the change of variable is non--zero, i.e.
+Assume, now, that the $2n$ functions $(q^i, Q^i)$ are independent, i.e., they define a system of coordinates on the manifold $T^*M$. Recall that this is possible if the Jacobian determinant of the change of variable is non--zero, i.e.
 \begin{equation}
     \det\left(\frac{\partial(q,Q)}{\partial(q,p)}\right) = \det\left(\frac{\partial Q}{\partial p} \right)\neq 0.
 \end{equation}
@@ -4638,7 +4639,7 @@ These can be used to define a third common family of generating functions.
 
 \begin{theorem}
     Let $\Phi:T^*M \to T^* M$ be the canonical transformation defined by the functions $P(q,p)$ and $Q(q,p)$.
-    Then, in a neighborhood of a point $(q_0, p_0)$ it is possible to choose one of the $2^n$ collections of functions $(q, Q^{\bm j}, P_{\bm i})$ from \eqref{eq:PQcollection} as independent coordinates, i.e. such that
+    Then, in a neighborhood of a point $(q_0, p_0)$ it is possible to choose one of the $2^n$ collections of functions $(q, Q^{\bm j}, P_{\bm i})$ from \eqref{eq:PQcollection} as independent coordinates, i.e., such that
     \begin{equation}\label{eq:choiceofcoordsS3}
         \det\left(\frac{\partial (q, Q^{\bm j}, P_{\bm i})}{\partial(q,p)}\right) \neq 0.
     \end{equation}
@@ -4685,7 +4686,7 @@ These can be used to define a third common family of generating functions.
 
 There is one more important family of transformations, that extends the $S_2$ mentioned above and will allow us to discuss infinitesimal canonical transformations.
 
-Suppose that we have a family of transformations depending on a parameter $\epsilon$ and reducing to the identity for $\epsilon = 0$, i.e. for $\epsilon \in (-\epsilon_0, \epsilon_0)$,
+Suppose that we have a family of transformations depending on a parameter $\epsilon$ and reducing to the identity for $\epsilon = 0$, i.e., for $\epsilon \in (-\epsilon_0, \epsilon_0)$,
 \begin{equation}\label{eq:infcantraf}
     P_i = p_i + \epsilon h_i(q,p;\epsilon) \quad\mbox{and}\quad
     Q^i = q^i + \epsilon g^i(q,p; \epsilon),
@@ -4944,7 +4945,7 @@ Then, we obtain the variables $(q,p)$ from $S_0(q,b)$ using the relation
 \end{align}
 Under suitable assumptions on $S_0$, these can be solved to get $q^i = q^i(a,b,t)$. With $q$ out of the way, we can then get the conjugate momenta from $p_i = \frac{\partial S_0(q,b)}{\partial q^i}$.
 
-The \emph{Jacobi method} generalizes the approach above by assuming that the coordinate transformation generated by $S_0(q,b)$ maps $H(q,p)$ to $K = K(P)$, i.e. the coordinates $Q$ are cyclic.
+The \emph{Jacobi method} generalizes the approach above by assuming that the coordinate transformation generated by $S_0(q,b)$ maps $H(q,p)$ to $K = K(P)$, i.e., the coordinates $Q$ are cyclic.
 The integration of the motion in the coordinates $(Q,P)$, then, becomes
 \begin{equation}\label{eq:JacobiM}
     P_i = b_i, \quad
@@ -5271,7 +5272,7 @@ we say that it is a \emph{completely integrable hamiltonian system}.
 \end{tcolorbox}
 
 Without loss of generality, let's assume $H_1 = H$.
-We will show that a completely integrable system shares the property of one--dimensional conservative hamiltonian systems: i.e. it is integrable by quadratures.
+We will show that a completely integrable system shares the property of one--dimensional conservative hamiltonian systems: i.e., it is integrable by quadratures.
 Moreover, if for $E = (E_1, \ldots, E_n)\in\R^n$ the levelset
 \begin{equation}\label{eq:levelsetE}
     M_E := H^{-1}(E) = \big\{(q,p)\in\R^{2n} \;\mid\; H_i(q,p)=E_i,\;i=1,\ldots,n \big\}
@@ -5474,7 +5475,7 @@ whose corresponding solution is simply
 
 \subsection{Action-angle variables}
 
-Given a surface $M_{E^0}$ on which the first integrals $H_1, \ldots, H_n$ are independent everywhere (i.e. the differentials $\d H_1, \ldots, \d H_n$ are linearly independent at all points), we would like to construct \emph{globally} the canonical coordinates $(\phi_1, \ldots, \phi_n, I_1, \ldots, I_n)$ from \eqref{eq:actionalngle} on some neighborhood $U(M_{E^0})\subset \R^{2n}$ of $M_{E^0}$ such that the $\phi$ are the angular coordinates on the invariant tori $M_E$ for $E$ sufficiently close to $E^0$.
+Given a surface $M_{E^0}$ on which the first integrals $H_1, \ldots, H_n$ are independent everywhere (i.e., the differentials $\d H_1, \ldots, \d H_n$ are linearly independent at all points), we would like to construct \emph{globally} the canonical coordinates $(\phi_1, \ldots, \phi_n, I_1, \ldots, I_n)$ from \eqref{eq:actionalngle} on some neighborhood $U(M_{E^0})\subset \R^{2n}$ of $M_{E^0}$ such that the $\phi$ are the angular coordinates on the invariant tori $M_E$ for $E$ sufficiently close to $E^0$.
 
 Consider the symplectic manifold $\T^n \times \R^n$ with canonical coordinates $(\phi, I)$ and the symplectic form
 \begin{equation}
@@ -5577,7 +5578,7 @@ Furthermore, due to their simplicity, the action--angle coordinates are the idea
     \end{align}
     where $\omega(I) = (\omega_1(I), \ldots, \omega_n(I))$ and the parameters $I = (I_1, \ldots, I_n)$ and $\phi^0 = (\phi_1^0, \ldots, \phi_n^0)$ can be considered as constants of integration.
 
-    The solutions $x(t) = (q(t), p(t))$ are periodic in $t$ (and the period does not depend on the parameter $\phi^0$) if the frequencies $\omega(I)$ are rationally dependent, i.e. if there is $(k_1, \ldots, k_n)\in\Z^d$ such that $k_1\omega_1(I) + \ldots + k_n \omega_n(I) = 0$.
+    The solutions $x(t) = (q(t), p(t))$ are periodic in $t$ (and the period does not depend on the parameter $\phi^0$) if the frequencies $\omega(I)$ are rationally dependent, i.e., if there is $(k_1, \ldots, k_n)\in\Z^d$ such that $k_1\omega_1(I) + \ldots + k_n \omega_n(I) = 0$.
     %
     If, instead, the frequencies are rationally independent, or \emph{non--resonant}, then the trajectories are \emph{dense} on the invariant torus $M_{E(I)}$.
 \end{remark}
@@ -5739,7 +5740,7 @@ Given a hamiltonian $H=H(q,p)$, $(q,p)\in\R^{2n}$, we say that $(q_0, p_0)$ is a
 In this case, $(q(t), p(t)) = (q_0, p_0)$ is a solution of the equations of motion of the hamiltonian $H$.
 
 Without loss of generality, let's assume $H$ has an equilibrium at the origin $(q_0, p_0) = (0,0)$.
-As in the Lagrangian case, to study the stability of the system we linearize it, i.e. we represent the hamiltonian in the form
+As in the Lagrangian case, to study the stability of the system we linearize it, i.e., we represent the hamiltonian in the form
 \begin{equation}\label{eq:hamidevl}
     H(q,p) = H_0(q_0,p_0) + H_2(q,p) + H_3(q,p) + \cdots
 \end{equation}
@@ -5797,7 +5798,7 @@ Then, it follows by \eqref{eq:hamsysJ} that
     \begin{equation}
         \det(A-\lambda J) = \det(A^T -\lambda J^T) = \det(A + \lambda J),
     \end{equation}
-    which implies that the characteristic polynomial of the matrix $B$ has to be an even function, i.e. a polynomial in $\lambda^2$.
+    which implies that the characteristic polynomial of the matrix $B$ has to be an even function, i.e., a polynomial in $\lambda^2$.
     As its degree must be $2n$, we can always rewrite it as a polynomial of degree $n$ in $\lambda^2$.
 \end{proof}
 
@@ -6106,7 +6107,7 @@ For further details, please refer to \cite{Broer_2009}, \cite[Chapter 6.5]{book:
 \section{A brief look at KAM theory}
 
 We saw multiple times by now that every hamiltonian system with one--degree of freedom is integrable by quadrature.
-Moreover, if for some $E$ the curve $H^{-1}(E) = \{(p,q)\mid H(p,q) = E\}$ is compact, then the solution $(q(t),p(t))$ of the equations of motion with initial data on $H^{-1}(E)$, i.e. $(q(0), p(0)) = (q_0, p_0)$ with $H(q_0,p_0)=E$, is periodic. \emph{Small} enough changes of the initial condition or of the energy do not change the periodic nature of the motion.
+Moreover, if for some $E$ the curve $H^{-1}(E) = \{(p,q)\mid H(p,q) = E\}$ is compact, then the solution $(q(t),p(t))$ of the equations of motion with initial data on $H^{-1}(E)$, i.e., $(q(0), p(0)) = (q_0, p_0)$ with $H(q_0,p_0)=E$, is periodic. \emph{Small} enough changes of the initial condition or of the energy do not change the periodic nature of the motion.
 
 For hamiltonian systems with $n>1$ degrees of freedom, the behavior of the solutions under small perturbations can be much more complicated.
 The simplest case is the case of completely integrable systems, as the ones investigated in sections \ref{sec:sepsys} and \ref{sec:intsys}.
@@ -6197,7 +6198,7 @@ and since
 \begin{equation}
     \mu\left(\cap_{\alpha>0}R_{\alpha}^\tau\right)=0,
 \end{equation}
-the set $\Delta^\tau = \cup_{\alpha>0}\Delta_\alpha^\tau$ is of full measure in $\R^n$ for any $\tau > n-1$. I.e. for almost every $\omega\in\R^n$ there is $\alpha>0$ such that $\omega \in \Delta^\tau_\alpha$.
+the set $\Delta^\tau = \cup_{\alpha>0}\Delta_\alpha^\tau$ is of full measure in $\R^n$ for any $\tau > n-1$. i.e., for almost every $\omega\in\R^n$ there is $\alpha>0$ such that $\omega \in \Delta^\tau_\alpha$.
 For the curious reader, the set of missing frequencies can be explicitly characterized in terms of diophantine approximation.
 
 From now on, we assume that a number $\tau > n-1$ is fixed and we drop it from the notation: $\Delta_\alpha = \Delta_\alpha^\tau$.
