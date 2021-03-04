@@ -3485,7 +3485,7 @@ and \eqref{eq:automorphism} takes the form (\textbf{exercise})
     where $(Q,P)$ are given by
     \begin{align}
         &Q = \phi(q),\\ 
-        &\phi^* P = p, \qquad (\phi^* P)_i = \frac{\partial \phi^j(q)}{\partial q^i} P_j.
+        &\phi^* P = p, \qquad (\phi^* P)_i = \frac{\partial \phi^j(q)}{\partial q^i} p_j.
     \end{align}
     Here we are abusing slightly the notation, it is more conventional to write $p = (\d\phi_{q})^* P$.
     For a more detailed account, you can have a look at \cite[Chapter 6.3 and in particular formula (6.3.4)]{book:marsdenratiu} or \cite[Proposition 6.2.8]{lectures:aom:seri}.
@@ -3777,7 +3777,7 @@ For the second part of the theorem, it is enough to observe that the hamiltonian
 \begin{exercise}
     Let $X(q), Y(q)$ denote two vector fields on $M$ and define two hamiltonians linear in the momenta as in \eqref{eq:linhamp}:
     \begin{equation}
-        H_X = (p, X(q)),\quad H_Y = (p, Y(q)).
+        H_X = \langle p, X(q)\rangle,\quad H_Y = \langle p, Y(q) \rangle.
     \end{equation}
     Show that their Poisson bracket is also linear in the momenta and is given by
     \begin{equation}
@@ -3789,7 +3789,7 @@ For the second part of the theorem, it is enough to observe that the hamiltonian
 \begin{exercise}
     Given a mechanical system which is invariant with respect to space translations, show that the components of the total momentum
     \begin{equation}
-        \bm P = (P_x, P_y, P_z) = \sum_i p_i
+        \bm P = (P_x, P_y, P_z) = \sum_i \bp_i
     \end{equation}
     are mutually commuting:
     \begin{equation}
