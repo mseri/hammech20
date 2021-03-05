@@ -145,7 +145,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.3.7\\
+    Version 1.3.8\\
     \today
 \end{center}
 \vfill
@@ -3216,7 +3216,7 @@ The corresponding hamiltonian system is
     & \dot q^i = \frac{\partial \hat H}{\partial p_i}, \quad 
       \dot p_i = -\frac{\partial \hat H}{\partial q^i}, \quad
       i=1,\ldots,n\\
-    & \dot t = \frac{\partial \hat H}{\partial (E)} = 1, \quad {(\dot E)} = -\frac{\partial \hat H}{\partial t}.
+    & \dot t = \frac{\partial \hat H}{\partial E} = 1, \quad {\dot E} = -\frac{\partial \hat H}{\partial t}.
 \end{align}
 The first $2n$ equations above are equivalent to the Euler-Lagrange equations for $L$, the equation for $q^{n+1} = t$ tells us that $t$ is the same as in the original lagrangian and the final equation is simply the variation of the energy
 \begin{equation}
@@ -3228,6 +3228,8 @@ If we restrict ourselves to the zero levelset $\hat H = H - E = 0$, then the ham
     E = \sum_{i=1}^n p_i \dot q^i - L(q, \dot q, t),
 \end{equation}
 which completes the recovering of the original dynamics.
+
+The duality between time and energy and the reason they enter in this picture with a negative sign becomes clearer once one looks at variational principles from the hamiltonian point of view, coming up in the next section.
 
 \section{Variational principles of hamiltonian mechanics}
 
@@ -3243,7 +3245,7 @@ In fact, this is not in vane and one ends up showing the following theorem.
         \quad q(t_1) = q_1, \quad q(t_2) = q_2.
     \end{equation}
 \end{theorem}
-Note that, in this case, even though $p$ and $q$ play a rather symmetric role, we only fix the values of $q$ at the endpoints $t=t_1$ and $t=t_2$, while $p$ can be arbitrary.
+Note that, even though $p$ and $q$ play a rather symmetric role, we only fix the values of $q$ at the endpoints $t=t_1$ and $t=t_2$, while $p$ can be arbitrary.
 
 \begin{proof}
     Computing the variation of the action $\delta S = S[q+\delta q, p + \delta p]$, one finds
@@ -3862,17 +3864,18 @@ where as usual we are summing the repeated indices.
             \frac{\partial}{\partial p_1}, \ldots, \frac{\partial}{\partial p_n}
         \right).
     \end{equation}
-    Using the action of the differentials on the basis vector,
+    
+    The expression of \eqref{eq:symmatpqcoords} follows by using the expressions of the action of the differentials on the basis vectors,
     \begin{equation}
             \d q^i\left(\frac{\partial}{\partial q^j}\right) = \d p_i\left(\frac{\partial}{\partial p_j}\right) =\delta^i_j, \qquad
             \d q^i\left(\frac{\partial}{\partial p_j}\right) = 
             \d p_i\left(\frac{\partial}{\partial q^j}\right) = 0,
     \end{equation}
-    together with the definition of the action of a wedge product
+    together with the definition of the action of a wedge product of two 1-forms $\alpha, \beta$ on two tangent vectors $X, Y$
     \begin{equation}
-        \alpha \wedge \beta (\xi, \eta) = \det\begin{pmatrix}
-            \alpha(\xi) & \alpha(\eta) \\
-            \beta(\xi) & \beta(\eta)
+        \alpha \wedge \beta (X, Y) = \det\begin{pmatrix}
+            \alpha(X) & \alpha(Y) \\
+            \beta(X) & \beta(Y)
         \end{pmatrix}.
     \end{equation}
 \end{proof}
@@ -3988,16 +3991,16 @@ As we will see ,this will allow us to discover a range of new interesting proper
 
 We start by looking at the canonical transformations. First of all we need to generalize the operation that associates a mapping $\Phi^* : \cC^\infty(T^*M) \to \cC^\infty(T^*M)$ to a diffeomorphism $\Phi: T^*M \to T^*M$.
 %
-If $\theta$ is a differential $k$-form on a manifold $M$, then the diffeomorphism $\Phi$ induces a mapping on the space of differential $k$-forms on $M$ defined $\forall x\in M, \xi^j\in T_xM$ by
+If $\theta$ is a differential $k$-form on a manifold $P$, then the diffeomorphism $\Phi$ induces a mapping on the space of differential $k$-forms on $P$ defined $\forall x\in P, X_j\in T_xP$ by
 \begin{equation}
-    (\Phi^{*}\theta)_{x}(\xi^{1},\ldots ,\xi^{k})=\theta_{\Phi(x)}(\Phi_*(x)\xi_{1},\ldots,\Phi_*(x)\xi_{k}).
+    (\Phi^{*}\theta)_{x}(X_{1},\ldots ,X_{k})=\theta_{\Phi(x)}(\Phi_*(x)X_{1},\ldots,\Phi_*(x)X_{k}).
 \end{equation}
 We call the map $\Phi^*$ the \emph{pullback} of $\theta$.
 
-The pullback of differential forms has two properties which make it rather useful:
+The pullback of differential forms satisfies two useful identities:
 \begin{enumerate}
-    \item it is compatible with the exterior product, i.e., if $\theta_1$ and $\theta_2$ are differential forms on $M$, then $\Phi^{*}(\theta_1 \wedge \theta_2) = \Phi^{*}\theta_1 \wedge \Phi^{*}\theta_2$;
-    \item it is compatible with the exterior derivative, i.e., if $\theta$ is a differential form on $M$, then $\Phi^{*}(\d\theta) = \d(\Phi^{*}\theta)$
+    \item it is compatible with the exterior product, i.e., if $\theta_1$ and $\theta_2$ are differential forms on $P$, then $\Phi^{*}(\theta_1 \wedge \theta_2) = \Phi^{*}\theta_1 \wedge \Phi^{*}\theta_2$;
+    \item it is compatible with the exterior derivative, i.e., if $\theta$ is a differential form on $P$, then $\Phi^{*}(\d\theta) = \d(\Phi^{*}\theta)$
 \end{enumerate}
 
 \begin{tcolorbox}
@@ -4134,7 +4137,7 @@ With this new baggage at hand, we can compare again Theorem~\ref{thm:vf-infsym} 
     In symplectic geometry courses formula \eqref{eq:symXHdef} is usually given as the definition of a hamiltonian vector field.
     Indeed, show that if $\iota_{X}\omega = -\d H$, then $X=X_H$ and
     \begin{equation}
-        \{f,g\} = X_f g = \omega(X_g, X_f).
+        \{f,g\} = X_g f = \omega(X_g, X_f).
     \end{equation}
 \end{exercise}
 
@@ -4142,7 +4145,7 @@ With this new baggage at hand, we can compare again Theorem~\ref{thm:vf-infsym} 
     It is possible to use the symplectic formulation to describe hamiltonian systems with an explicit time dependence.
     To this end, one needs to consider the extended phase space $T^*M\times\R^2$, as we have already seen in Section~\ref{sec:timedepH}.
 
-    In the extended coordinates $(q^1, \ldots, q^n, p_1,\ldots,p_n,t,-E)$, the tautological one--form is given by
+    In the extended coordinates $(q^1, \ldots, q^n, p_1,\ldots,p_n,t,E)$, the tautological one--form is given by
     \begin{equation}
         \eta = p_i\d q^i -E\d t,
     \end{equation}
@@ -4327,7 +4330,8 @@ Integrable systems will be central to our study of perturbation theory and play 
 \section{Lagrangian submanifolds}
 
 \begin{tcolorbox}
-    We call \emph{lagrangian} any submanifold $\Lambda \subset T^*M$, $\dim M = n$, if $\dim \Lambda = n$ and the symplectic two--form $\omega$ vanishes on the corresponding tangent subbundle, i.e., $\omega(u,v) = 0$ for all $u,v \in T\Lambda$.
+    Let $M$ be smooth manifold of dimension $n$.
+    We call \emph{lagrangian} any submanifold $\Lambda \subset T^*M$, if $\dim \Lambda = n$ and the symplectic two--form $\omega$ vanishes on the corresponding tangent subbundle, i.e., $\omega(X, Y) = 0$ for all $X,Y \in \Gamma(T\Lambda)$.
 \end{tcolorbox}
 
 As we will see by the end of this section, lagrangian submanifold have a crucial property: if a trajectory of the hamiltonian intersects one of them, then it is fully contained in it.
@@ -4353,13 +4357,13 @@ such that the $2n\times n$ matrix $\left(\frac{\partial f_i}{\partial q^j}, \fra
     \end{equation}
 
     Assume that $\Lambda$ is a lagrangian submanifold.
-    Then, every $v\in T\Lambda$ is characterized by the equation $\d f_i(v) = 0$, i.e.
+    Then, every $Y\in \Gamma(T\Lambda)$ is characterized by the equation $\d f_i(Y) = 0$, i.e.
     \begin{equation}\label{eq:charvtls}
-        \omega(X_{f_i}, v) = 0, \quad i=1,\ldots,n.
+        \omega(X_{f_i}, Y) = 0, \quad i=1,\ldots,n.
     \end{equation}
     The set
     \begin{equation}
-        T\Lambda^\perp := \big\{v\in T(T^*M) \mid \omega(u,v) = 0, \; \forall u\in T\Lambda\big\}
+        T\Lambda^\perp := \big\{Z\in T(T^*M) \mid \omega(Y,Z) = 0, \; \forall Y\in \Gamma(T\Lambda)\big\}
     \end{equation}
     is called \emph{symplectic complement} of $T\Lambda$. The dimension of $T\Lambda^\perp$ is complementary to the one of $T\Lambda$, and thus it is also $n$. Since, by hypothesis, $\omega$ vanishes on $\Lambda$, it turns out that $T\Lambda \subseteq T\Lambda^\perp$. Being them subspaces of equal dimension, they must coincide: any vector orthogonal to $T\Lambda$ belongs to $T\Lambda$.
     Therefore, by \eqref{eq:charvtls}, the vectors $X_{f_i}$ are tangent to $\Lambda$ and, using again the fact that $\Lambda$ is lagrangian, it holds
@@ -4759,7 +4763,7 @@ This is, in some sense, what we are going to do in the next chapter.
 
 \subsection{Time-dependent hamiltonian systems}
 
-To discuss canonical transformations for time-dependent hamiltonian systems, we consider again the extended phase space $T^*M\times \R^2$ with the coordinates $(q^1,\ldots,q^n,p_1,\ldots,p_n, q^{n+1}=t, p_{n+1}=-E)$ introduced in Section~\ref{sec:timedepH} and symplectic form  $\widetilde\omega = \d p_i\wedge \d q^i - \d E\wedge \d t$ discussed in Example~\ref{ex:timedepH}.
+To discuss canonical transformations for time-dependent hamiltonian systems, we consider again the extended phase space $T^*M\times \R^2$ with the coordinates $(q^1,\ldots,q^n,p_1,\ldots,p_n, q^{n+1}=t, p_{n+1}=E)$ introduced in Section~\ref{sec:timedepH} and symplectic form  $\widetilde\omega = \d p_i\wedge \d q^i - \d E\wedge \d t$ discussed in Example~\ref{ex:timedepH}.
 
 In terms of the tautological one--form, we have
 \begin{equation}
