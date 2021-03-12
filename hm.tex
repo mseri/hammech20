@@ -145,7 +145,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.3.8\\
+    Version 1.3.9\\
     \today
 \end{center}
 \vfill
@@ -4388,23 +4388,23 @@ such that the $2n\times n$ matrix $\left(\frac{\partial f_i}{\partial q^j}, \fra
 
 Any lagrangian submanifold can be written, locally, in a parametric fashion using the equations
 \begin{equation}
-    q^i = q^i(u^k), \quad p_i = p_i(u^k), \quad k=1,\ldots,n
+    q^i = q^i(u^1, \ldots, u^n), \quad p_i = p_i(u^1, \ldots, u^n), \quad i=1,\ldots,n
 \end{equation}
-with the requirement that the $n\times2n$ matrix $\left(\frac{\partial q^i}{\partial u^k}, \frac{\partial p_i}{\partial u^k}\right)$ is of full rank.
+with the requirement that the $n\times2n$ matrix $\left(\frac{\partial q^i}{\partial u^k}, \frac{\partial p_i}{\partial u^k}\right)_{i,k=1,\ldots,n}$ is of full rank. 
 
 \begin{theorem}\label{thm:charbrals}
     The submanifold $\Lambda$ is lagrangian if and only if the following equations are satisfied:
     \begin{equation}\label{eq:charbrals}
-        \sum_{k,k=1}^n \left(\frac{\partial p_i}{\partial u^k}\frac{\partial q^i}{\partial u^l} - \frac{\partial p_i}{\partial u^l}\frac{\partial q^i}{\partial u^k} \right) = 0,
+        \sum_{k,l=1}^n \left(\frac{\partial p_i}{\partial u^k}\frac{\partial q^i}{\partial u^l} - \frac{\partial p_i}{\partial u^l}\frac{\partial q^i}{\partial u^k} \right) = 0,
         \quad i=1,\ldots,n
     \end{equation}
 \end{theorem}
 \begin{proof}
     In canonical coordinates, the symplectic two--form takes the form $\omega = \d p_i \wedge \d q^i$. If we substitute the parametric form of the coordinates, we obtain
     \begin{equation}
-        \omega |_\Lambda = \frac{\partial p_i}{\partial u^k}\d u^k \wedge \frac{\partial q^i}{\partial u^l}\d u^l.
+        \omega |_{T\Lambda} = \frac{\partial p_i}{\partial u^k}\d u^k \wedge \frac{\partial q^i}{\partial u^l}\d u^l.
     \end{equation}
-    Then \eqref{eq:charbrals} is obtained by setting $\omega |_\Lambda = 0$ and recalling that $\wedge$ is antisymmetric.
+    Then \eqref{eq:charbrals} is obtained by setting $\omega |_{T\Lambda} = 0$ and recalling that $\wedge$ is antisymmetric.
 \end{proof}
 
 Finally, in analogy with the one dimensional examples, let's consider a special class of lagrangian submanifolds which are parametrically described by
@@ -4444,7 +4444,7 @@ Such function $S$ is called \emph{generating function} of the lagrangian submani
 
     For any fixed $n$-tuple $a = (a_1, \ldots, a_n) \in \R^n$ and $f=(f_1,\ldots,f_n)$, let
     \begin{equation}
-        \Lambda_a = f^{-1}(a) := \{(p,q)\in T^*M \;\mid\; f(p,q) = a\}
+        \Lambda_a = f^{-1}(a) := \{(q,p)\in T^*M \;\mid\; f(q,p) = a\}
     \end{equation}
     be the lagrangian submanifold described by the equations
     \begin{equation}
@@ -5572,12 +5572,12 @@ Furthermore, due to their simplicity, the action--angle coordinates are the idea
     \end{equation}
     The smooth functions $q$ and $p$ are $2\pi$-periodic with respect to any of the angular variables $\phi = (\phi_1, \ldots, \phi_n)$, and therefore they can be expanded in Fourier series:
     \begin{align}
-        &x_j = \sum_{\bm k = (k_1, \ldots, k_n)\in\Z^n} A^j_{\bm k}(I) e^{i(k_1 \phi_1 + \cdots + k_n \phi_n)} = \sum_{\bm k\in\Z^n} A^j_{\bm k}(I) e^{i(\bm k, \phi)} \\
+        &x_j = \sum_{\bm k = (k_1, \ldots, k_n)\in\Z^n} A^j_{\bm k}(I) e^{i(k_1 \phi_1 + \cdots + k_n \phi_n)} = \sum_{\bm k\in\Z^n} A^j_{\bm k}(I) e^{i\lag\bm k, \phi\rag} \\
         &x = (q,p), \quad j=1,\ldots,2n.
     \end{align}
     Then, the dynamics of the hamiltonian system in the original coordinates is of the form
     \begin{align}
-        &x_j(t) = \sum_{\bm k\in\Z^n} A^j_{\bm k}(I) e^{i t(\bm k, \omega(I)) + i(\bm k,\phi^0)} \\
+        &x_j(t) = \sum_{\bm k\in\Z^n} A^j_{\bm k}(I) e^{i t\lag\bm k, \omega(I)\rag + i\lag\bm k,\phi^0\rag} \\
         &x = (q,p), \quad j=1,\ldots,2n,
     \end{align}
     where $\omega(I) = (\omega_1(I), \ldots, \omega_n(I))$ and the parameters $I = (I_1, \ldots, I_n)$ and $\phi^0 = (\phi_1^0, \ldots, \phi_n^0)$ can be considered as constants of integration.
@@ -5731,9 +5731,10 @@ Thus, the canonical angles can be determined as
 
 In this chapter we will briefly review perturbation theory for hamiltonian systems.
 We will start revisiting the small oscillations approach, and then give a brief glimpse of the powerful tools available when perturbing integrable systems.
+For a nice and compact overview of perturbation theory you can refer to \cite{Celletti_2009}, also available from arXiv.
 
 For brevity, I decided to omit a discussion of parametric resonances and adiabatic invariants.
-For those, refer respectively to \cite[Chpater 25]{book:arnold} and \cite[Chapter 5.4]{book:knauf} and to \cite[Chapter 15.1]{book:knauf}.
+For those, refer respectively to \cite[Chapter 25]{book:arnold} and \cite[Chapter 5.4]{book:knauf} and to \cite[Chapter 15.1]{book:knauf}.
 
 \section{Small oscillations revisited}
 For convenience, let's assume $M=\R^n$.
@@ -5776,7 +5777,7 @@ and its dynamic behavior is fully characterized by the eigenvalues of the matrix
 
 We can always find a symmetric matrix $A$ to rewrite the quadratic polynomial $H_2 = H_2(x)$ in the form
 \begin{equation}
-    H_2(x) = \frac12 (Ax, x).
+    H_2(x) = \frac12 \lag Ax, x\rag.
 \end{equation}
 Then, it follows by \eqref{eq:hamsysJ} that
 \begin{equation}
@@ -5809,7 +5810,7 @@ Then, it follows by \eqref{eq:hamsysJ} that
 In the \emph{generic} case of $n$ distinct roots of the polynomial $P_n$, we have practically proved the following theorem.
 
 \begin{theorem}
-    Let $H_2(x) = \frac12(Ax,x)$ be a generic quadratic hamiltonian. The the solution $(q(t), p(t)) = (0,0)$ of the linear system \eqref{eq:lienarizedH} is stable if and only if all the roots of the polynomial $P_n(z)$ from the Lemma~\ref{eq:lemmaCP} are real and negative.
+    Let $H_2(x) = \frac12\lag Ax,x\rag$ be a generic quadratic hamiltonian. The the solution $(q(t), p(t)) = (0,0)$ of the linear system \eqref{eq:lienarizedH} is stable if and only if all the roots of the polynomial $P_n(z)$ from the Lemma~\ref{eq:lemmaCP} are real and negative.
 \end{theorem}
 
 More precisely, one can prove the following.
@@ -6187,7 +6188,7 @@ We denote $\Delta_\alpha^\tau\subset\R^n$ the set of vectors $\omega$ satisfying
 First of all observe that for any fixed $\alpha>0$, $\tau>0$, the set $\Delta_\alpha^\tau$ is not empty. Indeed, its complement in $\R^n$ is
 \begin{equation}
     R_{\alpha}^\tau := \cup_{\bm k \in \Z^n\setminus\{0\}} R_{\alpha}^\tau(\bm k),\quad
-    R_{\alpha}^\tau(\bm k) := \left\{ \omega \in\R^n \;\mid\; |(\bm k, \omega)| < \frac{\alpha}{|\bm k|^\tau} \right\}.
+    R_{\alpha}^\tau(\bm k) := \left\{ \omega \in\R^n \;\mid\; |\lag\bm k, \omega\rag| < \frac{\alpha}{|\bm k|^\tau} \right\}.
 \end{equation}
 For any bounded $\Omega\subset\R^n$, the Lebesgue measure $\mu$ of $\Omega\cap R_{\alpha}^\tau(\bm k)$ can be estimated explicitly as
 \begin{equation}
@@ -6282,7 +6283,7 @@ Nekhoroshev took a slightly different point of view: forget about the persistenc
 
 It turns out that the answer is yes, and the result is stronger than one may expect at first: \emph{all trajectories} remain close to the unperturbed invariant tori \empty{for exponentially long times}
 \begin{equation}
-    |t| < T(\epsilon) \sim e^{\frac1\epsilon}.
+    |t| < T(\epsilon) \sim e^{1/\epsilon}.
 \end{equation}
 
 The starting point is an analytical hamiltonian of the usual form
