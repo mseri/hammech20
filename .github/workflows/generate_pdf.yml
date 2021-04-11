@@ -40,21 +40,21 @@ jobs:
         echo "GITHUB_TAG=$(git describe --always --tags)" >> $GITHUB_ENV
         echo "BUILD_DATE=$(date +'%Y_%m_%d')" >> $GITHUB_ENV
 
-      - uses: actions/cache@v2
-        name: Tectonic Cache
-        with:
-          path: ~/.cache/Tectonic
-          key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
-          restore-keys: |
-           ${{ runner.os }}-tectonic-
+    - uses: actions/cache@v2
+      name: Tectonic Cache
+      with:
+        path: ~/.cache/Tectonic
+        key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
+        restore-keys: |
+          ${{ runner.os }}-tectonic-
 
-      - uses: wtfjoke/setup-tectonic@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: wtfjoke/setup-tectonic@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Tectonic
-        run: |
-          tectonic hm.tex
+    - name: Run Tectonic
+      run: |
+        tectonic hm.tex
     
     - name: Upload PDF
       if: ${{ success() }}
