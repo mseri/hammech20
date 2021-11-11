@@ -1,3 +1,5 @@
+on: [push]
+
 jobs:
   create_draft_release:
     runs-on: ubuntu-latest
