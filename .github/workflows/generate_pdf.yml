@@ -74,7 +74,7 @@ jobs:
         if-no-files-found: error
     
     - name: Remove TeX Gyre font customizations, falls back to OpenDyslxic
-      run: sed -i.bak '12,14d' hm.tex
+      run: sed -i.bak '11,13d' hm.tex
    
     - name: Run Tectonic
       run: |
