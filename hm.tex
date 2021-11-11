@@ -2,12 +2,32 @@
 %\usepackage{fourier}
 %\usepackage{lmodern} % Improvement over cmtt
 %\usepackage{cmbright}
-\usepackage{sansmathfonts}
+%\usepackage{sansmathfonts}
 
 %\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \renewcommand*\familydefault{\sfdefault}
+
+\ifx\ifxetex\ifluatex\else % if lua- or xelatex http://tex.stackexchange.com/a/140164/1913
+  \usepackage{fontspec}
+  \setmainfont{OpenDyslexic}
+  \setsansfont{OpenDyslexic}
+  \setmonofont{OpenDyslexicMono}
+
+  \setmainfont[Renderer=Basic, Numbers=OldStyle, Scale = 1.0]{TeX Gyre Pagella}
+  \setsansfont[Renderer=Basic, Scale=0.90]{TeX Gyre Heros}
+  \setmonofont[Renderer=Basic]{TeX Gyre Cursor}
+
+  \renewcommand{\textls}[2][5]{%
+    \begingroup\addfontfeatures{LetterSpace=#1}#2\endgroup
+  }
+  \renewcommand{\allcapsspacing}[1]{\textls[15]{#1}}
+  \renewcommand{\smallcapsspacing}[1]{\textls[10]{#1}}
+  \renewcommand{\allcaps}[1]{\textls[15]{\MakeTextUppercase{#1}}}
+  \renewcommand{\smallcaps}[1]{\smallcapsspacing{\scshape\MakeTextLowercase{#1}}}
+  \renewcommand{\textsc}[1]{\smallcapsspacing{\textsmallcaps{#1}}}
+\fi
 
 \usepackage{booktabs}
 
@@ -145,7 +165,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.3.13\\
+    Version 1.3.14\\
     \today
 \end{center}
 \vfill
@@ -3109,7 +3129,7 @@ From now on, we will denote by $q = (q^1, \ldots, q^n)$ the local coordinates on
     Show that the definition of Poisson brackets on $T^*M$ does not depend on the choice of the local coordinates on $M$.
 \end{exercise}
 
-Since \ref{def:Poisson} is a kind of weird definition, let’s look at some of its properties.
+Since \ref{def:Poisson} is a kind of weird definition, let's look at some of its properties.
 
 \begin{theorem}\label{thm:PoissonLieAlgebra}
     Poisson bracket defines a structure of Lie algebra on the space $\cC^\infty(T^*M)$ of smooth functions on the phase space.
