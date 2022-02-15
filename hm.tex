@@ -94,7 +94,7 @@ linktoc=page}
 \newcommand{\rag}{\rangle}
 
 \let\d\relax
-\DeclareMathOperator{\d}{d}
+\newcommand{\d}{\mathrm{d}}
 \DeclareMathOperator{\D}{D}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\diag}{diag}
@@ -153,7 +153,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.3.15\\
+    Version 1.4\\
     \today
 \end{center}
 \vfill
@@ -192,8 +192,6 @@ Topics that I intend to add over time include: contact mechanics, non-holonomic 
 
 A number of extra references covering some of the topics mentioned above is \href{https://www.mseri.me/links-from-hm/}{collected on my blog (you can go there by clicking here)}.
 
-Last year there were two non-standard notational conventions that I decided to adopt from \cite{book:arnold}: $(\cdot,\cdot)$ denoted the inner products, also in Euclidean space when it corresponds to the standard scalar product, and $[\cdot,\cdot]$ the exterior product, also in $\R^3$ where I could have instead used the cross product. \emph{I have revisited my choice here and this year I will try to update the notation to something closer to my analysis on manifolds notes \cite{lectures:aom:seri}.}
-
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
 I am extremely grateful to Riccardo Bonetto, Anouk Pelzer, Robbert Scholtens, Albert \v{S}ilvans and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
@@ -202,9 +200,9 @@ Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina
 
 \chapter{Classical mechanics, from Newton to Lagrange and back}
 
-In this chapter we will briefly review some basic concepts of classical mechanics, in particular we will only briefly discuss variational calculus and Newtonian mechanics.
+In this chapter we will briefly review some basic concepts of classical mechanics, in particular we will (only briefly) discuss variational calculus and Newtonian mechanics.
 And we will present some simple examples as spoilers for some of the material that will follow.
-For a deeper and more detailed account, we refer the readers to \cite{book:arnold,book:knauf}.
+For a deeper and more detailed account, you can refer to \cite{book:arnold,book:knauf}.
 
 \section{Newtonian mechanics}
 
@@ -373,7 +371,7 @@ This, however, should not confuse you: Lagrangian mechanics plays a role as larg
 
 In fact, one should not be surprised if there are many sources claiming that the most general formulation of the equations of motion in classical mechanics comes from the \emph{principle of least action} or \emph{Hamilton's variational principle}. Indeed, as we will see this sits at the roots of Lagrangian mechanics and the Euler-Lagrange equations.
 
-According to this principle, the equations of motion of a mechanical system are characterized by a function $L \equiv L(q, \dot q, t) : T\R^n \times \R \to \R$, called the \emph{lagrangian (function)} of the system.
+According to this principle, the equations of motion of a mechanical system are characterized by a function $L \equiv L(q, \dot q, t) : \R^n \times \R^n \times \R \to \R$, called the \emph{lagrangian (function)} of the system.
 
 \begin{example}
     The lagrangian of a non-relativistic particle with mass $m > 0$ in a potential $U : \R^n \to \R$ is
@@ -440,7 +438,7 @@ Therefore, the action defined above is a functional
 and the evolution of the system is described by the critical points with respect to $X_0$ of $S$ on the space of $\gamma \in X$ with prescribed endpoints.
 
 \begin{theorem}
-    Let $L = L(q, \dot q, t) : T\R^{n}\times\R = R^{n}\times R^{n}\times R \to \R$ be differentiable.
+    Let $L = L(q, \dot q, t) : \R^{n}\times \R^{n}\times \R \to \R$ be differentiable.
     The equations of motion for the mechanical system with lagrangian $L$ satisfy the \emph{Euler-Lagrange equations}
     \begin{equation}\label{eq:eulerlagrange}
         \frac{\d}{\d t}\frac{\partial L}{\partial \dot q^i} - \frac{\partial L}{\partial q^i} = 0, \quad i=1,\ldots n.
@@ -588,7 +586,7 @@ In other words, we can use Euler-Lagrange equations as the equations of motion o
 
 \subsection{Dynamics of point particles: from Lagrange back to Newton}\label{sec:dynamicspps}
 
-Mechanical laws for the same system can look very differently from each other, with varying degrees of simplification or complication: think for example as the motion of planets in a geocentric system of coordinates.
+Mechanical laws for the same system can look very different from each other, with varying degrees of simplification or complication: think for example as the motion of planets in a geocentric system of coordinates.
 There is a system of coordinates that simplifies our life the most: the \emph{inertial} coordinate system.
 
 \begin{tcolorbox}
@@ -805,13 +803,14 @@ Before entering into the actual definition, let's play a bit with what we alread
 
 We introduced the generalized coordinates in the first section of this chapter but by now, we don't yet know if and how the lagrangian formalism translates into that language.
 Let's consider a natural lagrangian for a system of $N$ particles, so in $\R^{3N}$, with equal mass $m=1$.
+Assume that we already know that the system has $n$ degrees of freedom.
 If we describe the motion in terms of generalized coordinates
 \begin{equation}
-    \bx_k = \bx_k(q^1, \ldots, q^{3N}), \quad k=1,\ldots,N,
+    \bx_k = \bx_k(q^1, \ldots, q^{n}), \quad k=1,\ldots,N,
 \end{equation}
-a direct application of the chain rule will allow us to rewrite the lagrangian as
+a direct application of the chain rule will allow us to rewrite the lagrangian in terms of these new coordinates as
 \begin{equation}
-    L = T - U,
+    L(q, \dot q) = T(q, \dot q) - U(q),
     \quad\mbox{where}\quad
     \begin{cases}
         T:= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U = U(q),\\
@@ -822,15 +821,15 @@ and, again, we used Einstein summation convention.
 
 If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\bx = (x,y,z)$,
 \begin{equation}
-    L = \frac m2 (\dot x^2 + \dot y^2 + \dot z^2),
+    L = \frac 12 (\dot x^2 + \dot y^2 + \dot z^2),
 \end{equation}
 in cylindrical coordinates $(r,\phi,z)$ it would read
 \begin{equation}
-    L = \frac m2 (\dot r^2 + r^2 \dot \phi^2 + \dot z^2),
+    L = \frac 12 (\dot r^2 + r^2 \dot \phi^2 + \dot z^2),
 \end{equation}
 while in spherical coordinates $(r,\phi,\theta)$, see also Figure~\ref{fig:sphcoords}, it would become
 \begin{equation}
-    L = \frac m2 (\dot r^2 + r^2 \dot \theta^2 + r^2 \sin^2(\theta) \dot \phi^2).
+    L = \frac 12 (\dot r^2 + r^2 \dot \theta^2 + r^2 \sin^2(\theta) \dot \phi^2).
 \end{equation}
 
 The term $g_{kl} (q)$ should also ring a bell in the context of this example: the arc length $s$ of a parametrized curve $q(t) : [t_1,t_2] \to \R^3$, is computed as
@@ -840,8 +839,8 @@ The term $g_{kl} (q)$ should also ring a bell in the context of this example: th
         g_{kl} (q) = \left\lag\frac{\partial\bx}{\partial q^k}, \frac{\partial \bx}{\partial q^l}\right\rag.
     \end{aligned}
 \end{equation}
-We can compute what $\d s^2$ looks like for the three coordinates above.
-In cartesian coordinates, we have
+The strange looking object $\d s^2$, called line element or first fundamental form, is just a short-hand notation for the $g$-dependent scalar product of generalized velocities that we obtained above\footnote{If you interpret $\d q^k \d q^l := \d q^k \otimes \d q^l$ as the tensor product of the two one-forms, then this is just the metric tensor $g$.}: $\d s^2 = g_{kl}(q)\, \d q^k \d q^l$.
+For example, in cartesian coordinates, we have
 \begin{equation}
     \d s^2 = \d x^2 + \d y^2 + \d z^2,
 \end{equation}
@@ -862,17 +861,34 @@ We denote $T_q M$ the \emph{tangent space} of $M$ at $q$, and $TM = \cup_{q\in M
 
 Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(W)\to\phi(W)$ are also diffeomorphisms.
 
-Local coordinates $(q^1,\ldots,q^n)$ on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)\] on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
+When we talk about local coordinates $(q^1,\ldots,q^n)$ on $M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things may get confusing here, since one usually distinguishes the point $q$ on the manifold from its coordinate representation $\phi(q)=(q^1, \ldots, q^n)$, while here we are using the same letters for both.} $\phi=(q^1, \ldots, q^n)$.i
+Local coordinates on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)\] on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
 \begin{equation}
-    \dot q^i(v) = v^i,\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n}.
+    \dot q^i(v) = v^i,\quad\mbox{where}\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n},
 \end{equation}
+is the decomposition of the vector $v$ in the local basis induced by the coordinate chart.
+The most immediate way to compute the components $\dot q^i$ is by using the definition of tangent vectors as class of equivalence of tangents to curves \cite[Chapter 2.5]{lectures:aom:seri}.
+Let $\gamma:\R \to M$ be a curve such that $\gamma(0) = q$ and $\der{\gamma}{t}|_{t=0} = v$, then $q^i$ is given by the $i$th component of $\der{}{t}(\phi\circ\gamma)|_{t=0}$.
+Tangent vectors $v\in T_qM$ are also derivations. If $f\in C^\infty(M)$, one can compute $v(f)=\der{}{t}(f\circ\gamma)|_{t=0}$. In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$.
 
 To emphasize once more the importance of the chain rule in this business, a local change of coordinates on $M$ determines a special class of coordinate transformations on the tangent bundle which is linear with respect to the coordinates $\dot q$ on the fibers:
 \begin{equation}
     \widetilde q^i = \widetilde q^i (q), \quad \dot{\widetilde q}^i = \frac{\partial\widetilde q^i}{\partial q^k}\dot q^k.
 \end{equation}
 
-\begin{exercise}[To review a bit of differential geometry that we will also need later on]\label{exe:coordinatesInd}
+With this notation, the \emph{lagrangian} of a mechanical system on a manifold is a smooth function $L : TM\times\R \to \R$.
+You can check that $T\R^n = \R^n \times \R^n$, leading to our previous definition in the euclidean setting.
+The manifold $M$ is called the \emph{configuration space} of the system, its tangent bundle $TM$ is called \emph{state space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system.
+
+The lagrangian is called \emph{non--degenerate} if
+\begin{equation}
+    \det %\left(
+        \left(\frac{\partial^2 L}{\partial \dot{q}^i \partial \dot{q}^j}\right)_{1\leq i,j\leq n} 
+    %\right)
+    \neq 0.
+\end{equation}
+
+\begin{exercise}\label{exe:coordinatesInd}
     Let $L=L(q,\dot q):TM \to \R$ be a smooth function. Show that the \emph{linear momenta}, i.e., the derivatives
     \begin{equation}
         p_i := \frac{\partial L}{\partial \dot q^i}, \quad i=1,\ldots,n,
@@ -889,16 +905,7 @@ To emphasize once more the importance of the chain rule in this business, a loca
     \end{equation}
     \textit{Hint: use Euler-Lagrange equation.}
 \end{exercise}
-
-The manifold $M$ is called \emph{configuration space}, its tangent bundle $TM$ is called \emph{state space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system.  A smooth function $L=L(q,\dot q, t)$ on $TM\times R$ is called the \emph{lagrangian} of the mechanical system. The lagrangian is called \emph{non--degenerate} if
-\begin{equation}
-    \det %\left(
-        \left(\frac{\partial^2 L}{\partial \dot{q}^i \partial \dot{q}^j}\right)_{1\leq i,j\leq n} 
-    %\right)
-    \neq 0.
-\end{equation}
-
-Thanks to the second part of the exercise above, the class of non--degenerate lagrangians is  independent of the choice of local coordinates on the configuration space.
+Thanks to the second part of the exercise above, the class of non--degenerate lagrangians is independent of the choice of local coordinates on the configuration space.
 
 To simplify the discussion and the geometrical description, we now assume that the lagrangian is non--degenerate and that it does not explicitly depend on time.
 As for the euclidean case, given a lagrangian $L$ we can define a functional $S$ on the space of smooth curves $q(t): [t_1,t_2] \to M$ with $q(t_1) = q_1$ and $q(t_2) = q_2$ as the integral
@@ -916,7 +923,8 @@ As we have seen, for a system of $N$ point particles, the configuration space is
 Bear some patience, we will come back to this soon.
 \medskip
 
-An important class of mechanical systems is defined on riemannian manifolds: a riemannian manifold $(M, g)$ is a smooth manifold $M$ equipped with an inner product $g_q$ on $T_q M$ which varies smoothly with $q$, i.e., a symmetric $(0,2)$-tensor on $TM$ whose matrix representation $g_{ij}(q)$ is positive definite. Locally,
+An important class of mechanical systems is defined on riemannian manifolds: a riemannian manifold $(M, g)$ is a smooth manifold $M$ equipped with an inner product $g_q$ on $T_q M$ which varies smoothly with $q$, i.e., a symmetric $(0,2)$-tensor on $TM$ whose matrix representation $g_{ij}(q)$ is positive definite.
+Locally, analogously to what we have described at the beginning of the chapter,
 \begin{equation}
     g = g_{ij}(q) \d q^i \d q^j =: \d s^2.
 \end{equation}
@@ -1454,10 +1462,13 @@ It seems that we can expect other conserved quantities. However, before being ab
 Let $M$ be a smooth manifold. A smooth map $\phi : M \to M$ is called \emph{diffeomorphism} if it is invertible and its inverse $\phi^{-1}$ is smooth. At each point $q\in M$ we can define the \emph{differential} of $\phi$, i.e., the linear map $\phi_*$ between tangent spaces (sometimes also denoted $\d\phi_q$)
 \begin{equation}
     \phi_*: T_q M \to T_{\phi(q)} M,
-    \quad \phi_* v = \phi_*(q) v := \frac{\d}{\d t} \phi(q + t v) \Big|_{t=0},
-    \quad v\in T_q M.
+    \quad \phi_* v := \phi_*(q) v := \frac{\d}{\d t} (\phi \circ \gamma \Big|_{t=0},
+    \quad v\in T_q M,
 \end{equation}
-In local coordinates, the matrix of the linear map coincides with the Jacobian matrix
+where $\gamma:(-\epsilon, \epsilon)\subset\R \to M$ is a smooth curve such that $\gamma(0)=q$, $\gamma'(0) = v$.
+On a euclidean space, for example, the simplest such curve is $\gamma(t) = q + v t$.
+
+In local coordinates, the matrix of the linear map $\phi_*$ coincides with the Jacobian matrix
 \begin{equation}
    \phi_*(q) = \d \phi_q = \left(\frac{\partial \phi^i(q)}{\partial q^j}\right)_{1\leq i,j\leq n}.
 \end{equation}
@@ -1465,7 +1476,7 @@ In local coordinates, the matrix of the linear map coincides with the Jacobian m
 The differential can be used to \emph{push} tangent vectors on $M$ \emph{forward} to tangent vectors on $\phi(M)$, which is why it is also called \emph{pushforward}.
 
 \begin{tcolorbox}
-    Let $L = L(q, \dot q)$, $(q, \dot q)\in TM$ be a lagrangian on the tangent bundle of a smooth manifold $M$. From now on, we will denote with $(M, L)$ the mechanical system described by such lagrangians $L$ on the configuration space $M$. 
+    Let $L = L(q, \dot q)$, $(q, \dot q)\in TM$, be a lagrangian on the tangent bundle of a smooth manifold $M$. From now on, we will denote with $(M, L)$ the mechanical system described by such lagrangians $L$ on the configuration space $M$. 
 \end{tcolorbox}
 
 A diffeomorphism $\Phi: M \to M$ is called a \emph{symmetry} of the mechanical system $(M,L)$ if $L$ is invariant with respect to $\Phi$, i.e.
@@ -1494,7 +1505,7 @@ is called \emph{one--parameter group of diffeomorphisms} if the following hold:
     \item $\Phi_0 = \Id$;
     \item $\forall s, t \in \R, \quad \Phi_s(\Phi_t(q)) = \Phi_{s+t}(q)\quad \forall q\in M$.
 \end{itemize}
-Observe that these two properties give away the inverse of $\Phi_s$: $(\Phi_s)^{-1} = \Phi_{-s}$.
+These two properties give away the inverse of $\Phi_s$: $(\Phi_s)^{-1} = \Phi_{-s}$.
 
 \begin{remark}
 \emph{To any one--parameter group of diffeomorphism we can associate a smooth vector field $X : q\in M \mapsto X(q)\in T_qM$} by
@@ -1509,7 +1520,7 @@ This is clearly seen for small values of $|s|$, in which case the diffeomorphism
 Moreover, the inverse relation also holds: \emph{given a smooth vector field $X(q)$, we can reconstruct a one--parameter group of diffeomorphisms} (at least for sufficiently small values of $s$) as follows.
 Let $Q(s, q)$ be the solution of the initial value problem
 \begin{equation}\label{eq:NoetherCoords}
-    \frac{\d Q}{\d s} = X(q), \quad Q(s, q)\Big|_{s=0} = q.
+    \frac{\d Q}{\d s} = X(q), \quad Q(0, q) = q.
 \end{equation}
 Assume that there exist $\epsilon >0$ such that for all $|s|<\epsilon$ the solution $Q(s,q)$ exists for every $q\in M$.
 Then, the map $\Phi_s:M\to M$ is defined for $|s|<\epsilon$ by 
@@ -1547,12 +1558,12 @@ Although I prefer the presentation of the proof in \cite[Chapter 20.B]{book:arno
     \end{align}
     The last equality follows from the Euler-Lagrange equations.
     
-    We are left to show that one of the equations appearing above is $0$, and we have not yet used that we have a one--parameter group of symmetries.
-    Using the representation \eqref{eq:infinitesimalSymmetryExp}, we can rewrite the symmetry relation \eqref{eq:symmetry} as
+    We are left to show that one of the equations appearing above vanishes, and we have not yet used that we have a one--parameter group of \emph{symmetries}.
+    Using \eqref{eq:infinitesimalSymmetryExp}, we can rewrite the symmetry relation \eqref{eq:symmetry} for small enough values of $s$ as
     \begin{equation}\label{eq:invariance}
-        L\left( q + s X(q), \dot q + s \frac{\partial X}{\partial q} \dot q\right) = L(q, \dot q) + O(s^2).
+        L\left( q + s X(q) + O(s^2), \dot q + s \frac{\partial X}{\partial q} \dot q + O(s^2) \right) = L(q, \dot q) + O(s^2).
     \end{equation}
-    Expanding the left hand side in series for small $s$, and simplifying the term $L(q, \dot q)$, the condition becomes
+    Expanding the left hand side in series, simplifying the term $L(q, \dot q)$ and sending $s\to 0$, the condition becomes
     \begin{equation}\label{eq:ntref2}
         \frac{\partial L}{\partial q^i} X^i + p_i \frac{\partial X^i}{\partial q^j} \dot q^j = 0.
     \end{equation}
@@ -1565,7 +1576,7 @@ Although I prefer the presentation of the proof in \cite[Chapter 20.B]{book:arno
     \begin{equation}
         \Phi_s(q^1, \ldots, q^i, \ldots, q^n) = (q^1, \ldots, q^i + s, \ldots, q^n).
     \end{equation}
-    The corresponding vector field $X$ is constant: $X(q)^j = \delta^j_i$, $1$ in the $i$-th component, and zero everywhere else.
+    The corresponding vector field $X$ is constant: $X^j(q) = \delta^j_i$, it is $1$ in the $i$-th component and zero everywhere else.
     By Noether theorem, the conserved quantity is
     \begin{equation}
         I(q,\dot q) = p_j X^j = p_j \delta^j_i = p_i,
