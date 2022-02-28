@@ -153,7 +153,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.4\\
+    Version 1.5\\
     \today
 \end{center}
 \vfill
@@ -194,7 +194,7 @@ A number of extra references covering some of the topics mentioned above is \hre
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
-I am extremely grateful to Riccardo Bonetto, Anouk Pelzer, Robbert Scholtens, Albert \v{S}ilvans and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
+I am extremely grateful to Riccardo Bonetto, Dijs de Neeling, Anouk Pelzer, Robbert Scholtens, Albert \v{S}ilvans and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
 
 Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina.com}{Constanza Rojas-Molina}, who kindly allowed me to use some of her beautiful artworks in the lecture notes.
 
@@ -1677,7 +1677,7 @@ This fact can be also interpreted in the following way: the sum of all forces ac
     \begin{equation}
         \widetilde{\bm{P}} := \bm{P} + \frac{e}c \bm{B}\wedge \bm{X},
     \end{equation}
-    where $\bm{P}$ is the total momentum of the system when $\bm{B} = 0$ and $\bm{X}$ is the barycenter.
+    where $\bm{P}$ is the total momentum of the system when $\bm{B} = 0$ and $\bm{X}$ is the sum of the particle positions, you can think of it as some kind of barycenter.
     Show that for such system, $\widetilde{\bm{P}}$ is a conserved quantity.
 \end{exercise}
 
@@ -2551,7 +2551,7 @@ The tangent space $T_qQ \subset \R^{3N}$ is a linear subspace of the ambient tan
 For a brief but more comprehensive discussion of this you can look at \cite[Chapter 2.8]{lectures:aom:seri}.
 
 \begin{theorem}
-    The equations of motion of a mechanical system on $N$ particles with natural lagrangian \eqref{eq:mechlag} under the effect of $k$ independent holonomic constraints \eqref{eq:holonomic} have the form
+    The equations of motion of a mechanical system on $N$ particles with natural lagrangian \eqref{eq:mechlag} under the effect of $l$ independent holonomic constraints \eqref{eq:holonomic} have the form
     \begin{equation}\label{eq:generalnewtonconstraint}
         m_k \ddot \bx_k = - \frac{\partial U}{\partial \bx_k} + \bm{R}_k, \quad k=1, \ldots, N,
     \end{equation}
@@ -2573,7 +2573,7 @@ For a brief but more comprehensive discussion of this you can look at \cite[Chap
     The other equations of motion, on the other hand, take the form
     \begin{equation}\label{eq:newtconstr}
         m_k \ddot \bx_k = -\frac{\partial U}{\partial\bx_k} + \sum_{j=1}^l \lambda_j \frac{\partial f_j(\bx)}{\partial \bx_k},
-        \quad k=1,\ldots,l.
+        \quad k=1,\ldots,N.
     \end{equation}
     For all $j$, the vectors $\frac{\partial f_j(\bx)}{\partial \bx_k}$ are orthogonal\footnote{Since $f(\bx) = 0$, for any curve $\bx:\R\to Q$ we have $0 = \frac{d}{dt} f(\bx) = \lag \frac{\partial f(\bx)}{\partial \bx}, \dot\bx \rag$.} to (the tangent space at $\bx$ of) $Q$ and thus also their linear combinations $\bm{R}$ are, where 
     \begin{equation}
@@ -2607,8 +2607,8 @@ Constrained motions have also a nice intrinsic description in terms of a mechani
     $ds^2 = \sum_{j=1}^N m_j\lag\d \bx_j, \d\bx_j\rag$.
 \end{theorem}
 
-This can be further generalized to mechanical systems which are constrained on the tangent bundle $TM$ of a manifold $M$ of dimension $n$.
-In such case, let  $L=L(x,\dot x)$ be a non degenerate lagrangian on $TM$, and consider a smooth submanifold $Q\subset M$ of dimension $m$ with local coordinates $(q^1,\ldots,q^n)$.
+This can be further generalized to mechanical systems which are constrained on the tangent bundle $TM$ of a manifold $M$ of dimension $m$.
+In such case, let  $L=L(x,\dot x)$ be a non degenerate lagrangian on $TM$, and consider a smooth submanifold $Q\subset M$ of dimension $n$ with local coordinates $(q^1,\ldots,q^n)$.
 Assume that $Q$ is \emph{regular} with respect to the lagrangian, i.e., such that the restriction of $\left(\frac{\partial^2 L}{\partial \dot x^i \partial\dot x^j}\right)_{i,j=1,\ldots,m}$ to $Q$ is still non degenerate:
 \begin{equation}
     \det\left(\frac{\partial^2 L}{\partial \dot x^i \partial\dot x^j}\frac{\partial x^i}{\partial q^k}\frac{\partial x^j}{\partial q^l}\right)_{k,l=1,\ldots,n} \neq 0.
@@ -2623,15 +2623,15 @@ As before we can define the constrained motion by minimizing the corresponding a
 \end{exercise}
 
 \begin{example}
-    Every submanifold $Q\subset \R^n$ of the euclidean space is regular with respect to the free lagrangian
+    Every submanifold $Q\subset \R^m$ of the euclidean space is regular with respect to the free lagrangian
     \begin{equation}
-        L = \frac12 \sum_{k=1}^n \dot x^2_k.
+        L = \frac12 \sum_{k=1}^m \dot x^2_k.
     \end{equation}
     The lagrangian $L_Q$ of the constrained motion has the form
     \begin{equation}
-        L_Q = \frac12 \sum_{i,j=1}^m g_{ij}(q)\dot q^i\dot q^j, \qquad g_{ij}(q) = \sum_{k=1}^n \frac{\partial x_k}{\partial q^i}\frac{\partial x_k}{\partial q^j}.
+        L_Q = \frac12 \sum_{i,j=1}^n g_{ij}(q)\dot q^i\dot q^j, \qquad g_{ij}(q) = \sum_{k=1}^m \frac{\partial x_k}{\partial q^i}\frac{\partial x_k}{\partial q^j}.
     \end{equation}
-    Here $g_{ij}$ is the riemannian metric induced on $Q$ by the euclidean metric $\d s^2 = \d x_1^2 + \cdots + \d x_n^2$.
+    Here $g_{ij}$ is the riemannian metric induced on $Q$ by the euclidean metric $\d s^2 = \d x_1^2 + \cdots + \d x_m^2$.
     As we have already seen, the evolutions corresponding to $L_Q$ are the geodesics of such metric.
 \end{example}
 
