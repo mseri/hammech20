@@ -4554,7 +4554,7 @@ The starting point for the construction of the generating function is Theorem~\r
         p_i \d q^i - P_i \frac{\partial Q^i}{\partial q^i}\d q^i - P_i \frac{\partial Q^i}{\partial p_i}\d p_i & = (p_i -P_i)\d q^i \\
         & = \frac{\partial S}{\partial q^i}\d q^i + \frac{\partial S}{\partial p_i}\d p_i,
     \end{align}
-    which imply $\frac{\partial S}{\partial p_i} = 0$ and, thus, $p_i = P_i + \frac{\partial S(q)}{\partial q_i}$.
+    which imply $\frac{\partial S}{\partial p_i} = 0$ and, thus, $p_i = P_i + \frac{\partial S(q)}{\partial q^i}$.
 \end{remark}
 
 \subsection{The generating function $S_1$}
@@ -4703,7 +4703,7 @@ These can be used to define a third common family of generating functions.
     \end{equation}
     via the relations
     \begin{equation}\label{eq:coordgenfun3}
-        p_i = \frac{\partial S_3}{\partial q_i}, \quad
+        p_i = \frac{\partial S_3}{\partial q^i}, \quad
         Q^{i_l} = \frac{\partial S_3}{\partial P_{i_l}}, \quad
         P_{j_h} = -\frac{\partial S_3}{\partial Q^{j_h}}, 
     \end{equation}
@@ -4730,8 +4730,8 @@ These can be used to define a third common family of generating functions.
     \begin{enumerate}
         \item $S_1(q,Q) = S(q,p(q,Q))$, which depends only on the old and new generalized coordinates;
         \item $S_2(q,P) = - Q^i(q,P) P_i + S(q,p(q,P))$, which depends only on the old generalized coordinates and the new generalized momenta;
-        \item $S_3(p,Q) = q_i(p,Q) p^i + S(q(p,Q),p)$, which depends only on the old generalized momenta and the new generalized coordinates;
-        \item $S_4(p,P) = q_i(p,P) p^i - Q_i(p,P) P^i + S(q(p,P),p)$, which depends only on the old and new generalized momenta.
+        \item $S_3(p,Q) = q^i(p,Q) p^i + S(q(p,Q),p)$, which depends only on the old generalized momenta and the new generalized coordinates;
+        \item $S_4(p,P) = q^i(p,P) p^i - Q^i(p,P) P^i + S(q(p,P),p)$, which depends only on the old and new generalized momenta.
     \end{enumerate}
     Of course, as we also have shown, mixtures of these four types can exist.
 \end{remark}
@@ -4759,7 +4759,7 @@ The proof follows along the lines of Theorem~\ref{thm:S1} and will be omitted.
 \begin{tcolorbox}
     The change of coordinates \eqref{eq:infcantraf} is an \emph{infinitesimal canonical transformation} if
     \begin{equation}\label{eq:definfcantraf}
-        \big\{Q^i, P_j\big\} = \delta_i^j + O(\epsilon^2), \quad
+        \big\{Q^i, P_j\big\} = \delta_j^i + O(\epsilon^2), \quad
         \big\{Q^i, Q^j\big\} =  \big\{P_i, P_j\big\} = O(\epsilon^2).
     \end{equation} 
 \end{tcolorbox}
@@ -4835,12 +4835,12 @@ A transformation $\widetilde\Phi : T^*M\times \R^2 \to T^*M\times \R^2$ that ass
     It is enough to expand the differential in $Q$ in \eqref{eq:timedepgen} to observe that
     \begin{align}
         &p_i \d q^i -E \d t - P_i \left(
-            \frac{\partial Q^i}{\partial q_i}\d q_i
+            \frac{\partial Q^i}{\partial q^i}\d q^i
             +\frac{\partial Q^i}{\partial p_i}\d p_i
             +\frac{\partial Q^i}{\partial t}\d t
             \right) + \widetilde E \d T \\
         &= 
-            \frac{\partial S}{\partial q_i}\d q_i
+            \frac{\partial S}{\partial q^i}\d q^i
             +\frac{\partial S}{\partial p_i}\d p_i
             +\frac{\partial S}{\partial t}\d t
             +\frac{\partial S}{\partial E}\d E.
