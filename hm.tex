@@ -2304,7 +2304,7 @@ In the plane, this translates into being confined into an annular region as depi
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\linewidth]{images/annular-region.pdf}
+    \includegraphics[width=0.75\linewidth]{images/annular-region.pdf}
     \caption{The trajectories are confined in an annular region \cite{book:ll}}
     \label{fig:annregio}
 \end{figure}
@@ -2352,18 +2352,18 @@ after which the potential grows approaching $0$ as $r\to+\infty$.
             y label style={at={(-0.03,0.995)}},
             axis on top,
         ]
-        \addplot[blue,domain=0:15,samples=200,very thick]
+        \addplot[blue,domain=0:15,samples=200,thick]
             {-2/x + 1/(2*x^2)}
             node[pos=0.99] (Ulabel) {};
         \node [below, blue] at (Ulabel) {$U_{\mathrm{eff}}$};
         % Below
         \addplot [mark=none, gray!30!black, dotted, domain=-0.2:0.29289] {-1};
         \addplot [mark=none, red, domain=0.29289:1.70711, very thick] {-1} node[pos=2.5] (negelabel) {};
-        \node [below, red] at (negelabel) {$U_{\mathrm{eff}}^* < E < 0$};
+        \node [below, red] at (negelabel) {\hspace{1em}$U_{\mathrm{eff}}^* < E < 0$};
         \addplot [mark=none, gray!30!black, dotted, domain=1.70711:15] {-1};
         % Above
         \addplot [mark=none, gray!30!black, dotted, domain=-0.2:0.222474] {1};
-        \addplot [mark=none, green!30!black, domain=0.222474:15, very thick] {1} node[pos=0.1] (poselabel) {};
+        \addplot [mark=none, green!30!black, domain=0.222474:15, thick] {1} node[pos=0.1] (poselabel) {};
         \node [below, green!30!black] at (poselabel) {$E > 0$};
         \end{axis}
     \end{tikzpicture}
