@@ -153,7 +153,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-    Version 1.5.1\\
+    Version 1.5.2\\
     \today
 \end{center}
 \vfill
@@ -4551,7 +4551,7 @@ The starting point for the construction of the generating function is Theorem~\r
 \begin{remark}
     If $q^i = Q^i$, $i=1,\ldots,n$, then the function $S=S(q)$. In fact, in this case, \eqref{eq:coordgenfun} reads
     \begin{align}
-        p_i \d q^i - P_i \frac{\partial Q^i}{\partial q^i}\d q^i - P_i \frac{\partial Q^i}{\partial p_i}\d p_i & = (p_i -P_i)\d q^i \\
+        p_i \d q^i - P_i \frac{\partial Q^i}{\partial q^j}\d q^j - P_i \frac{\partial Q^i}{\partial p_j}\d p_j & = (p_i -P_i)\d q^i \\
         & = \frac{\partial S}{\partial q^i}\d q^i + \frac{\partial S}{\partial p_i}\d p_i,
     \end{align}
     which imply $\frac{\partial S}{\partial p_i} = 0$ and, thus, $p_i = P_i + \frac{\partial S(q)}{\partial q^i}$.
@@ -4730,8 +4730,8 @@ These can be used to define a third common family of generating functions.
     \begin{enumerate}
         \item $S_1(q,Q) = S(q,p(q,Q))$, which depends only on the old and new generalized coordinates;
         \item $S_2(q,P) = - Q^i(q,P) P_i + S(q,p(q,P))$, which depends only on the old generalized coordinates and the new generalized momenta;
-        \item $S_3(p,Q) = q^i(p,Q) p^i + S(q(p,Q),p)$, which depends only on the old generalized momenta and the new generalized coordinates;
-        \item $S_4(p,P) = q^i(p,P) p^i - Q^i(p,P) P^i + S(q(p,P),p)$, which depends only on the old and new generalized momenta.
+        \item $S_3(p,Q) = q^i(p,Q) p_i + S(q(p,Q),p)$, which depends only on the old generalized momenta and the new generalized coordinates;
+        \item $S_4(p,P) = q^i(p,P) p_i - Q^i(p,P) P_i + S(q(p,P),p)$, which depends only on the old and new generalized momenta.
     \end{enumerate}
     Of course, as we also have shown, mixtures of these four types can exist.
 \end{remark}
@@ -4768,7 +4768,7 @@ The proof follows along the lines of Theorem~\ref{thm:S1} and will be omitted.
     The change of coordinates \eqref{eq:infcantraf} is an infinitesimal canonical transformation if and only if there exists a function $K=K(q,p)$ such that
     \begin{equation}
         h_i(q,p,0) = -\frac{\partial K(q,p)}{\partial q^i}, \quad
-        g_i(q,p,0) = \frac{\partial K(q,p)}{\partial p_i}, \quad
+        g^i(q,p,0) = \frac{\partial K(q,p)}{\partial p_i}, \quad
         i=1,\ldots,n.
     \end{equation}
     In this case, we say that $K$ is the hamiltonian associated to the infinitesimal canonical transformation. Moreover, $K(q,p) = \psi(q,p,0)$ where $\psi(q,p,\epsilon)$ is the function appearing in \eqref{eq:infS2}.
@@ -4835,8 +4835,8 @@ A transformation $\widetilde\Phi : T^*M\times \R^2 \to T^*M\times \R^2$ that ass
     It is enough to expand the differential in $Q$ in \eqref{eq:timedepgen} to observe that
     \begin{align}
         &p_i \d q^i -E \d t - P_i \left(
-            \frac{\partial Q^i}{\partial q^i}\d q^i
-            +\frac{\partial Q^i}{\partial p_i}\d p_i
+            \frac{\partial Q^i}{\partial q^j}\d q^j
+            +\frac{\partial Q^i}{\partial p_j}\d p_j
             +\frac{\partial Q^i}{\partial t}\d t
             \right) + \widetilde E \d T \\
         &= 
