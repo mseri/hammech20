@@ -25,40 +25,40 @@
 %%   http://tug.ctan.org/tex-archive/info/svg-inkscape
 %%
 \begingroup%
-  \makeatletter%
-  \providecommand\color[2][]{%
-    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
-    \renewcommand\color[2][]{}%
-  }%
-  \providecommand\transparent[1]{%
-    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
-    \renewcommand\transparent[1]{}%
-  }%
-  \providecommand\rotatebox[2]{#2}%
-  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
-  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
-  \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{951.65296596bp}%
-    \ifx\svgscale\undefined%
-      \relax%
-    \else%
-      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
-    \fi%
+\makeatletter%
+\providecommand\color[2][]{%
+  \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+  \renewcommand\color[2][]{}%
+}%
+\providecommand\transparent[1]{%
+  \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+  \renewcommand\transparent[1]{}%
+}%
+\providecommand\rotatebox[2]{#2}%
+\newcommand*\fsize{\dimexpr\f@size pt\relax}%
+\newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+\ifx\svgwidth\undefined%
+  \setlength{\unitlength}{951.65296596bp}%
+  \ifx\svgscale\undefined%
+    \relax%
   \else%
-    \setlength{\unitlength}{\svgwidth}%
+    \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
   \fi%
-  \global\let\svgwidth\undefined%
-  \global\let\svgscale\undefined%
-  \makeatother%
-  \begin{picture}(1,0.95518386)%
-    \lineheight{1}%
-    \setlength\tabcolsep{0pt}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{lagrange.pdf}}%
-    \put(0.65670782,0.41632781){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_1$}\end{tabular}}}}%
-    \put(0.91678027,0.37143671){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_2$}\end{tabular}}}}%
-    \put(0.2080004,0.41662657){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_3$}\end{tabular}}}}%
-    \put(0.59191035,0.76110412){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_4$}\end{tabular}}}}%
-    \put(0.58613947,0.16982049){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_5$}\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{lagrange.pdf}}%
-  \end{picture}%
+\else%
+  \setlength{\unitlength}{\svgwidth}%
+\fi%
+\global\let\svgwidth\undefined%
+\global\let\svgscale\undefined%
+\makeatother%
+\begin{picture}(1,0.95518386)%
+  \lineheight{1}%
+  \setlength\tabcolsep{0pt}%
+  \put(0,0){\includegraphics[width=\unitlength,page=1]{lagrange.pdf}}%
+  \put(0.65670782,0.41632781){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_1$}\end{tabular}}}}%
+  \put(0.91678027,0.37143671){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_2$}\end{tabular}}}}%
+  \put(0.2080004,0.41662657){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_3$}\end{tabular}}}}%
+  \put(0.59191035,0.76110412){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_4$}\end{tabular}}}}%
+  \put(0.58613947,0.16982049){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{$L_5$}\end{tabular}}}}%
+  \put(0,0){\includegraphics[width=\unitlength,page=2]{lagrange.pdf}}%
+\end{picture}%
 \endgroup%
