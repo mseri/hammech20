@@ -153,7 +153,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-  Version 1.5.2\\
+  Version 1.6\\
   \today
 \end{center}
 \vfill
@@ -272,13 +272,13 @@ The Picard-Lindel\"of theorem\footnote{Also known as ``Existence and uniqueness 
 
 \subsection{Motion in one degree of freedom}
 
-Before temporarily moving to Lagrangian mechanics, let's anticipate some of the concepts in some simple cases.
+Before taking a little detour into Lagrangian mechanics, let's anticipate some of the upcoming concepts in a few simple cases.
 
 \begin{example}[Horizontal spring and pendulum]\label{ex:sprPen}
   Consider an idealized system consisting of a point particle of mass $m$ attached to a spring with stiffness $k$, sliding on a frictionless surface.
   Assume that the motion is one-dimensional along the axis of the spring and let $x$ denote the displacement of the system from its equilibrium position, i.e., the position in which the spring is completely at rest: not compressed nor extended. We consider this system to exclude gravitational forces from the picture.
 
-  Hooke's law states that the restoring force $F$ exerted by the spring on whatever is pulling its free end scales linearly with respect to the distance it's been pulled: i.e., $F(x) = - k x$. According to \eqref{eq:newton}, then, the motion of the point particle is given by
+  \emph{Hooke's law} states that the restoring force $F$ exerted by the spring on whatever is pulling its free end scales linearly with respect to the distance it's been pulled: i.e., $F(x) = - k x$, see Figure~\ref{fig:spring-pendulum} left. According to \eqref{eq:newton}, then, the motion of the point particle is given by
   \begin{equation}\label{eq:spring}
     m \ddot{x} = - k x \qquad\mbox{or}\qquad \ddot{x} = - \omega^2 x \quad\mbox{where } \omega = \sqrt{k/m}.
   \end{equation}
@@ -289,10 +289,12 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
   \begin{equation}
     x(0) = R\cos(\phi) \qquad\mbox{and}\qquad \dot x(0) = -\omega R \sin(\phi).
   \end{equation}
-  Clearly, once we know the initial conditions, the full evolution of the solution $x(t)$ is known, in agreement with Newton's principle of determinacy.
+  Clearly, once we know the initial conditions, the full evolution of the solution $x(t)$ is known, in agreement with Newton's principle of determinacy. \medskip
 
   \begin{figure}[ht!]
     \includegraphics[width=.9\linewidth]{{images/HM-1.2}.pdf}
+    \caption{Left: horizontal spring. Right: planar pendulum.}%
+    \label{fig:spring-pendulum}
   \end{figure}
 
   Consider, now, a point particle of mass $m$ attached to a pivot on the ceiling via a rigid rod of length $l$.
@@ -306,28 +308,27 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
   Here, $g \approx 9.8 m s^2$ denotes the gravitational acceleration.
 
   Although it is possible to solve the equation of motion of the pendulum by means of elliptic integrals, this is rather cumbersome.
-  Under certain conditions, when $\sin x \approx x$, we can actually avoid doing this and instead we use the equation of the spring as a model for the pendulum oscillation via the so-called called \emph{small oscillations}.
+  Under certain conditions, when $\sin x \approx x$, we can actually avoid doing this and instead we use the equation of the spring as a model for the pendulum oscillation via the so-called called \emph{small oscillations} approximation.
   We will come back to this later on.
 \end{example}
 
 \begin{example}[Idealized motion of the Earth around the Sun]\label{ex:Kepler0}
-
-  Let us approximate the Sun with a point particle of mass $M$ positioned at the origin $\bm{0}\in\R^3$ of the Euclidean space. In this solar system, with the Sun fixed at the origin, we will describe the Earth by a point particle of mass $m$ whose position (and motion) is described by a vector $\bx(t)\in\R^3$.
+  Let us approximate the Sun with a point particle of mass $M$ positioned at the origin $\bm{0}\in\R^3$ of the Euclidean space. In this solar system, with the Sun fixed at the origin, we will describe the Earth by a point particle of mass $m$ whose position (and motion) is described by a vector $\bx\in\R^3$.
 
   Due to our choice of coordinates, the gravitational attraction of the Sun acts in direction $-\bx(t)$. \emph{Newton's law of universal gravitation} says that such a force is proportional to
   \begin{equation}
-    \frac{GmM}{\|\bm{0}-\bx(t)\|^2} = \frac{GmM}{\|\bx(t)\|^2},
+    \frac{GmM}{\|\bm{0}-\bx\|^2} = \frac{GmM}{\|\bx\|^2},
   \end{equation}
   where $G \sim 6.674 \cdot 10^{-11} \frac{m^3}{s^2\,kg}$ is called the \emph{gravitational constant}.
   Once we collect all the elements into Newton's second law \eqref{eq:newton}, we obtain the equation of motion
   \begin{equation}\label{eq:keplerex}
-    m \ddot{\bx}(t) = - G\frac{mM}{\|\bx(t)\|^2} \frac{\bx(t)}{\|\bx(t)\|}.
+    m \ddot{\bx} = - G\frac{mM}{\|\bx\|^2} \frac{\bx}{\|\bx\|}.
   \end{equation}
   This is an autonomous second order ordinary differential equation on the configuration space $\R^3\setminus\big\{\bm{0}\big\}$.
-  Providing the initial conditions $\bx(0)=\bx_0$ and $\dot{\bx}(0)=\bv_0$, we can explicitly solve \eqref{eq:keplerex}.
+  Providing the initial conditions $\bx(0)=\bx_0$ and $\dot{\bx}(0)=\bv_0$, we can try to explicitly solve \eqref{eq:keplerex}, however in this case we could already get a lot of insight by taking a slightly different point of view.
 
-  Behind differential equations in classical mechanics lies a surprising geometrical structure in which conserved quantities play a special role.
-  These can help to obtain extensive insights on the solution of classical equations of motion without the need to explicitly solve the equations (which would be, in general, impossible).
+  Behind differential equations in classical mechanics lies a surprisingly rich geometrical structure, in which conserved quantities play a special role.
+  These can help to obtain extensive information on the solution of classical equations of motion without the need to explicitly solve the equations (which would be, in general, impossible).
 
   On the tangent bundle $(\R^3\setminus\big\{\bm{0}\big\})\times\R^3$, let us define the total energy
   \begin{equation}\label{eq:energyKepler}
@@ -335,11 +336,11 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
   \end{equation}
   the angular momentum
   \begin{equation}
-    L(x,v) = m \bv \wedge \bx,
+    L(\bx,\bv) = m \bv \wedge \bx,
   \end{equation}
   and the Laplace-Runge-Lenz vector
   \begin{equation}
-    A(x,v) = m \bv \wedge L(\bx, \bv) + \frac{G m^2 M^2}{m+M} \frac{\bx}{\|\bx\|}.
+    A(\bx,\bv) = m \bv \wedge L(\bx, \bv) + \frac{G m^2 M^2}{m+M} \frac{\bx}{\|\bx\|}.
   \end{equation}
   Along the solutions of \eqref{eq:keplerex}, let us define $E(t):=E(\bx(t),\dot\bx(t))$ and, similarly, $L(t)$ and $A(t)$. Then, there exist solutions such that $L(t) = L(0) \neq 0$ for all times, and also $E(t) = E(0)$ and $A(t) = A(0)$. Furthermore, a solution that lives on the ``submanifold'' defined by
   \begin{equation}
@@ -369,9 +370,8 @@ Before temporarily moving to Lagrangian mechanics, let's anticipate some of the 
 \section{Hamilton's variational principle}\label{sec:varpri}
 
 \begin{tcolorbox}
-  Throughout this section we assume that our system has $n$ degrees of freedom whose configuration space is $\R^n$.
+  Throughout this section we assume that our system has $n$ degrees of freedom and its configuration space is $\R^n$.
 \end{tcolorbox}
-We will see that the generalization to manifolds is almost immediate.
 
 In order to leave more space to discuss Hamiltonian systems and their geometry, we will be brief in our account of Lagrangian mechanics and calculus of variations. For a more detailed account refer to \cite[Part II]{book:arnold}.
 This, however, should not confuse you: Lagrangian mechanics plays a role as large as Hamiltonian mechanics in the development of classical mechanics.
@@ -804,233 +804,6 @@ We don't have to go very far to see an example of this, but we can also see that
   The concept of gauge invariance is central in lots of modern physics.
 \end{example}
 
-\section{Euler-Lagrange equations on smooth manifolds}\label{sec:lagrangianonmanifold}
-
-Before entering into the actual definition, let's play a bit with what we already have.
-
-We introduced the generalized coordinates in the first section of this chapter but by now, we don't yet know if and how the lagrangian formalism translates into that language.
-Let's consider a natural lagrangian for a system of $N$ particles, so in $\R^{3N}$, with equal mass $m=1$.
-Assume that we already know that the system has $n$ degrees of freedom.
-If we describe the motion in terms of generalized coordinates
-\begin{equation}
-  \bx_k = \bx_k(q^1, \ldots, q^{n}), \quad k=1,\ldots,N,
-\end{equation}
-a direct application of the chain rule will allow us to rewrite the lagrangian in terms of these new coordinates as
-\begin{equation}
-  L(q, \dot q) = T(q, \dot q) - U(q),
-  \quad\mbox{where}\quad
-  \begin{cases}
-    T:= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U = U(q), \\
-    g_{kl} (q) := \sum_{j=1}^N \left\lag\frac{\partial\bx_j}{\partial q^k}, \frac{\partial \bx_j}{\partial q^l}\right\rag
-  \end{cases}
-\end{equation}
-and, again, we used Einstein summation convention.
-
-If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\bx = (x,y,z)$,
-\begin{equation}
-  L = \frac 12 (\dot x^2 + \dot y^2 + \dot z^2),
-\end{equation}
-in cylindrical coordinates $(r,\phi,z)$ it would read
-\begin{equation}
-  L = \frac 12 (\dot r^2 + r^2 \dot \phi^2 + \dot z^2),
-\end{equation}
-while in spherical coordinates $(r,\phi,\theta)$, see also Figure~\ref{fig:sphcoords}, it would become
-\begin{equation}
-  L = \frac 12 (\dot r^2 + r^2 \dot \theta^2 + r^2 \sin^2(\theta) \dot \phi^2).
-\end{equation}
-
-The term $g_{kl} (q)$ should also ring a bell in the context of this example: the arc length $s$ of a parametrized curve $q(t) : [t_1,t_2] \to \R^3$, is computed as
-\begin{equation}\label{eq:arclen}
-  \begin{aligned}
-    s = \int_{t_1}^{t_2} \sqrt{\d s^2} = \int_{t_1}^{t_2} \sqrt{g_{kl}(q)\dot q^k \dot q^l} \;\d t,\quad
-    g_{kl} (q) = \left\lag\frac{\partial\bx}{\partial q^k}, \frac{\partial \bx}{\partial q^l}\right\rag.
-  \end{aligned}
-\end{equation}
-The strange looking object $\d s^2$, called line element or first fundamental form, is just a short-hand notation for the $g$-dependent scalar product of generalized velocities that we obtained above\footnote{If you interpret $\d q^k \d q^l := \d q^k \otimes \d q^l$ as the tensor product of the two one-forms, then this is just the metric tensor $g$.}: $\d s^2 = g_{kl}(q)\, \d q^k \d q^l$.
-For example, in cartesian coordinates, we have
-\begin{equation}
-  \d s^2 = \d x^2 + \d y^2 + \d z^2,
-\end{equation}
-while in cylindrical coordinates
-\begin{equation}
-  \d s^2 = \d r^2 + r^2 \d \phi^2 + \d z^2,
-\end{equation}
-and in spherical coordinates, see Figure~\ref{fig:sphcoords},
-\begin{equation}\label{eq:spharc}
-  \d s^2 = \d r^2 + r^2 \sin^2(\theta) \d \phi^2 + r^2 \d \theta^2.
-\end{equation}
-You can see that there is a striking resemblance between the squared arc length elements and the lagrangian functions above.
-
-Let's consider the more general situation of local coordinates $(q^1, \ldots, q^n)$ on a smooth manifold $M$.
-We will only recall the main terminology here, for a review of these concepts refer to \cite[Chapter 4.18]{book:arnold}, \cite[Appendix A]{book:knauf}, \cite[Chapter 4]{book:marsdenratiu}, your favourite book of differential geometry\footnote{Mine is \cite{book:lee}, which is freely accessible through the University library} or my beautiful\footnote{If I do say so, myself.} lecture notes \cite{lectures:aom:seri}.
-
-We denote $T_q M$ the \emph{tangent space} of $M$ at $q$, and $TM = \cup_{q\in M}\{q\}\times T_q M$ the \emph{tangent bundle} of $M$. The latter is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$.
-
-Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(W)\to\phi(W)$ are also diffeomorphisms.
-
-When we talk about local coordinates $(q^1,\ldots,q^n)$ on $M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things may get confusing here, since one usually distinguishes the point $q$ on the manifold from its coordinate representation $\phi(q)=(q^1, \ldots, q^n)$, while here we are using the same letters for both.} $\phi=(q^1, \ldots, q^n)$.i
-Local coordinates on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)\] on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
-\begin{equation}
-  \dot q^i(v) = v^i,\quad\mbox{where}\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n},
-\end{equation}
-is the decomposition of the vector $v$ in the local basis induced by the coordinate chart.
-The most immediate way to compute the components $\dot q^i$ is by using the definition of tangent vectors as class of equivalence of tangents to curves \cite[Chapter 2.5]{lectures:aom:seri}.
-Let $\gamma:\R \to M$ be a curve such that $\gamma(0) = q$ and $\der{\gamma}{t}|_{t=0} = v$, then $q^i$ is given by the $i$th component of $\der{}{t}(\phi\circ\gamma)|_{t=0}$.
-Tangent vectors $v\in T_qM$ are also derivations. If $f\in C^\infty(M)$, one can compute $v(f)=\der{}{t}(f\circ\gamma)|_{t=0}$. In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$.
-
-To emphasize once more the importance of the chain rule in this business, a local change of coordinates on $M$ determines a special class of coordinate transformations on the tangent bundle which is linear with respect to the coordinates $\dot q$ on the fibers:
-\begin{equation}
-  \widetilde q^i = \widetilde q^i (q), \quad \dot{\widetilde q}^i = \frac{\partial\widetilde q^i}{\partial q^k}\dot q^k.
-\end{equation}
-
-With this notation, the \emph{lagrangian} of a mechanical system on a manifold is a smooth function $L : TM\times\R \to \R$.
-You can check that $T\R^n = \R^n \times \R^n$, leading to our previous definition in the euclidean setting.
-The manifold $M$ is called the \emph{configuration space} of the system, its tangent bundle $TM$ is called \emph{state space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system.
-
-The lagrangian is called \emph{non--degenerate} if
-\begin{equation}
-  \det %\left(
-  \left(\frac{\partial^2 L}{\partial \dot{q}^i \partial \dot{q}^j}\right)_{1\leq i,j\leq n}
-  %\right)
-  \neq 0.
-\end{equation}
-
-\begin{exercise}\label{exe:coordinatesInd}
-  Let $L=L(q,\dot q):TM \to \R$ be a smooth function. Show that the \emph{linear momenta}, i.e., the derivatives
-  \begin{equation}
-    p_i := \frac{\partial L}{\partial \dot q^i}, \quad i=1,\ldots,n,
-  \end{equation}
-  transform as components of the cotangent bundle $T^* M$ over $M$:
-  \begin{equation}
-    \widetilde p_i = \frac{\partial q^k}{\partial {\widetilde q}^i} p_k, \quad i=1,\ldots,n.
-  \end{equation}
-  Furthermore, show that the matrix of second derivatives with respect to the coordinates $\dot q$ of the lagrangian transforms as a $(0,2)$-tensor, i.e.
-  \begin{equation}
-    \frac{\partial^2 L}{\partial \dot{\widetilde q}^i \partial \dot{\widetilde q}^j} =
-    \frac{\partial q^k}{\partial {\widetilde q}^i}\frac{\partial q^l}{\partial {\widetilde q}^j}
-    \frac{\partial^2 L}{\partial \dot{q}^k \partial \dot{q}^l}.
-  \end{equation}
-  \textit{Hint: use Euler-Lagrange equation.}
-\end{exercise}
-Thanks to the second part of the exercise above, the class of non--degenerate lagrangians is independent of the choice of local coordinates on the configuration space.
-
-To simplify the discussion and the geometrical description, we now assume that the lagrangian is non--degenerate and that it does not explicitly depend on time.
-As for the euclidean case, given a lagrangian $L$ we can define a functional $S$ on the space of smooth curves $q(t): [t_1,t_2] \to M$ with $q(t_1) = q_1$ and $q(t_2) = q_2$ as the integral
-\begin{equation}
-  S[q] = \int_{t_1}^{t_2} L(q,\dot q) \d t.
-\end{equation}
-It turns out\footnote{Truth be told, we are hiding some extra complications involving infinite dimensional manifolds here, for a full account of the theory involved you can refer to \cite[Chapters 7 and 8]{book:marsdenratiu}.} that also in this case the critical points of the functional are determined by the Euler-Lagrange equations
-\begin{equation}
-  \frac{\d}{\d t}\frac{\partial L}{\partial \dot q^i} - \frac{\partial L}{\partial q^i} =0, \quad i=1,\ldots,n,
-\end{equation}
-which have the exact same form as \eqref{eq:eulerlagrange}.
-Under the time-independence and non--degeneracy conditions, the lagrangian defines a dynamical system on the tangent bundle $TM$.
-
-As we have seen, for a system of $N$ point particles, the configuration space is simply $M=\R^{3N}$. Mechanical systems on more general configuration spaces usually appear once we consider systems with certain types of constraints or systems that have undergone symmetry reductions.
-Bear some patience, we will come back to this soon.
-\medskip
-
-An important class of mechanical systems is defined on riemannian manifolds: a riemannian manifold $(M, g)$ is a smooth manifold $M$ equipped with an inner product $g_q$ on $T_q M$ which varies smoothly with $q$, i.e., a symmetric $(0,2)$-tensor on $TM$ whose matrix representation $g_{ij}(q)$ is positive definite.
-Locally, analogously to what we have described at the beginning of the chapter,
-\begin{equation}
-  g = g_{ij}(q) \d q^i \d q^j =: \d s^2.
-\end{equation}
-
-The length of curves on $M$ is then defined as in \eqref{eq:arclen} and angles between tangent vectors are defined using the inner product on $T_qM$:
-\begin{equation}
-  \lag v, w\rag_g = g_{ij}(q) v^i w^j, \qquad v,w\in T_q M.
-\end{equation}
-As in the Euclidean space, arc lengths of curves are invariant with respect to monotonic changes of parametrization,
-\begin{equation}
-  t = t(\tau),\quad \tau_1\leq \tau\leq \tau_2, \quad \frac{\d t}{\d \tau}\neq 0.
-\end{equation}
-
-Replacing the scalar product, i.e., the inner product in the Euclidean space, we can define the kinetic energy of a point particle with mass $m$ as
-\begin{equation}
-  T = \frac m2 \lag\dot q, \dot q\rag_g = \frac{m}2 g_{ij}(q)\dot q^i\dot q^j.
-\end{equation}
-
-\begin{exercise}\label{exe:geodesic1}
-  Show that the Euler-Lagrange equations for the functional
-  \begin{equation}
-    S[q] = \int_{t_1}^{t_2} \frac 12 g_{ij}(q) \dot q^i \dot q^j\; \d t
-  \end{equation}
-  have the form
-  \begin{equation}\label{eq:geodesic}
-    \ddot q^k + \Gamma_{ij}^k(q) \dot q^i \dot q^j = 0, \quad k=1,\ldots, n,
-  \end{equation}
-  where $\Gamma_{ij}^k(q)$ are the Christoffel symbols of the Levi-Civita connection associated with the metric $\d s^2$:
-  \begin{equation}
-    \Gamma_{ij}^k(q) = \frac12 g^{km}\left(
-    \frac{\partial g_{mj}}{\partial q^i} + \frac{\partial g_{im}}{\partial q^j}-\frac{\partial g_{ij}}{\partial q^m}
-    \right),
-    \qquad (g^{ij}(q)) = (g_{ij}(q))^{-1}.
-  \end{equation}
-\end{exercise}
-
-Solutions of \eqref{eq:geodesic} are the \emph{geodesic curves} on the riemannian manifold $M$. Locally, geodesics are not just minimizing the action $S$, but also the lengths!
-%Later on, we will come back to this as well.
-
-\begin{example}\label{ex:sphericalP}
-  Let us consider a spherical pendulum of mass $m$ and length $l$, i.e., a point particle of mass $m$ moving without friction on the surface of a sphere of radius $l$.
-  Let's ignore gravity for the moment.
-
-  The system has two degrees of freedom, its configuration space $M$ is a 2-sphere $S^2$ of radius $l$.
-  Using spherical coordinates $(\theta, \phi)$ -- see also Figure~\ref{fig:sphcoords} -- and \eqref{eq:spharc}, we find the free lagrangian
-  \begin{equation}\label{eq:LsphericalP}
-    L = \frac m2 l^2(\dot \theta^2 + \dot \phi^2 \sin^2\theta).
-  \end{equation}
-  Due to the discussion above, we immediately can say that the point particle moves on the geodesics of the sphere.
-\end{example}
-
-\begin{exercise}
-  Start from a free lagrangian in cartesian coordinates.
-  As we are imposing that the particle lives on the surface of the sphere, change variables using the appropriate spherical coordinates to derive \eqref{eq:LsphericalP}.
-\end{exercise}
-
-\begin{figure}[ht]
-  \centering
-  %
-  \tdplotsetmaincoords{60}{110}
-  %
-  \pgfmathsetmacro{\rvec}{.8}
-  \pgfmathsetmacro{\thetavec}{30}
-  \pgfmathsetmacro{\phivec}{60}
-  %
-  \begin{tikzpicture}[scale=3,tdplot_main_coords]
-    \coordinate (O) at (0,0,0);
-    \draw[gray,thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
-    \draw[gray,thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
-    \draw[gray,thick,->] (0,0,-.8) -- (0,0,1) node[anchor=south]{$z$};
-    \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
-    \draw[-stealth,color=red] (O) -- (P) %node[above right] {$P$}
-    node[black,left]{$r$};
-    \draw[dashed, color=red] (O) -- (Pxy);
-    \draw[dashed, color=red] (P) -- (Pxy);
-    \tdplotdrawarc[->]{(O)}{0.2}{0}{\phivec}{anchor=north}{$\phi$}
-    \tdplotsetthetaplanecoords{\phivec}
-    \tdplotdrawarc[tdplot_rotated_coords,->]{(0,0,0)}{0.5}{180}%
-    {\thetavec}{anchor=south west}{$\theta$}
-    \draw[gray,dashed,tdplot_rotated_coords] (\rvec,0,0) arc (0:90:\rvec);
-    \draw[gray,dashed] (\rvec,0,0) arc (0:90:\rvec);
-  \end{tikzpicture}
-  \caption{Our choice of spherical coordinates}
-  \label{fig:sphcoords}
-\end{figure}
-
-In analogy with our discussion of natural lagrangians \eqref{eq:mechlag}, on riemannian manifolds we call \emph{natural} the lagrangians of the form
-\begin{equation}\label{eq:LagrangianM}
-  L = \frac 12 g_{ij}(q)\dot q^i \dot q^j - U(q),
-\end{equation}
-where $U(q)$ is a smooth function on $M$.
-
-\begin{remark}
-  It  is  often  necessary  to  deal  with  mechanical  systems  in  which the interactions between different bodies take the form of constraints.
-  These constraints can  be  very  complicated  and  hard  to  incorporate  when  working directly  with  the differential  equations  of  motion.
-  It  is  often  easier  to  construct  a  lagrangian out of the kinetic and potential energy of the system and derive the correct equations of motion from there.
-  These will often be of the form \eqref{eq:LagrangianM}.
-\end{remark}
-
 \section{First steps with conserved quantities}
 \subsection{Back to one degree of freedom}\label{sec:bdf}
 
@@ -1436,6 +1209,233 @@ One final example, with two degrees of freedom, before jumping into variational 
   A particle, subject to constant gravitational acceleration pointing downwards, moves from $P$ to $Q$, starting at rest.
   Determine the curve along which this motion takes the shortest time.
 \end{exercise}
+
+\section{Euler-Lagrange equations on smooth manifolds}\label{sec:lagrangianonmanifold}
+
+Before entering into the actual definition, let's play a bit with what we already have.
+
+We introduced the generalized coordinates in the first section of this chapter but by now, we don't yet know if and how the lagrangian formalism translates into that language.
+Let's consider a natural lagrangian for a system of $N$ particles, so in $\R^{3N}$, with equal mass $m=1$.
+Assume that we already know that the system has $n$ degrees of freedom.
+If we describe the motion in terms of generalized coordinates
+\begin{equation}
+  \bx_k = \bx_k(q^1, \ldots, q^{n}), \quad k=1,\ldots,N,
+\end{equation}
+a direct application of the chain rule will allow us to rewrite the lagrangian in terms of these new coordinates as
+\begin{equation}
+  L(q, \dot q) = T(q, \dot q) - U(q),
+  \quad\mbox{where}\quad
+  \begin{cases}
+    T:= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U = U(q), \\
+    g_{kl} (q) := \sum_{j=1}^N \left\lag\frac{\partial\bx_j}{\partial q^k}, \frac{\partial \bx_j}{\partial q^l}\right\rag
+  \end{cases}
+\end{equation}
+and, again, we used Einstein summation convention.
+
+If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\bx = (x,y,z)$,
+\begin{equation}
+  L = \frac 12 (\dot x^2 + \dot y^2 + \dot z^2),
+\end{equation}
+in cylindrical coordinates $(r,\phi,z)$ it would read
+\begin{equation}
+  L = \frac 12 (\dot r^2 + r^2 \dot \phi^2 + \dot z^2),
+\end{equation}
+while in spherical coordinates $(r,\phi,\theta)$, see also Figure~\ref{fig:sphcoords}, it would become
+\begin{equation}
+  L = \frac 12 (\dot r^2 + r^2 \dot \theta^2 + r^2 \sin^2(\theta) \dot \phi^2).
+\end{equation}
+
+The term $g_{kl} (q)$ should also ring a bell in the context of this example: the arc length $s$ of a parametrized curve $q(t) : [t_1,t_2] \to \R^3$, is computed as
+\begin{equation}\label{eq:arclen}
+  \begin{aligned}
+    s = \int_{t_1}^{t_2} \sqrt{\d s^2} = \int_{t_1}^{t_2} \sqrt{g_{kl}(q)\dot q^k \dot q^l} \;\d t,\quad
+    g_{kl} (q) = \left\lag\frac{\partial\bx}{\partial q^k}, \frac{\partial \bx}{\partial q^l}\right\rag.
+  \end{aligned}
+\end{equation}
+The strange looking object $\d s^2$, called line element or first fundamental form, is just a short-hand notation for the $g$-dependent scalar product of generalized velocities that we obtained above\footnote{If you interpret $\d q^k \d q^l := \d q^k \otimes \d q^l$ as the tensor product of the two one-forms, then this is just the metric tensor $g$.}: $\d s^2 = g_{kl}(q)\, \d q^k \d q^l$.
+For example, in cartesian coordinates, we have
+\begin{equation}
+  \d s^2 = \d x^2 + \d y^2 + \d z^2,
+\end{equation}
+while in cylindrical coordinates
+\begin{equation}
+  \d s^2 = \d r^2 + r^2 \d \phi^2 + \d z^2,
+\end{equation}
+and in spherical coordinates, see Figure~\ref{fig:sphcoords},
+\begin{equation}\label{eq:spharc}
+  \d s^2 = \d r^2 + r^2 \sin^2(\theta) \d \phi^2 + r^2 \d \theta^2.
+\end{equation}
+You can see that there is a striking resemblance between the squared arc length elements and the lagrangian functions above. \medskip
+
+Let's consider the more general situation of local coordinates $(q^1, \ldots, q^n)$ on a smooth manifold $M$.
+We will only recall the main terminology here, for a review of these concepts refer to \cite[Chapter 4.18]{book:arnold}, \cite[Appendix A]{book:knauf}, \cite[Chapter 4]{book:marsdenratiu}, your favourite book of differential geometry\footnote{Mine is \cite{book:lee}, which is freely accessible through the University library} or my beautiful\footnote{If I do say so, myself.} lecture notes \cite{lectures:aom:seri}.
+
+We denote $T_q M$ the \emph{tangent space} of $M$ at $q$, and $TM = \cup_{q\in M}\{q\}\times T_q M$ the \emph{tangent bundle} of $M$. The latter is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$.
+
+Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(W)\to\phi(W)$ are also diffeomorphisms.
+
+When we talk about local coordinates $(q^1,\ldots,q^n)$ on $M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things may get confusing here, since one usually distinguishes the point $q$ on the manifold from its coordinate representation $\phi(q)=(q^1, \ldots, q^n)$, while here we are using the same letters for both.} $\phi=(q^1, \ldots, q^n)$.
+Local coordinates on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)\] on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
+\begin{equation}
+  \dot q^i = v^i,\quad\mbox{where}\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n},
+\end{equation}
+is the decomposition of the vector $v$ in the local basis induced by the coordinate chart.
+The most immediate way to compute the components $\dot q^i$ is by using the definition of tangent vectors as class of equivalence of tangents to curves \cite[Chapter 2.5]{lectures:aom:seri}.
+Let $\gamma:\R \to M$ be a curve such that $\gamma(0) = q$ and $\der{\gamma}{t}|_{t=0} = v$, then $\dot q^i$ is given by the $i$th component of $\der{}{t}(\phi\circ\gamma)|_{t=0}$.
+Tangent vectors $v\in T_qM$ are also derivations. If $f\in C^\infty(M)$, one can compute $v(f)=\der{}{t}(f\circ\gamma)|_{t=0}$. In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$.
+
+To emphasize once more the importance of the chain rule in this business, a local change of coordinates on $M$ determines a special class of coordinate transformations on the tangent bundle which is linear with respect to the coordinates $\dot q$ on the fibers:
+\begin{equation}
+  \widetilde q^i = \widetilde q^i (q), \quad \dot{\widetilde q}^i = \frac{\partial\widetilde q^i}{\partial q^k}\dot q^k.
+\end{equation}
+
+With this notation, the \emph{lagrangian} of a mechanical system on a manifold is a smooth function $L : TM\times\R \to \R$.
+You can check that $T\R^n = \R^n \times \R^n$, leading to our previous definition in the euclidean setting.
+The manifold $M$ is called the \emph{configuration space} of the system, its tangent bundle $TM$ is called \emph{state space}. The dimension $n$ of the configuration space is the \emph{number of degrees of freedom} of the mechanical system.
+
+The lagrangian is called \emph{non--degenerate} if
+\begin{equation}
+  \det %\left(
+  \left(\frac{\partial^2 L}{\partial \dot{q}^i \partial \dot{q}^j}\right)_{1\leq i,j\leq n}
+  %\right)
+  \neq 0.
+\end{equation}
+
+\begin{exercise}\label{exe:coordinatesInd}
+  Let $L=L(q,\dot q):TM \to \R$ be a smooth function. Show that the \emph{linear momenta}, i.e., the derivatives
+  \begin{equation}
+    p_i := \frac{\partial L}{\partial \dot q^i}, \quad i=1,\ldots,n,
+  \end{equation}
+  transform as components of the cotangent bundle $T^* M$ over $M$:
+  \begin{equation}
+    \widetilde p_i = \frac{\partial q^k}{\partial {\widetilde q}^i} p_k, \quad i=1,\ldots,n.
+  \end{equation}
+  Furthermore, show that the matrix of second derivatives with respect to the coordinates $\dot q$ of the lagrangian transforms as a $(0,2)$-tensor, i.e.
+  \begin{equation}
+    \frac{\partial^2 L}{\partial \dot{\widetilde q}^i \partial \dot{\widetilde q}^j} =
+    \frac{\partial q^k}{\partial {\widetilde q}^i}\frac{\partial q^l}{\partial {\widetilde q}^j}
+    \frac{\partial^2 L}{\partial \dot{q}^k \partial \dot{q}^l}.
+  \end{equation}
+  \textit{Hint: use Euler-Lagrange equation.}
+\end{exercise}
+Thanks to the second part of the exercise above, the class of non--degenerate lagrangians is independent of the choice of local coordinates on the configuration space.
+
+To simplify the discussion and the geometrical description, we now assume that the lagrangian is non--degenerate and that it does not explicitly depend on time.
+As for the euclidean case, given a lagrangian $L$ we can define a functional $S$ on the space of smooth curves $q(t): [t_1,t_2] \to M$ with $q(t_1) = q_1$ and $q(t_2) = q_2$ as the integral
+\begin{equation}
+  S[q] = \int_{t_1}^{t_2} L(q,\dot q) \d t.
+\end{equation}
+It turns out\footnote{Truth be told, we are hiding some extra complications involving infinite dimensional manifolds here, for a full account of the theory involved you can refer to \cite[Chapters 7 and 8]{book:marsdenratiu}.} that also in this case the critical points of the functional are determined by the Euler-Lagrange equations
+\begin{equation}
+  \frac{\d}{\d t}\frac{\partial L}{\partial \dot q^i} - \frac{\partial L}{\partial q^i} =0, \quad i=1,\ldots,n,
+\end{equation}
+which have the exact same form as \eqref{eq:eulerlagrange}.
+Under the time-independence and non--degeneracy conditions, the lagrangian defines a dynamical system on the tangent bundle $TM$.
+
+As we have seen, for a system of $N$ point particles, the configuration space is simply $M=\R^{3N}$. Mechanical systems on more general configuration spaces usually appear once we consider systems with certain types of constraints or systems that have undergone symmetry reductions.
+Bear some patience, we will come back to this soon.
+\medskip
+
+An important class of mechanical systems is defined on riemannian manifolds: a riemannian manifold $(M, g)$ is a smooth manifold $M$ equipped with an inner product $g_q$ on $T_q M$ which varies smoothly with $q$, i.e., a symmetric $(0,2)$-tensor on $TM$ whose matrix representation $g_{ij}(q)$ is positive definite.
+Locally, analogously to what we have described at the beginning of the chapter,
+\begin{equation}
+  g = g_{ij}(q) \d q^i \d q^j =: \d s^2.
+\end{equation}
+
+The length of curves on $M$ is then defined as in \eqref{eq:arclen} and angles between tangent vectors are defined using the inner product on $T_qM$:
+\begin{equation}
+  \lag v, w\rag_g = g_{ij}(q) v^i w^j, \qquad v,w\in T_q M.
+\end{equation}
+As in the Euclidean space, arc lengths of curves are invariant with respect to monotonic changes of parametrization,
+\begin{equation}
+  t = t(\tau),\quad \tau_1\leq \tau\leq \tau_2, \quad \frac{\d t}{\d \tau}\neq 0.
+\end{equation}
+
+Replacing the scalar product, i.e., the inner product in the Euclidean space, we can define the kinetic energy of a point particle with mass $m$ as
+\begin{equation}
+  T = \frac m2 \lag\dot q, \dot q\rag_g = \frac{m}2 g_{ij}(q)\dot q^i\dot q^j.
+\end{equation}
+
+\begin{exercise}\label{exe:geodesic1}
+  Show that the Euler-Lagrange equations for the functional
+  \begin{equation}
+    S[q] = \int_{t_1}^{t_2} \frac 12 g_{ij}(q) \dot q^i \dot q^j\; \d t
+  \end{equation}
+  have the form
+  \begin{equation}\label{eq:geodesic}
+    \ddot q^k + \Gamma_{ij}^k(q) \dot q^i \dot q^j = 0, \quad k=1,\ldots, n,
+  \end{equation}
+  where $\Gamma_{ij}^k(q)$ are the Christoffel symbols of the Levi-Civita connection associated with the metric $\d s^2$:
+  \begin{equation}
+    \Gamma_{ij}^k(q) = \frac12 g^{km}\left(
+    \frac{\partial g_{mj}}{\partial q^i} + \frac{\partial g_{im}}{\partial q^j}-\frac{\partial g_{ij}}{\partial q^m}
+    \right),
+    \qquad (g^{ij}(q)) = (g_{ij}(q))^{-1}.
+  \end{equation}
+\end{exercise}
+
+Solutions of \eqref{eq:geodesic} are the \emph{geodesic curves} on the riemannian manifold $M$. Locally, geodesics are not just minimizing the action $S$, but also the lengths!
+%Later on, we will come back to this as well.
+
+\begin{example}\label{ex:sphericalP}
+  Let us consider a spherical pendulum of mass $m$ and length $l$, i.e., a point particle of mass $m$ moving without friction on the surface of a sphere of radius $l$.
+  Let's ignore gravity for the moment.
+
+  The system has two degrees of freedom, its configuration space $M$ is a 2-sphere $S^2$ of radius $l$.
+  Using spherical coordinates $(\theta, \phi)$ -- see also Figure~\ref{fig:sphcoords} -- and \eqref{eq:spharc}, we find the free lagrangian
+  \begin{equation}\label{eq:LsphericalP}
+    L = \frac m2 l^2(\dot \theta^2 + \dot \phi^2 \sin^2\theta).
+  \end{equation}
+  Due to the discussion above, we immediately can say that the point particle moves on the geodesics of the sphere.
+\end{example}
+
+\begin{exercise}
+  Start from a free lagrangian in cartesian coordinates.
+  As we are imposing that the particle lives on the surface of the sphere, change variables using the appropriate spherical coordinates to derive \eqref{eq:LsphericalP}.
+\end{exercise}
+
+\begin{figure}[ht]
+  \centering
+  %
+  \tdplotsetmaincoords{60}{110}
+  %
+  \pgfmathsetmacro{\rvec}{.8}
+  \pgfmathsetmacro{\thetavec}{30}
+  \pgfmathsetmacro{\phivec}{60}
+  %
+  \begin{tikzpicture}[scale=3,tdplot_main_coords]
+    \coordinate (O) at (0,0,0);
+    \draw[gray,thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
+    \draw[gray,thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
+    \draw[gray,thick,->] (0,0,-.8) -- (0,0,1) node[anchor=south]{$z$};
+    \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+    \draw[-stealth,color=red] (O) -- (P) %node[above right] {$P$}
+    node[black,left]{$r$};
+    \draw[dashed, color=red] (O) -- (Pxy);
+    \draw[dashed, color=red] (P) -- (Pxy);
+    \tdplotdrawarc[->]{(O)}{0.2}{0}{\phivec}{anchor=north}{$\phi$}
+    \tdplotsetthetaplanecoords{\phivec}
+    \tdplotdrawarc[tdplot_rotated_coords,->]{(0,0,0)}{0.5}{180}%
+    {\thetavec}{anchor=south west}{$\theta$}
+    \draw[gray,dashed,tdplot_rotated_coords] (\rvec,0,0) arc (0:90:\rvec);
+    \draw[gray,dashed] (\rvec,0,0) arc (0:90:\rvec);
+  \end{tikzpicture}
+  \caption{Our choice of spherical coordinates}
+  \label{fig:sphcoords}
+\end{figure}
+
+In analogy with our discussion of natural lagrangians \eqref{eq:mechlag}, on riemannian manifolds we call \emph{natural} the lagrangians of the form
+\begin{equation}\label{eq:LagrangianM}
+  L = \frac 12 g_{ij}(q)\dot q^i \dot q^j - U(q),
+\end{equation}
+where $U(q)$ is a smooth function on $M$.
+
+\begin{remark}
+  It  is  often  necessary  to  deal  with  mechanical  systems  in  which the interactions between different bodies take the form of constraints.
+  These constraints can  be  very  complicated  and  hard  to  incorporate  when  working directly  with  the differential  equations  of  motion.
+  It  is  often  easier  to  construct  a  lagrangian out of the kinetic and potential energy of the system and derive the correct equations of motion from there.
+  These will often be of the form \eqref{eq:LagrangianM}.
+\end{remark}
 
 
 \chapter{Conservation Laws}
