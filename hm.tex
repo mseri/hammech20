@@ -199,19 +199,24 @@ Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina
 
 \chapter{Classical mechanics, from Newton to Lagrange and back}
 
-In this chapter we will briefly review some basic concepts of classical mechanics, in particular we will (only briefly) discuss variational calculus and Newtonian mechanics.
-And we will present some simple examples as spoilers for some of the material that will follow.
+In this chapter we will review some basic concepts of classical mechanics.\
+In particular we will briefly discuss variational calculus, Lagrangian mechanics and Newtonian mechanics, superficially presenting along the way some simple examples to motivate part of the rest of the course.
 For a deeper and more detailed account, you can refer to \cite{book:arnold,book:knauf}.
 
 \section{Newtonian mechanics}
 
 Our main interest will be in describing equations of motion of an idealized \emph{point particle}.
-This is a point--like object obtained by ignoring the dimensions of the physical object. Note that this can be done in many cases, for example when describing planetary motion around the sun, we can consider the planet as point particles.
-Of course this is not a universal simplification, for example we cannot do it if we want to describe the motion of a planet around its axes.
+This is a point--like object obtained by ignoring the dimensions of the physical object. Note that in many cases this is a reasonable approximation, for example, when describing planetary motion around the sun, we can consider the planet as point particles without affecting the qualitative properties of the system much.
+Of course this is not a universal simplification: for instance, we cannot do it when describing the motion of a planet around its axes.
 
 For us, a point particle usually carries a \emph{mass} $m$.
 Its \emph{position} in space is described by the position vector $\bx = (x, y ,z)$.
-Keep in mind that $\bx : \R\to\R^3$ is a function of time, denoted by $t$, as the instantaneous state of the system is supposed to evolve, but we will omit the dependence on $t$ in most cases.
+Keep in mind that
+\begin{equation}
+\bx : \R\to\R^3,\quad t \mapsto \bx(t),
+\end{equation}
+is a function of time that describes the instantaneous state of the system during its evolution.
+In most cases, this will be implicitly assumed and we will omit the explicit dependence on $t$.
 
 The \emph{velocity} of the point particle is given by the rate of change of the position vector, i.e., its derivative with respect to time
 \begin{equation}
@@ -224,7 +229,8 @@ We call \emph{acceleration}, the rate of change of the velocity, i.e., the secon
 \end{equation}
 
 \begin{tcolorbox}
-  The mechanics of the particle is encoded in \emph{Newton's second law of motion}, which states that there exist \emph{frames of reference} (i.e systems of coordinates) in which the motion of the particle is described by a differential equation involving the forces $\bm{F}$ acting on the point particle, its mass $m$ and its acceleration as follows\footnote{This is not completely true, Newton was already talking about momentum, which \href{https://web.archive.org/web/20211201082909/https://bigthink.com/starts-with-a-bang/most-important-equation-physics/}{makes a deep difference} but would bring us way off course right now.}
+  The mechanics of the particle is encoded by \emph{Newton's second law of motion}.
+  That is, there exist \emph{frames of reference} (i.e systems of coordinates) in which the motion of the particle is described by a differential equation involving the forces $\bm{F}$ acting on the point particle, its mass $m$ and its acceleration as follows\footnote{This is not completely true, Newton was already talking about momentum, which \href{https://web.archive.org/web/20211201082909/https://bigthink.com/starts-with-a-bang/most-important-equation-physics/}{makes a deep difference} but would set us off-course right now.}
   \begin{equation}\label{eq:newton}
     \bm F = m \ddot{\bx}.
   \end{equation}
@@ -239,17 +245,19 @@ We call $\bx(t)$ the \emph{configuration} of the system at time $t$ in the \emph
 
 \begin{example}\label{example:gcoords}
   For example a system of two rigid pendulums in space constrained to oscillate on a vertical plane, is described by two position vectors, so $\bx = (\bx_1, \bx_2)\in\R^{6}$.
-  However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described by $q = (q^1, q^2) \in \bS^1\times\bS^1 \simeq \T^2$.
+  However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described by $q = (q^1, q^2) \in \bS^1\times\bS^1 \simeq \T^2$. See Figure~\ref{fig:twopend}.
 \end{example}
 
 \begin{figure}[ht!]
   \centering
   \includegraphics[width=0.9\linewidth,trim={0 1cm 0 1cm}, clip]{{images/HM-1.1}.pdf}
+  \caption{Left: a system of two decoupled pendulums in $\R^3$. Right: corresponding generalized coordinates.}%
+  \label{fig:twopend}
 \end{figure}
 
 We say that a system of $N$ particles has \emph{$n$ degrees of freedom} if we need $n$ independent parameters to uniquely specify the system configuration\footnote{As Example~\ref{example:gcoords} shows, the $n$ degrees of freedom do not have to be the cartesian coordinates of the point particles.}. We call \emph{generalized coordinates} any set of $n$ parameters $q = (q^1, \ldots, q^n)$ that uniquely determine the configuration of a system with $n$ degrees of freedom, and \emph{generalized velocities} their time derivatives $\dot q = (\dot q^1, \ldots, \dot q^n)$. The \emph{state} of the system is then characterized by the set of (generalized) coordinates and velocities $(q, \dot q) = \left(q^1, \ldots, q^n,\dot q^1, \ldots, \dot q^n\right)$.
 
-If you recall differential geometry, you may (correctly) guess that the generalized coordinates will be points on some differentiable manifold $q\in M$ and the state will be a point in its tangent bundle $(q, \dot q)\in TM$, i.e., $\dot q \in T_q M$ (see also section~\ref{sec:lagrangianonmanifold}).
+If you recall differential geometry, you may (correctly) guess that the generalized coordinates will be points on some differentiable manifold $q\in M$, their evolution will be described by a curve $q: \R \to M$ parametrized by time and the state of the system will be a point in the tangent bundle $(q, \dot q)\in TM$, i.e., $\dot q \in T_q M$ (see also section~\ref{sec:lagrangianonmanifold}).
 \medskip
 
 We have now all the elements to translate the \emph{Newtonian principle of determinacy} in mathematical terms.
@@ -260,7 +268,7 @@ In 1814, Laplace \cite{book:laplace} wrote
 \end{quotation}
 
 In other words, this principle states that the initial state $\left(q(t_0), \dot q(t_0)\right)$ uniquely determines its evolution $\left(q(t),\dot q(t)\right)$ for $t > t_0$.
-The Picard-Lindel\"of theorem\footnote{Also known as ``Existence and uniqueness of solutions of initial value problems''.} implies that the Newtonian principle of determinacy is locally satisfied\footnote{Modulo some minimal regularity requirements.} by the \emph{equations of motion} of the mechanical system, i.e., second order differential equations derived from Newton's law.
+The Picard-Lindel\"of theorem\footnote{Also known as ``Existence and uniqueness of solutions of initial value problems'', \cite[Theorem 3.17]{book:knauf}.} implies that the Newtonian principle of determinacy is locally satisfied by the \emph{equations of motion} of the mechanical system, i.e., second order differential equations derived from Newton's law.
 
 \subsection{Motion in one degree of freedom}
 
