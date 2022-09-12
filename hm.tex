@@ -194,7 +194,7 @@ A number of extra references covering some of the topics mentioned above is \hre
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
-I am extremely grateful to Riccardo Bonetto, Dijs de Neeling, Anouk Pelzer, Robbert Scholtens, Albert \v{S}ilvans and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
+I am extremely grateful to Senan Bird, Riccardo Bonetto, Dijs de Neeling, Mollie Jagoe-Brown, Anouk Pelzer, Robbert Scholtens, Felix Semler, Albert \v{S}ilvans and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
 
 Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina.com}{Constanza Rojas-Molina}, who kindly allowed me to use some of her beautiful artworks in these notes.
 
@@ -207,7 +207,7 @@ For a deeper and more detailed account, you can refer to \cite{book:arnold,book:
 \section{Newtonian mechanics}
 
 Our main interest will be in describing equations of motion of an idealized \emph{point particle}.
-This is a point--like object obtained by ignoring the dimensions of the physical object. Note that in many cases this is a reasonable approximation, for example, when describing planetary motion around the sun, we can consider the planet as point particles without affecting the qualitative properties of the system much.
+This is a point--like object obtained by ignoring the dimensions of the physical object. Note that in many cases this is a reasonable approximation, for example, when describing planetary motion around the sun, we can consider the planet and the sun as two point particles without affecting much the qualitative properties of the system.
 Of course this is not a universal simplification: for instance, we cannot do it when describing the motion of a planet around its axes.
 
 For us, a point particle usually carries a \emph{mass} $m$.
@@ -219,7 +219,8 @@ Keep in mind that
 is a function of time that describes the instantaneous state of the system during its evolution.
 In most cases, this will be implicitly assumed and we will omit the explicit dependence on $t$.
 
-The \emph{velocity} of the point particle is given by the rate of change of the position vector, i.e., its derivative with respect to time
+The \emph{velocity} of the point particle is given by the rate of change of the position vector,
+i.e., its derivative with respect to time\footnote{Notation: the symbol $a := b$ means that $a$ is defined by the expression $b$, similarly $b =: a$ is the same statement but read from right to left.} 
 \begin{equation}
   \bv = \der{\bx}{t} =: \dot{\bx} = (\dot{x}, \dot{y}, \dot{z}).
 \end{equation}
@@ -246,7 +247,7 @@ We call $\bx(t)$ the \emph{configuration} of the system at time $t$ in the \emph
 
 \begin{example}\label{example:gcoords}
   For example a system of two rigid pendulums in space constrained to oscillate on a vertical plane, is described by two position vectors, so $\bx = (\bx_1, \bx_2)\in\R^{6}$.
-  However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described by $q = (q^1, q^2) \in \bS^1\times\bS^1 \simeq \T^2$. See Figure~\ref{fig:twopend}.
+  However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described\footnote{Here there is an hidden statement: $\bS^1\times\bS^1 \simeq \T^2$. This should be read as: the 2-torus, the surface of a doughnut, is diffemorphic to the product of two circles. Here, diffeomorphic is a concept from the theory of smooth manifolds, and stands for the existence a smooth bijection between the two constructutions. Note that $\simeq$ usually denotes some kind of equivalence, but which specific kind is context-dependent and not often well explicited.} by $q = (q^1, q^2) \in \bS^1\times\bS^1 \simeq \T^2$. See Figure~\ref{fig:twopend}.
 \end{example}
 
 \begin{figure}[ht!]
@@ -306,7 +307,7 @@ Before taking a little detour into Lagrangian mechanics, let's anticipate some o
   \begin{equation}
     m l \ddot{x} = - m g \sin(x) \qquad\mbox{or}\qquad \ddot{x} = - \omega^2 \sin(x) \quad\mbox{where } \omega = \sqrt{g/l}.
   \end{equation}
-  Here, $g \approx 9.8 m s^2$ denotes the gravitational acceleration.
+  Here, $g \approx 9.8 m s^{-2}$ denotes the gravitational acceleration.
 
   Although it is possible to solve the equation of motion of the pendulum by means of elliptic integrals, this is rather cumbersome.
   Under certain conditions, when $\sin x \approx x$, we can actually avoid doing this and instead we use the equation of the spring as a model for the pendulum oscillation via the so-called called \emph{small oscillations} approximation.
@@ -375,7 +376,7 @@ This, however, should not confuse you: Lagrangian mechanics plays a role as larg
 
 In fact, one should not be surprised if there are many sources claiming that the most general formulation of the equations of motion in classical mechanics comes from the \emph{principle of least action} or \emph{Hamilton's variational principle}.
 
-According to this principle, stated in 1834 the equations of motion of a mechanical system are characterized by a function $L \equiv L(q, \dot q, t) : \R^n \times \R^n \times \R \to \R$, called the \emph{lagrangian (function)} of the system.
+According to this principle, stated in 1834, the equations of motion of a mechanical system are characterized by a function $L \equiv L(q, \dot q, t) : \R^n \times \R^n \times \R \to \R$, called the \emph{lagrangian (function)} of the system.
 
 \begin{example}
   The lagrangian of a non-relativistic particle with mass $m > 0$ in a potential $U : \R^n \to \R$ is
@@ -398,7 +399,7 @@ Given a curve $\gamma:[t_1, t_2] \to \R^n$, we define the \emph{action} function
 To make this precise, we will need to recall some preliminary concepts and make sense of differentiation in $\infty$-dimensional spaces.
 
 Let $X$ and $Y$ be Banach spaces\footnote{Banach space: complete normed vector space.}  and $G\subset X$ an open subset of $X$.
-A function $f: G \to Y$ is call \emph{Fr\'echet differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that\footnote{Here, $g = o(\|h\|_X)$ if
+A function $f: G \to Y$ is called \emph{Fr\'echet differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that\footnote{Here, $g = o(\|h\|_X)$ if
   \begin{equation}
     \lim_{\|h\| \to 0} \frac{\|g(h)\|_Y}{\|h\|_X} = 0.
   \end{equation}
