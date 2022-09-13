@@ -154,7 +154,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-  Version 1.7\\
+  Version 1.7.1\\
   \today
 \end{center}
 \vfill
@@ -194,7 +194,7 @@ A number of extra references covering some of the topics mentioned above is \hre
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
-I am extremely grateful to Riccardo Bonetto, Dijs de Neeling, Anouk Pelzer, Robbert Scholtens, Albert \v{S}ilvans and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
+I am extremely grateful to Nithesh Balasubramanian, Riccardo Bonetto, Dijs de Neeling, Anouk Pelzer, Robbert Scholtens, Albert \v{S}ilvans and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
 
 Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina.com}{Constanza Rojas-Molina}, who kindly allowed me to use some of her beautiful artworks in these notes.
 
@@ -370,7 +370,7 @@ Before taking a little detour into Lagrangian mechanics, let's anticipate some o
 
 \section{Hamilton's variational principle}\label{sec:varpri}
 
-In order to leave more space to discuss Hamiltonian systems and their geometry, we will be brief in our account of Lagrangian mechanics and calculus of variations. For a more detailed account refer to \cite[Part II]{book:arnold}.
+In order to leave more space to discuss Hamiltonian systems and their geometry, we will be brief\footnote{Although not as brief as a \href{https://twitter.com/j\_bertolotti/status/1397159397596581889}{twitter thread}.} in our account of Lagrangian mechanics and calculus of variations. For a more detailed account refer to \cite[Part II]{book:arnold}.
 This, however, should not confuse you: Lagrangian mechanics plays a role as large as Hamiltonian mechanics in the development of classical mechanics.
 
 In fact, one should not be surprised if there are many sources claiming that the most general formulation of the equations of motion in classical mechanics comes from the \emph{principle of least action} or \emph{Hamilton's variational principle}.
@@ -817,7 +817,7 @@ It should come as no surprise, that introducing the auxiliary variable $y(t) = \
   \end{aligned}
   \right..
 \end{equation}
-The solutions of \eqref{eq:oscillatorfirstorder} are parametric curves\footnote{Usually called integral curves of the ordinary differential equation.} $(x(t),y(t)):\R\to\R^2$ in the $(x,y)$-space.
+The solutions of \eqref{eq:oscillatorfirstorder} are parametric curves\footnote{Usually called \emph{integral curves} of the ordinary differential equation.} $(x(t),y(t)):\R\to\R^2$ in the $(x,y)$-space.
 %
 If $y\neq0$, we can apply the chain rule, $\frac{\d y}{\d t} = \frac{\d y}{\d x} \frac{\d x}{\d t}$, to get
 \begin{equation}\label{eq:lef}
@@ -830,13 +830,27 @@ Reasoning formally\footnote{For a rigorous understanding of this, you can refer 
 
 Getting rid of time and considering equation \eqref{eq:lef} comes with a price, the solution is now an implicit curve $y(x)$, but also with a huge advantage: this new equation can be solved exactly!
 
-Let $U(x)$ be such that $F(x) = -\frac{\d U}{\d x}$ and define $H(x, y) = \frac12 y^2 + U(x)$, i.e., the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$.
-The function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
+How is that so? We can separate $x$ and $y$ and integrate to get
+\begin{equation}
+  \frac12 y^2 + C_y = \int F(x) dx
+\end{equation}
+If $U(x)$ is such that $F(x) = -\frac{\d U}{\d x}$, we can further simplify the equation into
+\begin{equation}
+  \frac12 y^2 = -U(x) + C,
+\end{equation}
+where $C = C_x - C_y \in\R$ is just a number due to the constants of integration.
+We can locally invert the equation above to get
+\begin{equation}
+  y(x) = \pm \sqrt{2(C-U(x))}.
+\end{equation}
+
+The equation above may already be familiar: $\frac12 y^2 + U(x)$ is the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$. In fact, the statement above is a theorem and we can prove it without the need of the formal step with the differentials.
 
 \begin{theorem}\label{thm:ham1}
   Let $H(x, y) := \frac12 y^2 + U(x)$ where $U:\R\to\R$ is such that $F(x) = -\frac{\d U}{\d x}$.
   Then, the level curves $H(x,y) = C$ are the integral curves of \eqref{eq:oscillatorfirstorder}.
 \end{theorem}
+The function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
 \begin{proof}
   The proof is surprisingly simple:
   \begin{align*}
@@ -868,7 +882,7 @@ A curve $(x(t), y(t))$ spanned by a solution of \eqref{eq:oscillatorfirstorder} 
   \label{fig:pendulum}
 \end{figure}
 
-From these examples we already see that phase curves can consist of only one point. In such cases, the poinst are called \emph{equilibrium} points.
+From these examples we already see that phase curves can consist of only one point. In such cases, the points are called \emph{equilibrium} points.
 
 \subsection{The conservation of energy}\label{sec:energy}
 
@@ -1204,7 +1218,7 @@ One final example, with two degrees of freedom, before jumping into variational 
 Before entering into the actual definition, let's play a bit with what we already have.
 
 We introduced the generalized coordinates in the first section of this chapter but by now, we don't yet know if and how the lagrangian formalism translates into that language.
-Let's consider a natural lagrangian for a system of $N$ particles, so in $\R^{3N}$, with equal mass $m=1$.
+Let's consider a natural lagrangian for a system of $N$ particles, so in $\R^{3N}$.
 Assume that we already know that the system has $n$ degrees of freedom.
 If we describe the motion in terms of generalized coordinates
 \begin{equation}
@@ -1215,11 +1229,11 @@ a direct application of the chain rule will allow us to rewrite the lagrangian i
   L(q, \dot q) = T(q, \dot q) - U(q),
   \quad\mbox{where}\quad
   \begin{cases}
-    T:= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U = U(q), \\
-    g_{kl} (q) := \sum_{j=1}^N \left\lag\frac{\partial\bx_j}{\partial q^k}, \frac{\partial \bx_j}{\partial q^l}\right\rag
+    T(q):= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U(q) = U(\bx(q)) \\
+  g_{kl} (q) := \sum_{j=1}^{3N} m_{\lceil j/3 \rceil} \left\lag\frac{\partial x_j}{\partial q^k}, \frac{\partial x_j}{\partial q^l}\right\rag
   \end{cases}
 \end{equation}
-and, again, we used Einstein summation convention.
+where te non-boldface coordinates $\bx = (\bx_1, \ldots, \bx_N) =: (x_1, \ldots, x_{3N})$ stand for the coordinates of the $N$ points as a unique vector in $\R^{3N}$ and, again, we used Einstein summation convention.
 
 If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\bx = (x,y,z)$,
 \begin{equation}
@@ -1259,11 +1273,16 @@ You can see that there is a striking resemblance between the squared arc length 
 Let's consider the more general situation of local coordinates $(q^1, \ldots, q^n)$ on a smooth manifold $M$.
 We will only recall the main terminology here, for a review of these concepts refer to \cite[Chapter 4.18]{book:arnold}, \cite[Appendix A]{book:knauf}, \cite[Chapter 4]{book:marsdenratiu}, your favourite book of differential geometry\footnote{Mine is \cite{book:lee}, which is freely accessible through the University library} or my beautiful\footnote{If I do say so, myself.} lecture notes \cite{lectures:aom:seri}.
 
-We denote $T_q M$ the \emph{tangent space} of $M$ at $q$, and $TM = \cup_{q\in M}\{q\}\times T_q M$ the \emph{tangent bundle} of $M$. The latter is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$.
-
 Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(W)\to\phi(W)$ are also diffeomorphisms.
 
-When we talk about local coordinates $(q^1,\ldots,q^n)$ on $M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things may get confusing here, since one usually distinguishes the point $q$ on the manifold from its coordinate representation $\phi(q)=(q^1, \ldots, q^n)$, while here we are using the same letters for both.} $\phi=(q^1, \ldots, q^n)$.
+Since manifolds are in general just topological spaces, we don't have a priori a notion of linear algebra to talk about vectors and velocities.
+To this end, we attach at each point $q$ of the manifold a vector space.
+We denote this vector space by $T_q M$, the \emph{tangent space} of $M$ at $q$.
+If $M$ is $n-dimensional$, you can think of this as a copy of $\R^n$ attached at each point and containing all the possible velocity vectors at that point.
+The gluing of all the tangent spaces $TM := \cup_{q\in M}\{q\}\times T_q M$ is the \emph{tangent bundle} of $M$. This is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$.
+
+When we talk about local coordinates $(q^1,\ldots,q^n)$ of a point $p\in M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things may get confusing here, since one usually distinguishes the point $q$ on the manifold from its coordinate representation $\phi(p)=(q^1(p), \ldots, q^n(p))$, while here we are using the same letters for both.} $\phi=(q^1, \ldots, q^n)$.
+
 Local coordinates on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)\] on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
 \begin{equation}
   \dot q^i = v^i,\quad\mbox{where}\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n},
@@ -1271,7 +1290,7 @@ Local coordinates on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\d
 is the decomposition of the vector $v$ in the local basis induced by the coordinate chart.
 The most immediate way to compute the components $\dot q^i$ is by using the definition of tangent vectors as class of equivalence of tangents to curves \cite[Chapter 2.5]{lectures:aom:seri}.
 Let $\gamma:\R \to M$ be a curve such that $\gamma(0) = q$ and $\der{\gamma}{t}|_{t=0} = v$, then $\dot q^i$ is given by the $i$th component of $\der{}{t}(\phi\circ\gamma)|_{t=0}$.
-Tangent vectors $v\in T_qM$ are also derivations. If $f\in C^\infty(M)$, one can compute $v(f)=\der{}{t}(f\circ\gamma)|_{t=0}$. In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$.
+Tangent vectors $v\in T_qM$ are also derivations. If $f\in C^\infty(M)$, one can compute $v(f)=\der{}{t}(f\circ\gamma)|_{t=0}$. In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$: $v(f) = \langle Df,v\rangle$.
 
 To emphasize once more the importance of the chain rule in this business, a local change of coordinates on $M$ determines a special class of coordinate transformations on the tangent bundle which is linear with respect to the coordinates $\dot q$ on the fibers:
 \begin{equation}
@@ -1474,16 +1493,16 @@ Let's make another example before entering into the gist of the matter.
   \end{eqnarray}
 \end{example}
 
-It seems that we can expect other conserved quantities. However, before being able to give a precise statement we need to introduce some preliminary concepts.
+There is no apparent obstacle that prevents us to expect other conserved quantities. However, before being able to give a precise statement we need to introduce some preliminary concepts.
 
 Let $M$ be a smooth manifold. A smooth map $\phi : M \to M$ is called \emph{diffeomorphism} if it is invertible and its inverse $\phi^{-1}$ is smooth. At each point $q\in M$ we can define the \emph{differential} of $\phi$, i.e., the linear map $\phi_*$ between tangent spaces (sometimes also denoted $\d\phi_q$)
 \begin{equation}
   \phi_*: T_q M \to T_{\phi(q)} M,
-  \quad \phi_* v := \phi_*(q) v := \frac{\d}{\d t} (\phi \circ \gamma \Big|_{t=0},
+  \quad \phi_* v := \phi_*(q) v := \frac{\d}{\d t} (\phi \circ \gamma) \Big|_{t=0},
   \quad v\in T_q M,
 \end{equation}
 where $\gamma:(-\epsilon, \epsilon)\subset\R \to M$ is a smooth curve such that $\gamma(0)=q$, $\gamma'(0) = v$.
-On a euclidean space, for example, the simplest such curve is $\gamma(t) = q + v t$.
+On a euclidean space, for instance, the simplest such curve is $\gamma(t) = q + v t$.
 
 In local coordinates, the matrix of the linear map $\phi_*$ coincides with the Jacobian matrix
 \begin{equation}
@@ -1551,6 +1570,8 @@ These two properties give away the inverse of $\Phi_s$: $(\Phi_s)^{-1} = \Phi_{-
 
   For a more thorough account of these topics, and to understand how this relates to the concept of infinitesimal generators of group actions, refer to \cite[Chapters 9 and 20]{book:lee} or \cite[Chapters 3 and 4]{lectures:aom:seri}.
 \end{remark}
+
+As one can expect, if all $\Phi_s$ in a one-parameter group of diffeomorphisms are also symmetries of some lagrangian $L$ on a manifold $M$, we call $\Phi_s$ a \emph{one-parameter group of symmetries} for $(M,L)$. We can finally state Noether\footnote{For a pictorial glimpse to her life, loof for \#Noethember on \href{https://www.instagram.com/explore/tags/noethember/}{instagram} or \href{https://twitter.com/search?q=noethember}{twitter}.} theorem!
 
 \begin{theorem}[Noether theorem]\label{thm:noether}
   Given a one--parameter group of symmetries $\Phi_s: M \to M$ of the mechanical system $(M,L)$, then there exists an integral of motion $I: TM \to \R$.
@@ -2575,7 +2596,7 @@ For a brief but more comprehensive discussion of this you can look at \cite[Chap
   where the \emph{constraint force} $\bm{R} = (\bm{R}_1, \ldots, \bm{R}_N)$ belongs to the orthogonal subspace to (the tangent space at $\bx$ of) $Q$.
 \end{theorem}
 \begin{proof}
-  To deal with constraints in the lagrangian formulation, we introduce $l$ new variables $\lambda_1, \ldots, \lambda_l$, called \emph{Lagrange multipliers}, and define a new lagrangian
+  To deal with constraints in the lagrangian formulation, we introduce $l$ new variables $\lambda_1, \ldots, \lambda_l$, called \emph{Lagrange multipliers}\footnote{For a brief introduction on their meaning, I recommend this \href{https://twitter.com/j\_bertolotti/status/1569324058633801729}{twitter thread}.}, and define a new lagrangian
   \begin{equation}
     \widetilde L(\bx, \dot\bx, t) = L(\bx, \dot\bx) + \sum_{j=1}^l \lambda_j f_j(\bx).
   \end{equation}
