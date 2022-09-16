@@ -154,7 +154,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-  Version 1.7.1\\
+  Version 1.7.2\\
   \today
 \end{center}
 \vfill
@@ -501,8 +501,11 @@ and the evolution of the system is described by the critical points with respect
     ,\; h(s)\right\rag = 0 \quad\mbox{for all } h\in X_0.
   \end{equation}
 
-  Our choice of $h$ is arbitrary, so after a relabelling of the time, this implies
-  \begin{equation}
+  Our choice of $h$ is arbitrary, so after a relabeling of the time, this implies\footnote{%
+    Why is that the case? Assume that \eqref{eq:EL-from-proof} is non vanishing, then you can choose %
+    $h$ with vanishing endpoints but non vanishing on the support of \eqref{eq:EL-from-proof}. %
+    With such an $h$ the integral above is strictly positive, contradicting the hypothesis.}
+  \begin{equation}\label{eq:EL-from-proof}
     \frac{\partial L}{\partial q}(\gamma, \dot \gamma, t)
     - \frac{\d}{\d t}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, t) = 0,
   \end{equation}
@@ -1231,10 +1234,10 @@ a direct application of the chain rule will allow us to rewrite the lagrangian i
   \quad\mbox{where}\quad
   \begin{cases}
     T(q):= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U(q) = U(\bx(q)) \\
-  g_{kl} (q) := \sum_{j=1}^{3N} m_{\lceil j/3 \rceil} \left\lag\frac{\partial x_j}{\partial q^k}, \frac{\partial x_j}{\partial q^l}\right\rag
+  g_{kl} (q) := \sum_{j=1}^{N} m_{j} \left\lag\frac{\partial \bx_j}{\partial q^k}, \frac{\partial \bx_j}{\partial q^l}\right\rag
   \end{cases}
 \end{equation}
-where te non-boldface coordinates $\bx = (\bx_1, \ldots, \bx_N) =: (x_1, \ldots, x_{3N})$ stand for the coordinates of the $N$ points as a unique vector in $\R^{3N}$ and, again, we used Einstein summation convention.
+where the non-boldface coordinates $\bx = (\bx_1, \ldots, \bx_N) =: (x_1, \ldots, x_{3N})$ stand for the coordinates of the $N$ points as a unique vector in $\R^{3N}$ and, again, we used Einstein summation convention.
 
 If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\bx = (x,y,z)$,
 \begin{equation}
@@ -1600,7 +1603,7 @@ Although I prefer the presentation of the proof in \cite[Chapter 20.B]{book:arno
   We are left to show that one of the equations appearing above vanishes, and we have not yet used that we have a one--parameter group of \emph{symmetries}.
   Using \eqref{eq:infinitesimalSymmetryExp}, we can rewrite the symmetry relation \eqref{eq:symmetry} for small enough values of $s$ as
   \begin{equation}\label{eq:invariance}
-    L\left( q + s X(q) + O(s^2), \dot q + s \frac{\partial X}{\partial q} \dot q + O(s^2) \right) = L(q, \dot q) + O(s^2).
+    L\left( q + s X(q) + O(s^2), \dot q + s \frac{\partial X}{\partial q} \dot q + O(s^2) \right) = L(q, \dot q).
   \end{equation}
   Expanding the left hand side in series, simplifying the term $L(q, \dot q)$ and sending $s\to 0$, the condition becomes
   \begin{equation}\label{eq:ntref2}
@@ -1626,7 +1629,8 @@ Although I prefer the presentation of the proof in \cite[Chapter 20.B]{book:arno
 \begin{remark}
   Noether theorem is a more general result related to symmetries in classical field theories than what we presented here.
   The proof of the more general Noether theorem is obtained by reducing the system to a system with one cyclic variable.
-  This can be done by locally rectifying the vector field $X$ on $M$ and observing that, by Exercise~\ref{exe:coordinatesInd}, the sum $p_i X^i$ does not depend on the choice of coordinates on $M$.
+  This can be done by locally rectifying\footnote{See \cite[Chapter 3.5]{lectures:aom:seri}.} the vector field $X$ on $M$ and
+  observing that, by Exercise~\ref{exe:coordinatesInd}, the sum $p_i X^i$ does not depend on the choice of coordinates on $M$.
 \end{remark}
 
 \begin{exercise}
@@ -1693,7 +1697,7 @@ This fact can be also interpreted in the following way: the sum of all forces ac
     = \frac{\sum_{k=1}^N m_k \dot \bx_k}{\sum_{k=1}^N m_k},
   \end{equation}
   can be thought of as the total speed of the mechanical system.
-  A rewriting of the formula above gives
+  A rewriting of the formula above gives\footnote{Beware, here (and a few other times below) $M$ denotes a constant, to not be confused with the base manifold. What is what should be inferrable from the constants.}
   \begin{equation}
     \bm{P} = M \bm{v_T}, \quad M:= \sum_{k=1}^N m_k.
   \end{equation}
@@ -2567,7 +2571,7 @@ From the point of view of Newton, this means that there should be a virtual forc
 
 Let's try again. Consider now a natural lagrangian \eqref{eq:mechlag}
 \begin{equation}
-  L(\bx, \dot\bx) = \sum_{k=1}^N \frac{m_k \dot \|\bx_k\|^2}{2} - U(\bx_1, \ldots, \bx_N)
+  L(\bx, \dot\bx) = \sum_{k=1}^N \frac{m_k \|\dot \bx_k\|^2}{2} - U(\bx_1, \ldots, \bx_N)
 \end{equation}
 whose point particles are forced to satisfy a number of \emph{holonomic constraints}, i.e., relationships between the coordinates of the form
 \begin{equation}\label{eq:holonomic}
