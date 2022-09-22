@@ -154,7 +154,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-  Version 1.7.2\\
+  Version 1.8\\
   \today
 \end{center}
 \vfill
@@ -2784,15 +2784,18 @@ which ensures that we can invert the transformation to get $f(x,y) = \frac{\part
 We have just describe the Legendre transform.
 If you look carefully you may recognize it in Theorem~\ref{thm:conservationEnergy}.
 
-The geometrical meaning of the Legendre transform is best captured with a picture.
+The geometrical meaning of the Legendre transform is best captured with a picture\footnote{Metaphorically, but I should probably add a sketch here.}, although I don't believe this will justify it more or less than the description before.
 For a fixed $y$, draw the curves $f(x) = f(x,y)$ and $ux$.
-For each slope $u$, the value of $g(u) = g(u,y)$ measures the maximal distance between the two curves $f(x)$ and $ux$: finding the maximum of such distance means
+For each slope $u$, the value of $g(u) = g(u,y) = \max_x (ux - f(x))$ measures the maximal distance between the two curves $f(x)$ and $ux$: finding the maximum of such distance means
 computing
 \begin{equation}
-  \frac{\d}{\d x}(ux - f(x)) = 0 \quad\Rightarrow\quad u = \frac{\partial f}{\partial x}.
+  \frac{\partial}{\partial x}(ux - f(x)) = 0 \quad\Rightarrow\quad u = \frac{\partial f}{\partial x}.
 \end{equation}
 Note that in the computation above we are assuming that a maximum exists:
 this hints to the fact that the Legendre transformation can only be applied to \emph{convex functions}.
+
+One advantage of this geometric approach is that the procedure is meaningful also on non-convex functions, even if this comes at the cost of losing involutivity, i.e. the function is the inverse of itself only on the space of convex (or concave) functions.
+You can read more about this on convex optimization books\footnote{Or read \href{https://web.archive.org/web/20211127141805/https://jmanton.wordpress.com/2010/11/21/introduction-to-the-legendre-transform/}{this rather detailed blog post} or \href{https://web.archive.org/web/20170407134235/http://www.physics.sun.ac.za/~htouchette/archive/notes/lfth2.pdf}{these notes}.}, where is often called convex conjugation or Legendre-Fenchel transform.
 
 In the next section we will explicit this discussion rigorously and in greater generality.
 
@@ -2857,6 +2860,16 @@ In this way, every non--degenerate function on $TM$ defines a function on $T^* M
 
 \begin{remark}
   This is what is meant when you read that the hamiltonian is the lift of the total energy $E(q, \dot q)$ of the system to a function $H(q,p)$ on the cotangent bundle $T^*M$.
+\end{remark}
+
+\begin{remark}
+  This is where the literature can disagree. Some textbooks define $H$ to be the Legendre transform of $L$ instead. In this way the definition can be rewritten\footnote{This is very nicely discussed in \href{https://web.archive.org/web/20211114232435/https://blog.jessriedel.com/2017/06/28/legendre-transform/}{this blog post}.} as $f$ is the Legendre transform of $g$ if $f' = (g')^{-1}$, which nicely emphasizes involutivity and duality between the two. In more geometric texts you can also find it called fiber derivative, for reasons that would be clear once you look at it. We will not discuss it in the text but you can look at \cite[Chapter 7.2]{book:marsdenratiu} or \cite[Chapter 3.5]{book:amr}.
+\end{remark}
+
+\begin{remark}
+  There is also a nice connection between Legendre transform and control theory \cite[Appendix II]{book:gelfand}.
+  I will not go into the details of control theory here, but optimization problems can often be reduced to find a critical point of an action with some extra external constraints. For that, one can use the theory of Lagrange multiplayers that we saw in Chapter~\ref{sec:LagrangeConstraints} on D'Alembert principle.
+  In this context, one can consider the critical points of the action $S$ for a lagrangian $L(x,v)$ under the constraint $v=\dot x$. What one finds that the momenta are the multipliers when one optimizes with respect to $v$.
 \end{remark}
 
 The crucial point of this whole construction lies in the new shape taken by the Euler-Lagrange equations once we revisit them on the cotangent bundle.
