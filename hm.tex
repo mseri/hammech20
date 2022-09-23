@@ -2863,16 +2863,47 @@ In this way, every non--degenerate function on $TM$ defines a function on $T^* M
 \end{remark}
 
 \begin{remark}
-  This is where the literature can disagree. Some textbooks define $H$ to be the Legendre transform of $L$ instead. In this way the definition can be rewritten\footnote{This is very nicely discussed in \href{https://web.archive.org/web/20211114232435/https://blog.jessriedel.com/2017/06/28/legendre-transform/}{this blog post}.} as $f$ is the Legendre transform of $g$ if $f' = (g')^{-1}$, which nicely emphasizes involutivity and duality between the two. In more geometric texts you can also find it called fiber derivative, for reasons that would be clear once you look at it. We will not discuss it in the text but you can look at \cite[Chapter 7.2]{book:marsdenratiu} or \cite[Chapter 3.5]{book:amr}.
+  This is where the literature can disagree. Some textbooks define $H$ to be the Legendre transform of $L$ instead. In this way the definition can be rewritten\footnote{This is very nicely discussed in \href{https://web.archive.org/web/20211114232435/https://blog.jessriedel.com/2017/06/28/legendre-transform/}{this blog post}.} as $f$ is the Legendre transform of $g$ if
+  \begin{equation}
+    f' = (g')^{-1}, 
+  \end{equation}
+  which nicely emphasizes involutivity and duality between the two functions.
 \end{remark}
 
 \begin{remark}
-  There is also a nice connection between Legendre transform and control theory \cite[Appendix II]{book:gelfand}.
-  I will not go into the details of control theory here, but optimization problems can often be reduced to find a critical point of an action with some extra external constraints. For that, one can use the theory of Lagrange multiplayers that we saw in Chapter~\ref{sec:LagrangeConstraints} on D'Alembert principle.
-  In this context, one can consider the critical points of the action $S$ for a lagrangian $L(x,v)$ under the constraint $v=\dot x$. What one finds that the momenta are the multipliers when one optimizes with respect to $v$.
+  Perhaps not surprisingly, the Legendre transform also comes with some interesting connections to control theory and differential geometry.
+
+  For a more detailed discussion about the relations to control theory, you can refer to \cite[Appendix II]{book:gelfand}.
+  We will not go into the details here and instead only point out the bare-bones of the connection.
+  Optimization problems can often be reduced to find a critical point of some functional, like the action, with respect to some extra external constraints, called controls.
+  In such context, it is natural to rely on the theory of Lagrange multiplayers that we saw in Chapter~\ref{sec:LagrangeConstraints} on D'Alembert principle.
+  If one can consider the critical points of the action $S$ for a lagrangian $L(x,v)$ with the constraint $v=\dot x$, what one finds is that the momenta are the Lagrange multipliers of this problem.
+
+  The connection with differential geometry goes through the concept of fiber derivative. Once you see that term appearing, you can thing of it as a Legendre transform in disguise. We will just briefly discuss it in the this remark but you can look at \cite[Chapter 7.2]{book:marsdenratiu} or \cite[Chapter 3.5]{book:amr} for all the details and a more general definition.
+  Let $L:TM \to \R$ be a non-degenerate lagrangian. The \emph{fiber derivative} is a map
+  \begin{align}
+    \mathbb{F}L :& TM \to T^*M, \quad v \to \mathbb{F}L(v),
+  \end{align}
+  such that for all $v,w \in T_q M$
+  \begin{align}
+    \mathbb{F}L(v) w := \frac{\d}{\d s} L(q, v + s w) \big|_{s=0}.
+  \end{align}
+  That is, $\mathbb{F}L(v) w$ is the derivative of $L$ at $v$ in the direction $w$ along the fiber $T_qM$.
+  The last observation is crucial: the map is fiber-preserving in the sense that it maps the fiber $T_qM$ to the fiber $T^*_qM$.
+  If we denote locall coordinates on $M$ by $q=(q^1, \ldots, q^n)$, vectors on $T_qM$ take the form $\dot q = \dot q^i \frac{\partial}{\partial q^i}\big|_q \simeq (\dot q^1, \ldots, \dot q^n)$ and the fiber derivative can be written as
+  \begin{equation}
+    \mathbb{F}L(q^1, \ldots, q^n, \dot q^1, \ldots,\dot q^n) = \left(q^1, \ldots, q^n, \frac{\partial L}{\partial \dot q^1}, \ldots, \frac{\partial L}{\partial \dot q^n}\right).
+  \end{equation}
+  That is, the coefficients of the covector $p = \mathbb{F}L(\dot q) \simeq p_i dq^i$ are given by
+  \begin{equation}
+    p_i = \frac{\partial L}{\partial \dot q^i}.
+  \end{equation}
+  For non-degenerate lagrangians the fiber derivative is a smooth morphism of fiber bundles.
+
+  The \emph{energy function associated to $L$} is then defined as $E(v) := \mathbb{F}L(v) v - L(v)$. When this is applied to physical systems, you can use the expressions derived above to check that $\mathbb{F}L$ is the Legendre transform and $E$ is the corresponding hamiltonian.
 \end{remark}
 
-The crucial point of this whole construction lies in the new shape taken by the Euler-Lagrange equations once we revisit them on the cotangent bundle.
+Leaving all these remarks aside, the crucial point of this whole construction lies in the new shape taken by the Euler-Lagrange equations once we revisit them on the cotangent bundle.
 
 \begin{theorem}[Hamilton's equations]\label{thm:Hameqns}
   Euler-Lagrange equations for a lagrangian $L(q,\dot q)$ are equivalent to \emph{Hamilton's equations}
@@ -2982,13 +3013,14 @@ We call \emph{hamiltonian system} a system of differential equations of the form
 \end{example}
 
 \begin{remark}\label{rem:ptocot}
-  The previous example provides a good opportunity to discuss the nature of the momentum.
+  The previous example provides a good opportunity to discuss the nature of the momentum from yet another perspective.
   Let $(M, g)$ be a riemannian manifold.
   The riemannian metric, or riemannian metric tensor, is a bilinear form $\langle\cdot, \cdot\rangle_g$ on the tangent spaces of $M$.
   In local coordinates $q\in M$, we can associate to the metric a matrix $g_{ij}(q)$.
   With an abuse of notation, we say that $g_{ij}(q)$ is a $(0,2)$-tensor.
 
-  Every $(0,2)$-tensor $g_{ij}(q)$ canonically defines a map
+  Every $(0,2)$-tensor $g_{ij}(q)$ canonically defines a map\footnote{The isomorphisms between the tangent and cotangent spaces defined here are commonly known as \emph{musical isomorphisms}: the \emph{flat} and \emph{sharp} maps respectively correspond to the mapping $\beta:TM\to T^*M$ and $\sharp:T^*M\to TM$ such that $v^\beta(w) = \langle v,w\rangle_g$ and $\langle p^\sharp, v\rangle = p(v)$.
+  See also \cite[Chapter 11]{book:lee} or \cite[Example 6.1.9]{lectures:aom:seri}.}
   \begin{equation}
     \hat g: TM \to T^*M, \qquad T_q M \ni v \mapsto \hat g_q(v) := p := \langle v, \cdot\rangle_g \in T^*_q M.
   \end{equation}
@@ -3003,8 +3035,8 @@ We call \emph{hamiltonian system} a system of differential equations of the form
   \end{equation}
   Which, in more algebraic terms and with the same abuse of notation, means that the inverse matrix $(g^{ij}(q))$ is a $(2,0)$-tensor.
 
-  The isomorphisms between the tangent and cotangent spaces defined above are what is commonly known as \emph{musical isomorphism}: the \emph{flat} and \emph{sharp} maps respectively correspond to the mapping $\beta:TM\to T^*M$ and $\sharp:T^*M\to TM$ such that $v^\beta(w) = \langle v,w\rangle_g$ and $\langle p^\sharp, v\rangle = p(v)$.
-  See also \cite[Chapter 11]{book:lee} or \cite[Example 6.1.9]{lectures:aom:seri}.
+  
+  We can revisit Example~\ref{ex:nlrm} in light of this remark. What we see is that a mechanical lagrangian on $L(q,\dot q) = \langle \dot q, \dot q\rangle_g - U(q)$ on some state space $TM$ is mapped via the Legendre transform into the hamiltonian $H(q, p) = \langle p, p \rangle_g^* + U(q)$ on $T^*M$, emphasizing the dual nature of the momentum with respect to the velocity without the need to look at the fiber derivative construction.
 \end{remark}
 
 \begin{example}
