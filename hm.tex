@@ -1277,24 +1277,36 @@ You can see that there is a striking resemblance between the squared arc length 
 Let's consider the more general situation of local coordinates $(q^1, \ldots, q^n)$ on a smooth manifold $M$.
 We will only recall the main terminology here, for a review of these concepts refer to \cite[Chapter 4.18]{book:arnold}, \cite[Appendix A]{book:knauf}, \cite[Chapter 4]{book:marsdenratiu}, your favourite book of differential geometry\footnote{Mine is \cite{book:lee}, which is freely accessible through the University library} or my beautiful\footnote{If I do say so, myself.} lecture notes \cite{lectures:aom:seri}.
 
-Local coordinates on $M$ are local diffeomorphisms $\phi:U\subset M\to \R^n$ over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$, $\psi:V\subset M\to\R^n$ for a smooth manifold, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(W)\to\phi(W)$ are also diffeomorphisms.
+Local coordinates, or charts, on $M$ are local homeomorphisms\footnote{I.e. continuous with continuous inverse.}
+\begin{align}
+  \phi: & U\subset M\to \R^n, \\
+        & p \mapsto \phi(p) = (q^1(p), \ldots, q^n(p)),
+\end{align}
+over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$ and $\psi:V\subset M\to\R^n$ for a smooth manifold $M$, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(W)\to\phi(W)$ are diffeomorphisms\footnote{I.e. smooth with smooth inverse. This, in fact, also ensures that the charts are diffeomorphisms themselves.}.
+When we talk about local coordinates $(q^1,\ldots,q^n)$ of a point $p\in M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things may get confusing here, since one usually distinguishes the point $q$ on the manifold from its coordinate representation $\phi(p)=(q^1(p), \ldots, q^n(p))$, while here we are using the same letters for both.} $\phi=(q^1, \ldots, q^n)$.
 
 Since manifolds are in general just topological spaces, we don't have a priori a notion of linear algebra to talk about vectors and velocities.
 To this end, we attach at each point $q$ of the manifold a vector space.
 We denote this vector space by $T_q M$, the \emph{tangent space} of $M$ at $q$.
-If $M$ is $n-dimensional$, you can think of this as a copy of $\R^n$ attached at each point and containing all the possible velocity vectors at that point.
+If $M$ is $n$-dimensional, $T_q M$ is also $n$-dimensional and you can think of it as a copy of $\R^n$ attached at each point of the manifold and containing all the possible velocity vectors at that point.
 The gluing of all the tangent spaces $TM := \cup_{q\in M}\{q\}\times T_q M$ is the \emph{tangent bundle} of $M$. This is a smooth $2n$-dimensional manifold whose points are the pairs $(q,\dot q)\in TM$, where $q\in M$ and $\dot q\in T_q M$.
-
-When we talk about local coordinates $(q^1,\ldots,q^n)$ of a point $p\in M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things may get confusing here, since one usually distinguishes the point $q$ on the manifold from its coordinate representation $\phi(p)=(q^1(p), \ldots, q^n(p))$, while here we are using the same letters for both.} $\phi=(q^1, \ldots, q^n)$.
 
 Local coordinates on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\dot q^1, \ldots,\dot q^n)\] on $TM$: for all $i=1,\ldots,n$ the coordinate $\dot q^i$ of the tangent vector $v\in T_qM$ is defined as
 \begin{equation}
   \dot q^i = v^i,\quad\mbox{where}\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n},
 \end{equation}
 is the decomposition of the vector $v$ in the local basis induced by the coordinate chart.
+This in particular means that $\frac{\partial}{\partial q^i}$ is just a notation for the $i$-th basis versor in $T_q M$.
+Mapping $\frac{\partial}{\partial q^i}$ to the $i$-th versor $e_i$ of $\R^n$ allows you to consider tangent vectors in coordinates as genuine euclidean vectors applied at a specific point $q$.
+
 The most immediate way to compute the components $\dot q^i$ is by using the definition of tangent vectors as class of equivalence of tangents to curves \cite[Chapter 2.5]{lectures:aom:seri}.
-Let $\gamma:\R \to M$ be a curve such that $\gamma(0) = q$ and $\der{\gamma}{t}|_{t=0} = v$, then $\dot q^i$ is given by the $i$th component of $\der{}{t}(\phi\circ\gamma)|_{t=0}$.
-Tangent vectors $v\in T_qM$ are also derivations. If $f\in C^\infty(M)$, one can compute $v(f)=\der{}{t}(f\circ\gamma)|_{t=0}$. In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$: $v(f) = \langle Df,v\rangle$.
+Let $\gamma:\R \to M$ be a curve such that $\gamma(0) = q$ and $\der{\gamma}{t}|_{t=0} = v$, then $\dot q^i = \der{}{t}(q^i\circ\gamma)|_{t=0}$ is given by the $i$th component of $\der{}{t}(\phi\circ\gamma)|_{t=0}$.
+
+The notation used for the versors of tangent vectors $v\in T_qM$ in coordinates is not casual: in differential geometry tangent vectors are also \emph{derivations}. If $f\in C^\infty(M)$, the space of smooth functions from $M$ to $\R$, one can compute
+\begin{equation}
+  v(f)=\der{}{t}(f\circ\gamma)\big|_{t=0}, \qquad \gamma(0) = q, \; \dot \gamma(0) = v.
+\end{equation}
+In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$: i.e. $v(f)$ can be identified with the vector $\langle Df,v\rangle$.
 
 To emphasize once more the importance of the chain rule in this business, a local change of coordinates on $M$ determines a special class of coordinate transformations on the tangent bundle which is linear with respect to the coordinates $\dot q$ on the fibers:
 \begin{equation}
@@ -1318,10 +1330,11 @@ The lagrangian is called \emph{non--degenerate} if
   \begin{equation}
     p_i := \frac{\partial L}{\partial \dot q^i}, \quad i=1,\ldots,n,
   \end{equation}
-  transform as components of the cotangent bundle $T^* M$ over $M$:
+  transform in ``the opposite way as $\dot q$'' in the sense that:
   \begin{equation}
-    \widetilde p_i = \frac{\partial q^k}{\partial {\widetilde q}^i} p_k, \quad i=1,\ldots,n.
+    \widetilde p_i = \frac{\partial q^k}{\partial {\widetilde q}^i} p_k, \quad i=1,\ldots,n,
   \end{equation}
+  involves the inverse of the jacobian of $q\mapsto \widetilde q(q)$.
   Furthermore, show that the matrix of second derivatives with respect to the coordinates $\dot q$ of the lagrangian transforms as a $(0,2)$-tensor, i.e.
   \begin{equation}
     \frac{\partial^2 L}{\partial \dot{\widetilde q}^i \partial \dot{\widetilde q}^j} =
@@ -2799,6 +2812,52 @@ You can read more about this on convex optimization books\footnote{Or read \href
 
 In the next section we will explicit this discussion rigorously and in greater generality.
 
+\section{Intermezzo: cotangent bundle and differential forms}
+
+Again we will briefly present the basic concepts, you can refer to \cite{book:lee} or \cite[Chapters 5-7]{lectures:aom:seri} for further details.
+
+Given an $n$-dimensional vector space $V$ spanned by a basis $\{e_1, \ldots, e_n\}$, we can define its \emph{dual} space as the space $V^* = \{f : V \to \R \; \mbox{linear}\}$ of linear functiosn from $V$ to $\R$.
+As a basis for the dual space we can define the dual basis $\{e^1, \ldots, e^n\}$ as the linear maps such that $e^i(e_j) = \delta^i_j$. Since any linear function is determined by its action on a basis element, we can determine any $\sigma \in V^*$ by computing its coefficients $\sigma_i = \sigma(e_i)$. Then $\sigma = \sigma_i e^i$.
+
+We have seen that tangent vectors at a point $q$ on a smooth manifold $P$ are elements of a $n$-dimensional vector space, the tangent space $T_x P$, and in coordinates they take the form $v^i \frac{\partial}{\partial x^i}$.
+We can then use the theory of the previous paragraph to define the dual space to $T_x P$, the \emph{cotangent space} $T^*_x P$.
+We call elements of the cotangent space at $x$, \emph{covectors} or one-forms at $x$.
+
+It is convenient to denote the dual basis to $\{\frac{\partial}{\partial x^i} \mid 1\leq i \leq n\}$ by
+\begin{equation}
+  \{ \d x^i \mid 1 \leq i \leq n \}, \quad \d x^i\left(\frac{\partial}{\partial x^j}\right) = \delta_j^i.
+\end{equation}
+We have already seen the $d$ appearing in the definition of the differential of a function.
+How is it related to one-forms?
+Observe that for $f : P \to \R$, we have
+\begin{align}
+  \d f_x : & T_x P \to T_{f(x)} \R \simeq \R \\
+         & v_x = \dot x^i \frac{\partial}{\partial x^i} \mapsto \dot x^i \frac{\partial f}{\partial x^i}.
+\end{align}
+Since derivations are linear maps, identifying the one-dimensional vector space $T_{f(x)}\R \simeq \R$ with the reals (it is really just about sending the local basis of the tangent space to $1$ as done in the equation just above), we can view $\d f_x$ as a linear map from $T_x P \to \R$, that is as a differential one-form at $x$.
+What are its coefficients? Let's apply the recipe described at the beginning of the section and compute
+\begin{equation}
+  (\d f_x)_i = \d f_x\left(\frac{\partial}{\partial x^i}\right) = \frac{\partial f(x)}{\partial x^i}.
+\end{equation}
+That is, $\d f_x = \frac{\partial f(x)}{\partial x^i} \d x^i$.
+As you can see, this is directly generalizing the same concepts from multivariable analysis.
+
+Analogously to tangent bundles, we can glue cotangent spaces and define the \emph{cotangent bundle} as $T^*P := \cup_{x\in P} \{x\}\times T^*_x P$. Also the cotangent bundle is a $2n$-dimensional smooth manifold.
+The concept of differential forms extends to the bundle in a similar way as vector field: a differential one-form on $T^*P$ is a map $\sigma : x\in P \mapsto \sigma(x) \in T^*_x P$.
+
+We are almost there, we need just a few more concepts.
+First of all we will need to talk about differential two-forms, these are antysimmetric bilinear maps $TP \times TP \to \R$.
+Given two one-forms $\sigma$ and $\nu$ we can define a two-form using an operation called \emph{wedge product}: $\sigma\wedge\nu$ is the antysimmetric bilinear map such that for all $X,Y \in TP$,
+\begin{equation}
+  \sigma\wedge\nu(X,Y) := \sigma(X)\nu(Y) - \sigma(Y)\nu(X).
+\end{equation}
+Any two-form can be written in terms of the basis $\{\d x^i\wedge \d x^j\}$. Due to antysimmetry $dx^i \wedge \d x^j = - \d x^j \wedge \d x^i$, so one can simplify formulas bu summing over ordered indices $i<j$ and considering only half of the terms. Also due to antisymmetry, $\d x^i \wedge \d x^i = 0$. As a linear map, we can associate to any two-form $\sigma$ an antisymmetric matrix $S$ whose coefficient are computing by evaluating $\sigma$ over basis elements: $S_{ij} = \sigma\left(\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right)$.
+
+Given a two-form $\omega$, we can define a one-form via the \emph{contraction} (or \emph{interior product}) $\iota_X$ of $\omega$ with a fixed vector field $X$, that is, $\iota_X \omega : Y \mapsto \omega(X, Y)$. We will see in later chapters how this simplifies our lives.
+
+The last thing to know, is that we can construct two-forms out of one-forms using an operation called \emph{exterior product}.
+For what concerns us, we will only need to know that $d (\sigma_i \d x^i) = \frac{\partial \sigma_i}{\partial x^j} \d x^j \wedge \d x^i$ and that $\d (\d f) = 0$ for any $f$.
+
 \section{The Legendre Transform}
 
 Let $M$ be a smooth manifold.
@@ -3219,7 +3278,7 @@ From now on, we will denote by $q = (q^1, \ldots, q^n)$ the local coordinates on
 Since \ref{def:Poisson} is a kind of weird definition, let's look at some of its properties.
 
 \begin{theorem}\label{thm:PoissonLieAlgebra}
-  Poisson bracket defines a structure of Lie algebra on the space $\cC^\infty(T^*M)$ of smooth functions on the phase space.
+  Poisson bracket defines a structure of infinite-dimensional Lie algebra\footnote{The corresponding Lie group is the group of symplectomorphisms, a concept that will be introduced later.} on the space $\cC^\infty(T^*M)$ of smooth functions on the phase space.
 
   More explicitly, the operation $\cC^\infty(T^*M)\times \cC^\infty(T^*M) \to \cC^\infty(T^*M)$ defined by $(f,g) \mapsto \big\{f,g\big\}$ satisfies the following properties for any $f,g,h \in \cC^\infty(T^*M)$:
   \begin{enumerate}
@@ -3789,10 +3848,10 @@ A crucial property of hamiltonian vector fields is that they are infinitesimal s
     \omega = \d H, \quad\mbox{i.e.}\quad \omega_i = \frac{\partial H}{\partial x^i}, \quad i=1,\ldots,2n.
   \end{equation}
   Solving the equations $J_{ij} X^j = \frac{\partial H}{\partial x^i}$ with respect to $X$, we get
-  \begin{equation}
+  \begin{equation}\label{eq:hamsysJ-1}
     X^j = J^{ji} \frac{\partial H}{\partial x^i},
   \end{equation}
-  which is exactly the hamiltonian vector field $X_H$.
+  which, recall equation \eqref{eq:hamsysJ}, is exactly the hamiltonian vector field $X_H$.
 \end{proof}
 
 \begin{tcolorbox}
@@ -3803,6 +3862,18 @@ A crucial property of hamiltonian vector fields is that they are infinitesimal s
 \end{tcolorbox}
 
 Even though we only proved the local existence of the hamiltonian generator there are many examples of globally defined generators of the group -- as was the case for the generators of symmetries in the Lagrangian setting.
+
+\begin{exercise}
+  Let $\Phi_t$ the one--parameter group of canonical transformations generated by the quadratic hamiltonian
+  \begin{equation}
+    H = \frac12 \sum_{i=1}^n\left(p_i^2 + (q^i)^2\right).
+  \end{equation}
+  Show that the transformation $\Phi_{t=\frac\pi2}$ acts as follows
+  \begin{equation}
+    \Phi_{t=\frac\pi2} : (q,p) \mapsto (p, -q)
+  \end{equation}
+\end{exercise}
+
 
 \begin{exercise}
   Let $\phi_t:M\to M$ denote a one--parameter group of diffeomorphisms of the base  $M$ of the cotangent bundle $T^*M$.
@@ -3817,30 +3888,21 @@ Even though we only proved the local existence of the hamiltonian generator ther
   \end{align}
 \end{exercise}
 
-\begin{exercise}
-  Let $\Phi_t$ the one--parameter group of canonical transformations generated by the quadratic hamiltonian
-  \begin{equation}
-    H = \frac12 \sum_{i=1}^n\left(p_i^2 + (q^i)^2\right).
-  \end{equation}
-  Show that the transformation $\Phi_{t=\frac\pi2}$ acts as follows
-  \begin{equation}
-    \Phi_{t=\frac\pi2} : (q,p) \mapsto (p, -q)
-  \end{equation}
-\end{exercise}
-
 \subsection{The hamiltonian Noether theorem}
 
 With all these results at hand we are finally able to give a meaningful definition of hamiltonian symmetries.
+Note that, until now, we have been discussing symmetries associated to the Poisson structure.
+To recover Noether we need to introduce the concept of symmetry of a hamiltonian function.
 
 \begin{tcolorbox}
-  Fix a hamiltonian system on $T^*M$ with hamiltonian $H$. A diffeomorphism $\Phi:T^*M\to T^* M$ is a \emph{symmetry} of the hamiltonian system if $\Phi$ is a canonical transformation and $\Phi^* H = H$.
+  Fix a hamiltonian system on $T^*M$ with hamiltonian $H$. A diffeomorphism $\Phi:T^*M\to T^* M$ is a \emph{symmetry} of the hamiltonian system if $\Phi$ is a canonical transformation and\footnote{This should be compared with a symmetry of a lagrangian $L:TM \to\R$, i.e. a diffeomorphism $\phi: M \to M$ such that $\phi^* L = L$. Note that even though the formula looks very similar, the symmetry of the hamiltonian is defined on the whole phase space and not induced by a symmetry on the base as in the Lagrangian case. In the hamiltonian formalism, position and momentum are really on equal footings.} $\Phi^* H = H$.
 \end{tcolorbox}
 
 Theorem~\ref{thm:canonicalmapping} then implies that symmetries map solutions of the hamiltonian system to other solutions.
 
 We can finally state the hamiltonian counterpart of Noether theorem.
 
-\begin{theorem}
+\begin{theorem}[Hamiltonian Noether theorem]
   Let $H$ be a hamiltonian on $T^*M$ and $F$ be a first integral of the hamiltonian system, then $F$ generates a one--parameter group of symmetries of the hamiltonian system $H$.
 
   Vice versa, given a one--parameter group of symmetries of the hamiltonian system $\Phi_t:T^*M\to T^* M$, then \emph{locally} there exists a first integral $F$ of $H$ which generates the group.
@@ -3937,16 +3999,39 @@ There is a beautiful geometric description that underlies everything that we hav
 This not only allows a coordinate free description of Hamiltonian mechanics, but provides the framework to develop many of our future discussions on integrability and perturbation theory.
 For a deeper geometric investigation than what we can discuss in this course, you can refer to \cite{book:dasilva}.
 
+In fact, we have already encountered the symplectic from in disguise twice.
+Recall equations \eqref{eq:hamsysJ} and \eqref{eq:hamsysJ-1}. Especially in the latter case, we have been in front of a mapping that relates
+\begin{equation}
+  \d H = \left(\frac{\partial H}{\partial q^i}, \frac{\partial H}{\partial p_i}\right) \leftrightarrow X_H = \left(\frac{\partial H}{\partial p_i}, - \frac{\partial H}{\partial q^i}\right),
+\end{equation}
+that is, a mapping that associates a vector field $X_H$ to a differential $\d H$ via the matrix $J$.
+
+Since $J$ is antisymmetric, we can describe antisymmetric bilinear maps in terms of two-forms and we can generate one-forms out of two-forms with the contraction, it may be curious to see if we can actually use these concepts to connect the dots.
+We look for an antisymmetric form, say $\alpha$, on a cotangent bundle $T^*M$ such that $\iota_{X_H} \alpha$ can be related to $\d H$. Let's compute it!
+
+In terms of the basis elements $dq^i\wedge dq^j$, $dp_i\wedge dp_j$, $dp_i\wedge dq^j$, we have
+\begin{align}
+  \iota_{X_H} \alpha &= \alpha^{ij} (\d q^i(X_H) \d q^j - \d q^j(X_H) \d q^i) \\
+                     &\quad + \alpha_{ij} (dp_i(X_H) \d p_j - dp_j(X_H) \d p_i) \\
+                     &\quad + \alpha^i_j( dp^i(X_H) \d q^j - dq^j(X_H) \d p_i) \\
+                     &= \alpha^{ij}\left(\frac{\partial H}{\partial p_i} \d q^j - \frac{\partial H}{\partial p_j}\d q^i\right) \\
+                     &\quad + \alpha_{ij}\left(-\frac{\partial H}{\partial q^i}  \d p_j + \frac{\partial H}{\partial q^j}  \d p_i\right) \\
+                     &\quad + \alpha^i_j\left(-\frac{\partial H}{\partial q^i} \d q^j - \frac{\partial H}{\partial p_j} \d p_i\right),
+\end{align}
+where the sum was over all indices $i<j$. This should be equal to
+\begin{equation}
+  dH = \frac{\partial H}{\partial q^i} \d q^i + \frac{\partial H}{\partial p_i} \d p_i.
+\end{equation}
+That is, $\alpha^{ij}=\alpha_{ij} = 0$ and $\alpha^i_j = -1$.
+Rewriting everything explicitly, we have computed
+\begin{equation}
+ \iota_{X_H}(\d p_i\wedge \d q^i) = - \d H.
+\end{equation}
+As it turns out, $\d p_i \wedge \d q^i$ is a symplectic form, and the equation above is an alternative definition for the hamiltonian vector field (see Exercise~\ref{exe:altdefomega}).
+
 Without further ado, let's dig into it. Instead of working on the cotangent bundle $T^*M$ over a smooth manifold $M$, we will consider at first a generic smooth manifold $P$.
 
-Let $\omega$ be a two--form on $P$, that is, for each $x\in P$, the map $\omega_x: T_x P \times T_x P \to \R$ is a skew-symmetric bilinear map on the tangent space to $P$ at $x$. In terms of coordinates and linear algebra, bilinear means that it corresponds to some $\dim P\times \dim P$ matrix
-\begin{equation}
-  \Omega(x) = \left(\omega_{ij}(x)\right)_{1\leq i,j\leq \dim P}
-\end{equation}
-and skew-symmetric means that the matrix $\Omega(x)$ is antisymmetric, so
-\begin{equation}
-  \omega = \sum_{i<j} \omega_{ij}(x) \d x^i\wedge \d x^j.
-\end{equation}
+Let $\omega$ be a two--form on $P$, that is, for each $x\in P$, the map $\omega_x: T_x P \times T_x P \to \R$ is a skew-symmetric bilinear map on the tangent space to $P$ at $x$. As we mentioned, in terms of coordinates and linear algebra, bilinear means that it corresponds to some $\dim P\times \dim P$ matrix $\Omega(x) = \left(\omega_{ij}(x)\right)_{1\leq i,j\leq \dim P}$ and skew-symmetric means that the matrix $\Omega(x)$ is antisymmetric. I.e. $\omega$, seen as a matrix, acts on vectors $X,Y$ as $X^T \Omega Y$.
 
 \begin{tcolorbox}
   We say that a two--form $\omega$ on $P$ defines a \emph{symplectic structure} on $P$ if it is closed, i.e.
@@ -4258,7 +4343,7 @@ With this new baggage at hand, we can compare again Theorem~\ref{thm:vf-infsym} 
   Let $X$ be an infinitesimal symplectomorphism on the symplectic manifold $(P,\omega)$, then locally there exists a function $H$ such that $X = X_H$.
 \end{theorem}
 
-\begin{exercise}
+\begin{exercise}\label{exe:altdefomega}
   Let $X_H$ be an hamiltonian vector field on $T^*M$.
   Show that the following holds
   \begin{equation}\label{eq:symXHdef}
