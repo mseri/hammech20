@@ -154,7 +154,7 @@ linktoc=page}
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-  Version 1.8\\
+  Version 1.9\\
   \today
 \end{center}
 \vfill
@@ -2827,7 +2827,7 @@ It is convenient to denote the dual basis to $\{\frac{\partial}{\partial x^i} \m
 \begin{equation}
   \{ \d x^i \mid 1 \leq i \leq n \}, \quad \d x^i\left(\frac{\partial}{\partial x^j}\right) = \delta_j^i.
 \end{equation}
-We have already seen the $d$ appearing in the definition of the differential of a function.
+Even though we sellted on the pushforward notation $\phi_*$ for differentials, we have already seen the $\d$ appearing as alternative notation in the definition of the differential of a function.
 How is it related to one-forms?
 Observe that for $f : P \to \R$, we have
 \begin{align}
@@ -4137,57 +4137,55 @@ The proof is not hard, but it is more convenient if we first prove the following
 
 The tautological one--form, also called canonical one--form, Liouville one--form, the Poincar\'e one--form and possibly in many other ways, provides a natural way to endow $T^*M$ with a symplectic structure.
 
-\begin{remark}
-  Think at the mechanical system, where the local coordinates $q^1, \ldots, q^n$ on $M$ play the role of generalized coordinates. The tangent bundle $TM$ is the space of generalized velocities, so that if a mechanical system is evolving along a path $q(t)$, the instantaneous velocity at $t = 0$ corresponds to a point
-  \begin{equation}
-    \frac {\d q(t)}{\d t}\Big|_{t=0} = \dot {q} \in T_qM.
-  \end{equation}
+\begin{remark}[A coordinate free explanation of the tautological one--form]
+    The name tautological comes from the physical intuition that velocity and momenta are necessarily proportional to one-another, but the connection between the two concepts runs deep as previous remarks have shown.
+    The tautological one-form enter into this picture as a foundational concept.
 
-  We have seen that velocities are central in the lagrangian formulation of classical mechanics.
-  In the Hamiltonian formulation we instead introduce momenta, which show a nicely symmetric relation with the coordinates.
-
-  The tautological one--form is a device that converts velocities into momenta.
-  That is, it assigns a numerical value to the momentum $p$ for each velocity $\dot {q}$.
+  If you open the relative wikipedia page at the time of writing these lecture notes, you will read some variation of the following text.
+\begin{quote}
+  The tautological one-form is a device that converts velocities into momenta.
+  That is, it assigns a numerical value to the momentum $p$ for each velocity $\dot {q}$''
   %
   Moreover, it does it so that they point ``in the same direction'' and it does it linearly, such that the magnitudes grow in proportion.
   %
   Finally, the choice of the assignment is unique: each momentum vector corresponds to only one velocity vector, by definition.
   In this respect, the tautological one--form can be thought of as a device to convert from Lagrangian mechanics to Hamiltonian mechanics.
+\end{quote}
+  In what follows, we will try to understand what the aforementioned quote really means.
 
-  The name tautological comes from the physical intuition that velocity and momenta are necessarily proportional to one-another.
-\end{remark}
-
-\begin{remark}[A coordinate free explanation of the tautological one--form]
   Let $P = T^* M$ be the cotangent bundle over the smooth manifold $M$.
   The simplest map from the cotangent bundle to the base manifold is the canonical bundle projection
   \begin{equation}
     \pi :P\to M,\quad \pi(q,p) = q.
   \end{equation}
-  Then, its differential defines a map
+  Its differential defines a map
   \begin{equation}
     \pi_* : TP \to TM
   \end{equation}
   between tangent bundles.
+  We have seen this multiple times, so nothing new for now.
 
   Let $x$ be a point on $P$.
-  Since $P$ is the cotangent bundle over $M$, we can think of $x$ as a map of the tangent space at $q := \pi(x)$
+  Since $P = T^*M$ is the cotangent bundle over $M$, we can think of points $x = (q,p)$ as linear maps
   \begin{equation}
-    x : T_q M \to \R.
+    x : T_q M \to \R
   \end{equation}
-  That is, we have that $x$ is in the fiber of $q$.
+  of the tangent space of $M$ at $q := \pi(x)$.
+  That is, $x$ is in the fiber $T^*_qM$ of $q$.
 
-  Since $\pi_*(x): T_x P \to T_q M$, we define the tautological one--form $\eta(x)$ at point $x$ as
+  Since $\pi_*(x): T_x P \to T_q M$, we could compose it with $x$ to get a linear map over $TP$. Indeed,
   \begin{equation}
     \eta(x) = x \circ \pi_*(x),
   \end{equation}
-  which is a linear map
+  defines a linear map
   \begin{equation}
     \eta(x):T_xP\to\R.
   \end{equation}
-  In other words, recalling that $T^*P = \big\{\phi: TP \to \R \mid \phi\mbox{ linear}\big\}$,
+  Recalling that $T^*P = \big\{\phi: TP \to \R \mid \phi\mbox{ linear}\big\}$,
   \begin{equation}
     \eta : P \to T^* P.
   \end{equation}
+  The map $\eta$ we just defined is the tautological one--form.
 \end{remark}
 
 With these new concepts at hand, we have defined two natural geometric structures on $T^* M$: the Poisson bracket and the symplectic structure.
