@@ -194,7 +194,7 @@ A number of extra references covering some of the topics mentioned above is \hre
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
-I am extremely grateful to Nithesh Balasubramanian, Senan Bird, Riccardo Bonetto, Dijs de Neeling, Mollie Jagoe-Brown, Anouk Pelzer, Danique de Ruiter, Robbert Scholtens, Felix Semler, Albert \v{S}ilvans, Josephine van Driel and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
+I am extremely grateful to Nithesh Balasubramanian, Senan Bird, Riccardo Bonetto, Dijs de Neeling, Ramsay Duff, Mollie Jagoe-Brown, Anouk Pelzer, Danique de Ruiter, Robbert Scholtens, Felix Semler, Albert \v{S}ilvans, Josephine van Driel and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
 
 Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina.com}{Constanza Rojas-Molina}, who kindly allowed me to use some of her beautiful artworks in these notes.
 
@@ -2127,7 +2127,7 @@ The full lagrangian then reads
 \end{equation}
 
 One can check that the stable equilibrium point is $x_1 = x_2 = 0$.
-Linearizing the lagrangian around this point we obtain, modulo irrelevant constant terms,
+Linearizing the lagrangian around this point and dropping the (irrelevant) constant terms, we obtain:
 \begin{equation}
   L_0 = m l^2 \dot x_1^2
   + \frac m2 l^2 \dot x_2^2
@@ -3440,7 +3440,7 @@ Note that, even though $p$ and $q$ play a rather symmetric role, we only fix the
   \begin{align}
     \delta S
      & = \int_{t_1}^{t_2} \left( \dot q^i \delta p_i + p_i \delta \dot q^i - \frac{\partial H}{\partial q^i}\delta q^i - \frac{\partial H}{\partial p_i}\delta p_i \right) \d t                                   \\
-     & = p_i \delta q^i\Big|_{t_1}^{t_2} + \int_{t_1}^{t_2} \left( \dot q^i \delta p_i + \dot p_i \delta q^i - \frac{\partial H}{\partial q^i}\delta q^i - \frac{\partial H}{\partial p_i}\delta p_i \right) \d t \\
+     & = p_i \delta q^i\Big|_{t_1}^{t_2} + \int_{t_1}^{t_2} \left( \dot q^i \delta p_i - \dot p_i \delta q^i - \frac{\partial H}{\partial q^i}\delta q^i - \frac{\partial H}{\partial p_i}\delta p_i \right) \d t \\
      & = \int_{t_1}^{t_2} \left[
       \left(\dot q^i - \frac{\partial H}{\partial p_i} \right) \delta p_i
       - \left(\dot p_i + \frac{\partial H}{\partial q^i}\right) \delta q^i
