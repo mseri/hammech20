@@ -2853,10 +2853,49 @@ Given two one-forms $\sigma$ and $\nu$ we can define a two-form using an operati
 \end{equation}
 Any two-form can be written in terms of the basis $\{\d x^i\wedge \d x^j\}$. Due to antysimmetry $dx^i \wedge \d x^j = - \d x^j \wedge \d x^i$, so one can simplify formulas bu summing over ordered indices $i<j$ and considering only half of the terms. Also due to antisymmetry, $\d x^i \wedge \d x^i = 0$. As a linear map, we can associate to any two-form $\sigma$ an antisymmetric matrix $S$ whose coefficient are computing by evaluating $\sigma$ over basis elements: $S_{ij} = \sigma\left(\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right)$.
 
-Given a two-form $\omega$, we can define a one-form via the \emph{contraction} (or \emph{interior product}) $\iota_X$ of $\omega$ with a fixed vector field $X$, that is, $\iota_X \omega : Y \mapsto \omega(X, Y)$. We will see in later chapters how this simplifies our lives.
+The \emph{contraction} (or interior product) $\iota_X$ of a one--form $\theta = \theta_l(x)\d x^l$ with a vector field $X = X^l(x)\frac{\partial}{\partial x^l}$ is the natural pairing between the tangent and cotangent space:
+\begin{equation}
+  \iota_X \theta : P \to \R, \quad \iota_X \theta := \theta(X) = \theta_l(x) X^l(x).
+\end{equation}
+
+Similarly, given a two-form $\omega = \omega_{ij}(x) \d x^i\wedge \d x^j$, we can extend the contraction as the operation $\iota_X$ that reduces is to a one--form by applying $X$ as the first argument of $\omega$, that is,
+\begin{equation}\label{eq:contraction}
+  \iota_X \omega := \omega(X, \cdot) := \omega_{ij}(x)(X^i(x) \d x^j - X^j(x) \d x^i).
+\end{equation}
+We will see in later chapters how this simplifies our lives.
 
 The last thing to know, is that we can construct two-forms out of one-forms using an operation called \emph{exterior product}.
 For what concerns us, we will only need to know that $\d (\sigma_i \d x^i) = \frac{\partial \sigma_i}{\partial x^j} \d x^j \wedge \d x^i$ and that $\d (\d f) = 0$ for any $f$.
+
+We will also need to generalize the pull-back operation.
+Up until now we only encountered $\Phi^* : \cC^\infty(T^*M) \to \cC^\infty(T^*M)$, where $\Phi$ is a diffeomorphism $\Phi: T^*M \to T^*M$, defined in terms of right-composition $\Phi* f = f \circ \Phi$.
+Note that if $x = \Phi(y)$ then the pullback maps $f(x)$ into $\Phi^* f (y) = f \circ \Phi (y)$, so you can effectively use the pullback to change coordinates.
+%
+If $\theta$ is a differential form on a manifold $P$, then the diffeomorphism $\Phi$ induces a mapping on the space of differential forms on $P$ defined $\forall x\in P, X_j\in T_xP$ by
+\begin{equation}
+  (\Phi^{*}\theta)_{x}(X_{1},\ldots ,X_{k})=\theta_{\Phi(x)}(\Phi_*(x)X_{1},\ldots,\Phi_*(x)X_{k}).
+\end{equation}
+We call the map $\Phi^*$ the \emph{pullback} of $\theta$. We will only be interested in $k=1,2$.
+
+The pullback of differential forms satisfies two useful identities that will be handy later on.
+\begin{enumerate}
+  \item it is compatible with the exterior product, i.e., if $\theta_1$ and $\theta_2$ are differential forms on $P$, then $\Phi^{*}(\theta_1 \wedge \theta_2) = \Phi^{*}\theta_1 \wedge \Phi^{*}\theta_2$;
+  \item it is compatible with the exterior derivative, i.e., if $\theta$ is a differential form on $P$, then $\Phi^{*}(\d\theta) = \d(\Phi^{*}\theta)$
+\end{enumerate}
+
+Finally, an important operation in differeintal geometry is the Lie derivative, the concept is quite general but we will only need it in the context of differential forms.
+Given a vector field $X$ on a manifold $P$ and the one--parameter group of diffeomorphisms $\Phi_t$ that it generates, we define the \emph{Lie derivative of a differential form $\theta$ with respect to $X$} as
+\begin{equation}\label{eq:lie-derivative}
+  \cL_X \theta = \frac{\d}{\d t}\Phi_t^*\theta \Big|_{t=0}.
+\end{equation}
+The Lie derivative evaluates the change of a tensor field (including scalar function, vector field and differential forms), along the flow defined by another vector field.
+
+The interior product is extremely useful when you want to compute something, as it relates the exterior derivative and Lie derivative of differential forms by the \emph{Cartan (magic) formula}:
+\begin{equation}\label{eq:cartan}
+  \cL_X \Theta = \d(\iota_X \Theta) + \iota_X (\d\Theta).
+\end{equation}
+
+With all this new equipment at hand, we are ready to dwelve into the hamiltonian side of mechanics.
 
 \section{The Legendre Transform}
 
@@ -4201,19 +4240,7 @@ As we will see ,this will allow us to discover a range of new interesting proper
 
 \subsection{Symplectomorphisms and generating functions}
 
-We start by looking at the canonical transformations. First of all we need to generalize the operation that associates a mapping $\Phi^* : \cC^\infty(T^*M) \to \cC^\infty(T^*M)$ to a diffeomorphism $\Phi: T^*M \to T^*M$.
-%
-If $\theta$ is a differential $k$-form on a manifold $P$, then the diffeomorphism $\Phi$ induces a mapping on the space of differential $k$-forms on $P$ defined $\forall x\in P, X_j\in T_xP$ by
-\begin{equation}
-  (\Phi^{*}\theta)_{x}(X_{1},\ldots ,X_{k})=\theta_{\Phi(x)}(\Phi_*(x)X_{1},\ldots,\Phi_*(x)X_{k}).
-\end{equation}
-We call the map $\Phi^*$ the \emph{pullback} of $\theta$.
-
-The pullback of differential forms satisfies two useful identities:
-\begin{enumerate}
-  \item it is compatible with the exterior product, i.e., if $\theta_1$ and $\theta_2$ are differential forms on $P$, then $\Phi^{*}(\theta_1 \wedge \theta_2) = \Phi^{*}\theta_1 \wedge \Phi^{*}\theta_2$;
-  \item it is compatible with the exterior derivative, i.e., if $\theta$ is a differential form on $P$, then $\Phi^{*}(\d\theta) = \d(\Phi^{*}\theta)$
-\end{enumerate}
+We start by looking back at the canonical transformations.
 
 \begin{tcolorbox}
   Let $\Phi: P \to P$ be a diffeomorphism on a symplectic manifold $(P,\omega)$.
@@ -4293,30 +4320,10 @@ The following result comes, thus, as an immediate consequence of Theorem \ref{th
   Let $H$ be a function on the manifold $T^*M$, then the hamiltonian flow $\Phi_t$ generated by $H$ is a one--parameter group of symplectomorphisms of $(T^*M, \omega)$.
 \end{theorem}
 
-To see the implications of the converse part of Theorem~\ref{thm:vf-infsym} we need to work a bit more.
-
-Given a vector field $X$ on a manifold $P$ and the one--parameter group of diffeomorphisms $\Phi_t$ that it generates, we define the \emph{Lie derivative of a differential form $\theta$ with respect to $X$} as
-\begin{equation}
-  \cL_X \theta = \frac{\d}{\d t}\Phi_t^*\theta \Big|_{t=0}.
-\end{equation}
-The Lie derivative evaluates the change of a tensor field (including scalar function, vector field and differential forms), along the flow defined by another vector field.
-
-The \emph{contraction} (or interior product) $\iota_X$ of a one--form $\theta = \theta_l(x)\d x^l$ with a vector field $X = X^l(x)\frac{\partial}{\partial x^l}$ is the natural pairing between the tangent and cotangent space:
-\begin{equation}
-  \iota_X \theta : P \to \R, \quad \iota_X \theta := \theta_l X^l.
-\end{equation}
-More generally, given a $k$-form $\Omega = \frac1{k!}\Omega_{l_1\ldots l_k} \d x^{l_1}\wedge\cdots\wedge\d x^{l_k}$, its contraction with the vector field $X$ is the $(k-1)$-form defined by
-\begin{equation}\label{eq:contraction}
-  (\iota_X\Omega)_{l_1\ldots l_{k-1}} = X^j \Omega_{jl_1\ldots l_{k-1}}.
-\end{equation}
-
-The interior product is extremely useful when you want to compute something, as it relates the exterior derivative and Lie derivative of differential forms by the \emph{Cartan (magic) formula}:
-\begin{equation}\label{eq:cartan}
-  \cL_X \Theta = \d(\iota_X \Theta) + \iota_X (\d\Theta).
-\end{equation}
+We can now see the implications of the converse part of Theorem~\ref{thm:vf-infsym}.
 
 \begin{exercise}
-  Show that $\big\{f,g\big\} = -\cL_{X_f} g = \cL_{X_g} f$.
+  Show that $\big\{f,g\big\} = -\cL_{X_f} g = \cL_{X_g} f$, where $\cL$ is the Lie derivative defined in \eqref{eq:lie-derivative}.
   Remember that the inner product of a vector field with a function is zero by definition.
 \end{exercise}
 
@@ -4347,6 +4354,7 @@ With this new baggage at hand, we can compare again Theorem~\ref{thm:vf-infsym} 
   \begin{equation}\label{eq:symXHdef}
     \iota_{X_H}\omega = -\d H.
   \end{equation}
+  You can do it in one line with Cartan's magic formula \eqref{eq:cartan}.
 
   In symplectic geometry courses formula \eqref{eq:symXHdef} is usually given as the definition of a hamiltonian vector field.
   Indeed, show that if $\iota_{X}\omega = -\d H$, then $X=X_H$ and
