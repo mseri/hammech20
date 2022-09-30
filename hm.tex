@@ -3809,16 +3809,16 @@ In the coordinates $x = (x^1, \ldots, x^{2n})$ on $T^*M$, the field has the comp
   \end{equation}
 \end{remark}
 
-We have constructed a mapping of the space of smooth functions on $T^*M$ into the space $\mathrm{Vec(T^* M)}$ of smooth vector fields on it
+We have constructed a mapping of the space of smooth functions on $T^*M$ into the space\footnote{Don't let the $T$s scare you, here $TT^*M$ simpliy means the tangent bunde to the manifold $T^*M$.} ${\Gamma(TT^* M)}$ of smooth vector fields on $T^*M$
 \begin{equation}\label{eq:antimapping}
-  \cC^\infty (T^*M) \to \mathrm{Vec(T^* M)}, \quad H \mapsto X_H.
+  \cC^\infty (T^*M) \to \Gamma(TT^* M), \quad H \mapsto X_H.
 \end{equation}
 
 The Lie bracket of vector fields on a smooth manifold $N$ \cite{book:lee},
 \begin{equation}
-  [X,Y] f := X(Y f) - Y(X f), \qquad f\in\cC^\infty(N), \quad X,Y\in\mathrm{Vec}(N),
+  [X,Y] f := X(Y f) - Y(X f), \qquad f\in\cC^\infty(N), \quad X,Y\in\Gamma(TN),
 \end{equation}
-defines on $\mathrm{Vec}(N)$ a natural Lie algebra structure.
+defines a Lie algebra structure on the space $\Gamma(TN)$ of vector fields on $N$.
 In our case, $N = T^* M$ and it seems perfectly reasonable to ask if and how this bracket can be related to Poisson bracket.
 Jacobi identity comes to the rescue, leading to the following beautiful relation.
 
@@ -3930,8 +3930,9 @@ Even though we only proved the local existence of the hamiltonian generator ther
 \subsection{The hamiltonian Noether theorem}
 
 With all these results at hand we are finally able to give a meaningful definition of hamiltonian symmetries.
-Note that, until now, we have been discussing symmetries associated to the Poisson structure.
-To recover Noether we need to introduce the concept of symmetry of a hamiltonian function.
+Note that, until now, in this chapter we have been discussing symmetries associated to the Poisson structure on the space $C^\infty(T^*M)$ of smooth real-valued functions on the cotangent bundle.
+We have not yet the symmetries of a specific hamiltonian function.
+To recover Noether we need to introduce precisely such concept.
 
 \begin{tcolorbox}
   Fix a hamiltonian system on $T^*M$ with hamiltonian $H$. A diffeomorphism $\Phi:T^*M\to T^* M$ is a \emph{symmetry} of the hamiltonian system if $\Phi$ is a canonical transformation and\footnote{This should be compared with a symmetry of a lagrangian $L:TM \to\R$, i.e. a diffeomorphism $\phi: M \to M$ such that $\phi^* L = L$. Note that even though the formula looks very similar, the symmetry of the hamiltonian is defined on the whole phase space and not induced by a symmetry on the base as in the Lagrangian case. In the hamiltonian formalism, position and momentum are really on equal footings.} $\Phi^* H = H$.
@@ -4235,6 +4236,26 @@ You may have observed by now that these two tensors are strictly related: their 
 \end{equation}
 In canonical coordinates $q,p$, these matrices take respectively the constant form of \eqref{eq:symmat} and \eqref{eq:symmatpqcoords}.
 
+\begin{exercise}
+  Show that $\big\{f,g\big\} = -\cL_{X_f} g = \cL_{X_g} f$, where $\cL$ is the Lie derivative defined in \eqref{eq:lie-derivative}.
+  Remember that the inner product of a vector field with a function is zero by definition.
+\end{exercise}
+
+\begin{exercise}\label{exe:altdefomega}
+  Let $X_H$ be an hamiltonian vector field on $T^*M$.
+  Show that the following holds
+  \begin{equation}\label{eq:symXHdef}
+    \iota_{X_H}\omega = -\d H.
+  \end{equation}
+  You can do it in one line with Cartan's magic formula \eqref{eq:cartan}.
+
+  In symplectic geometry courses, equation \eqref{eq:symXHdef} is usually given as the definition of a hamiltonian vector field.
+  Indeed, show that if $\iota_{X}\omega = -\d H$, then $X=X_H$ and
+  \begin{equation}
+    \{f,g\} = X_g f = \omega(X_g, X_f).
+  \end{equation}
+\end{exercise}
+
 In the rest of this section we will construct a mapping between the notions that we introduced in the previous chapters with the Poisson bracket and the new language of symplectic manifolds.
 As we will see ,this will allow us to discover a range of new interesting properties.
 
@@ -4322,11 +4343,6 @@ The following result comes, thus, as an immediate consequence of Theorem \ref{th
 
 We can now see the implications of the converse part of Theorem~\ref{thm:vf-infsym}.
 
-\begin{exercise}
-  Show that $\big\{f,g\big\} = -\cL_{X_f} g = \cL_{X_g} f$, where $\cL$ is the Lie derivative defined in \eqref{eq:lie-derivative}.
-  Remember that the inner product of a vector field with a function is zero by definition.
-\end{exercise}
-
 \begin{tcolorbox}
   Let $X$ be a vector field on a symplectic manifold $(P,\omega)$.
   We say that $X$ is a \emph{infinitesimal symplectomorphism} if the Lie derivative of the symplectic form $\omega$ with respect to $X$ is zero:
@@ -4335,12 +4351,18 @@ We can now see the implications of the converse part of Theorem~\ref{thm:vf-infs
   \end{equation}
 \end{tcolorbox}
 
-The reason of name of the transformation may become clearer if we think in terms of Taylor expansions, as we did for the infinitesimal symmetries and Noether theorem.
-Let $X$ be the vector field that satisfies \eqref{eq:infsymplcf}, then for small values of $t$
+The reason of name of the transformation may becomeclearer if we observe that \eqref{eq:infsymplcf} means that, if $\Phi_t$ is the flow of $X$,
 \begin{equation}
-  \Phi_t:P \to P, \quad x \mapsto \Phi_t(x) = x + t X(x) + O(t^2)
+\lim_{t\to 0} \frac{\Phi_t^*\omega - \omega}{t} = 0.
 \end{equation}
-does satisfy \eqref{eq:symplectomorphism} modulo $O(t^2)$: $\Phi_t^* \omega = \omega$.
+That is, $\Phi_t^*\omega = \omega$ along the flow of $X$.
+
+Checking that hamiltonian vector fields satisfy this property is a matter of applying Cartan's magic formula once:
+\begin{equation}
+  \cL_{X_H} \omega = \d(\iota_{X_H} \omega) + \iota_{X_H}(\d \omega)
+  = \d(-\d H) = 0.
+\end{equation}
+Where we used the fact that $\omega$ is closed and Exercise~\ref{exe:altdefomega}.
 
 With this new baggage at hand, we can compare again Theorem~\ref{thm:vf-infsym} and Theorem \ref{thm:ctiffs} to extend the previous result with the following theorem.
 
@@ -4348,20 +4370,6 @@ With this new baggage at hand, we can compare again Theorem~\ref{thm:vf-infsym} 
   Let $X$ be an infinitesimal symplectomorphism on the symplectic manifold $(P,\omega)$, then locally there exists a function $H$ such that $X = X_H$.
 \end{theorem}
 
-\begin{exercise}\label{exe:altdefomega}
-  Let $X_H$ be an hamiltonian vector field on $T^*M$.
-  Show that the following holds
-  \begin{equation}\label{eq:symXHdef}
-    \iota_{X_H}\omega = -\d H.
-  \end{equation}
-  You can do it in one line with Cartan's magic formula \eqref{eq:cartan}.
-
-  In symplectic geometry courses formula \eqref{eq:symXHdef} is usually given as the definition of a hamiltonian vector field.
-  Indeed, show that if $\iota_{X}\omega = -\d H$, then $X=X_H$ and
-  \begin{equation}
-    \{f,g\} = X_g f = \omega(X_g, X_f).
-  \end{equation}
-\end{exercise}
 
 \begin{example}[Time dependent hamiltonians]\label{ex:timedepH}
   It is possible to use the symplectic formulation to describe hamiltonian systems with an explicit time dependence.
