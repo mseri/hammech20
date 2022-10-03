@@ -194,7 +194,7 @@ A number of extra references covering some of the topics mentioned above is \hre
 
 Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
-I am extremely grateful to Nithesh Balasubramanian, Senan Bird, Riccardo Bonetto, Dijs de Neeling, Ramsay Duff, Mollie Jagoe-Brown, Anouk Pelzer, Danique de Ruiter, Robbert Scholtens, Felix Semler, Albert \v{S}ilvans, Josephine van Driel and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
+I am extremely grateful to Nithesh Balasubramanian, Senan Bird, Riccardo Bonetto, Josephine van Driel, Ramsay Duff, Mollie Jagoe-Brown, Dijs de Neeling, Anouk Pelzer, Danique de Ruiter, Robbert Scholtens, Felix Semler, Albert \v{S}ilvans, Marit van Straaten and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
 
 Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina.com}{Constanza Rojas-Molina}, who kindly allowed me to use some of her beautiful artworks in these notes.
 
@@ -1532,9 +1532,9 @@ The differential can be used to \emph{push} tangent vectors on $M$ \emph{forward
   Let $L = L(q, \dot q)$, $(q, \dot q)\in TM$, be a lagrangian on the tangent bundle of a smooth manifold $M$. From now on, we will denote with $(M, L)$ the mechanical system described by such lagrangians $L$ on the configuration space $M$.
 \end{tcolorbox}
 
-A diffeomorphism $\Phi: M \to M$ is called a \emph{symmetry} of the mechanical system $(M,L)$ if $L$ is invariant with respect to $\Phi$, i.e.
+A diffeomorphism $\Phi: M \to M$ is called a \emph{symmetry} of the mechanical system $(M,L)$ if $L$ is invariant with respect to $\Phi$, i.e.\footnote{Remember that $(q,\dot q)\in TM$ means, in particular, that $q\in M$ and $\dot q \in T_q M$ belongs to the corresponding tangent space at $q$.}
 \begin{equation}\label{eq:symmetry}
-  L\left(\Phi(q), \Phi_*\dot q\right) = L(q,\dot q) \qquad \forall q\in M, \forall\dot q \in T_q M.
+  L\left(\Phi(q), \Phi_*\dot q\right) = L(q,\dot q) \qquad \forall (q,\dot q) \in TM.
 \end{equation}
 Note that in \cite[Chapter 4]{book:arnold} terminology, the above definition would instead be that \emph{$(M,L)$ admits the mapping $\Phi$}.
 
