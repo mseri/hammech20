@@ -1532,9 +1532,9 @@ The differential can be used to \emph{push} tangent vectors on $M$ \emph{forward
   Let $L = L(q, \dot q)$, $(q, \dot q)\in TM$, be a lagrangian on the tangent bundle of a smooth manifold $M$. From now on, we will denote with $(M, L)$ the mechanical system described by such lagrangians $L$ on the configuration space $M$.
 \end{tcolorbox}
 
-A diffeomorphism $\Phi: M \to M$ is called a \emph{symmetry} of the mechanical system $(M,L)$ if $L$ is invariant with respect to $\Phi$, i.e.\footnote{Remember that $(q,\dot q)\in TM$ means, in particular, that $q\in M$ and $\dot q \in T_q M$ belongs to the corresponding tangent space at $q$.}
+A diffeomorphism $\Phi: M \to M$ is called a \emph{symmetry of the mechanical system $(M,L)$} if $L$ is invariant\footnote{The operation $\Phi^*:C^\infty(TM) \to C^\infty(TM)$ defined here is a special case of a more general operation, called \emph{pullback}, wich we will see again in different settings in future chapters.} with respect to $\Phi$, i.e.\footnote{Remember that $(q,\dot q)\in TM$ means, in particular, that $q\in M$ and $\dot q \in T_q M$ belongs to the corresponding tangent space at $q$.}
 \begin{equation}\label{eq:symmetry}
-  L\left(\Phi(q), \Phi_*\dot q\right) = L(q,\dot q) \qquad \forall (q,\dot q) \in TM.
+  \Phi^* L (q,\dot q) := L\left(\Phi(q), \Phi_*\dot q\right) = L(q,\dot q) \qquad \forall (q,\dot q) \in TM.
 \end{equation}
 Note that in \cite[Chapter 4]{book:arnold} terminology, the above definition would instead be that \emph{$(M,L)$ admits the mapping $\Phi$}.
 
