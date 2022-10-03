@@ -1676,7 +1676,7 @@ which is invariant with respect to translations
 \begin{equation}
   \Phi_s(\bx_1, \ldots, \bx_N) := (\bx_1 + s \hat \bx,\ldots, \bx_N + s \hat \bx),
 \end{equation}
-for any direction $\hat\bx$, $|\hat\bx|=1$ and all $s\in\R$. I.e.
+for any direction $\hat\bx$, $|\hat\bx|=1$ and all $s\in\R$. I.e.\footnote{It may seem here that we forgot to push forward $\dot x$ by $\Phi_s$, however the pushforward $(\Phi_s)_* = \Id$ by $\Phi_s$ acts on $\dot x$ as the identity.}
 \begin{equation}
   L(\bx_1, \ldots, \bx_N, \dot \bx) = L(\bx_1 + s \hat\bx, \ldots, \bx_N + s \hat\bx, \dot \bx),
 \end{equation}
@@ -2279,10 +2279,10 @@ For convenience, let's rewrite the equations of motion for \eqref{eq:centralpot}
   The trajectories of \eqref{eq:centralpot} are planar.
 \end{theorem}
 \begin{proof}
-  The constant vector $\bm{M}$ is orthogonal to $\bp = m \dot \bx$.
+  By construction, the constant vector $\bm{M}$ is orthogonal to $\bx$ and $\bp = m \dot \bx$.
   Therefore, the point moves in the plane
   \begin{equation}\label{eq:planarCP}
-    \lag M, \bx\rag = \mathrm{const}.
+    \{\mathbf{y} \;\mid\; \lag M, \mathbf{y}\rag = \mathrm{const} \}.
   \end{equation}
 \end{proof}
 
