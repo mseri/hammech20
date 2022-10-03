@@ -2754,7 +2754,7 @@ Which seems to bring a nice symmetry between the coordinates and the momenta, an
 Our current quest is then to find a function of $q$ and $p$ (and not of $\dot q$) which contains the same information as the lagrangian $L$, allowing us to determine the unique evolution of $q$ and $p$, but bringing the two variables to more equal footings.
 
 Theorem~\ref{thm:ham1} and Theorem~\ref{thm:conservationEnergy} provided us with some useful hints.
-Before entering into the gist of the matter, let's reason in two dimensions and mimick our derivation of Theorem~\ref{thm:ham1}
+Before entering into the gist of the matter, let's reason in two dimensions and mimic our derivation of Theorem~\ref{thm:ham1}
 
 \section{The Legendre Transform in the euclidean plane}
 
@@ -2816,7 +2816,7 @@ In the next section we will explicit this discussion rigorously and in greater g
 
 Again we will briefly present the basic concepts, you can refer to \cite{book:lee} or \cite[Chapters 5-7]{lectures:aom:seri} for further details.
 
-Given an $n$-dimensional vector space $V$ spanned by a basis $\{e_1, \ldots, e_n\}$, we can define its \emph{dual} space as the space $V^* = \{f : V \to \R \; \mbox{linear}\}$ of linear functiosn from $V$ to $\R$.
+Given an $n$-dimensional vector space $V$ spanned by a basis $\{e_1, \ldots, e_n\}$, we can define its \emph{dual} space as the space $V^* = \{f : V \to \R \; \mbox{linear}\}$ of linear functions from $V$ to $\R$.
 As a basis for the dual space we can define the dual basis $\{e^1, \ldots, e^n\}$ as the linear maps such that $e^i(e_j) = \delta^i_j$. Since any linear function is determined by its action on a basis element, we can determine any $\sigma \in V^*$ by computing its coefficients $\sigma_i = \sigma(e_i)$. Then $\sigma = \sigma_i e^i$.
 
 We have seen that tangent vectors at a point $q$ on a smooth manifold $P$ are elements of a $n$-dimensional vector space, the tangent space $T_x P$, and in coordinates they take the form $v^i \frac{\partial}{\partial x^i}$.
@@ -2827,7 +2827,7 @@ It is convenient to denote the dual basis to $\{\frac{\partial}{\partial x^i} \m
 \begin{equation}
   \{ \d x^i \mid 1 \leq i \leq n \}, \quad \d x^i\left(\frac{\partial}{\partial x^j}\right) = \delta_j^i.
 \end{equation}
-Even though we sellted on the pushforward notation $\phi_*$ for differentials, we have already seen the $\d$ appearing as alternative notation in the definition of the differential of a function.
+Even though we settled on the pushforward notation $\phi_*$ for differentials, we have already seen the $\d$ appearing as alternative notation in the definition of the differential of a function.
 How is it related to one-forms?
 Observe that for $f : P \to \R$, we have
 \begin{align}
@@ -2846,12 +2846,12 @@ Analogously to tangent bundles, we can glue cotangent spaces and define the \emp
 The concept of differential forms extends to the bundle in a similar way as vector field: a differential one-form on $T^*P$ is a map $\sigma : x\in P \mapsto \sigma(x) \in T^*_x P$.
 
 We are almost there, we need just a few more concepts.
-First of all we will need to talk about differential two-forms, these are antysimmetric bilinear maps $TP \times TP \to \R$.
-Given two one-forms $\sigma$ and $\nu$ we can define a two-form using an operation called \emph{wedge product}: $\sigma\wedge\nu$ is the antysimmetric bilinear map such that for all $X,Y \in TP$,
+First of all we will need to talk about differential two-forms, these are antisymmetric bilinear maps $TP \times TP \to \R$.
+Given two one-forms $\sigma$ and $\nu$ we can define a two-form using an operation called \emph{wedge product}: $\sigma\wedge\nu$ is the antisymmetric bilinear map such that for all $X,Y \in TP$,
 \begin{equation}
   \sigma\wedge\nu(X,Y) := \sigma(X)\nu(Y) - \sigma(Y)\nu(X).
 \end{equation}
-Any two-form can be written in terms of the basis $\{\d x^i\wedge \d x^j\}$. Due to antysimmetry $dx^i \wedge \d x^j = - \d x^j \wedge \d x^i$, so one can simplify formulas bu summing over ordered indices $i<j$ and considering only half of the terms. Also due to antisymmetry, $\d x^i \wedge \d x^i = 0$. As a linear map, we can associate to any two-form $\sigma$ an antisymmetric matrix $S$ whose coefficient are computing by evaluating $\sigma$ over basis elements: $S_{ij} = \sigma\left(\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right)$.
+Any two-form can be written in terms of the basis $\{\d x^i\wedge \d x^j\}$. Due to antisymmetry $dx^i \wedge \d x^j = - \d x^j \wedge \d x^i$, so one can simplify formulas bu summing over ordered indices $i<j$ and considering only half of the terms. Also due to antisymmetry, $\d x^i \wedge \d x^i = 0$. As a linear map, we can associate to any two-form $\sigma$ an antisymmetric matrix $S$ whose coefficient are computing by evaluating $\sigma$ over basis elements: $S_{ij} = \sigma\left(\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right)$.
 
 The \emph{contraction} (or interior product) $\iota_X$ of a one--form $\theta = \theta_l(x)\d x^l$ with a vector field $X = X^l(x)\frac{\partial}{\partial x^l}$ is the natural pairing between the tangent and cotangent space:
 \begin{equation}
@@ -2883,7 +2883,7 @@ The pullback of differential forms satisfies two useful identities that will be 
   \item it is compatible with the exterior derivative, i.e., if $\theta$ is a differential form on $P$, then $\Phi^{*}(\d\theta) = \d(\Phi^{*}\theta)$
 \end{enumerate}
 
-Finally, an important operation in differeintal geometry is the Lie derivative, the concept is quite general but we will only need it in the context of differential forms.
+Finally, an important operation in differential geometry is the Lie derivative, the concept is quite general but we will only need it in the context of differential forms.
 Given a vector field $X$ on a manifold $P$ and the one--parameter group of diffeomorphisms $\Phi_t$ that it generates, we define the \emph{Lie derivative of a differential form $\theta$ with respect to $X$} as
 \begin{equation}\label{eq:lie-derivative}
   \cL_X \theta = \frac{\d}{\d t}\Phi_t^*\theta \Big|_{t=0}.
@@ -2895,7 +2895,7 @@ The interior product is extremely useful when you want to compute something, as 
   \cL_X \Theta = \d(\iota_X \Theta) + \iota_X (\d\Theta).
 \end{equation}
 
-With all this new equipment at hand, we are ready to dwelve into the hamiltonian side of mechanics.
+With all this new equipment at hand, we are ready to delve into the hamiltonian side of mechanics.
 
 \section{The Legendre Transform}
 
@@ -2974,7 +2974,7 @@ In this way, every non--degenerate function on $TM$ defines a function on $T^* M
   For a more detailed discussion about the relations to control theory, you can refer to \cite[Appendix II]{book:gelfand}.
   We will not go into the details here and instead only point out the bare-bones of the connection.
   Optimization problems can often be reduced to find a critical point of some functional, like the action, with respect to some extra external constraints, called controls.
-  In such context, it is natural to rely on the theory of Lagrange multiplayers that we saw in Chapter~\ref{sec:LagrangeConstraints} on D'Alembert principle.
+  In such context, it is natural to rely on the theory of Lagrange multipliers that we saw in Chapter~\ref{sec:LagrangeConstraints} on D'Alembert principle.
   If one can consider the critical points of the action $S$ for a lagrangian $L(x,v)$ with the constraint $v=\dot x$, what one finds is that the momenta are the Lagrange multipliers of this problem.
 
   The connection with differential geometry goes through the concept of fiber derivative. Once you see that term appearing, you can thing of it as a Legendre transform in disguise. We will just briefly discuss it in the this remark but you can look at \cite[Chapter 7.2]{book:marsdenratiu} or \cite[Chapter 3.5]{book:amr} for all the details and a more general definition.
@@ -2988,7 +2988,7 @@ In this way, every non--degenerate function on $TM$ defines a function on $T^* M
   \end{align}
   That is, $\mathbb{F}L(v) w$ is the derivative of $L$ at $v$ in the direction $w$ along the fiber $T_qM$.
   The last observation is crucial: the map is fiber-preserving in the sense that it maps the fiber $T_qM$ to the fiber $T^*_qM$.
-  If we denote locall coordinates on $M$ by $q=(q^1, \ldots, q^n)$, vectors on $T_qM$ take the form $\dot q = \dot q^i \frac{\partial}{\partial q^i}\big|_q \simeq (\dot q^1, \ldots, \dot q^n)$ and the fiber derivative can be written as
+  If we denote local coordinates on $M$ by $q=(q^1, \ldots, q^n)$, vectors on $T_qM$ take the form $\dot q = \dot q^i \frac{\partial}{\partial q^i}\big|_q \simeq (\dot q^1, \ldots, \dot q^n)$ and the fiber derivative can be written as
   \begin{equation}
     \mathbb{F}L(q^1, \ldots, q^n, \dot q^1, \ldots,\dot q^n) = \left(q^1, \ldots, q^n, \frac{\partial L}{\partial \dot q^1}, \ldots, \frac{\partial L}{\partial \dot q^n}\right).
   \end{equation}
@@ -3323,7 +3323,7 @@ Since \ref{def:Poisson} is a kind of weird definition, let's look at some of its
   \begin{enumerate}
     \item it is antisymmetric, $\big\{g,f\big\} = - \big\{f,g\big\}$;
     \item it is bilinear, $\big\{\alpha f + \beta g, h\big\} = \alpha\big\{f,h\big\} + \beta\big\{g,h\big\}$ and $\big\{f, \alpha g + \beta h\big\} = \alpha\big\{f,g\big\} + \beta\big\{f,h\big\}$ for any $\alpha, \beta \in\R$;
-    \item it fulfils \emph{Jacobi identity}:
+    \item it fulfills \emph{Jacobi identity}:
           \begin{equation}\label{eq:JacobiId}
             \big\{\big\{f,g\big\},h\big\} + \big\{\big\{h,f\big\},g\big\} + \big\{\big\{g,h\big\},f\big\} = 0.
           \end{equation}
@@ -3809,7 +3809,7 @@ In the coordinates $x = (x^1, \ldots, x^{2n})$ on $T^*M$, the field has the comp
   \end{equation}
 \end{remark}
 
-We have constructed a mapping of the space of smooth functions on $T^*M$ into the space\footnote{Don't let the $T$s scare you, here $TT^*M$ simpliy means the tangent bunde to the manifold $T^*M$.} ${\Gamma(TT^* M)}$ of smooth vector fields on $T^*M$
+We have constructed a mapping of the space of smooth functions on $T^*M$ into the space\footnote{Don't let the $T$s scare you, here $TT^*M$ simply means the tangent bundle to the manifold $T^*M$.} ${\Gamma(TT^* M)}$ of smooth vector fields on $T^*M$
 \begin{equation}\label{eq:antimapping}
   \cC^\infty (T^*M) \to \Gamma(TT^* M), \quad H \mapsto X_H.
 \end{equation}
@@ -4016,7 +4016,7 @@ We can finally state the hamiltonian counterpart of Noether theorem.
   \begin{equation}
     \big\{H_X, H_Y\big\} = - H_{[X,Y]}.
   \end{equation}
-  Where $[X,Y]$ is th Lie bracket of the vector fields.
+  Where $[X,Y]$ is the Lie bracket of the vector fields.
 \end{exercise}
 
 \begin{exercise}
@@ -4332,7 +4332,7 @@ The function $S$ appearing in \eqref{eq:Sfungen} is called \emph{generating func
 The name stems from the fact that we can effectively use $S$ to construct canonical transformations and effectively compute the corresponding transformed positions or momentums.
 Put slightly differently, equation \eqref{eq:Sfungen} is telling us that canonical transformations can be identified with a generating function.
 We will leave it as a vague remark for the time being but we will come back to it, and study its consequences, in more details once we start discussing integrable systems.
-For now, lets keep drawing parallels between the Possion bracket and the symplectic formalism.
+For now, lets keep drawing parallels between the Poisson bracket and the symplectic formalism.
 
 We have shown in Theorem~\ref{thm:vf-infsym} that the hamiltonian flow is an infinitesimal symmetry of the Poisson bracket, which in particular means that it defines a one--parameter group of canonical transformations.
 The following result comes, thus, as an immediate consequence of Theorem \ref{thm:ctiffs}.
@@ -4351,7 +4351,7 @@ We can now see the implications of the converse part of Theorem~\ref{thm:vf-infs
   \end{equation}
 \end{tcolorbox}
 
-The reason of name of the transformation may becomeclearer if we observe that \eqref{eq:infsymplcf} means that, if $\Phi_t$ is the flow of $X$,
+The reason of name of the transformation may become clearer if we observe that \eqref{eq:infsymplcf} means that, if $\Phi_t$ is the flow of $X$,
 \begin{equation}
 \lim_{t\to 0} \frac{\Phi_t^*\omega - \omega}{t} = 0.
 \end{equation}
