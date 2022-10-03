@@ -2961,17 +2961,20 @@ In this way, every non--degenerate function on $TM$ defines a function on $T^* M
 \end{remark}
 
 \begin{remark}
-  This is where the literature can disagree. Some textbooks define $H$ to be the Legendre transform of $L$ instead. In this way the definition can be rewritten\footnote{This is very nicely discussed in \href{https://web.archive.org/web/20211114232435/https://blog.jessriedel.com/2017/06/28/legendre-transform/}{this blog post}.} as $f$ is the Legendre transform of $g$ if
-  \begin{equation}
+  This is where the literature can disagree. Some textbooks define $H$ to be the Legendre transform of $L$ instead. In this way the definition can be rewritten\footnote{This is very nicely discussed in \href{https://web.archive.org/web/20211114232435/https://blog.jessriedel.com/2017/06/28/legendre-transform/}{this blog post}.} as
+  \begin{quote}
+  $f$ is the Legendre transform of $g$ if
+  \(
     f' = (g')^{-1}, 
-  \end{equation}
+  \)
+  \end{quote}
   which nicely emphasizes involutivity and duality between the two functions.
 \end{remark}
 
 \begin{remark}
   Perhaps not surprisingly, the Legendre transform also comes with some interesting connections to control theory and differential geometry.
-
-  For a more detailed discussion about the relations to control theory, you can refer to \cite[Appendix II]{book:gelfand}.
+  %
+  Here I will focus on the latter. For a more detailed discussion about the relations to control theory, you can refer to \cite[Appendix II]{book:gelfand}.
   We will not go into the details here and instead only point out the bare-bones of the connection.
   Optimization problems can often be reduced to find a critical point of some functional, like the action, with respect to some extra external constraints, called controls.
   In such context, it is natural to rely on the theory of Lagrange multipliers that we saw in Chapter~\ref{sec:LagrangeConstraints} on D'Alembert principle.
@@ -2980,7 +2983,7 @@ In this way, every non--degenerate function on $TM$ defines a function on $T^* M
   The connection with differential geometry goes through the concept of fiber derivative. Once you see that term appearing, you can thing of it as a Legendre transform in disguise. We will just briefly discuss it in the this remark but you can look at \cite[Chapter 7.2]{book:marsdenratiu} or \cite[Chapter 3.5]{book:amr} for all the details and a more general definition.
   Let $L:TM \to \R$ be a non-degenerate lagrangian. The \emph{fiber derivative} is a map
   \begin{align}
-    \mathbb{F}L :& TM \to T^*M, \quad v \to \mathbb{F}L(v),
+    \mathbb{F}L : TM \to T^*M, \quad v \mapsto \mathbb{F}L(v),
   \end{align}
   such that for all $v,w \in T_q M$
   \begin{align}
