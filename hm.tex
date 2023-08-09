@@ -1564,7 +1564,7 @@ These two properties give away the inverse of $\Phi_s$: $(\Phi_s)^{-1} = \Phi_{-
   \begin{equation}
     X(q) := \frac{\d}{\d s} \Phi_s(q) \Big|_{s=0}.
   \end{equation}
-  This is clearly seen for small values of $|s|$, in which case the diffeomorphism $\Phi_s$ acts as
+  This is clearly seen for small values of $|s|$, in which case the diffeomorphism $\Phi_s$ acts in coordinates as
   \begin{equation}\label{eq:infinitesimalSymmetryExp}
     q \mapsto \Phi_s(q) = q + s X(q) + O(s^2).
   \end{equation}
@@ -1697,8 +1697,8 @@ This should be intuitively clear: one point in space is much the same as any oth
 
 This fact can be also interpreted in the following way: the sum of all forces acting on the point particles in the closed system is zero, i.e., Newton's third law $\sum_k \bm{F}_k = 0$. Which, you have already figured out by solving Exercise \ref{ex:N3l1}.
 
-\begin{example}[The baricenter]
-  Consider the galilean transformation $t \mapsto t$, $\bx \mapsto \bx' + \bm{v}t$.
+\begin{example}[The barycenter]
+  Consider the galilean transformation $t \mapsto t$, $\bx_k \mapsto \bx'_k + \bm{v}t$.
   The total momentum $\bm{P}$ transforms as
   \begin{equation}
     \bm{P} = \bm{P}' + \bm{v}  \sum_{k=1}^N m_k.
@@ -1800,7 +1800,7 @@ This is a consequence of the following proposition.
   \end{equation}
   is the rotation around the axis through the origin and parallel to $\bm{N}
     = (X_{32}, X_{13}, X_{21})$ of angle $\delta\phi = s|\bm{N}|$.
-  For an hint, see \cite[Chpater 26.D]{book:arnold}.
+  For a hint, see \cite[Chpater 26.D]{book:arnold}.
 \end{exercise}
 
 In view of Exercise~\ref{exe:rotations}, Noether theorem tells us that the conserved quantity for a single particle system would be
@@ -2012,7 +2012,7 @@ where $\gamma$ is small so that we can expand $F$ in Taylor series around $x^*$,
 Neglecting the higher order terms, we can see that there are three possibilities.
 \begin{itemize}
   \item If $\frac{\d F}{\d x}(x^*) < 0$, the system behaves like a spring \eqref{eq:spring} with $\omega_0^2 = -\frac{\d F}{\d x}(x^*)$. The general solution \eqref{eq:springsol} tells us that the system undergoes stable oscillations around $x^*$ with frequency $\omega_0$ (and period $\tau_0 = 2\pi/\omega_0$).
-  \item If, on the other hand, $\frac{\d F}{\d x}(x^*) > 0$, the force is pushing the system away from the equilibrium: the solution is of the form $\gamma(t) = C_+ e^{\lambda t} + C_- e^{-\lambda t}$, for some integration constants $C_+$ and $C_-$ and with $\omega_0^2 = \frac{\d F}{\d x}(x^*)$. There are now two possibilities: either $C_+ = 0$ and $x(t) \to x^*$ as $t$ grows, or $x$ grows exponentially and, in a short time, leaves the region of good approximation. In this last case the system is said to be \emph{linearly unstable}.
+  \item If, on the other hand, $\frac{\d F}{\d x}(x^*) > 0$, the force is pushing the system away from the equilibrium: the solution is of the form $\gamma(t) = C_+ e^{\lambda t} + C_- e^{-\lambda t}$, for some integration constants $C_+$ and $C_-$ and with $\lambda^2 = \frac{\d F}{\d x}(x^*)$. There are now two possibilities: either $C_+ = 0$ and $x(t) \to x^*$ as $t$ grows, or $x$ grows exponentially and, in a short time, leaves the region of good approximation. In this last case the system is said to be \emph{linearly unstable}.
   \item Finally, there is the case $\frac{\d F}{\d x}(x^*) = 0$, corresponding to a neutral equilibrium: the solution is a uniform motion of the form $\gamma(t) = C_0 + C_1 t$.
         We will come back to this case in a couple of sections.
 \end{itemize}
@@ -2172,7 +2172,7 @@ The function $V$ is, in general, a complicated interatomic potential, however th
 Indeed, assume $x_i = x_i^*$ is an equilibrium position. By symmetry, we have $|x_1^*-x_2^*| = |x_2^* - x_3^*| = r_*$.
 Taylor expanding the potential around the equilibrium point and dropping the $O\left(|r-r_*|^3\right)$ terms, we get
 \begin{equation}
-  V(r) = V(r_*) + \frac{\partial V}{\partial r}\Big|_{r=r_*}(r-r_*) + \frac{\partial^2 V}{\partial r^2}\Big|_{r=r_*}(r-r_*)^2.
+  V(r) = V(r_*) + \frac{\partial V}{\partial r}\Big|_{r=r_*}(r-r_*) + \frac12 \frac{\partial^2 V}{\partial r^2}\Big|_{r=r_*}(r-r_*)^2.
 \end{equation}
 The first term is a constant and can be ignored, while the second term -- being $r_*$ an equilibrium -- vanishes. Calling $k = \frac{\partial^2 V}{\partial r^2}\big|_{r=r_*}$ and $q_i = x_i - x_i^*$, we end up with the lagrangian
 \begin{equation}
@@ -2231,7 +2231,7 @@ We will revisit small oscillations once we discuss perturbation theory in the co
 \begin{example}[The two-body problem]\label{ex:kepler2}
   Let's go back to Examples~\ref{ex:Kepler0} and \ref{ex:kepler1}.
   Consider a closed systems of two point particles with masses $m_{1,2}$.
-  We now know that, in an inertial frame of reference, their natural lagrangian musth have the form
+  We now know that, in an inertial frame of reference, their natural lagrangian must have the form
   \begin{equation}
     L = \frac{m_1 \|\dot\bx_1\|^2}{2} + \frac{m_2 \|\dot\bx_2\|^2}{2} - U(\|\bx_1 - \bx_2\|).
   \end{equation}
@@ -2606,7 +2606,7 @@ The tangent space $T_qQ \subset \R^{3N}$ is a linear subspace of the ambient tan
 For a brief but more comprehensive discussion of this you can look at \cite[Chapter 2.8]{lectures:aom:seri}.
 
 \begin{theorem}
-  The equations of motion of a mechanical system on $N$ particles with natural lagrangian \eqref{eq:mechlag} under the effect of $l$ independent holonomic constraints \eqref{eq:holonomic} have the form
+  The equations of motion of a mechanical system of $N$ particles with natural lagrangian \eqref{eq:mechlag} under the effect of $l$ independent holonomic constraints \eqref{eq:holonomic} have the form
   \begin{equation}\label{eq:generalnewtonconstraint}
     m_k \ddot \bx_k = - \frac{\partial U}{\partial \bx_k} + \bm{R}_k, \quad k=1, \ldots, N,
   \end{equation}
@@ -2793,7 +2793,7 @@ We have just described an operation which takes a function $f(x,y)$ to a differe
 \end{equation}
 which ensures that we can invert the transformation to get $f(x,y) = \frac{\partial g}{\partial u}u - g$.
 
-We have just describe the Legendre transform.
+We have just described the Legendre transform.
 If you look carefully you may recognize it in Theorem~\ref{thm:conservationEnergy}.
 
 The geometrical meaning of the Legendre transform is best captured with a picture\footnote{Metaphorically, but I should probably add a sketch here.}, although I don't believe this will justify it more or less than the description before.
@@ -2842,35 +2842,35 @@ That is, $\d f_x = \frac{\partial f(x)}{\partial x^i} \d x^i$.
 As you can see, this is directly generalizing the same concepts from multivariable analysis.
 
 Analogously to tangent bundles, we can glue cotangent spaces and define the \emph{cotangent bundle} as $T^*P := \cup_{x\in P} \{x\}\times T^*_x P$. Also the cotangent bundle is a $2n$-dimensional smooth manifold.
-The concept of differential forms extends to the bundle in a similar way as vector field: a differential one-form on $T^*P$ is a map $\sigma : x\in P \mapsto \sigma(x) \in T^*_x P$.
+The concept of differential forms extends to the cotangent bundle in a similar way as vector fields generalized the notion of tangent vectors to the level of the tangent bundle: a differential one-form on $P$ is a map $\sigma : x\in P \mapsto \sigma(x) \in T^*_x P$.
 
 We are almost there, we need just a few more concepts.
-First of all we will need to talk about differential two-forms, these are antisymmetric bilinear maps $TP \times TP \to \R$.
+First of all we will need to talk about differential two-forms, these are a particular family of antisymmetric bilinear maps $TP \times TP \to \R$.
 Given two one-forms $\sigma$ and $\nu$ we can define a two-form using an operation called \emph{wedge product}: $\sigma\wedge\nu$ is the antisymmetric bilinear map such that for all $X,Y \in TP$,
 \begin{equation}
   \sigma\wedge\nu(X,Y) := \sigma(X)\nu(Y) - \sigma(Y)\nu(X).
 \end{equation}
-Any two-form can be written in terms of the basis $\{\d x^i\wedge \d x^j\}$. Due to antisymmetry $dx^i \wedge \d x^j = - \d x^j \wedge \d x^i$, so one can simplify formulas bu summing over ordered indices $i<j$ and considering only half of the terms. Also due to antisymmetry, $\d x^i \wedge \d x^i = 0$. As a linear map, we can associate to any two-form $\sigma$ an antisymmetric matrix $S$ whose coefficient are computing by evaluating $\sigma$ over basis elements: $S_{ij} = \sigma\left(\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right)$.
+Any two-form can be written in terms of the basis $\{\d x^i\wedge \d x^j\}$. Due to antisymmetry $dx^i \wedge \d x^j = - \d x^j \wedge \d x^i$, so one can simplify formulas by summing over ordered indices $i<j$ and considering only half of the terms. Also due to antisymmetry, $\d x^i \wedge \d x^i = 0$. As a linear map, we can associate to any two-form $\sigma$ an antisymmetric matrix $S$ whose coefficient are computed by evaluating $\sigma$ over basis elements: $S_{ij} = \sigma\left(\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right)$.
 
 The \emph{contraction} (or interior product) $\iota_X$ of a one--form $\theta = \theta_l(x)\d x^l$ with a vector field $X = X^l(x)\frac{\partial}{\partial x^l}$ is the natural pairing between the tangent and cotangent space:
 \begin{equation}
   \iota_X \theta : P \to \R, \quad \iota_X \theta := \theta(X) = \theta_l(x) X^l(x).
 \end{equation}
 
-Similarly, given a two-form $\omega = \omega_{ij}(x) \d x^i\wedge \d x^j$, we can extend the contraction as the operation $\iota_X$ that reduces is to a one--form by applying $X$ as the first argument of $\omega$, that is,
+Similarly, given a two-form $\omega = \omega_{ij}(x) \d x^i\wedge \d x^j$, we can extend the contraction as the operation $\iota_X$ that reduces it to a one--form by applying $X$ as the first argument of $\omega$, that is,
 \begin{equation}\label{eq:contraction}
   \iota_X \omega := \omega(X, \cdot) := \omega_{ij}(x)(X^i(x) \d x^j - X^j(x) \d x^i).
 \end{equation}
 We will see in later chapters how this simplifies our lives.
 
-The last thing to know, is that we can construct two-forms out of one-forms using an operation called \emph{exterior product}.
+The last thing to know, is that we can construct two-forms out of one-forms using an operation called \emph{exterior derivative}.
 For what concerns us, we will only need to know that $\d (\sigma_i \d x^i) = \frac{\partial \sigma_i}{\partial x^j} \d x^j \wedge \d x^i$ and that $\d (\d f) = 0$ for any $f$.
 
 We will also need to generalize the pull-back operation.
-Up until now we only encountered $\Phi^* : \cC^\infty(T^*M) \to \cC^\infty(T^*M)$, where $\Phi$ is a diffeomorphism $\Phi: T^*M \to T^*M$, defined in terms of right-composition $\Phi* f = f \circ \Phi$.
+Up until now we only encountered $\Phi^* : \cC^\infty(T^*M) \to \cC^\infty(T^*M)$, where $\Phi$ is a diffeomorphism $\Phi: T^*M \to T^*M$, defined in terms of right-composition $\Phi^* f = f \circ \Phi$.
 Note that if $x = \Phi(y)$ then the pullback maps $f(x)$ into $\Phi^* f (y) = f \circ \Phi (y)$, so you can effectively use the pullback to change coordinates.
 %
-If $\theta$ is a differential form on a manifold $P$, then the diffeomorphism $\Phi$ induces a mapping on the space of differential forms on $P$ defined $\forall x\in P, X_j\in T_xP$ by
+If $\theta$ is a differential form on a manifold $P$, then the diffeomorphism $\Phi : P \to P$ induces a mapping on the space of differential forms on $P$ defined $\forall x\in P, X_j\in T_xP$ by
 \begin{equation}
   (\Phi^{*}\theta)_{x}(X_{1},\ldots ,X_{k})=\theta_{\Phi(x)}(\Phi_*(x)X_{1},\ldots,\Phi_*(x)X_{k}).
 \end{equation}
