@@ -247,7 +247,7 @@ We call $\bx(t)$ the \emph{configuration} of the system at time $t$ in the \emph
 
 \begin{example}\label{example:gcoords}
   For example a system of two rigid pendulums in space constrained to oscillate on a vertical plane, is described by two position vectors, so $\bx = (\bx_1, \bx_2)\in\R^{6}$.
-  However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described\footnote{Here there is an hidden statement: $\bS^1\times\bS^1 \simeq \T^2$. This should be read as: the 2-torus, the surface of a doughnut, is diffemorphic to the product of two circles. Here, diffeomorphic is a concept from the theory of smooth manifolds, and stands for the existence a smooth bijection between the two constructutions. Note that $\simeq$ usually denotes some kind of equivalence, but which specific kind is context-dependent and not often well explicited.} by $q = (q^1, q^2) \in \bS^1\times\bS^1 \simeq \T^2$. See Figure~\ref{fig:twopend}.
+  However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described\footnote{Here there is an hidden statement: $\bS^1\times\bS^1 \simeq \T^2$. This should be read as: the 2-torus, the surface of a doughnut, is diffemorphic to the product of two circles. Here, diffeomorphic is a concept from the theory of smooth manifolds, and stands for the existence a smooth bijection between the two constructions. Note that $\simeq$ usually denotes some kind of equivalence, but which specific kind is context-dependent and not often well explicited.} by $q = (q^1, q^2) \in \bS^1\times\bS^1 \simeq \T^2$. See Figure~\ref{fig:twopend}.
 \end{example}
 
 \begin{figure}[ht!]
@@ -415,7 +415,7 @@ As in the finite-dimensional case, $A$ is uniquely determined and is called the 
   \begin{enumerate}
     \item In the finite dimensional setting, Fr\'echet differentiability corresponds to total differentiability. As with the finite dimensional case, Fr\'echet's differentiability implies the continuity of the mapping.
     \item The analogy with the finite dimensional case goes further. Indeed, the chain rule, mean value theorem, implicit functions theorem, inverse mapping theorem and statements about local extremes with and without constraints, all hold also for differentiable functions on Banach spaces.
-    \item Requiring the operator $A$ to be bounded is crucial. In $\infty$-dimensional normed spaces, the linearity of an image does not imply continuity.
+    \item Requiring the operator $A$ to be bounded is crucial. In $\infty$-dimensional normed spaces, linearity does not imply continuity.
     \item In calculus of variation, the curve $h$ from the small neighborhood of $0\in X$, is usually called a variation and denoted $\delta x$.
   \end{enumerate}
 \end{remark}
@@ -444,7 +444,7 @@ and the evolution of the system is described by the critical points with respect
 
 \begin{theorem}
   Let $L = L(q, \dot q, t) : \R^{n}\times \R^{n}\times \R \to \R$ be differentiable.
-  The equations of motion for the mechanical system with lagrangian $L$ satisfy the \emph{Euler-Lagrange equations}
+  The equations of motion for the mechanical system with lagrangian $L$ are given by the \emph{Euler-Lagrange equations}
   \begin{equation}\label{eq:eulerlagrange}
     \frac{\d}{\d t}\frac{\partial L}{\partial \dot q^i} - \frac{\partial L}{\partial q^i} = 0, \quad i=1,\ldots n.
   \end{equation}
@@ -611,7 +611,7 @@ For our concerns, an inertial system of coordinates on the galilean space-time i
 If $(t, \bx) \in \R\times \R^3$ is an element of the ``standard'' galilean space-time, we call \emph{galilean transformations} the transformations $(t,\bx) \to (\widetilde t, \widetilde{\bx})$ listed below
 \begin{enumerate}
   \item translations: $\widetilde t = t + t_0$, $\widetilde{\bx} = \bx + \bx_0$, for $t_0\in\R$, $\bx_0\in\R^3$;
-  \item rotations: $\widetilde t = t$, $\widetilde{\bx} = G\bx$ for $G\in O(3)$;
+  \item rotations and reflections: $\widetilde t = t$, $\widetilde{\bx} = G\bx$ for $G\in O(3)$;
   \item uniform motions with velocity $\bm{v}\in\R^3$: $\widetilde t = t$, $\widetilde{\bx} = \bx + \bm{v} t$.
 \end{enumerate}
 Then, the galilean principle of relativity says that the lagrangian of a closed mechanical system is invariant, modulo the sum of total derivatives, with respect to the galilean transformations.
@@ -710,7 +710,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 \begin{remark}
   \begin{enumerate}
     \item Mechanical systems are \emph{reversible}: they are also invariant with respect to the transformation $t\mapsto -t$.
-    \item If you consider systems in interaction with the environment, you end up with lagrangians that are no longer invariant with respect to galilean transformations and can explicitly depend from time.
+    \item If you consider systems in interaction with the environment, you end up with lagrangians that are no longer invariant with respect to galilean transformations and can explicitly depend on time.
   \end{enumerate}
 \end{remark}
 
@@ -719,7 +719,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
   \begin{equation}
     L = \frac{m\dot z^2}2 - mgz,
   \end{equation}
-  which corresponds to the equation of motion $\ddot z = -g$: this is the equation of motion of a point particle in free fall towards Earth. In agreement with Galileo's law, the acceleration is constant and does not depend from the mass.
+  which corresponds to the equation of motion $\ddot z = -g$: this is the equation of motion of a point particle in free fall towards Earth. In agreement with Galileo's law, the acceleration is constant and does not depend on the mass.
 
 \end{example}
 
@@ -852,7 +852,7 @@ The equation above may already be familiar: $\frac12 y^2 + U(x)$ is the sum of t
 
 \begin{theorem}\label{thm:ham1}
   Let $H(x, y) := \frac12 y^2 + U(x)$ where $U:\R\to\R$ is such that $F(x) = -\frac{\d U}{\d x}$.
-  Then, the level curves $H(x,y) = C$ are the integral curves of \eqref{eq:oscillatorfirstorder}.
+  Then, the connected components of the level curves $H(x,y) = C$ are the integral curves of \eqref{eq:oscillatorfirstorder}.
 \end{theorem}
 The function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
 \begin{proof}
@@ -945,7 +945,7 @@ In other words, if the function $I$ remains constant along the paths followed by
   \end{equation}
   We call $\bp_k := m_k \dot \bx_k$ the kinetic momentum, replacing it in the equation above we get that
   \begin{equation}
-    E = H(q,p) := \frac{1}{m_k}\|\bp_k\|^2 + U
+    E = H(q,p) := \frac{1}{2 m_k}\|\bp_k\|^2 + U
   \end{equation}
   is the sum of kinetic and potential energies, as in \eqref{eq:energyKepler} and Theorem \ref{thm:ham1}.
 \end{example}
@@ -1283,7 +1283,7 @@ Local coordinates, or charts, on $M$ are local homeomorphisms\footnote{I.e. cont
         & p \mapsto \phi(p) = (q^1(p), \ldots, q^n(p)),
 \end{align}
 over open sets $U\subset M$. If we have different local coordinates $\phi:U\subset M\to\R^n$ and $\psi:V\subset M\to\R^n$ for a smooth manifold $M$, we require on the intersection $W=U\cap V$ that their transition maps $\phi\circ\psi^{-1}:\psi(W)\to\phi(W)$ are diffeomorphisms\footnote{I.e. smooth with smooth inverse. This, in fact, also ensures that the charts are diffeomorphisms themselves.}.
-When we talk about local coordinates $(q^1,\ldots,q^n)$ of a point $p\in M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things may get confusing here, since one usually distinguishes the point $q$ on the manifold from its coordinate representation $\phi(p)=(q^1(p), \ldots, q^n(p))$, while here we are using the same letters for both.} $\phi=(q^1, \ldots, q^n)$.
+When we talk about local coordinates $(q^1,\ldots,q^n)$ of a point $p\in M$, we are expressing how we denote the components of the coordinate map\footnote{This is where things will start to get confusing, since one does not usually distinguish the point $p$ on the manifold from its coordinate representation $\phi(p)=(q^1(p), \ldots, q^n(p))$. Usually you see the same letters to mean both the point and its coordinate representation, implicitly using one or the other meaning depending solely on the context.} $\phi=(q^1, \ldots, q^n)$.
 
 Since manifolds are in general just topological spaces, we don't have a priori a notion of linear algebra to talk about vectors and velocities.
 To this end, we attach at each point $q$ of the manifold a vector space.
@@ -1296,17 +1296,17 @@ Local coordinates on $M$ naturally induce local coordinates \[(q^1,\ldots,q^n,\d
   \dot q^i = v^i,\quad\mbox{where}\quad v = v^1\frac{\partial}{\partial q^1}+\cdots+v^n \frac{\partial}{\partial q^n},
 \end{equation}
 is the decomposition of the vector $v$ in the local basis induced by the coordinate chart.
-This in particular means that $\frac{\partial}{\partial q^i}$ is just a notation for the $i$-th basis versor in $T_q M$.
-Mapping $\frac{\partial}{\partial q^i}$ to the $i$-th versor $e_i$ of $\R^n$ allows you to consider tangent vectors in coordinates as genuine euclidean vectors applied at a specific point $q$.
+This in particular means that $\frac{\partial}{\partial q^i}$ is just a notation for the $i$-th basis versor\footnote{Here and in the rest of the text we borrow the terminology from physics where a \emph{versor} is a unit vector used to represent some direction.} in $T_q M$.
+Mapping $\frac{\partial}{\partial q^i}$ to the $i$-th Euclidean basis versor $e_i$ of $\R^n$ allows you to consider tangent vectors in coordinates as genuine euclidean vectors applied at a specific point $q$.
 
 The most immediate way to compute the components $\dot q^i$ is by using the definition of tangent vectors as class of equivalence of tangents to curves \cite[Chapter 2.5]{lectures:aom:seri}.
 Let $\gamma:\R \to M$ be a curve such that $\gamma(0) = q$ and $\der{\gamma}{t}|_{t=0} = v$, then $\dot q^i = \der{}{t}(q^i\circ\gamma)|_{t=0}$ is given by the $i$th component of $\der{}{t}(\phi\circ\gamma)|_{t=0}$.
 
-The notation used for the versors of tangent vectors $v\in T_qM$ in coordinates is not casual: in differential geometry tangent vectors are also \emph{derivations}. If $f\in C^\infty(M)$, the space of smooth functions from $M$ to $\R$, one can compute
+The notation used for the basis versors of the tangent space in coordinates is not casual: in differential geometry tangent vectors are also \emph{derivations}. If $f\in C^\infty(M)$, the space of smooth functions from $M$ to $\R$, one can compute that for any tangent vector $v\in T_qM$,
 \begin{equation}
   v(f)=\der{}{t}(f\circ\gamma)\big|_{t=0}, \qquad \gamma(0) = q, \; \dot \gamma(0) = v.
 \end{equation}
-In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$: i.e. $v(f)$ can be identified with the vector $\langle Df,v\rangle$.
+In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$ at the point $q$: i.e. $v(f)$ can be identified with $\langle Df(q),v\rangle$.
 
 To emphasize once more the importance of the chain rule in this business, a local change of coordinates on $M$ determines a special class of coordinate transformations on the tangent bundle which is linear with respect to the coordinates $\dot q$ on the fibers:
 \begin{equation}
@@ -1341,7 +1341,6 @@ The lagrangian is called \emph{non--degenerate} if
     \frac{\partial q^k}{\partial {\widetilde q}^i}\frac{\partial q^l}{\partial {\widetilde q}^j}
     \frac{\partial^2 L}{\partial \dot{q}^k \partial \dot{q}^l}.
   \end{equation}
-  \textit{Hint: use Euler-Lagrange equation.}
 \end{exercise}
 Thanks to the second part of the exercise above, the class of non--degenerate lagrangians is independent of the choice of local coordinates on the configuration space.
 
@@ -1367,7 +1366,7 @@ Locally, analogously to what we have described at the beginning of the chapter,
   g = g_{ij}(q) \d q^i \d q^j =: \d s^2.
 \end{equation}
 
-The length of curves on $M$ is then defined as in \eqref{eq:arclen} and angles between tangent vectors are defined using the inner product on $T_qM$:
+The length of curves on $M$ is then defined as in \eqref{eq:arclen} and angles between tangent vectors are defined using a generalization of the law of cosines where the Euclidean scalar product is replaced by the inner product on $T_qM$:
 \begin{equation}
   \lag v, w\rag_g = g_{ij}(q) v^i w^j, \qquad v,w\in T_q M.
 \end{equation}
@@ -1473,7 +1472,7 @@ where $U(q)$ is a smooth function on $M$.
   It  is  often  necessary  to  deal  with  mechanical  systems  in  which the interactions between different bodies take the form of constraints.
   These constraints can  be  very  complicated  and  hard  to  incorporate  when  working directly  with  the differential  equations  of  motion.
   It  is  often  easier  to  construct  a  lagrangian out of the kinetic and potential energy of the system and derive the correct equations of motion from there.
-  These will often be of the form \eqref{eq:LagrangianM}.
+  Mechanical lagrangians will often be of the form \eqref{eq:LagrangianM}.
 \end{remark}
 
 
@@ -1532,7 +1531,7 @@ The differential can be used to \emph{push} tangent vectors on $M$ \emph{forward
   Let $L = L(q, \dot q)$, $(q, \dot q)\in TM$, be a lagrangian on the tangent bundle of a smooth manifold $M$. From now on, we will denote with $(M, L)$ the mechanical system described by such lagrangians $L$ on the configuration space $M$.
 \end{tcolorbox}
 
-A diffeomorphism $\Phi: M \to M$ is called a \emph{symmetry of the mechanical system $(M,L)$} if $L$ is invariant\footnote{The operation $\Phi^*:C^\infty(TM) \to C^\infty(TM)$ defined here is a special case of a more general operation, called \emph{pullback}, wich we will see again in different settings in future chapters.} with respect to $\Phi$, i.e.\footnote{Remember that $(q,\dot q)\in TM$ means, in particular, that $q\in M$ and $\dot q \in T_q M$ belongs to the corresponding tangent space at $q$.}
+A diffeomorphism $\Phi: M \to M$ is called a \emph{symmetry of the mechanical system $(M,L)$} if $L$ is invariant\footnote{The operation $\Phi^*:C^\infty(TM) \to C^\infty(TM)$ defined here is a special case of a more general operation, called \emph{pullback}, which we will see again in different settings in future chapters.} with respect to $\Phi$, i.e.\footnote{Remember that $(q,\dot q)\in TM$ means, in particular, that $q\in M$ and $\dot q \in T_q M$ belongs to the corresponding tangent space at $q$.}
 \begin{equation}\label{eq:symmetry}
   \Phi^* L (q,\dot q) := L\left(\Phi(q), \Phi_*\dot q\right) = L(q,\dot q) \qquad \forall (q,\dot q) \in TM.
 \end{equation}
