@@ -3136,7 +3136,7 @@ We call \emph{hamiltonian system} a system of differential equations of the form
   Which, in more algebraic terms and with the same abuse of notation, means that the inverse matrix $(g^{ij}(q))$ is a $(2,0)$-tensor.
 
   
-  We can revisit Example~\ref{ex:nlrm} in light of this remark. What we see is that a mechanical lagrangian on $L(q,\dot q) = \langle \dot q, \dot q\rangle_g - U(q)$ on some state space $TM$ is mapped via the Legendre transform into the hamiltonian $H(q, p) = \langle p, p \rangle_g^* + U(q)$ on $T^*M$, emphasizing the dual nature of the momentum with respect to the velocity without the need to look at the fiber derivative construction.
+  We can revisit Example~\ref{ex:nlrm} in light of this remark. What we see is that a mechanical lagrangian $L(q,\dot q) = \langle \dot q, \dot q\rangle_g - U(q)$ on some state space $TM$ is mapped via the Legendre transform into the hamiltonian $H(q, p) = \langle p, p \rangle_g^* + U(q)$ on $T^*M$, emphasizing the dual nature of the momentum with respect to the velocity without the need to look at the fiber derivative construction.
 \end{remark}
 
 \begin{example}
@@ -3171,9 +3171,10 @@ We call \emph{hamiltonian system} a system of differential equations of the form
   \end{equation}
   Moreover, the inverse Legendre transform can be written in local coordinates as
   \begin{equation}\label{eq:inverseLegendre}
-    L(q, \dot q) = p_i \dot q^i - H,\qquad
+    L(q, \dot q) = p_i(q, \dot q) \dot q^i - H(q, p(q,\dot q)),\qquad
     \dot q^i = \frac{\partial H (q,p)}{\partial p_i}, \; i=1,\ldots,n.
   \end{equation}
+  Where we use the latter equation to obtain $p_i(q, \dot q)$.
 \end{exercise}
 
 \begin{exercise}\label{exe:timedep}
@@ -3552,7 +3553,7 @@ Let's try to clarify this with some important examples.
   \begin{equation}
     \d s^2 = g_{ij}(q)\d q^i \d q^j.
   \end{equation}
-  Consider the free motion of a point particle of mass $m$. As seen in Example~\ref{ex:hamPot}, its hamiltonian is given by
+  Consider the free motion of a point particle of mass $m$. As seen in Example~\ref{ex:nlrm}, its hamiltonian is given by
   \begin{equation}
     H = \frac1{2m} g^{ij}(q) p_i p_j.
   \end{equation}
@@ -3581,7 +3582,7 @@ Let's try to clarify this with some important examples.
     Given a riemannian manifold $(M,g)$, the trajectories of a free point particle on the manifold are the geodesics of the metric.
   \end{theorem}
 
-  Among the curves connecting two points of the manifold, geodesics are the (piecewise) smooth curves that minimize the distance -- in the sense that are critical points of an action for a non--degenerate hamiltonian (or, equiv., lagrangian).
+  Among the curves connecting two points of the manifold, geodesics are the (piecewise) smooth curves that minimize the distance -- in the sense that they are critical points of an action for a non--degenerate hamiltonian (or, equiv., lagrangian).
 
   See also \cite{Bolsinov_1995} for a more involved application of this.
 \end{example}
