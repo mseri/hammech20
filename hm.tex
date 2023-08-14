@@ -3805,13 +3805,6 @@ In the coordinates $x = (x^1, \ldots, x^{2n})$ on $T^*M$, the field has the comp
   X_H = J^{ij}\frac{\partial H}{\partial x^j}\frac{\partial}{\partial x^i}.
 \end{equation}
 
-\begin{remark}
-  As one would expect, $X_H$ coincides with the field of the dynamical system \eqref{eq:Hamsys}:
-  \begin{equation}
-    \frac{\d}{\d t} f = X_H f = \frac{\partial f}{\partial q^i}\dot q^i + \frac{\partial f}{\partial p_i} \dot p_i, \quad \forall f=f(q,p)\in\cC^\infty(T^* M).
-  \end{equation}
-\end{remark}
-
 We have constructed a mapping of the space of smooth functions on $T^*M$ into the space\footnote{Don't let the $T$s scare you, here $TT^*M$ simply means the tangent bundle to the manifold $T^*M$.} ${\Gamma(TT^* M)}$ of smooth vector fields on $T^*M$
 \begin{equation}\label{eq:antimapping}
   \cC^\infty (T^*M) \to \Gamma(TT^* M), \quad H \mapsto X_H.
@@ -3834,7 +3827,7 @@ Jacobi identity comes to the rescue, leading to the following beautiful relation
 \begin{proof}
   By definition of Lie bracket and of hamiltonian vector field, we have
   \begin{align}
-    [X_{F}, X_{G}] & = X_{F}(X_{G} f) - X_{G}(X_{F} f)                                    \\
+    [X_{F}, X_{G}] f & = X_{F}(X_{G} f) - X_{G}(X_{F} f)                                    \\
                    & = \big\{\big\{f, G\big\}, F\big\} - \big\{\big\{f, F\big\}, G\big\}.
   \end{align}
   Jacobi identity \eqref{eq:JacobiId} then gives
@@ -3860,7 +3853,7 @@ A crucial property of hamiltonian vector fields is that they are infinitesimal s
   which coincides with \eqref{eq:infsymm}.
 
   For the second part of the theorem we need to do more work.
-  Given two indices $1\leq i,j \leq n$, take the coordinate functions $f(x) = x^i$ and $g(x) = x^j$ and use \eqref{eq:coordPB} to rewrite \eqref{eq:infsymm}:
+  Given two indices $1\leq i,j \leq 2n$, take the coordinate functions $f(x) = x^i$ and $g(x) = x^j$ and use \eqref{eq:coordPB} to rewrite \eqref{eq:infsymm}:
   \begin{align}
     0 & = \big\{X f,g\big\} + \big\{f, Xg\big\} - X \big\{f,g\big\}                            \\
       & = \big\{X^i(x),x^j\big\} + \big\{x^i,X^j(x)\big\}                                      \\
@@ -3877,7 +3870,7 @@ A crucial property of hamiltonian vector fields is that they are infinitesimal s
   \end{equation}
   Multiplying \eqref{eq:systemvfH} by $J_{\alpha i} J_{\beta j}$, and summing over the repeated indices $i,j$, we end up with
   \begin{equation}
-    \frac{\partial \omega_\alpha}{\partial x^\beta} - \frac{\partial \omega_\beta}{\partial x_\alpha} = 0, \quad \alpha,\beta = 1, \ldots, 2n,
+    \frac{\partial \omega_\alpha}{\partial x^\beta} - \frac{\partial \omega_\beta}{\partial x^\alpha} = 0, \quad \alpha,\beta = 1, \ldots, 2n,
   \end{equation}
   which is equivalent to say that the one--form
   \begin{equation}
@@ -3934,7 +3927,7 @@ Even though we only proved the local existence of the hamiltonian generator ther
 
 With all these results at hand we are finally able to give a meaningful definition of hamiltonian symmetries.
 Note that, until now, in this chapter we have been discussing symmetries associated to the Poisson structure on the space $C^\infty(T^*M)$ of smooth real-valued functions on the cotangent bundle.
-We have not yet the symmetries of a specific hamiltonian function.
+We have not yet considered the symmetries of a specific hamiltonian function.
 To recover Noether we need to introduce precisely such concept.
 
 \begin{tcolorbox}
@@ -4042,7 +4035,7 @@ There is a beautiful geometric description that underlies everything that we hav
 This not only allows a coordinate free description of Hamiltonian mechanics, but provides the framework to develop many of our future discussions on integrability and perturbation theory.
 For a deeper geometric investigation than what we can discuss in this course, you can refer to \cite{book:dasilva}.
 
-In fact, we have already encountered the symplectic from in disguise twice.
+In fact, we have already encountered the symplectic form in disguise twice.
 Recall equations \eqref{eq:hamsysJ} and \eqref{eq:hamsysJ-1}. Especially in the latter case, we have been in front of a mapping that relates
 \begin{equation}
   \d H = \left(\frac{\partial H}{\partial q^i}, \frac{\partial H}{\partial p_i}\right) \leftrightarrow X_H = \left(\frac{\partial H}{\partial p_i}, - \frac{\partial H}{\partial q^i}\right),
@@ -4054,18 +4047,18 @@ We look for an antisymmetric form, say $\alpha$, on a cotangent bundle $T^*M$ su
 
 In terms of the basis elements $dq^i\wedge dq^j$, $dp_i\wedge dp_j$, $dp_i\wedge dq^j$, we have
 \begin{align}
-  \iota_{X_H} \alpha &= \alpha^{ij} (\d q^i(X_H) \d q^j - \d q^j(X_H) \d q^i) \\
-                     &\quad + \alpha_{ij} (dp_i(X_H) \d p_j - dp_j(X_H) \d p_i) \\
-                     &\quad + \alpha^i_j( dp^i(X_H) \d q^j - dq^j(X_H) \d p_i) \\
-                     &= \alpha^{ij}\left(\frac{\partial H}{\partial p_i} \d q^j - \frac{\partial H}{\partial p_j}\d q^i\right) \\
-                     &\quad + \alpha_{ij}\left(-\frac{\partial H}{\partial q^i}  \d p_j + \frac{\partial H}{\partial q^j}  \d p_i\right) \\
+  \iota_{X_H} \alpha &= \alpha_{ij} (\d q^i(X_H) \d q^j - \d q^j(X_H) \d q^i) \\
+                     &\quad + \alpha^{ij} (dp_i(X_H) \d p_j - dp_j(X_H) \d p_i) \\
+                     &\quad + \alpha^i_j( dp_i(X_H) \d q^j - dq^j(X_H) \d p_i) \\
+                     &= \alpha_{ij}\left(\frac{\partial H}{\partial p_i} \d q^j - \frac{\partial H}{\partial p_j}\d q^i\right) \\
+                     &\quad + \alpha^{ij}\left(-\frac{\partial H}{\partial q^i}  \d p_j + \frac{\partial H}{\partial q^j}  \d p_i\right) \\
                      &\quad + \alpha^i_j\left(-\frac{\partial H}{\partial q^i} \d q^j - \frac{\partial H}{\partial p_j} \d p_i\right),
 \end{align}
-where the sum was over all indices $i<j$. This should be equal to
+where the sum was over all indices $i\leq j$. This should be equal to
 \begin{equation}
   dH = \frac{\partial H}{\partial q^i} \d q^i + \frac{\partial H}{\partial p_i} \d p_i.
 \end{equation}
-That is, $\alpha^{ij}=\alpha_{ij} = 0$ and $\alpha^i_j = -1$.
+That is, $\alpha^{ij}=\alpha_{ij} = 0$ and $\alpha^i_j = -\delta^i_j$.
 Rewriting everything explicitly, we have computed
 \begin{equation}
  \iota_{X_H}(\d p_i\wedge \d q^i) = - \d H.
@@ -4077,17 +4070,17 @@ Without further ado, let's dig into it. Instead of working on the cotangent bund
 Let $\omega$ be a two--form on $P$, that is, for each $x\in P$, the map $\omega_x: T_x P \times T_x P \to \R$ is a skew-symmetric bilinear map on the tangent space to $P$ at $x$. As we mentioned, in terms of coordinates and linear algebra, bilinear means that it corresponds to some $\dim P\times \dim P$ matrix $\Omega(x) = \left(\omega_{ij}(x)\right)_{1\leq i,j\leq \dim P}$ and skew-symmetric means that the matrix $\Omega(x)$ is antisymmetric. I.e. $\omega$, seen as a matrix, acts on vectors $X,Y$ as $X^T \Omega Y$.
 
 \begin{tcolorbox}
-  We say that a two--form $\omega$ on $P$ defines a \emph{symplectic structure} on $P$ if it is closed, i.e.
-  \begin{equation}
-    \d\omega = 0,
-  \end{equation}
-  and non--degenerate, $\omega \neq 0$, which in coordinates means
+  We say that a two--form $\omega$ on $P$ defines a \emph{symplectic structure} on $P$ if it is closed\footnote{I.e. $\d\omega = 0$}
+  and non--degenerate\footnote{I.e. $\omega \neq 0$. Note that this means $\omega_x \neq 0$ for all $x \in P$.}.
+  We call \emph{symplectic manifold} the pair $(P, \omega)$ of a smooth manifold $P$ with a symplectic structure $\omega$ on $P$.
+\end{tcolorbox}
+
+\begin{remark}
+  The fact that $\omega$ is closed and non-degenerate, in coordinates, can be translated into
   \begin{equation}
     \det (\Omega(x)) \neq 0 \quad \forall x\in P.
   \end{equation}
-
-  We call \emph{symplectic manifold} the pair $(P, \omega)$ of a smooth manifold $P$ with a symplectic structure $\omega$ on $P$.
-\end{tcolorbox}
+\end{remark}
 
 \begin{remark}
   Note that for an $n\times n$ antisymmetric matrix $A = - A^T$,
