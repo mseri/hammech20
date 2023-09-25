@@ -1,15 +1,6 @@
 \documentclass[english,fontsize=11pt,paper=a5,oneside]{scrbook}
 
-\usepackage[
-%   HomeHTMLFilename=index,     % Filename of the homepage.
-%   HTMLFilename={node-},       % Filename prefix of other pages.
-%   IndexLanguage=english,      % Language for xindy index, glossary.
-%   latexmk,                    % Use latexmk to compile.
-%   OSWindows,                  % Force Windows. (Usually automatic.)
-   mathjax,                    % Use MathJax to display math.
-]{lwarp}
-
-\usepackage{textcomp,microtype, ifluatex, ifxetex}
+\usepackage{textcomp, microtype, ifluatex, ifxetex}
 
 \ifx\ifxetex\ifluatex\else % if lua- or xelatex http://tex.stackexchange.com/a/140164/1913
   \usepackage{fontspec}
@@ -25,6 +16,15 @@
     \begingroup\addfontfeatures{LetterSpace=#1}#2\endgroup
   }
 \fi
+
+\usepackage[
+%   HomeHTMLFilename=index,     % Filename of the homepage.
+%   HTMLFilename={node-},       % Filename prefix of other pages.
+%   IndexLanguage=english,      % Language for xindy index, glossary.
+%   latexmk,                    % Use latexmk to compile.
+%   OSWindows,                  % Force Windows. (Usually automatic.)
+   mathjax,                    % Use MathJax to display math.
+]{lwarp}
 
 \usepackage{booktabs}
 
@@ -45,16 +45,8 @@
 \usepackage{wrapfig}
 \usepackage{tcolorbox}
 %\usepackage{todonotes}
-
-
-\usepackage[font=footnotesize]{caption}
-\usepackage{xparse, picins}
-\DeclareDocumentCommand \addpic{O{0.4\textwidth} m g}{\parpic[r]{%
-\begin{minipage}{#1}
-    \includegraphics[width=\textwidth]{#2}%
-    \IfNoValueTF{#3}{}{\captionof{figure}{\footnotesize #3}}
-\end{minipage}
-}}
+% uncomment to tag only the referred equations (post-production)
+\mathtoolsset{showonlyrefs,showmanualtags}
 
 % comment before publication
 %\usepackage{showlabels}
@@ -68,12 +60,7 @@ colorlinks,
 linkcolor={blue!60!black},
 citecolor={blue!60!black},
 urlcolor={blue!60!black},
-linktoc=page,
-hypertextnames=false} %needed for autonum compatibility
-
-% tag only the referred equations (post-production)
-\usepackage{autonum}
-
+linktoc=page}
 \DeclareTextCommandDefault{\textbullet}{\ensuremath{\bullet}}
 
 \usepackage[numbers, sort]{natbib}
@@ -1110,7 +1097,10 @@ Before concluding this chapter let's discuss a final example where we can make u
 \begin{example}[Double pendulum]\label{ex:2pendulum}
   A double pendulum consists of two point particles of masses $m_1$ and $m_2$, connected by massless rods of lengths $l_1$ and $l_2$. The first pendulum is attached to the ceiling by a fixed pivot while the second one is attached to the point particle of the first pendulum.
 
-  \addpic[0.35\textwidth]{{images/HM-1.12}.pdf} Denote $x_1$ and $x_2$ the angles that each of the pendulums make with respect to the corresponding vertical, oriented counterclockwise: a value of $0$ means that the pendulum is vertical with the mass lying below the pivot.
+  \begin{wrapfigure}{r}{0.35\textwidth}
+    \includegraphics[width=\textwidth]{{images/HM-1.12}.pdf}
+  \end{wrapfigure}
+  Denote $x_1$ and $x_2$ the angles that each of the pendulums make with respect to the corresponding vertical, oriented counterclockwise: a value of $0$ means that the pendulum is vertical with the mass lying below the pivot.
 
   The lagrangian $L_1 = T_1 - U_1$ of the first particle is the same as for a simple pendulum:
   \begin{equation}
