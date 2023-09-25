@@ -1,21 +1,6 @@
-\documentclass[english,fontsize=11pt,paper=a5,oneside]{scrbook}
+\documentclass[english,fontsize=11pt,paper=b5]{scrbook}
 
-\usepackage{textcomp, microtype, ifluatex, ifxetex}
-
-\ifx\ifxetex\ifluatex\else % if lua- or xelatex http://tex.stackexchange.com/a/140164/1913
-  \usepackage{fontspec}
-  \setmainfont{OpenDyslexic}
-  \setsansfont{OpenDyslexic}
-  \setmonofont{OpenDyslexicMono}
-
-  \setmainfont[Renderer=Basic, Numbers=OldStyle, Scale = 1.0]{TeX Gyre Pagella}
-  \setsansfont[Renderer=Basic, Scale=0.90]{TeX Gyre Heros}
-  \setmonofont[Renderer=Basic]{TeX Gyre Cursor}
-
-  \renewcommand{\textls}[2][5]{%
-    \begingroup\addfontfeatures{LetterSpace=#1}#2\endgroup
-  }
-\fi
+%\usepackage{fontspec}
 
 \usepackage[
 %   HomeHTMLFilename=index,     % Filename of the homepage.
@@ -26,27 +11,33 @@
    mathjax,                    % Use MathJax to display math.
 ]{lwarp}
 
+\usepackage{textcomp,  ifluatex, ifxetex}
+
 \usepackage{booktabs}
 
 \usepackage{xcolor}
 \usepackage{graphicx}
-\graphicspath{{images/}{../images/}}
 
-\usepackage{mathtools}
+%\usepackage{mathtools}
 \usepackage{amsmath, amssymb, amsthm}
-\usepackage{bm}
-
+\begin{warpprint}
+  \usepackage{bm}
+\end{warpprint}
+\begin{warpHTML}
+  \usepackage{amsbsy}
+  \newcommand{\bm}{\boldsymbol}
+\end{warpHTML}
 \usepackage{units}
 
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{tikz-3dplot}
 \pgfplotsset{compat=1.16}
-\usepackage{wrapfig}
+\input{insbox.tex}
 \usepackage{tcolorbox}
 %\usepackage{todonotes}
 % uncomment to tag only the referred equations (post-production)
-\mathtoolsset{showonlyrefs,showmanualtags}
+%\mathtoolsset{showonlyrefs,showmanualtags}
 
 % comment before publication
 %\usepackage{showlabels}
@@ -63,10 +54,12 @@ urlcolor={blue!60!black},
 linktoc=page}
 \DeclareTextCommandDefault{\textbullet}{\ensuremath{\bullet}}
 
+\begin{warpprint}
 \usepackage[numbers, sort]{natbib}
 \setlength{\bibsep}{3pt}
 \renewcommand{\bibfont}{\small}
 \usepackage{doi}
+\end{warpprint}
 
 \newcommand{\cC}{\mathcal{C}}
 \newcommand{\cE}{\mathcal{E}}
@@ -103,6 +96,38 @@ linktoc=page}
 \newcommand{\pder}[2]{\frac{\partial{#1}}{\partial{#2}}}
 \newcommand{\der}[2]{\frac{\d{#1}}{\d{#2}}}
 
+\begin{warpMathJax}
+\CustomizeMathJax{
+  \newcommand{\bm}{\boldsymbol}
+  \newcommand{\cC}{\mathcal{C}}
+  \newcommand{\cE}{\mathcal{E}}
+  \newcommand{\cL}{\mathcal{L}}
+  \newcommand{\cO}{\mathcal{O}}
+  \newcommand{\cH}{\mathcal{H}}
+  \newcommand{\cI}{\mathcal{I}}
+  \newcommand{\cT}{\mathcal{T}}
+  \newcommand{\N}{\mathbb{N}}
+  \newcommand{\Z}{\mathbb{Z}}
+  \newcommand{\R}{\mathbb{R}}
+  \newcommand{\T}{\mathbb{T}}
+  \newcommand{\bS}{\mathbb{S}}
+  \newcommand{\bx}{\bm{x}}
+  \newcommand{\bp}{\bm{p}}
+  \newcommand{\bv}{\bm{v}}
+  \newcommand{\lag}{\langle}
+  \newcommand{\rag}{\rangle}
+  \newcommand{\d}{\mathrm{d}}
+  \DeclareMathOperator{\D}{D}
+  \DeclareMathOperator{\Id}{Id}
+  \DeclareMathOperator{\diag}{diag}
+  \DeclareMathOperator{\mod}{mod}
+  \DeclareMathOperator{\curl}{curl}
+  \DeclareMathOperator{\Vol}{Vol}
+  \newcommand{\pder}[2]{\frac{\partial{#1}}{\partial{#2}}}
+  \newcommand{\der}[2]{\frac{\d{#1}}{\d{#2}}}
+}
+\end{warpMathJax}
+
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -110,19 +135,9 @@ linktoc=page}
 \newtheorem{definition}{Definition}
 
 \theoremstyle{definition}
-\newtheorem{remarkx}{Remark}[chapter]
-\newenvironment{remark}
-  {\pushQED{\qed}\renewcommand{\qedsymbol}{$\lozenge$}\remarkx}
-  {\popQED\endremarkx}
-\newtheorem{examplex}{Example}[chapter]
-\newenvironment{example}
-  {\pushQED{\qed}\renewcommand{\qedsymbol}{$\lozenge$}\examplex}
-  {\popQED\endexamplex}
-\newtheorem{exercisex}{Exercise}[chapter]
-\newenvironment{exercise}
-  {\pushQED{\qed}\renewcommand{\qedsymbol}{$\maltese$}\exercisex}
-  {\popQED\endexercisex}
-
+\newtheorem{remark}{Remark}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{exercise}{Exercise}[chapter]
 
 \usepackage[toc,page]{appendix}
 \usepackage{subfiles}
@@ -153,9 +168,10 @@ linktoc=page}
   Version 1.11\\
   \today
 \end{center}
+\begin{warpprint}
 \vfill
 \small{\doclicenseThis}
-
+\end{warpprint}
 \cleardoublepage
 
 \pagenumbering{roman}
@@ -248,7 +264,7 @@ We call $\bx(t)$ the \emph{configuration} of the system at time $t$ in the \emph
 
 \begin{figure}[ht!]
   \centering
-  \includegraphics[width=0.9\linewidth,trim={0 1cm 0 1cm}, clip]{{images/HM-1.1}.pdf}
+  \includegraphics[width=0.9\linewidth,trim={0 1cm 0 1cm}, clip]{images/HM-1-1.pdf}
   \caption{Left: a system of two decoupled pendulums in $\R^3$. Right: corresponding generalized coordinates.}%
   \label{fig:twopend}
 \end{figure}
@@ -290,7 +306,7 @@ Before taking a little detour into Lagrangian mechanics, let's anticipate some o
   Clearly, once we know the initial conditions, the full evolution of the solution $x(t)$ is known, in agreement with Newton's principle of determinacy. \medskip
 
   \begin{figure}[ht!]
-    \includegraphics[width=.9\linewidth]{{images/HM-1.2}.pdf}
+    \includegraphics[width=.9\linewidth]{images/HM-1-2.pdf}
     \caption{Left: horizontal spring. Right: planar pendulum.}%
     \label{fig:spring-pendulum}
   \end{figure}
@@ -614,7 +630,7 @@ Then, the galilean principle of relativity says that the lagrangian of a closed 
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.85\linewidth]{coni-mathyear-21-21.jpg}
+  \includegraphics[width=.85\linewidth]{images/coni-mathyear-21-21.jpg}
   \caption{A graphical introduction to Newton's laws of motion,
     courtesy of \href{https://web.archive.org/web/20210602092955/https://twitter.com/Coni777/status/1399953219997032448}{Constanza Rojas-Molina}.
     If you feel creative, consider contributing to the
@@ -1097,9 +1113,9 @@ Before concluding this chapter let's discuss a final example where we can make u
 \begin{example}[Double pendulum]\label{ex:2pendulum}
   A double pendulum consists of two point particles of masses $m_1$ and $m_2$, connected by massless rods of lengths $l_1$ and $l_2$. The first pendulum is attached to the ceiling by a fixed pivot while the second one is attached to the point particle of the first pendulum.
 
-  \begin{wrapfigure}{r}{0.35\textwidth}
-    \includegraphics[width=\textwidth]{{images/HM-1.12}.pdf}
-  \end{wrapfigure}
+  \InsertBoxR{0}{
+        \includegraphics[width=0.3\textwidth]{images/HM-1-12.pdf}
+  }%
   Denote $x_1$ and $x_2$ the angles that each of the pendulums make with respect to the corresponding vertical, oriented counterclockwise: a value of $0$ means that the pendulum is vertical with the mass lying below the pivot.
 
   The lagrangian $L_1 = T_1 - U_1$ of the first particle is the same as for a simple pendulum:
@@ -2445,7 +2461,7 @@ Furthermore, when $E=0$, i.e., $e = 1$, we have a parabola and, finally, for $E>
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=.85\linewidth]{coni-mathyear-21-29.jpg}
+  \includegraphics[width=.85\linewidth]{images/coni-mathyear-21-29.jpg}
   \caption{A graphical introduction to Celestial Mechanics,
     courtesy of \href{https://web.archive.org/web/20210728151339/https://twitter.com/Coni777/status/1420395932290535432}{Constanza Rojas-Molina}.
     If you feel creative, consider contributing to the
