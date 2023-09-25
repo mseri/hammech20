@@ -1,0 +1,433 @@
+%%
+%% This is file 'ifptex.sty'.
+%%
+%% Copyright (c) 2008-2023 Takayuki YATO (aka. "ZR")
+%%   GitHub:   https://github.com/zr-tex8r
+%%   Twitter:  @zr_tex8r
+%%
+%% This package is distributed under the MIT License.
+%%
+%
+%% avoid multiple loading
+\csname\if11bxipIfptexLoaded\fi\endcsname%
+%% code guards
+\begingroup\count255\catcode61\global\catcode61\catcode48%
+\catcode91=1\catcode93=2\xdef\bxipIfptexLoaded[%
+\catcode61=\the\count255%
+\catcode13=\the\catcode13%
+\catcode32=\the\catcode32%
+\catcode35=\the\catcode35%
+\catcode123=\the\catcode123%
+\catcode125=\the\catcode125%
+\endlinechar=\the\endlinechar]%
+\endgroup\catcode32=10\catcode13=5\endlinechar=13\relax%
+\catcode35=6 \catcode123=1 \catcode125=2
+\edef\bxipIfptexLoaded{\bxipIfptexLoaded
+\catcode33=\the\catcode33%
+\catcode34=\the\catcode34%
+\catcode39=\the\catcode39%
+\catcode45=\the\catcode45%
+\catcode46=\the\catcode46%
+\catcode47=\the\catcode47%
+\catcode58=\the\catcode58%
+\catcode60=\the\catcode60%
+\catcode62=\the\catcode62%
+\catcode63=\the\catcode63%
+\catcode64=\the\catcode64%
+\catcode91=\the\catcode91%
+\catcode93=\the\catcode93%
+\catcode96=\the\catcode96%
+\relax}
+\catcode33=12 % <!>
+\catcode34=12 % <">
+\catcode39=12 % <'>
+\catcode45=12 % <->
+\catcode46=12 % <.>
+\catcode47=12 % </>
+\catcode58=12 % <:>
+\catcode60=12 % <<>
+\catcode62=12 % <>>
+\catcode63=12 % <?>
+\catcode64=11 % <@>
+\catcode91=12 % <[>
+\catcode93=12 % <]>
+\catcode96=12 % <`>
+\edef\bxip@restore@codes{\bxipIfptexLoaded
+  \noexpand\let\noexpand\bxip@restore@codes\relax}
+\def\bxipIfptexLoaded{\endinput}
+
+%% check for LaTeX
+\ifx\RequirePackage\@undefined %<*!LaTeX>
+  \let\bxip@latex=f
+  \long\def\bxip@input#1\ProvidesPackage#2[#3]{%
+    \def\bxip@input\RequirePackage##1[##2]{\input ##1.sty\relax}%
+    \let\bxip@opt@input\bxip@input
+    \immediate\write-1{Package: #2 #3}}
+  \expandafter\bxip@input
+\else                          %<*LaTeX>
+  \let\bxip@latex=t
+  \let\bxip@input\relax
+  \def\bxip@opt@input\RequirePackage#1[#2]{%
+    \IfFileExists{#1.sty}{\RequirePackage{#1}[#2]}{}}
+\fi                            %</LaTeX>
+
+%% package declaration
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ifptex}[2023/04/08 v2.2c pTeX checker]
+\def\bxip@pkgname{ifptex}
+
+%% packages
+\ifx\newif\@undefined\else
+\bxip@opt@input
+\RequirePackage{iftex}[2013/04/04]% v0.2
+\fi
+
+%=======================================
+\begingroup % entering a big group
+%--------------------------------------- helpers
+
+%% \bxip@csletcs{<csnameA>}{<csnameB>}
+\def\bxip@csletcs#1#2{%
+  \expandafter\let\csname#1\expandafter\endcsname\csname#2\endcsname}
+%% \bxip@true{<csname>}
+\def\bxip@true#1{%
+  \expandafter\let\csname#1\endcsname\iftrue}
+%% \bxip@false{<csname>}
+\def\bxip@false#1{%
+  \expandafter\let\csname#1\endcsname\iffalse}
+
+%% switches
+\bxip@false{ifbxip@ok}
+
+%% \bxip@test@primitive\CS
+\def\bxip@test@primitive#1{%
+  \edef\bxip@tmpa{\string#1}\edef\bxip@tmpb{\meaning#1}%
+  \ifx\bxip@tmpa\bxip@tmpb \bxip@true{ifbxip@ok}%
+  \else \bxip@false{ifbxip@ok}%
+  \fi}
+
+%% \bxip@with@default{<arg>}\CS
+\gdef\bxip@with@default#1#2{%
+  \def\bxip@tmpa{#2}\def\bxip@tmpb{#2[#1]}%
+  \futurelet\bxip@tok\bxip@with@default@a}
+\gdef\bxip@with@default@a{%
+  \ifx[\bxip@tok\expandafter\bxip@tmpa%]
+  \else \expandafter\bxip@tmpb
+  \fi}
+
+%% \bxip@check@version{<current>}{<required>}{<label>}
+\global\countdef\bxip@cnta=255
+\gdef\bxip@check@version#1#2#3{%
+  \ifnum#1<#2\relax
+    \begingroup
+      \bxip@cnta=#2\relax \advance\bxip@cnta100000\relax
+      \expandafter\bxip@check@version@a\the\bxip@cnta\relax{#3}%
+    \endgroup
+  \fi}
+\gdef\bxip@check@version@a#1#2#3#4#5#6\relax#7{%
+  \bxip@err@required{#7 v.>=\number#2#3#4.#5#6}}
+
+%% \bxip@Require\ifXXX{<string>}\fi
+% (Equivalent to \IFTEX@Require of iftex.)
+\gdef\bxip@Require#1#2#3{%
+  #1\else
+    \newlinechar64\relax
+    \errorcontextlines-1\relax
+    \immediate\write20{@
+    ********************************************@
+    * #2 is required to compile this document.@
+    * Sorry!@
+    ********************************************}%
+    % do a hard stop
+    \batchmode\read-1to\bxip@tmpa
+  #3}
+\gdef\bxip@err@required#1{\bxip@Require\iffalse{#1}\fi}
+
+%% \bxip@protected
+\let\bxip@protected\protected
+\ifx\directlua\@undefined\else % NB. this defines globally
+  \directlua{tex.enableprimitives('bxip@', {'protected'})}
+\fi
+\bxip@csletcs{bxip@protected}{bxip@protected}
+
+%--------------------------------------- guess version
+
+%%<+> \upTeXguessedversion
+% A \mathchardef constant that represents the guessed version
+% of the upTeX engine. (123 means version 1.23.)
+%  - The version 1.23 or later has primitive \uptexversion/revision,
+%    from which the correct version value can be obtained.
+%  - For the older versions, the version value is guessed from various
+%    features of the engine, and the minimum possible values is stored
+%    to \upTeXguessedversion. (For the versions earlier than v0.06,
+%    however, \upTeXguessedversion is set to 1.)
+%  - If the engine is not regarded as upTeX (or its derivative), then
+%    \upTeXguessedversion is set to zero.
+
+% [Development history of upTeX until version 1.23]
+% Version 1.23 [2018-02-24] Introduce \uptexversion/revision
+% Version 1.22 [2017-01-15] Adopt blocks of Unicode v9.0.0
+% Version 1.21 [2016-02-20] Adopt blocks of Unicode v8.0.0
+% Version 1.20 [2014-12-29] Adopt blocks of Unicode v7.0.0
+% Version 1.11 [2012-09-21] (Fix bug on \meaning\kchardef)
+% Version 1.10 [2012-04-29] Adopt blocks of Unicode v6.1.0
+% Version 1.00 [2012-01-15] Adopt blocks of Unicode v6.0.0
+% Version 0.30 [2010-04-10] (No observable changes)
+% Version 0.29 [2010-01-31] Adopt blocks of Unicode v5.2.0
+% Version 0.28 [2009-08-23] (Fix bug on \if test)
+% Version 0.21 [2008-03-13] (Fix bug on \uppercase)
+% Version 0.19 [2007-12-26] Introduce \forcecjktoken
+% Version 0.12 [2007-08-25] Adjust newline after hangul
+% Version 0.11 [2007-08-07] (Fix bug on \jcharwidowpenalty)
+% Version 0.10 [2007-07-28] Introduce \kchar and \kchardef
+% Version 0.06 [2007-04-15] Introduce \enable/disablecjktoken
+% Version 0.00 [2007-01-27] Initial version
+
+\global\let\upTeXguessedversion\relax
+\bxip@test@primitive\uptexversion\ifbxip@ok
+  % If the engine has \uptexversion, it is upTeX of >= v1.23.
+  % The exact version can be known from \uptexversion/revision.
+  \bxip@test@primitive\uptexrevision\ifbxip@ok
+    \def\bxip@tmpa#1#2#3#4\relax{%
+      \chardef\bxip@tmpa=0\relax
+      \ifx.#1\afterassignment\bxip@tmpb\chardef\bxip@tmpa=0#2#3\relax
+      \fi}
+    \def\bxip@tmpb#1\relax{}
+    \expandafter\bxip@tmpa\uptexrevision????\relax
+    \bxip@cnta=\uptexversion\relax
+    \multiply\bxip@cnta100\relax
+    \advance\bxip@cnta\bxip@tmpa
+    \global\mathchardef\upTeXguessedversion=\bxip@cnta
+  \else % UNEXPECTED CASE
+    \global\mathchardef\upTeXguessedversion=0
+  \fi
+\fi
+\ifx\upTeXguessedversion\relax % still unknown
+  \bxip@test@primitive\ptexversion\ifbxip@ok
+    % If the engine has \ptexversion but not \uptexversion,
+    % it is a real pTeX.
+    \global\mathchardef\upTeXguessedversion=0
+    % Note: The recent version of pTeX has primitive \ucs.
+  \fi
+\fi
+\ifx\upTeXguessedversion\relax % still unknown
+  \bxip@test@primitive\ucs\ifbxip@ok\else
+    % If the engine does not have \ucs, it is pTeX.
+    \global\mathchardef\upTeXguessedversion=0
+  \fi
+\fi
+% Here if \upTeXguessedversion is not zero, it is upTeX definitely.
+\ifx\upTeXguessedversion\relax % still unknown
+  % If \uptexversion is missing, I guess the version according to
+  % the way the Unicode blocks are divided.
+  \def\bxip@tmpa#1#2{% check if #1 and #2 belong to different blocks
+    \bxip@true{ifbxip@ok}\begingroup
+      \kcatcode#1=16\kcatcode#2=17\relax
+      \ifnum\kcatcode#1=17 \aftergroup\bxip@tmpb \fi
+    \endgroup}
+  \def\bxip@tmpb{\bxip@false{ifbxip@ok}}
+  \bxip@tmpa{"1C50}{"1C80}\ifbxip@ok
+    \global\mathchardef\upTeXguessedversion=122
+  \else\bxip@tmpa{"AB30}{"AB70}\ifbxip@ok
+    \global\mathchardef\upTeXguessedversion=121
+  \else\bxip@tmpa{"1A20}{"1AB0}\ifbxip@ok
+    \global\mathchardef\upTeXguessedversion=120
+  \else\bxip@tmpa{"840}{"8A0}\ifbxip@ok
+    \global\mathchardef\upTeXguessedversion=110
+  \else\bxip@tmpa{"800}{"840}\ifbxip@ok
+    \global\mathchardef\upTeXguessedversion=100
+  \else\bxip@tmpa{"7C0}{"800}\ifbxip@ok
+    \global\mathchardef\upTeXguessedversion=29
+  \else
+    \global\mathchardef\upTeXguessedversion=1
+  \fi\fi\fi\fi\fi\fi
+\fi
+% I guess the more correct version according to the existence
+% and/or the behavior of the specific primitives.
+\ifnum\upTeXguessedversion=1 % v0.00-0.28
+  \bxip@test@primitive\forcecjktoken\ifbxip@ok
+    % \forcecjktoken exists
+    \global\mathchardef\upTeXguessedversion=19
+  \else\bxip@test@primitive\kchar\ifbxip@ok
+    % \kchar exists
+    \global\mathchardef\upTeXguessedversion=10
+  \else\bxip@test@primitive\enablecjktoken\ifbxip@ok
+    % \enablecjktoken exists
+    \global\mathchardef\upTeXguessedversion=6
+  % else \upTeXguessedversion=1 (v0.00-0.05)
+  \fi\fi\fi
+\fi
+
+%--------------------------------------- public stuffs
+% Note:
+% 1) Names '\ifFooTeX' were used in old iftex.
+% 2) Names '\iffootex' are used in ifxetex/ifluatex/....
+% My preferences used to be:
+% - '\ifwhateverFooTeX' and '\RequireWhateverFooTeX'.
+% But now I adopt the preferences of new iftex:
+% - '\ifwhateverfootex' and '\RequireWhateverFooTeX'.
+% I also provide aliases '\ifwhateverFooTeX' for compatibility.
+
+%%<+> \ifpTeX
+\global\bxip@false{ifpTeX}
+\bxip@test@primitive\kanjiskip\ifbxip@ok
+  \global\bxip@true{ifpTeX}
+\fi
+%%<+> \ifptex == \ifpTeX
+\global\bxip@csletcs{ifptex}{ifpTeX}
+
+%%<+> \ifupTeX
+\global\bxip@false{ifupTeX}
+%%<+> \ifnativeupTeX
+\global\bxip@false{ifnativeupTeX}
+\ifnum\upTeXguessedversion>0
+  \global\bxip@true{ifupTeX}
+  % native-ness check
+  \ifnum\ucs"3000="3000 \global\bxip@true{ifnativeupTeX}\fi
+\fi
+%%<+> \ifuptex == \ifupTeX
+\global\bxip@csletcs{ifuptex}{ifupTeX}
+%%<+> \ifnativeuptex == \ifnativeupTeX
+\global\bxip@csletcs{ifnativeuptex}{ifnativeupTeX}
+
+%%<+> \ifpTeXng
+\global\bxip@false{ifpTeXng}
+\bxip@test@primitive\ngbanner\ifbxip@ok
+  \global\bxip@true{ifpTeXng}
+\fi
+%%<+> \ifptexng == \ifpTeXng
+\global\bxip@csletcs{ifptexng}{ifpTeXng}
+
+%%<+> \ifstrictpTeX
+\global\bxip@false{ifstrictpTeX}
+\ifpTeX \ifupTeX\else
+  \global\bxip@true{ifstrictpTeX}
+\fi\fi
+%%<+> \ifstrictptex == \ifstrictpTeX
+\global\bxip@csletcs{ifstrictptex}{ifstrictpTeX}
+
+%%<+> \ifstrictupTeX
+\global\bxip@false{ifstrictupTeX}
+\ifupTeX \ifpTeXng\else
+  \global\bxip@true{ifstrictupTeX}
+\fi\fi
+%%<+> \ifstrictuptex == \ifstrictupTeX
+\global\bxip@csletcs{ifstrictuptex}{ifstrictupTeX}
+
+%%<+> \ifstrictpTeXng (== \ifpTeXng, for now)
+\global\bxip@csletcs{ifstrictpTeXng}{ifpTeXng}
+%%<+> \ifstrictptexng == \ifstrictpTeXng
+\global\bxip@csletcs{ifstrictptexng}{ifstrictpTeXng}
+
+%%<+> \ifstrictuplatex
+\global\bxip@false{ifstrictuplatex}
+\if t\bxip@latex \ifnativeuptex \ifstrictuptex
+  \global\bxip@true{ifstrictuplatex}
+\fi\fi\fi
+%%<+> \ifstrictplatex
+\global\bxip@false{ifstrictplatex}
+\if t\bxip@latex \ifnativeuptex\else \ifstrictuptex
+  \global\bxip@true{ifstrictplatex}
+\fi\fi\fi
+\if t\bxip@latex \ifstrictptex
+  \global\bxip@true{ifstrictplatex}
+\fi\fi
+%%<+> \ifporuplatex
+\global\bxip@false{ifporuplatex}
+\ifstrictplatex
+  \global\bxip@true{ifporuplatex}
+\fi
+\ifstrictuplatex
+  \global\bxip@true{ifporuplatex}
+\fi
+
+%%<+> \RequirepTeX
+\bxip@protected\gdef\RequirepTeX{%
+  \bxip@Require\ifpTeX{(u)pTeX}\fi}
+%%<+> \RequireStrictpTeX
+\bxip@protected\gdef\RequireStrictpTeX{%
+  \bxip@Require\ifstrictpTeX{pTeX (not upTeX)}\fi}
+%%<+> \RequireupTeX
+\bxip@protected\gdef\RequireupTeX{%
+  \bxip@Require\ifupTeX{upTeX}\fi}
+%%<+> \RequireStrictupTeX
+\bxip@protected\gdef\RequireStrictupTeX{%
+  \bxip@Require\ifstrictupTeX{upTeX (not pTeX-ng)}\fi}
+%%<+> \RequireNativeupTeX
+\bxip@protected\gdef\RequireNativeupTeX{%
+  \bxip@Require\ifnativeupTeX{upTeX in Unicode}\fi}
+%%<+> \RequirepTeXng
+\bxip@protected\gdef\RequirepTeXng{%
+  \bxip@Require\ifpTeXng{pTeX-ng}\fi}
+%%<+> \RequireStrictpTeXng
+\bxip@protected\gdef\RequireStrictpTeXng{%
+  \bxip@Require\ifstrictpTeXng{pTeX-ng}\fi}
+%%<+> \RequireStrictpLaTeX
+\bxip@protected\gdef\RequireStrictpLaTeX{%
+  \bxip@Require\ifstrictplatex{pLaTeX}\fi}
+%%<+> \RequireStrictupLaTeX
+\bxip@protected\gdef\RequireStrictupLaTeX{%
+  \bxip@Require\ifstrictuplatex{upLaTeX}\fi}
+%%<+> \RequirepOrupLaTeX
+\bxip@protected\gdef\RequirepOrupLaTeX{%
+  \bxip@Require\ifporuplatex{((u)pLaTeX}\fi}
+
+%%<+> \RequireupTeXAtLeast{<min_version>}
+\bxip@protected\gdef\RequireupTeXAtLeast#1{%
+  \ifupTeX
+    \bxip@check@version\upTeXguessedversion{#1}{upTeX}%
+  \else \bxip@err@required{upTeX}%
+  \fi}
+
+%%<+> \RequireNativeupTeXAtLeast{<min_version>}
+\bxip@protected\gdef\RequireNativeupTeXAtLeast#1{%
+  \ifnativeupTeX
+    \bxip@check@version\upTeXguessedversion{#1}{upTeX in Unicode}%
+  \else \bxip@err@required{upTeX in Unicode}%
+  \fi}
+
+%%<+> \RequireStrictupLaTeXAtLeast{<min_version>}
+\bxip@protected\gdef\RequireStrictupLaTeXAtLeast#1{%
+  \ifstrictuplatex
+    \bxip@check@version\upTeXguessedversion{#1}{upTeX in Unicode}%
+  \else \bxip@err@required{upLaTeX}%
+  \fi}
+
+%--------------------------------------- deprecated stuffs
+
+%%<+>D \ifNativeupTeX == \ifnativeupTeX
+\global\bxip@csletcs{ifNativeupTeX}{ifnativeupTeX}
+%%<+>D \RequirenativeupTeX == \RequireNativeupTeX
+\gdef\RequirenativeupTeX{\RequireNativeupTeX}
+
+%% \bxip@uptex@new@version
+\global\mathchardef\bxip@uptex@new@version=19
+
+%%<+>D \ifnewupTeX
+\global\bxip@false{ifnewupTeX}
+\ifnum\upTeXguessedversion<\bxip@uptex@new@version\else
+  \global\bxip@true{ifnewupTeX}
+\fi
+
+%%<+>D \RequireNewupTeX
+\gdef\RequireNewupTeX{%
+  \bxip@with@default\bxip@uptex@new@version\bxip@require@new@uptex@a}
+\gdef\bxip@require@new@uptex@a[#1]{%
+  \RequireupTeXAtLeast{#1}}
+
+%%<+>D \RequireNativeNewupTeX
+\gdef\RequireNativeNewupTeX{%
+  \bxip@with@default\bxip@uptex@new@version\bxip@require@new@uptex@b}
+\gdef\bxip@require@new@uptex@b[#1]{%
+  \RequireNativeupTeXAtLeast{#1}}
+
+%--------------------------------------- all done
+\endgroup
+% clean up
+\let\bxip@latex\@undefined
+\let\bxip@input\@undefined
+\let\bxip@opt@input\@undefined
+\let\bxip@protected\@undefined
+\bxip@restore@codes
+\endinput
+%% EOF

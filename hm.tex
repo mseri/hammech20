@@ -1,5 +1,14 @@
 \documentclass[english,fontsize=11pt,paper=a5,oneside]{scrbook}
 
+\usepackage[
+%   HomeHTMLFilename=index,     % Filename of the homepage.
+%   HTMLFilename={node-},       % Filename prefix of other pages.
+%   IndexLanguage=english,      % Language for xindy index, glossary.
+%   latexmk,                    % Use latexmk to compile.
+%   OSWindows,                  % Force Windows. (Usually automatic.)
+   mathjax,                    % Use MathJax to display math.
+]{lwarp}
+
 \usepackage{textcomp,microtype, ifluatex, ifxetex}
 
 \ifx\ifxetex\ifluatex\else % if lua- or xelatex http://tex.stackexchange.com/a/140164/1913
@@ -50,12 +59,8 @@
 
 % comment before publication
 %\usepackage{showlabels}
-
-\usepackage[
-    type={CC},
-    modifier={by-nc-sa},
-    version={4.0},
-]{doclicense}
+\PassOptionsToPackage{ type={CC}, modifier={by-nc-sa}, version={4.0}, }{doclicense}
+\usepackage{doclicense}
 
 \usepackage{babel}
 \usepackage{hyperref}

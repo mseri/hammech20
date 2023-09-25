@@ -1,0 +1,64 @@
+%%
+%% This is file 'ifuptex.sty'.
+%% 
+%% Copyright (c) 2008-2023 Takayuki YATO (aka. "ZR")
+%%   GitHub:   https://github.com/zr-tex8r
+%%   Twitter:  @zr_tex8r
+%%
+%% This package is distributed under the MIT License.
+%%
+%
+% NOTE: Now ifuptex is merely an alias to ifptex.
+%
+%% avoid multiple loading
+\csname\if11bxipIfuptexLoaded\fi\endcsname%
+%% code guards
+\begingroup\count255\catcode61\global\catcode61\catcode48%
+\catcode91=1\catcode93=2\xdef\bxipIfuptexLoaded[%
+\catcode61=\the\count255%
+\catcode13=\the\catcode13%
+\catcode32=\the\catcode32%
+\catcode35=\the\catcode35%
+\catcode123=\the\catcode123%
+\catcode125=\the\catcode125%
+\endlinechar=\the\endlinechar]%
+\endgroup\catcode32=10\catcode13=5\endlinechar=13\relax%
+\catcode35=6 \catcode123=1 \catcode125=2
+\edef\bxipIfuptexLoaded{\bxipIfuptexLoaded
+\catcode45=\the\catcode45%
+\catcode46=\the\catcode46%
+\catcode47=\the\catcode47%
+\catcode58=\the\catcode58%
+\catcode64=\the\catcode64%
+\relax}
+\catcode45=12 % <->
+\catcode46=12 % <.>
+\catcode47=12 % </>
+\catcode58=12 % <:>
+\catcode64=11 % <@>
+\edef\bxip@up@restore@codes{\bxipIfuptexLoaded
+  \noexpand\let\noexpand\bxip@up@restore@codes\relax}
+\def\bxipIfuptexLoaded{\endinput}
+
+%% check for LaTeX
+\ifx\RequirePackage\@undefined %<*!LaTeX>
+  \long\def\bxip@input#1\ProvidesPackage#2[#3]{%
+    \def\bxip@input\RequirePackage##1[##2]{\input ##1.sty\relax}%
+    \immediate\write-1{Package: #2 #3}}
+  \expandafter\bxip@input
+\else                          %<*LaTeX>
+  \let\bxip@input\relax
+\fi                            %</LaTeX>
+
+%% package declaration
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ifuptex}[2023/04/08 v2.2c pTeX checker]
+
+%% load ifptex
+\bxip@input
+\RequirePackage{ifptex}[2021/07/01]
+
+%% all done
+\bxip@up@restore@codes
+\endinput
+%% EOF
