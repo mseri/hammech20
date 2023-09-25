@@ -45,8 +45,7 @@
 \usepackage{wrapfig}
 \usepackage{tcolorbox}
 %\usepackage{todonotes}
-% uncomment to tag only the referred equations (post-production)
-\mathtoolsset{showonlyrefs,showmanualtags}
+
 
 \usepackage[font=footnotesize]{caption}
 \usepackage{xparse, picins}
@@ -69,7 +68,12 @@ colorlinks,
 linkcolor={blue!60!black},
 citecolor={blue!60!black},
 urlcolor={blue!60!black},
-linktoc=page}
+linktoc=page,
+hypertextnames=false} %needed for autonum compatibility
+
+% tag only the referred equations (post-production)
+\usepackage{autonum}
+
 \DeclareTextCommandDefault{\textbullet}{\ensuremath{\bullet}}
 
 \usepackage[numbers, sort]{natbib}
