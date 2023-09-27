@@ -1,6 +1,13 @@
 \documentclass[english,fontsize=11pt,paper=b5]{scrbook}
 
-%\usepackage{fontspec}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage{lmodern} % pdflatex or dvi latex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec} % XeLaTeX or LuaLaTeX
+\fi
 
 \usepackage[
 HomeHTMLFilename=index,     % Filename of the homepage.
@@ -10,7 +17,7 @@ latexmk,                    % Use latexmk to compile.
 %   OSWindows,                  % Force Windows. (Usually automatic.)
 mathjax,                    % Use MathJax to display math.
 ]{lwarp}
-\setcounter{FileDepth}{1}   % Split HTML at sections
+\setcounter{FileDepth}{0}
 \boolfalse{FileSectionNames} % Number the file names
 \booltrue{CombineHigherDepths} % Combine parts/chapters/sections
 \HTMLAuthor{Marcello Seri}
@@ -23,7 +30,6 @@ mathjax,                    % Use MathJax to display math.
 \usepackage{xcolor}
 \usepackage{graphicx}
 
-%\usepackage{mathtools}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{physics} % documentation at https://mirror.koddos.net/CTAN/macros/latex/contrib/physics/physics.pdf
 \begin{warpprint}
@@ -42,8 +48,7 @@ mathjax,                    % Use MathJax to display math.
 \input{insbox.tex}
 \usepackage{tcolorbox}
 %\usepackage{todonotes}
-% uncomment to tag only the referred equations (post-production)
-%\mathtoolsset{showonlyrefs,showmanualtags}
+
 
 % comment before publication
 %\usepackage{showlabels}
@@ -57,8 +62,10 @@ mathjax,                    % Use MathJax to display math.
   linkcolor={blue!60!black},
   citecolor={blue!60!black},
   urlcolor={blue!60!black},
-  linktoc=page}
+  linktoc=page,
+  hypertexnames=false}
 \DeclareTextCommandDefault{\textbullet}{\ensuremath{\bullet}}
+\usepackage{autonum}
 
 \begin{warpprint}
   \usepackage[numbers, sort]{natbib}
@@ -828,11 +835,11 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     The function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
     \begin{proof}
       The proof is surprisingly simple:
-      \begin{align*}
+      \begin{align}
         \dot H & = \frac{\partial H}{\partial x}\frac{\dd x}{\dd t} + \frac{\partial H}{\partial y}\frac{\dd y}{\dd t} \\
                & = \frac{\dd U}{\dd x} y + y F(x)
                = -y F(x) + y F(x) = 0.
-      \end{align*}
+      \end{align}
     \end{proof}
 
     The fact that $H(x,y)$ remains constant on the trajectories is crucial: when this happens we say that the total energy of the system is a \emph{conserved quantity}.
