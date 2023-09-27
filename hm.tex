@@ -163,13 +163,13 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
   We will then move to study action--angle coordinates and integrability, and finally we will discuss elementary perturbation theory.
   On the latter, we will only briefly discuss resonances and mostly focus on the meaning of the Kolmogorov-Arnold-Moser theorem and the Nekhoroshev theorem.
 
-  Topics that I intend to add over time include: contact mechanics, non-holonomic mechanics/sub-riemannian geometry, numerical methods, rigid bodies, mathematical billiards, integrability via Lax pairs... I don't know if this is just whishful thinking or if it will happen at some point, but I welcome any contribution in these directions.
+  Topics that I intend to add over time include: contact mechanics, non-holonomic mechanics, sub-riemannian geometry, numerical methods, rigid bodies, mathematical billiards, integrability via Lax pairs... I don't know if this is just whishful thinking or if it will happen at some point, but I welcome any contribution in these directions.
 
   A number of extra references covering some of the topics mentioned above is \href{https://www.mseri.me/links-from-hm/}{collected on my blog}. I will make sure to keep the post updated and the links working. \medskip
 
   Please don't be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
 
-  I am extremely grateful to Nithesh Balasubramanian, Senan Bird, Riccardo Bonetto, Josephine van Driel, Ramsay Duff, Mollie Jagoe-Brown, Jesse Mulder, Dijs de Neeling, Anouk Pelzer, Iisekki Rotko, Danique de Ruiter, Robbert Scholtens, Felix Semler, Albert \v{S}ilvans, Marit van Straaten and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
+  I am extremely grateful to Nithesh Balasubramanian, Senan Bird, Riccardo Bonetto, Jose\-phine van Driel, Ramsay Duff, Mollie Jagoe-Brown, Jesse Mulder, Dijs de Neeling, Anouk Pelzer, Iisekki Rotko, Danique de Ruiter, Robbert Scholtens, Felix Semler, Albert \v{S}ilvans, Marit van Straaten and Jermain Wall\'e for their careful reading of the notes and their useful comments and corrections.
 
   Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina.com}{Constanza Rojas-Molina}, who kindly allowed me to use some of her beautiful artworks in these notes.
 
@@ -2255,7 +2255,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       By construction, the constant vector $\vb*{M}$ is orthogonal to $\vb*{x}$ and $\vb*{p} = m \dot{\vb*{x}}$.
       Therefore, the point moves in the plane
       \begin{equation}\label{eq:planarCP}
-        \{\mathbf{y} \;\mid\; \langle M, \mathbf{y}\rangle = \mathrm{const} \}.
+        \left\{\mathbf{y} \;\mid\; \langle M, \mathbf{y}\rangle = \mathrm{const} \right\}.
       \end{equation}
     \end{proof}
 
@@ -2865,7 +2865,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
     The interior product is extremely useful when you want to compute something, as it relates the exterior derivative and Lie derivative of differential forms by the \emph{Cartan (magic) formula}:
     \begin{equation}\label{eq:cartan}
-      \mathcal{L}_X \vb*{\Theta} = \dd(\iota_X \vb*{\Theta}) + \iota_X (\dd{\mathbb{\Theta}}).
+      \mathcal{L}_X \Theta = \dd(\iota_X \Theta) + \iota_X (\dd{\Theta}).
     \end{equation}
 
     With all this new equipment at hand, we are ready to delve into the hamiltonian side of mechanics.
@@ -3276,7 +3276,11 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     One of the many advantages of the hamiltonian approach comes from an elegant algebraic description.
     This will play a central role in the study of conserved quantities, and provides a remarkable duality with the mathematical description of quantum mechanics.
 
-    From now on, we will denote by $q = (q^1, \ldots, q^n)$ the local coordinates on $M$, and $(q^1, \ldots, q^n, p_1, \ldots, p_n)\in T^*M$ the coordinates induced by $q$ on $T^*M$. We will, thus, write functions on the cotangent space as $f=f(q,p)$.
+    From now on, we will denote by $q = (q^1, \ldots, q^n)$ the local coordinates on $M$, and 
+    \begin{equation}
+      (q^1, \ldots, q^n, p_1, \ldots, p_n)\in T^*M
+    \end{equation}
+    the coordinates induced by $q$ on $T^*M$. We will, thus, write functions on the cotangent space as $f=f(q,p)$.
 
     \begin{tcolorbox}
       Let $f=f(q,p)$ and $g=g(q,p)$ be two functions on the phase space $T^*M$.
@@ -3350,6 +3354,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     \end{corollary}
     \begin{proof}
       By the previous corollary $\big\{F,H\big\} = \big\{G,H\big\} = 0$.
+
       Jacobi identity then implies that $\big\{\big\{F,G\big\},H\big\} = 0$, i.e., $\big\{F,G\big\}$ is a first integral of $H$.
     \end{proof}
 
@@ -3397,6 +3402,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     \end{equation}
 
     \subsection{A brief detour on time-dependent hamiltonians}\label{sec:timedepH}
+    \textcolor{red}{TODO: Imprecise and partially incorrect, rewrite}
 
     Let $L=L(q,\dot q,t): TM\times\mathbb{R}\to\mathbb{R}$, $q=(q^1,\ldots,q^n)\in M$, be the time-dependent lagrangian of some mechanical system as in Exercise~\ref{exe:timedep}.
 
@@ -5498,7 +5504,11 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
       \begin{theorem}[Liouville-Arnold]\label{thm:liouvillearnold}
         Consider a completely integrable hamiltonian system on the phase space $\mathbb{R}^{2n}$.
-        Assume that there exists $E^0 = (E^0_1, \ldots, E^0_n)$ such that the functions $H_1(q,p), \ldots, H_n(q,p)$ are independent at every point of the level surface $M_{E^0}$ defined by \eqref{eq:levelsetE}.
+        Assume that there exists $E^0 = (E^0_1, \ldots, E^0_n)$ such that the functions 
+        \begin{equation}
+          H_1(q,p), \ldots, H_n(q,p)
+        \end{equation}
+        are independent at every point of the level surface $M_{E^0}$ defined by \eqref{eq:levelsetE}.
 
         Then, for values of $|E-E^0|$ small enough, the following holds
         \begin{itemize}
@@ -5957,8 +5967,8 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \begin{equation}\label{eq:lienarizedH}
         \left\lbrace
           \begin{aligned}
-            \dot q_i = \frac{\partial H_2}{\partial p_i} \\
-            \dot p_i = -\frac{\partial H_2}{\partial q_i}
+            \dot q_i &= \frac{\partial H_2}{\partial p_i} \\
+            \dot p_i &= -\frac{\partial H_2}{\partial q_i}
           \end{aligned}
         \right .,\quad i=1,\ldots,n,
       \end{equation}
