@@ -10,6 +10,13 @@ latexmk,                    % Use latexmk to compile.
 %   OSWindows,                  % Force Windows. (Usually automatic.)
 mathjax,                    % Use MathJax to display math.
 ]{lwarp}
+\setcounter{FileDepth}{1}   % Split HTML at sections
+\boolfalse{FileSectionNames} % Number the file names
+\booltrue{CombineHigherDepths} % Combine parts/chapters/sections
+\HTMLAuthor{Marcello Seri}
+\HTMLLanguage{en-UK}
+\HTMLDescription{Lecture notes for Hamiltonian Mechanics}
+
 
 \usepackage{booktabs}
 
@@ -713,10 +720,10 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
     There is more, in fact
     \begin{equation}
-      T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\langle\dot{\vb*{x}}(t), \vb*{F}(\vb*{x}(t))\right\rangle\; \dd t = \int_{\vb*{x}_0}^{\vb*{x}_1} \left\langle\vb*{F}(\vb*{x}), \dd \vb*{x}\right\rangle,
+      T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\langle\dot{\vb*{x}}(t), \vb*{F}(\vb*{x}(t))\right\rangle\; \dd t = \int_{\vb*{x}_0}^{\vb*{x}_1} \left\langle\vb*{F}(\vb*{x}), \dd{\vb*{x}}\right\rangle,
     \end{equation}
     where $\vb*{x}_i := \vb*{x}(t_i)$.
-    This is equivalent to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e., the integral of $\vb*{F}$ along the curve $\vb*{x}(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\vb*{x}) \cdot \dd\vb*{x}$ as the infinitesimal contribution of the vector field to the acceleration.
+    This is equivalent to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e., the integral of $\vb*{F}$ along the curve $\vb*{x}(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\vb*{x}) \cdot \dd{\vb*{x}}$ as the infinitesimal contribution of the vector field to the acceleration.
 
     \begin{remark}
       For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\vb*{x}_0 = \vb*{x}(t_0)$ and $\vb*{x}_1 = \vb*{x}(t_1)$ if and only if $\curl \vb*{F} = 0$, which in turn is true if and only if there is a $U:\mathbb{R}^3\to\mathbb{R}$ such that $\vb*{F} = -\frac{\partial U}{\partial \vb*{x}}$.
@@ -2626,7 +2633,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
         g_{ij}(q) = \sum_{k=1}^N m_k\left\langle\frac{\partial \vb*{x}_k}{\partial q^i},\frac{\partial \vb*{x}_k}{\partial q^j}\right\rangle
       \end{equation}
       is the riemannian metric induced by the euclidean metric on $Q$ given by
-      $ds^2 = \sum_{j=1}^N m_j\langle\dd \vb*{x}_j, \dd\vb*{x}_j\rangle$.
+      $ds^2 = \sum_{j=1}^N m_j\langle\dd \vb*{x}_j, \dd{\vb*{x}_j}\rangle$.
     \end{theorem}
 
     This can be further generalized to mechanical systems which are constrained on the tangent bundle $TM$ of a manifold $M$ of dimension $m$.
@@ -2768,7 +2775,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     For each slope $u$, the value of $g(u) = g(u,y) = \max_x (ux - f(x))$ measures the maximal distance between the two curves $f(x)$ and $ux$: finding the maximum of such distance means
     computing
     \begin{equation}
-      \frac{\partial}{\partial x}(ux - f(x)) = 0 \quad\mathbb{R}ightarrow\quad u = \frac{\partial f}{\partial x}.
+      \frac{\partial}{\partial x}(ux - f(x)) = 0 \quad\rightarrow\quad u = \frac{\partial f}{\partial x}.
     \end{equation}
     Note that in the computation above we are assuming that a maximum exists:
     this hints to the fact that the Legendre transformation can only be applied to \emph{convex functions}.
@@ -2858,7 +2865,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
     The interior product is extremely useful when you want to compute something, as it relates the exterior derivative and Lie derivative of differential forms by the \emph{Cartan (magic) formula}:
     \begin{equation}\label{eq:cartan}
-      \mathcal{L}_X \mathbb{T}heta = \dd(\iota_X \mathbb{T}heta) + \iota_X (\dd\mathbb{T}heta).
+      \mathcal{L}_X \vb*{\Theta} = \dd(\iota_X \vb*{\Theta}) + \iota_X (\dd{\mathbb{\Theta}}).
     \end{equation}
 
     With all this new equipment at hand, we are ready to delve into the hamiltonian side of mechanics.
@@ -3115,8 +3122,8 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       The preliminary computations that we did in Section~\ref{sec:lagrangianonmanifold} and Examples~\ref{ex:nlrm} immediately tell us how to compute the corresponding hamiltonian in cylindrical and spherical coordinates.
       Namely, we can invert the metric matrix to get
       \begin{align}
-        \mbox{cylindrical coordinates } (r,\phi,z) \quad    & \mathbb{R}ightarrow\quad H = \frac 1{2m} \left(p_r^2 + \frac{p_\phi^2}{r^2} + p_z^2\right),                               \\
-        \mbox{spherical coordinates } (r,\phi,\theta) \quad & \mathbb{R}ightarrow\quad H = \frac 1{2m} \left(p_r^2 + \frac{p_\phi^2}{r^2\sin^2\theta} + \frac{p_\theta^2}{r^2} \right).
+        \mbox{cylindrical coordinates } (r,\phi,z) \quad    & \rightarrow\quad H = \frac 1{2m} \left(p_r^2 + \frac{p_\phi^2}{r^2} + p_z^2\right),                               \\
+        \mbox{spherical coordinates } (r,\phi,\theta) \quad & \rightarrow\quad H = \frac 1{2m} \left(p_r^2 + \frac{p_\phi^2}{r^2\sin^2\theta} + \frac{p_\theta^2}{r^2} \right).
       \end{align}
 
       More generally, a natural lagrangian
