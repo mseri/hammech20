@@ -20,7 +20,6 @@ mathjax,                    % Use MathJax to display math.
 \setcounter{FileDepth}{0}
 \boolfalse{FileSectionNames} % Number the file names
 \booltrue{CombineHigherDepths} % Combine parts/chapters/sections
-\HTMLAuthor{Marcello Seri}
 \HTMLLanguage{en-UK}
 \HTMLDescription{Lecture notes for Hamiltonian Mechanics}
 
@@ -42,6 +41,7 @@ mathjax,                    % Use MathJax to display math.
 \usepackage{units}
 
 \usepackage{tikz}
+\tikzset{every picture/.style={ampersand replacement=\&}}
 \usepackage{pgfplots}
 \usepackage{tikz-3dplot}
 \pgfplotsset{compat=1.16}
@@ -2640,7 +2640,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
         g_{ij}(q) = \sum_{k=1}^N m_k\left\langle\frac{\partial \vb*{x}_k}{\partial q^i},\frac{\partial \vb*{x}_k}{\partial q^j}\right\rangle
       \end{equation}
       is the riemannian metric induced by the euclidean metric on $Q$ given by
-      $ds^2 = \sum_{j=1}^N m_j\langle\dd \vb*{x}_j, \dd{\vb*{x}_j}\rangle$.
+      $ds^2 = \sum_{j=1}^N m_j\langle\dd{\vb*{x}_j}, \dd{\vb*{x}_j}\rangle$.
     \end{theorem}
 
     This can be further generalized to mechanical systems which are constrained on the tangent bundle $TM$ of a manifold $M$ of dimension $m$.
@@ -3005,15 +3005,15 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \end{equation}
       can be explicitly computed using its definition:
       \begin{align}
-        \dd H(q,p) & = \dd \left( p_i\dot q^i(q,p) - L(q, \dot q(q,p)) \right)                                                                             \\
-                   & = \dot q^i \dd p_i + p_i \dd \dot q^i(q,p) - \frac{\partial L}{\partial q^i} \dd q^i - \frac{\partial L}{\partial \dot q^i} \dd \dot q^i \\
-                   & = \dot q^i \dd p_i - \dot p_i \dd q^i, \label{eq:dHlc2}
+        \dd H(q,p) & = \dd{}\left( p_i\dot{q}^i(q,p) - L(q, \dot{q}(q,p)) \right)                                                                             \\
+                   & = \dot{q}^i \dd{p_i} + p_i \dd{\dot{q}^i}(q,p) - \frac{\partial L}{\partial q^i} \dd{q^i} - \frac{\partial L}{\partial \dot{q}^i} \dd{\dot{q}^i} \\
+                   & = \dot{q}^i \dd{p_i} - \dot{p}_i \dd{q^i}, \label{eq:dHlc2}
       \end{align}
       where we used the Euler-Lagrange equations to get
       \begin{equation}
-        p_i = \frac{\partial L}{\partial \dot q^i}
+        p_i = \frac{\partial L}{\partial \dot{q}^i}
         \qquad\mbox{and}\qquad
-        \dot p_i = \frac{\dd }{\dd t}\frac{\partial L}{\partial \dot q^i} = \frac{\partial L}{\partial q^i}.
+        \dot p_i = \frac{\dd }{\dd t}\frac{\partial L}{\partial \dot{q}^i} = \frac{\partial L}{\partial q^i}.
       \end{equation}
       The theorem follows comparing coefficients in \eqref{eq:dHlc} and \eqref{eq:dHlc2}.
     \end{proof}
@@ -3627,12 +3627,12 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \end{equation}
       which imply
       \begin{equation}
-        \langle\vb*{p}, \dd\vb*{x}\rangle = \|\vb*{p}\|\|\dd \vb*{x}\| = \frac{E}{c(\vb*{x})}\|\dd\vb*{x}\|.
+        \langle\vb*{p}, \dd{\vb*{x}}\rangle = \|\vb*{p}\|\|\dd{\vb*{x}}\| = \frac{E}{c(\vb*{x})}\|\dd{\vb*{x}}\|.
       \end{equation}
 
       For the action \eqref{eq:variationalMaupertuis} we end up with
       \begin{equation}
-        S_0 = E \int_{\vb*{x}_1}^{\vb*{x}_2} \frac{\|\dd\vb*{x}\|}{c(\vb*{x})},
+        S_0 = E \int_{\vb*{x}_1}^{\vb*{x}_2} \frac{\|\dd{\vb*{x}}\|}{c(\vb*{x})},
       \end{equation}
       which is $E$ multiplied by the time of propagation of light between the points $\vb*{x}_1$ and $\vb*{x}_2$.
 
@@ -3645,7 +3645,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
         \end{equation}
         where
         \begin{equation}
-          \dd s^2 = \dd \vb*{x}^2 = \dd x^2 + \dd y^2 + \dd z^2.
+          \dd s^2 = \dd{\vb*{x}}^2 = \dd x^2 + \dd y^2 + \dd z^2.
         \end{equation}
       \end{theorem}
 
@@ -4145,10 +4145,10 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \end{equation}
       Using the definition, we have
       \begin{equation}
-        \widetilde p_i \dd \widetilde q^i =
-        \frac{\partial q^k}{\partial \widetilde q^i} p_k \frac{\partial \widetilde q^i}{\partial q^l} \dd q^l
-        = \delta^k_l p_k \dd q^l
-        = p_k \dd q^k.
+        \widetilde{p}_i \dd{\widetilde{q}^i} =
+        \frac{\partial q^k}{\partial \widetilde{q}^i} p_k \frac{\partial \widetilde{q}^i}{\partial q^l} \dd{q^l}
+        = \delta^k_l p_k \dd{q^l}
+        = p_k \dd{q^k}.
       \end{equation}
     \end{proof}
 
@@ -4976,11 +4976,12 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
     \subsection{Time-dependent hamiltonian systems}
 
+    \textcolor{red}{TODO: correct and rewrite}
     To discuss canonical transformations for time-dependent hamiltonian systems, we consider again the extended phase space $T^*M\times \mathbb{R}^2$ with the coordinates $(q^1,\ldots,q^n,p_1,\ldots,p_n, q^{n+1}=t, p_{n+1}=E)$ introduced in Section~\ref{sec:timedepH} and symplectic form  $\widetilde\omega = \dd p_i\wedge \dd q^i - \dd E\wedge \dd t$ discussed in Example~\ref{ex:timedepH}.
 
     In terms of the tautological one--form, we have
     \begin{equation}
-      \widetilde\omega = \dd \widetilde\eta, \quad \widetilde\eta = p_i \dd q^i - E \dd t.
+      \widetilde{\omega} = \dd{\widetilde{\eta}}, \quad \widetilde{\eta} = p_i \dd{q^i} - E \dd{t}.
     \end{equation}
     A transformation $\widetilde\Phi : T^*M\times \mathbb{R}^2 \to T^*M\times \mathbb{R}^2$ that associates $(q,p,t,E)$ to $(Q,P,T,\widetilde E)$ is canonical if it preserves the symplectic form, that is, if ${\widetilde\Phi}^* \widetilde \omega = \widetilde \omega$. Exactly as in the time-independent case, one can show that there exists a function $S(q,p,t,E)$ such that
     \begin{equation}\label{eq:timedepgen}
@@ -5806,9 +5807,9 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
       What we have seen so far seems very abstract, however there is a practical and direct approach to make computations in the action--angle variables that also helps clarifying the first half of the name.
 
-      Since $\dd p \wedge \dd q = \dd I \wedge \dd \phi$, the difference $p\dd q - I\dd \phi$ is a closed one--form on the neighborhood $U(M_{E^0})$. Thus, locally,
+      Since $\dd{p} \wedge \dd {q} = \dd{I} \wedge \dd {phi}$, the difference $p\dd q - I\dd \phi$ is a closed one--form on the neighborhood $U(M_{E^0})$. Thus, locally,
       \begin{equation}
-        p\dd q - I\dd \phi = \dd S
+        p\dd{q} - I\dd{\phi} = \dd{S}
       \end{equation}
       for some generating function $S = S(q,\phi)$.
       Consider the fundamental cycles $\gamma_1, \ldots, \gamma_n$ on $\mathbb{T}^n$,
@@ -5820,16 +5821,16 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       where $k=1,\ldots,n$.
       Integrating $\dd S$ on the cycle $\gamma_i$ one obtains
       \begin{equation}
-        I_k = \frac1{2\pi} \oint_{\gamma_k} p \dd q, \quad k=1,\ldots,n.
+        I_k = \frac1{2\pi} \oint_{\gamma_k} p \dd{q}, \quad k=1,\ldots,n.
       \end{equation}
       This formula, that looks like Maupertuis action, can be used to compute the canonical actions.
       To compute the conjugate angles, we use the generating function $\widetilde S = \widetilde S(q,I)$ of the canonical transformation $(q,p) \mapsto (\phi, I)$. That is, the function such that
       \begin{equation}
-        \dd\widetilde S = p\dd q - \phi \dd I.
+        \dd{\widetilde{S}} = p\dd{q} - \phi \dd{I}.
       \end{equation}
-      Since $I = I(E)$, a restriction of the closed one--form $\dd\widetilde S$ on the torus $M_E$ can be written as $\dd\widetilde S\big|_{M_E} = p\dd q$ and, therefore,
+      Since $I = I(E)$, a restriction of the closed one--form $\dd{\widetilde S}$ on the torus $M_E$ can be written as $\dd{\widetilde S}\big|_{M_E} = p\dd{q}$ and, therefore,
       \begin{equation}
-        \widetilde S(q,I) = \int_{x_0(q,E)}^{(q, p(q,E))} p \dd q, \quad E = E(I),
+        \widetilde S(q,I) = \int_{x_0(q,E)}^{(q, p(q,E))} p \dd{q}, \quad E = E(I),
       \end{equation}
       where the integral along a path on $M_E$ \emph{locally} does not depend on the choice of the path itself (globally this is generally false, a clarification would require a discussion of holonomy).
       Thus, the canonical angles can be determined as
