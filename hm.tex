@@ -11,8 +11,6 @@
    mathjax,                    % Use MathJax to display math.
 ]{lwarp}
 
-\usepackage{textcomp,  ifluatex, ifxetex}
-
 \usepackage{booktabs}
 
 \usepackage{xcolor}
@@ -22,11 +20,11 @@
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{physics} % documentation at https://mirror.koddos.net/CTAN/macros/latex/contrib/physics/physics.pdf
 \begin{warpprint}
-  \usepackage{bm}
+  \usepackage{fourier}
 \end{warpprint}
 \begin{warpHTML}
-  \usepackage{amsbsy}
-  \newcommand{\bm}{\boldsymbol}
+  %\usepackage{amsbsy}
+  %\newcommand{\vb}{\boldsymbol}
 \end{warpHTML}
 \usepackage{units}
 
@@ -76,7 +74,7 @@ linktoc=page}
 
 \begin{warpMathJax}
 \CustomizeMathJax{
-  \newcommand{\bm}{\boldsymbol}
+  %\newcommand{\vb}{\boldsymbol}
     \newcommand{\d}{\mathrm{d}}
   \DeclareMathOperator{\D}{D}
   \DeclareMathOperator{\Id}{Id}
@@ -183,10 +181,10 @@ This is a point--like object obtained by ignoring the dimensions of the physical
 Of course this is not a universal simplification: for instance, we cannot do it when describing the motion of a planet around its axes.
 
 For us, a point particle usually carries a \emph{mass} $m$.
-Its \emph{position} in space is described by the position vector $\bm{x} = (x, y ,z)$.
+Its \emph{position} in space is described by the position vector $\vb{x} = (x, y ,z)$.
 Keep in mind that
 \begin{equation}
-\bm{x} : \mathbb{R}\to\mathbb{R}^3,\quad t \mapsto \bm{x}(t),
+\vb{x} : \mathbb{R}\to\mathbb{R}^3,\quad t \mapsto \vb{x}(t),
 \end{equation}
 is a function of time that describes the instantaneous state of the system during its evolution.
 In most cases, this will be implicitly assumed and we will omit the explicit dependence on $t$.
@@ -194,31 +192,31 @@ In most cases, this will be implicitly assumed and we will omit the explicit dep
 The \emph{velocity} of the point particle is given by the rate of change of the position vector,
 i.e., its derivative with respect to time\footnote{Notation: the symbol $a := b$ means that $a$ is defined by the expression $b$, similarly $b =: a$ is the same statement but read from right to left.} 
 \begin{equation}
-  \bm{v} = \der{\bm{x}}{t} =: \dot{\bm{x}} = (\dot{x}, \dot{y}, \dot{z}).
+  \vb{v} = \der{\vb{x}}{t} =: \dot{\vb{x}} = (\dot{x}, \dot{y}, \dot{z}).
 \end{equation}
 
 We call \emph{acceleration}, the rate of change of the velocity, i.e., the second derivative
 \begin{equation}
-  \bm{a} = \der{^2\bm{x}}{t^2} =: \ddot{\bm{x}} = (\ddot{x}, \ddot{y}, \ddot{z}).
+  \vb{a} = \der{^2\vb{x}}{t^2} =: \ddot{\vb{x}} = (\ddot{x}, \ddot{y}, \ddot{z}).
 \end{equation}
 
 \begin{tcolorbox}
   The mechanics of the particle is encoded by \emph{Newton's second law of motion}.
-  That is, there exist \emph{frames of reference} (i.e systems of coordinates) in which the motion of the particle is described by a differential equation involving the forces $\bm{F}$ acting on the point particle, its mass $m$ and its acceleration as follows\footnote{This is not completely true, Newton was already talking about momentum, which \href{https://web.archive.org/web/20211201082909/https://bigthink.com/starts-with-a-bang/most-important-equation-physics/}{makes a deep difference} but would set us off-course right now.}
+  That is, there exist \emph{frames of reference} (i.e systems of coordinates) in which the motion of the particle is described by a differential equation involving the forces $\vb{F}$ acting on the point particle, its mass $m$ and its acceleration as follows\footnote{This is not completely true, Newton was already talking about momentum, which \href{https://web.archive.org/web/20211201082909/https://bigthink.com/starts-with-a-bang/most-important-equation-physics/}{makes a deep difference} but would set us off-course right now.}
   \begin{equation}\label{eq:newton}
-    \bm F = m \ddot{\bm{x}}.
+    \vb F = m \ddot{\vb{x}}.
   \end{equation}
 \end{tcolorbox}
 Let's leave it here for now, we will come back to it later on.
 \medskip
 
 In general we will consider systems of $N$ point particles.
-These will be described by a set of $N$ position vectors $\bm{x}_k = (x_k, y_k ,z_k)$ with masses $m_k$, $k = 1, \ldots, N$.
-For convenience we will denote\footnote{Here we are identifying $\mathbb{R}^{3\times N}$, the space of $3\times N$ matrices, and $\mathbb{R}^{3N}$, the space of $3N$ vectors. Namely, $\bm{x} = (\bm{x}_1, \ldots, \bm{x}_N) = (x_1, y_1, z_1, x_2, y_2, z_2, \ldots, x_N, y_N, z_N)$ is used interchangeably as the vector of positions of the points in three-space or as the vector including all the positions of the $N$ bodies together.} $\bm{x} = (\bm{x}_1, \ldots, \bm{x}_N)\in\mathbb{R}^{3N}$, and $\bm{m} = (m_1, \ldots, m_N)\in\mathbb{R}^N$.
-We call $\bm{x}(t)$ the \emph{configuration} of the system at time $t$ in the \emph{configuration space} $\mathbb{R}^{3N}$.
+These will be described by a set of $N$ position vectors $\vb{x}_k = (x_k, y_k ,z_k)$ with masses $m_k$, $k = 1, \ldots, N$.
+For convenience we will denote\footnote{Here we are identifying $\mathbb{R}^{3\times N}$, the space of $3\times N$ matrices, and $\mathbb{R}^{3N}$, the space of $3N$ vectors. Namely, $\vb{x} = (\vb{x}_1, \ldots, \vb{x}_N) = (x_1, y_1, z_1, x_2, y_2, z_2, \ldots, x_N, y_N, z_N)$ is used interchangeably as the vector of positions of the points in three-space or as the vector including all the positions of the $N$ bodies together.} $\vb{x} = (\vb{x}_1, \ldots, \vb{x}_N)\in\mathbb{R}^{3N}$, and $\vb{m} = (m_1, \ldots, m_N)\in\mathbb{R}^N$.
+We call $\vb{x}(t)$ the \emph{configuration} of the system at time $t$ in the \emph{configuration space} $\mathbb{R}^{3N}$.
 
 \begin{example}\label{example:gcoords}
-  For example a system of two rigid pendulums in space constrained to oscillate on a vertical plane, is described by two position vectors, so $\bm{x} = (\bm{x}_1, \bm{x}_2)\in\mathbb{R}^{6}$.
+  For example a system of two rigid pendulums in space constrained to oscillate on a vertical plane, is described by two position vectors, so $\vb{x} = (\vb{x}_1, \vb{x}_2)\in\mathbb{R}^{6}$.
   However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described\footnote{Here there is an hidden statement: $\mathbb{S}^1\times\mathbb{S}^1 \simeq \mathbb{T}^2$. This should be read as: the 2-torus, the surface of a doughnut, is diffemorphic to the product of two circles. Here, diffeomorphic is a concept from the theory of smooth manifolds, and stands for the existence a smooth bijection between the two constructions. Note that $\simeq$ usually denotes some kind of equivalence, but which specific kind is context-dependent and not often well explicited.} by $q = (q^1, q^2) \in \mathbb{S}^1\times\mathbb{S}^1 \simeq \mathbb{T}^2$. See Figure~\ref{fig:twopend}.
 \end{example}
 
@@ -287,44 +285,44 @@ Before taking a little detour into Lagrangian mechanics, let's anticipate some o
 \end{example}
 
 \begin{example}[Idealized motion of the Earth around the Sun]\label{ex:Kepler0}
-  Let us approximate the Sun with a point particle of mass $M$ positioned at the origin $\bm{0}\in\mathbb{R}^3$ of the Euclidean space. In this solar system, with the Sun fixed at the origin, we will describe the Earth by a point particle of mass $m$ whose position (and motion) is described by a vector $\bm{x}\in\mathbb{R}^3$.
+  Let us approximate the Sun with a point particle of mass $M$ positioned at the origin $\vb{0}\in\mathbb{R}^3$ of the Euclidean space. In this solar system, with the Sun fixed at the origin, we will describe the Earth by a point particle of mass $m$ whose position (and motion) is described by a vector $\vb{x}\in\mathbb{R}^3$.
 
-  Due to our choice of coordinates, the gravitational attraction of the Sun acts in direction $-\bm{x}(t)$. \emph{Newton's law of universal gravitation} says that such a force is proportional to
+  Due to our choice of coordinates, the gravitational attraction of the Sun acts in direction $-\vb{x}(t)$. \emph{Newton's law of universal gravitation} says that such a force is proportional to
   \begin{equation}
-    \frac{GmM}{\|\bm{0}-\bm{x}\|^2} = \frac{GmM}{\|\bm{x}\|^2},
+    \frac{GmM}{\|\vb{0}-\vb{x}\|^2} = \frac{GmM}{\|\vb{x}\|^2},
   \end{equation}
   where $G \sim 6.674 \cdot 10^{-11} \frac{m^3}{s^2\,kg}$ is called the \emph{gravitational constant}.
   Once we collect all the elements into Newton's second law \eqref{eq:newton}, we obtain the equation of motion
   \begin{equation}\label{eq:keplerex}
-    m \ddot{\bm{x}} = - G\frac{mM}{\|\bm{x}\|^2} \frac{\bm{x}}{\|\bm{x}\|}.
+    m \ddot{\vb{x}} = - G\frac{mM}{\|\vb{x}\|^2} \frac{\vb{x}}{\|\vb{x}\|}.
   \end{equation}
-  This is an autonomous second order ordinary differential equation on the configuration space $\mathbb{R}^3\setminus\big\{\bm{0}\big\}$.
-  Providing the initial conditions $\bm{x}(0)=\bm{x}_0$ and $\dot{\bm{x}}(0)=\bm{v}_0$, we can try to explicitly solve \eqref{eq:keplerex}, however in this case we could already get a lot of insight by taking a slightly different point of view.
+  This is an autonomous second order ordinary differential equation on the configuration space $\mathbb{R}^3\setminus\big\{\vb{0}\big\}$.
+  Providing the initial conditions $\vb{x}(0)=\vb{x}_0$ and $\dot{\vb{x}}(0)=\vb{v}_0$, we can try to explicitly solve \eqref{eq:keplerex}, however in this case we could already get a lot of insight by taking a slightly different point of view.
 
   Behind differential equations in classical mechanics lies a surprisingly rich geometrical structure, in which conserved quantities play a special role.
   These can help to obtain extensive information on the solution of classical equations of motion without the need to explicitly solve the equations (which would be, in general, impossible).
 
-  On the tangent bundle $(\mathbb{R}^3\setminus\big\{\bm{0}\big\})\times\mathbb{R}^3$, let us define the total energy
+  On the tangent bundle $(\mathbb{R}^3\setminus\big\{\vb{0}\big\})\times\mathbb{R}^3$, let us define the total energy
   \begin{equation}\label{eq:energyKepler}
-    E(\bm{x},\bm{v}) = \frac{1}{2}m\|\bm{v}\|^2 - \frac{GmM}{\|\bm{x}\|},
+    E(\vb{x},\vb{v}) = \frac{1}{2}m\|\vb{v}\|^2 - \frac{GmM}{\|\vb{x}\|},
   \end{equation}
   the angular momentum
   \begin{equation}
-    L(\bm{x},\bm{v}) = m \bm{v} \wedge \bm{x},
+    L(\vb{x},\vb{v}) = m \vb{v} \wedge \vb{x},
   \end{equation}
   and the Laplace-Runge-Lenz vector
   \begin{equation}
-    A(\bm{x},\bm{v}) = m \bm{v} \wedge L(\bm{x}, \bm{v}) + \frac{G m^2 M^2}{m+M} \frac{\bm{x}}{\|\bm{x}\|}.
+    A(\vb{x},\vb{v}) = m \vb{v} \wedge L(\vb{x}, \vb{v}) + \frac{G m^2 M^2}{m+M} \frac{\vb{x}}{\|\vb{x}\|}.
   \end{equation}
-  Along the solutions of \eqref{eq:keplerex}, let us define $E(t):=E(\bm{x}(t),\dot{\bm{x}}(t))$ and, similarly, $L(t)$ and $A(t)$. Then, there exist solutions such that $L(t) = L(0) \neq 0$ for all times, and also $E(t) = E(0)$ and $A(t) = A(0)$. Furthermore, a solution that lives on the ``submanifold'' defined by
+  Along the solutions of \eqref{eq:keplerex}, let us define $E(t):=E(\vb{x}(t),\dot{\vb{x}}(t))$ and, similarly, $L(t)$ and $A(t)$. Then, there exist solutions such that $L(t) = L(0) \neq 0$ for all times, and also $E(t) = E(0)$ and $A(t) = A(0)$. Furthermore, a solution that lives on the ``submanifold'' defined by
   \begin{equation}
     \begin{aligned}
       \big\{
-       & (\bm{x}, \bm{v})\in (\mathbb{R}^3\setminus\big\{\bm{0}\big\})\times\mathbb{R}^3 \;\mid \\
+       & (\vb{x}, \vb{v})\in (\mathbb{R}^3\setminus\big\{\vb{0}\big\})\times\mathbb{R}^3 \;\mid \\
        & \;
-      E(\bm{x},\bm{v}) = E(\bm{x}_0, \bm{v}_0),\;
-      L(\bm{x},\bm{v}) = L(\bm{x}_0, \bm{v}_0),\;
-      A(\bm{x},\bm{v}) = A(\bm{x}_0, \bm{v}_0)
+      E(\vb{x},\vb{v}) = E(\vb{x}_0, \vb{v}_0),\;
+      L(\vb{x},\vb{v}) = L(\vb{x}_0, \vb{v}_0),\;
+      A(\vb{x},\vb{v}) = A(\vb{x}_0, \vb{v}_0)
       \big\},
     \end{aligned}
   \end{equation}
@@ -576,11 +574,11 @@ There is a system of coordinates that simplifies our life the most: the \emph{in
 Although the discussion on the group theoretical aspects of classical mechanics, which very much relates to this discussion, is very interesting and fascinating we will not discuss it here further, we leave \cite{book:marsdenratiu} as an interesting reference.
 
 For our concerns, an inertial system of coordinates on the galilean space-time is an isomorphism with the ``standard'' galilean structure $\mathbb{R}\times\mathbb{R}^3$.
-If $(t, \bm{x}) \in \mathbb{R}\times \mathbb{R}^3$ is an element of the ``standard'' galilean space-time, we call \emph{galilean transformations} the transformations $(t,\bm{x}) \to (\widetilde t, \widetilde{\bm{x}})$ listed below
+If $(t, \vb{x}) \in \mathbb{R}\times \mathbb{R}^3$ is an element of the ``standard'' galilean space-time, we call \emph{galilean transformations} the transformations $(t,\vb{x}) \to (\widetilde t, \widetilde{\vb{x}})$ listed below
 \begin{enumerate}
-  \item translations: $\widetilde t = t + t_0$, $\widetilde{\bm{x}} = \bm{x} + \bm{x}_0$, for $t_0\in\mathbb{R}$, $\bm{x}_0\in\mathbb{R}^3$;
-  \item rotations and reflections: $\widetilde t = t$, $\widetilde{\bm{x}} = G\bm{x}$ for $G\in O(3)$;
-  \item uniform motions with velocity $\bm{v}\in\mathbb{R}^3$: $\widetilde t = t$, $\widetilde{\bm{x}} = \bm{x} + \bm{v} t$.
+  \item translations: $\widetilde t = t + t_0$, $\widetilde{\vb{x}} = \vb{x} + \vb{x}_0$, for $t_0\in\mathbb{R}$, $\vb{x}_0\in\mathbb{R}^3$;
+  \item rotations and reflections: $\widetilde t = t$, $\widetilde{\vb{x}} = G\vb{x}$ for $G\in O(3)$;
+  \item uniform motions with velocity $\vb{v}\in\mathbb{R}^3$: $\widetilde t = t$, $\widetilde{\vb{x}} = \vb{x} + \vb{v} t$.
 \end{enumerate}
 Then, the galilean principle of relativity says that the lagrangian of a closed mechanical system is invariant, modulo the sum of total derivatives, with respect to the galilean transformations.
 
@@ -598,32 +596,32 @@ We will now see how we can derive Newton's laws from Hamilton's principle as a c
 \begin{theorem}
   The lagrangian of an isolated point particle in an inertial system of coordinates has the form
   \begin{equation}\label{eq:singleptlag}
-    L(\dot{\bm{x}}) = \frac{m\,\|\dot{\bm{x}}\|^2}2
+    L(\dot{\vb{x}}) = \frac{m\,\|\dot{\vb{x}}\|^2}2
   \end{equation}
   where $m\in\mathbb{R}$ is a constant called the \emph{mass} of the point particle.
 \end{theorem}
 \begin{proof}
-  The invariance from translations implies that the lagrangian must be independent from $t$ and $\bm{x}$, while the invariance from orthogonal transformations implies that it must be dependent on the square of the velocities:
+  The invariance from translations implies that the lagrangian must be independent from $t$ and $\vb{x}$, while the invariance from orthogonal transformations implies that it must be dependent on the square of the velocities:
   \begin{equation}
-    L = L(\|\dot{\bm{x}}\|^2), \quad \|\dot{\bm{x}}\|^2 := \langle\dot{\bm{x}}, \dot{\bm{x}}\rangle.
+    L = L(\|\dot{\vb{x}}\|^2), \quad \|\dot{\vb{x}}\|^2 := \langle\dot{\vb{x}}, \dot{\vb{x}}\rangle.
   \end{equation}
-  The invariance with respect to uniform motion now implies that the lagrangian must actually be proportional to $\|\dot{\bm{x}}\|^2$.
+  The invariance with respect to uniform motion now implies that the lagrangian must actually be proportional to $\|\dot{\vb{x}}\|^2$.
   For convenience, let's first look at the case of small velocities: applying the galilean transformation
   \begin{equation}
-    \bm{x} \mapsto \bm{x} + \epsilon \bm{v}t,
+    \vb{x} \mapsto \vb{x} + \epsilon \vb{v}t,
   \end{equation}
-  in the limit $\epsilon \to 0$, we can apply a Taylor expansion around $\|\dot{\bm{x}}\|^2$ to get
+  in the limit $\epsilon \to 0$, we can apply a Taylor expansion around $\|\dot{\vb{x}}\|^2$ to get
   \begin{equation}
-    L(\|\dot{\bm{x}}\|^2) \mapsto L(\|\dot{\bm{x}}\|^2) + 2\epsilon\,\langle\bm{v}, \dot{\bm{x}}\rangle\,L'(\|\dot{\bm{x}}\|^2) + O(\epsilon^2).
+    L(\|\dot{\vb{x}}\|^2) \mapsto L(\|\dot{\vb{x}}\|^2) + 2\epsilon\,\langle\vb{v}, \dot{\vb{x}}\rangle\,L'(\|\dot{\vb{x}}\|^2) + O(\epsilon^2).
   \end{equation}
-  The invariance of the equations of motion then implies that the linear term in $\epsilon$ should be a total derivative $\frac{\d }{\d t} f(t, \bm{x}) = 2\,\langle\bm{v}, \dot{\bm{x}}\rangle\,L'(\|\dot{\bm{x}}\|^2)$.
-  This can happen iff $\dot f(t, \bm{x}) = 0$ and $\langle \frac{\partial f}{\partial \bm{x}}, \dot x\rangle  = 2\,\langle\bm{v}, \dot{\bm{x}}\rangle L'(\|\dot{\bm{x}}\|^2)$ is linear also in $\|\dot{\bm{x}}\|^2$.
-  In particular this means that $L'(\|\dot{\bm{x}}\|^2) = \mathrm{const} =: \frac{m}2$, that is, the lagrangian is of the form \eqref{eq:singleptlag} for some constant value $m\in\mathbb{R}$.
-  Finally, the lagrangian \eqref{eq:singleptlag} is transformed by a general galilean transformation $\bm{x} \mapsto \bm{x} + \bm{v}t$ into
+  The invariance of the equations of motion then implies that the linear term in $\epsilon$ should be a total derivative $\frac{\d }{\d t} f(t, \vb{x}) = 2\,\langle\vb{v}, \dot{\vb{x}}\rangle\,L'(\|\dot{\vb{x}}\|^2)$.
+  This can happen iff $\dot f(t, \vb{x}) = 0$ and $\langle \frac{\partial f}{\partial \vb{x}}, \dot x\rangle  = 2\,\langle\vb{v}, \dot{\vb{x}}\rangle L'(\|\dot{\vb{x}}\|^2)$ is linear also in $\|\dot{\vb{x}}\|^2$.
+  In particular this means that $L'(\|\dot{\vb{x}}\|^2) = \mathrm{const} =: \frac{m}2$, that is, the lagrangian is of the form \eqref{eq:singleptlag} for some constant value $m\in\mathbb{R}$.
+  Finally, the lagrangian \eqref{eq:singleptlag} is transformed by a general galilean transformation $\vb{x} \mapsto \vb{x} + \vb{v}t$ into
   \begin{equation}
-    \frac{m \|\dot{\bm{x}}\|^2}2 \mapsto
-    \frac{m \|\dot{\bm{x}}\|^2}2 + m\,\langle\bm{v},\dot{\bm{x}}\rangle + \frac{m \bm{v}^2}2
-    = \frac{m \|\dot{\bm{x}}\|^2}2 + \frac{\d }{\d t}\left(m\,\langle\bm{v},\bm{x}\rangle + \frac{m \bm{v}^2 t}2\right),
+    \frac{m \|\dot{\vb{x}}\|^2}2 \mapsto
+    \frac{m \|\dot{\vb{x}}\|^2}2 + m\,\langle\vb{v},\dot{\vb{x}}\rangle + \frac{m \vb{v}^2}2
+    = \frac{m \|\dot{\vb{x}}\|^2}2 + \frac{\d }{\d t}\left(m\,\langle\vb{v},\vb{x}\rangle + \frac{m \vb{v}^2 t}2\right),
   \end{equation}
   and thus the equations of motion remain invariant under the transformation.
 \end{proof}
@@ -640,7 +638,7 @@ We will now see how we can derive Newton's laws from Hamilton's principle as a c
 
 Remembering the additive property of the lagrangians, we can show that for a system of $N$ particles, which do not interact, the lagrangian is the sum
 \begin{equation}\label{eq:freel}
-  L = \sum_{k=1}^N \frac{m_k \|\dot{\bm{x}}_k\|^2}{2}.
+  L = \sum_{k=1}^N \frac{m_k \|\dot{\vb{x}}_k\|^2}{2}.
 \end{equation}
 We call lagrangians of this form \emph{free}.
 
@@ -651,26 +649,26 @@ We call lagrangians of this form \emph{free}.
   The ratios of the masses remain unchanged by this and it is only these ratios which are physically meaningful.
 \end{remark}
 
-To include interaction between the points in this picture, we need to add to the free lagrangian \eqref{eq:freel} a function $-U(\bm{x}_1, \ldots, \bm{x}_N)$ which depends on the nature of the interactions:
+To include interaction between the points in this picture, we need to add to the free lagrangian \eqref{eq:freel} a function $-U(\vb{x}_1, \ldots, \vb{x}_N)$ which depends on the nature of the interactions:
 \begin{equation}\label{eq:mechlag}
-  L := T-U := \sum_{k=1}^N \frac{m_k \|\dot{\bm{x}}_k\|^2}{2} -U(\bm{x}_1, \ldots, \bm{x}_N).
+  L := T-U := \sum_{k=1}^N \frac{m_k \|\dot{\vb{x}}_k\|^2}{2} -U(\vb{x}_1, \ldots, \vb{x}_N).
 \end{equation}
-The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\bm{x}}_k\|^2}{2}$, is called \emph{kinetic energy} of the particles, while the function $U = U(\bm{x}_1, \ldots, \bm{x}_N)$ is called \emph{potential energy}. Lagrangians of the form $T-U$ are often called \emph{natural}.
+The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\vb{x}}_k\|^2}{2}$, is called \emph{kinetic energy} of the particles, while the function $U = U(\vb{x}_1, \ldots, \vb{x}_N)$ is called \emph{potential energy}. Lagrangians of the form $T-U$ are often called \emph{natural}.
 
 \begin{theorem}
   The equations of motion of a system of $N$ point particles with natural lagrangian \eqref{eq:mechlag} are of the form
   \begin{equation}\label{eq:newton2}
-    m_k \ddot{\bm{x}}_k = \bm{F}_k, \quad k=1,\ldots,N
+    m_k \ddot{\vb{x}}_k = \vb{F}_k, \quad k=1,\ldots,N
   \end{equation}
-  where $\bm{F}_k = -\frac{\partial U}{\partial \bm{x}_k}$, $\quad k=1,\ldots,N$.
+  where $\vb{F}_k = -\frac{\partial U}{\partial \vb{x}_k}$, $\quad k=1,\ldots,N$.
 \end{theorem}
 
-The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point particle, and you should immediately recognize \emph{Newton's second law} in \eqref{eq:newton2}.
+The vector $\vb{F}_k$ is called the \emph{force} acting on the $k$-th point particle, and you should immediately recognize \emph{Newton's second law} in \eqref{eq:newton2}.
 
 \begin{exercise}\label{ex:N3l1}
   Prove \emph{Newton's third law}, i.e., for each of the $k$ point particles it holds
   \begin{equation}
-    \bm{F}_k = -\sum_{j\neq k} \bm{F}_j.
+    \vb{F}_k = -\sum_{j\neq k} \vb{F}_j.
   \end{equation}
   \textit{Hint: use the invariance with respect to spatial translations or sneak peek forward to the conservation of total momentum.}
 \end{exercise}
@@ -694,7 +692,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 \begin{example}\label{ex:kepler1}
   The motion of $N$ point particles with masses $m_1, \ldots, m_N$ in their gravitational field, is described by the lagrangian
   \begin{equation}
-    L = \sum\frac{m_k \|\dot{\bm{x}}_k\|^2}{2} + \sum_{k < l} G \frac{m_k m_l}{\|\bm{x}_k - \bm{x}_l\|},
+    L = \sum\frac{m_k \|\dot{\vb{x}}_k\|^2}{2} + \sum_{k < l} G \frac{m_k m_l}{\|\vb{x}_k - \vb{x}_l\|},
   \end{equation}
   where $G$ is the gravitational constant.
 
@@ -702,7 +700,7 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 
   In such a case, the motion of the planet is described by the lagrangian of a point particle with a Newtonian gravitational potential
   \begin{equation}
-    L = \frac{m\|\dot{\bm{x}}\|^2}{2} + \frac{G M m}{\|\bm{x}\|},
+    L = \frac{m\|\dot{\vb{x}}\|^2}{2} + \frac{G M m}{\|\vb{x}\|},
   \end{equation}
   whose equation of motion should remind you of \eqref{eq:keplerex} from Example~\ref{ex:Kepler0}.
 \end{example}
@@ -710,50 +708,50 @@ The vector $\bm{F}_k$ is called the \emph{force} acting on the $k$-th point part
 To understand better why $T$ in \eqref{eq:mechlag} is called kinetic energy, it is useful to look at its relation with Newton's second law \eqref{eq:newton2}:
 \begin{equation}
   \frac{\d}{\d t} T
-  = m \langle\dot{\bm{x}}(t), \ddot{\bm{x}}(t)\rangle
-  = \left\langle\dot{\bm{x}}(t), \bm{F}(\bm{x}(t))\right\rangle.
+  = m \langle\dot{\vb{x}}(t), \ddot{\vb{x}}(t)\rangle
+  = \left\langle\dot{\vb{x}}(t), \vb{F}(\vb{x}(t))\right\rangle.
 \end{equation}
 This confirms the intuitive notion that the kinetic energy should increase if a force pushes the particle in the direction of the current motion and should decrease when it pulls the particle in the opposite direction.
 
 There is more, in fact
 \begin{equation}
-  T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\langle\dot{\bm{x}}(t), \bm{F}(\bm{x}(t))\right\rangle\; \d t = \int_{\bm{x}_0}^{\bm{x}_1} \left\langle\bm{F}(\bm{x}), \d \bm{x}\right\rangle,
+  T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\langle\dot{\vb{x}}(t), \vb{F}(\vb{x}(t))\right\rangle\; \d t = \int_{\vb{x}_0}^{\vb{x}_1} \left\langle\vb{F}(\vb{x}), \d \vb{x}\right\rangle,
 \end{equation}
-where $\bm{x}_i := \bm{x}(t_i)$.
-This is equivalent to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e., the integral of $\bm{F}$ along the curve $\bm{x}(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\bm{x}) \cdot \d\bm{x}$ as the infinitesimal contribution of the vector field to the acceleration.
+where $\vb{x}_i := \vb{x}(t_i)$.
+This is equivalent to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e., the integral of $\vb{F}$ along the curve $\vb{x}(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\vb{x}) \cdot \d\vb{x}$ as the infinitesimal contribution of the vector field to the acceleration.
 
 \begin{remark}
-  For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\bm{x}_0 = \bm{x}(t_0)$ and $\bm{x}_1 = \bm{x}(t_1)$ if and only if $\curl \bm{F} = 0$, which in turn is true if and only if there is a $U:\mathbb{R}^3\to\mathbb{R}$ such that $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$.
+  For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\vb{x}_0 = \vb{x}(t_0)$ and $\vb{x}_1 = \vb{x}(t_1)$ if and only if $\curl \vb{F} = 0$, which in turn is true if and only if there is a $U:\mathbb{R}^3\to\mathbb{R}$ such that $\vb{F} = -\frac{\partial U}{\partial \vb{x}}$.
   %
-  In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $U:\mathbb{R}^n\to\mathbb{R}$, unique up to an additive constant, such that $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$.
+  In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $U:\mathbb{R}^n\to\mathbb{R}$, unique up to an additive constant, such that $\vb{F} = -\frac{\partial U}{\partial \vb{x}}$.
   %
   You can read more about this in \cite[Chapter 2.5]{book:arnold} and \cite[Theorem 6.3 and 8.1]{book:knauf}.
 \end{remark}
 
-Forces that can be written in the form $\bm{F} = -\frac{\partial U}{\partial \bm{x}}$, for some function $U$, are called \emph{conservative}.
+Forces that can be written in the form $\vb{F} = -\frac{\partial U}{\partial \vb{x}}$, for some function $U$, are called \emph{conservative}.
 We will understand better why in a couple of sections.
 
 Not all the forces in nature are conservative, and in that case the results of this section do not directly apply.
 We don't have to go very far to see an example of this, but we can also see that the lagrangian approach can be easily extended to include non-conservative forces.
 
 \begin{example}\label{exa:magnetic}
-  Mechanical systems affected by an external magnetic field $\bm B$ can be described in the lagrangian formalism by adding a linear term in the velocities to a natural lagrangian \eqref{eq:mechlag}:
+  Mechanical systems affected by an external magnetic field $\vb B$ can be described in the lagrangian formalism by adding a linear term in the velocities to a natural lagrangian \eqref{eq:mechlag}:
   \begin{equation}\label{eq:magLag}
-    \widetilde L = L + \frac ec \sum_{k=1}^N \langle\bm A(\bm{x}_k), \dot{\bm{x}}_k\rangle.
+    \widetilde L = L + \frac ec \sum_{k=1}^N \langle\vb A(\vb{x}_k), \dot{\vb{x}}_k\rangle.
   \end{equation}
   Here the constant $e$ is the electric charge of the point particles and $c$ is the speed of light in vacuum.
-  The magnetic field is given by $\bm B = \curl \bm A$, the vector field $\bm A$ is called magnetic vector potential.
+  The magnetic field is given by $\vb B = \curl \vb A$, the vector field $\vb A$ is called magnetic vector potential.
 
   We will not see this in the course, but magnetic phenomenons have a natural description only in the relativistic approach. We see a hint of this fact here, in that \eqref{eq:magLag} is not invariant with respect to the galilean transformations.
 
   \begin{exercise}\label{exe:magnetic}
     Show that the equations of motion \eqref{eq:newton2} corresponding to a magnetic lagrangian \eqref{eq:magLag} are given by
     \begin{equation}
-      m_k \ddot{\bm{x}}_k = \bm{F}_k + \frac ec \dot{\bm{x}}_k \wedge \bm B(\bm{x}_k)
+      m_k \ddot{\vb{x}}_k = \vb{F}_k + \frac ec \dot{\vb{x}}_k \wedge \vb B(\vb{x}_k)
     \end{equation}
-    where the exterior product corresponds to the usual vector product in $\mathbb{R}^3$ and, as mentioned above, $\bm B = \curl \bm A$ is the magnetic field.
+    where the exterior product corresponds to the usual vector product in $\mathbb{R}^3$ and, as mentioned above, $\vb B = \curl \vb A$ is the magnetic field.
 
-    The additional term $\frac ec \dot{\bm{x}}_k\wedge \bm B(\bm{x}_k)$ is the \emph{Lorenz force} acting on the $k$th particle of charge $e$ immersed in the magnetic field $\bm B$.
+    The additional term $\frac ec \dot{\vb{x}}_k\wedge \vb B(\vb{x}_k)$ is the \emph{Lorenz force} acting on the $k$th particle of charge $e$ immersed in the magnetic field $\vb B$.
 
     For a beautiful geometric discussion of this problem, you can refer to \cite[Chapter 8.3]{book:amr} (this has moved to Chapter 9.3 in more recent editions).
   \end{exercise}
@@ -761,7 +759,7 @@ We don't have to go very far to see an example of this, but we can also see that
   Note that the magnetic vector potential is not unique!
   For any function $f$, the transformation
   \begin{equation}
-    \bm A \mapsto \bm A + \frac{\partial f}{\partial \bm{x}}
+    \vb A \mapsto \vb A + \frac{\partial f}{\partial \vb{x}}
   \end{equation}
   will produce the same field.
   This is known as \emph{gauge transformation}.
@@ -901,19 +899,19 @@ In other words, if the function $I$ remains constant along the paths followed by
   Let's consider $N$ point particles in physical space with natural lagrangian $L = T - U$ as in \eqref{eq:mechlag}.
   Then,
   \begin{equation}
-    \bm{p}_k = \frac{\partial L}{\partial \dot{\bm{x}}_k} = m_k \dot{\bm{x}}_k,
+    \vb{p}_k = \frac{\partial L}{\partial \dot{\vb{x}}_k} = m_k \dot{\vb{x}}_k,
   \end{equation}
   and therefore
   \begin{equation}
-    \sum_{k=1}^{N} \langle\bm{p}_k, \dot{\bm{x}}_k\rangle = \sum_{k=1}^{N} m_k \|\dot{\bm{x}}\|^2 = 2 T
+    \sum_{k=1}^{N} \langle\vb{p}_k, \dot{\vb{x}}_k\rangle = \sum_{k=1}^{N} m_k \|\dot{\vb{x}}\|^2 = 2 T
   \end{equation}
   which implies that the energy of the mechanical system is
   \begin{equation}\label{eq:energyFromL}
     E = 2T - T + U = T + U.
   \end{equation}
-  We call $\bm{p}_k := m_k \dot{\bm{x}}_k$ the kinetic momentum, replacing it in the equation above we get that
+  We call $\vb{p}_k := m_k \dot{\vb{x}}_k$ the kinetic momentum, replacing it in the equation above we get that
   \begin{equation}
-    E = H(q,p) := \frac{1}{2 m_k}\|\bm{p}_k\|^2 + U
+    E = H(q,p) := \frac{1}{2 m_k}\|\vb{p}_k\|^2 + U
   \end{equation}
   is the sum of kinetic and potential energies, as in \eqref{eq:energyKepler} and Theorem \ref{thm:ham1}.
 \end{example}
@@ -1197,20 +1195,20 @@ Let's consider a natural lagrangian for a system of $N$ particles, so in $\mathb
 Assume that we already know that the system has $n$ degrees of freedom.
 If we describe the motion in terms of generalized coordinates
 \begin{equation}
-  \bm{x}_k = \bm{x}_k(q^1, \ldots, q^{n}), \quad k=1,\ldots,N,
+  \vb{x}_k = \vb{x}_k(q^1, \ldots, q^{n}), \quad k=1,\ldots,N,
 \end{equation}
 a direct application of the chain rule will allow us to rewrite the lagrangian in terms of these new coordinates as
 \begin{equation}
   L(q, \dot q) = T(q, \dot q) - U(q),
   \quad\mbox{where}\quad
   \begin{cases}
-    T(q):= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U(q) = U(\bm{x}(q)) \\
-  g_{kl} (q) := \sum_{j=1}^{N} m_{j} \left\langle\frac{\partial \bm{x}_j}{\partial q^k}, \frac{\partial \bm{x}_j}{\partial q^l}\right\rangle
+    T(q):= \frac12 g_{kl}(q)\dot q^k \dot q^l, \quad U(q) = U(\vb{x}(q)) \\
+  g_{kl} (q) := \sum_{j=1}^{N} m_{j} \left\langle\frac{\partial \vb{x}_j}{\partial q^k}, \frac{\partial \vb{x}_j}{\partial q^l}\right\rangle
   \end{cases}
 \end{equation}
-where the non-boldface coordinates $\bm{x} = (\bm{x}_1, \ldots, \bm{x}_N) =: (x_1, \ldots, x_{3N})$ stand for the coordinates of the $N$ points as a unique vector in $\mathbb{R}^{3N}$ and, again, we used Einstein summation convention.
+where the non-boldface coordinates $\vb{x} = (\vb{x}_1, \ldots, \vb{x}_N) =: (x_1, \ldots, x_{3N})$ stand for the coordinates of the $N$ points as a unique vector in $\mathbb{R}^{3N}$ and, again, we used Einstein summation convention.
 
-If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\bm{x} = (x,y,z)$,
+If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\vb{x} = (x,y,z)$,
 \begin{equation}
   L = \frac 12 (\dot x^2 + \dot y^2 + \dot z^2),
 \end{equation}
@@ -1227,7 +1225,7 @@ The term $g_{kl} (q)$ should also ring a bell in the context of this example: th
 \begin{equation}\label{eq:arclen}
   \begin{aligned}
     s = \int_{t_1}^{t_2} \sqrt{\d s^2} = \int_{t_1}^{t_2} \sqrt{g_{kl}(q)\dot q^k \dot q^l} \;\d t,\quad
-    g_{kl} (q) = \left\langle\frac{\partial\bm{x}}{\partial q^k}, \frac{\partial \bm{x}}{\partial q^l}\right\rangle.
+    g_{kl} (q) = \left\langle\frac{\partial\vb{x}}{\partial q^k}, \frac{\partial \vb{x}}{\partial q^l}\right\rangle.
   \end{aligned}
 \end{equation}
 The strange looking object $\d s^2$, called line element or first fundamental form, is just a short-hand notation for the $g$-dependent scalar product of generalized velocities that we obtained above\footnote{If you interpret $\d q^k \d q^l := \d q^k \otimes \d q^l$ as the tensor product of the two one-forms, then this is just the metric tensor $g$.}: $\d s^2 = g_{kl}(q)\, \d q^k \d q^l$.
@@ -1630,7 +1628,7 @@ Although I prefer the presentation of the proof in \cite[Chapter 20.B]{book:arno
 \end{exercise}
 
 \begin{remark}
-  There are also discrete symmetries in nature which don't depend on a continuous parameter. The so-called parity, for example, is the invariance under reflection, $\bm{x} \mapsto -\bm{x}$.
+  There are also discrete symmetries in nature which don't depend on a continuous parameter. The so-called parity, for example, is the invariance under reflection, $\vb{x} \mapsto -\vb{x}$.
   These types of symmetries give rise to conservation laws in quantum physics but \emph{not} in classical physics.
 \end{remark}
 
@@ -1640,71 +1638,71 @@ Let's now look at more and less immediate consequences of our discovery, startin
 
 Consider a system of $N$ particles with lagrangian \eqref{eq:mechlag},
 \begin{equation}
-  L = \frac12 \sum_{k=1}^N m_k \dot{\bm{x}}_k^2 - U(\bm{x}_1, \ldots, \bm{x}_N),
+  L = \frac12 \sum_{k=1}^N m_k \dot{\vb{x}}_k^2 - U(\vb{x}_1, \ldots, \vb{x}_N),
 \end{equation}
 which is invariant with respect to translations
 \begin{equation}
-  \Phi_s(\bm{x}_1, \ldots, \bm{x}_N) := (\bm{x}_1 + s \hat{\bm{x}},\ldots, \bm{x}_N + s \hat{\bm{x}}),
+  \Phi_s(\vb{x}_1, \ldots, \vb{x}_N) := (\vb{x}_1 + s \hat{\vb{x}},\ldots, \vb{x}_N + s \hat{\vb{x}}),
 \end{equation}
-for any direction $\hat{\bm{x}}$, $|\hat{\bm{x}}|=1$ and all $s\in\mathbb{R}$. I.e.\footnote{It may seem here that we forgot to push forward $\dot x$ by $\Phi_s$, however the pushforward $(\Phi_s)_* = \Id$ by $\Phi_s$ acts on $\dot x$ as the identity.}
+for any direction $\hat{\vb{x}}$, $|\hat{\vb{x}}|=1$ and all $s\in\mathbb{R}$. I.e.\footnote{It may seem here that we forgot to push forward $\dot x$ by $\Phi_s$, however the pushforward $(\Phi_s)_* = \Id$ by $\Phi_s$ acts on $\dot x$ as the identity.}
 \begin{equation}
-  L(\bm{x}_1, \ldots, \bm{x}_N, \dot{\bm{x}}) = L(\bm{x}_1 + s \hat{\bm{x}}, \ldots, \bm{x}_N + s \hat{\bm{x}}, \dot{\bm{x}}),
+  L(\vb{x}_1, \ldots, \vb{x}_N, \dot{\vb{x}}) = L(\vb{x}_1 + s \hat{\vb{x}}, \ldots, \vb{x}_N + s \hat{\vb{x}}, \dot{\vb{x}}),
 \end{equation}
-which is the statement that space is homogeneous and a translation of the system in some direction $\hat{\bm{x}}$ does nothing to the equations of motion. These translations are elements of the Galilean group that we met in Chapter~\ref{sec:varpri}.
+which is the statement that space is homogeneous and a translation of the system in some direction $\hat{\vb{x}}$ does nothing to the equations of motion. These translations are elements of the Galilean group that we met in Chapter~\ref{sec:varpri}.
 
 We call \emph{total momentum} the vectorial quantity
 \begin{equation}
-  \bm{P} = \sum_{k=1}^N m_k \dot{\bm{x}}_k = \sum_{k=1}^N \bm{p}_k.
+  \vb{P} = \sum_{k=1}^N m_k \dot{\vb{x}}_k = \sum_{k=1}^N \vb{p}_k.
 \end{equation}
 
-As we saw in Example~\ref{exa:kmom}, Noether theorem implies that for any $\hat{\bm{x}}$, the projection of the total impulse on the direction $\hat{\bm{x}}$, which is
+As we saw in Example~\ref{exa:kmom}, Noether theorem implies that for any $\hat{\vb{x}}$, the projection of the total impulse on the direction $\hat{\vb{x}}$, which is
 \begin{equation}
-  \langle\bm{P}, \hat{\bm{x}}\rangle = \sum_{k=1}^N \langle \bm{p}_k, \hat{\bm{x}}\rangle,
+  \langle\vb{P}, \hat{\vb{x}}\rangle = \sum_{k=1}^N \langle \vb{p}_k, \hat{\vb{x}}\rangle,
 \end{equation}
 is a conserved quantity.
-Since $\hat{\bm{x}}$ is arbitrary, this means that also $\bm{P}$ is conserved.
+Since $\hat{\vb{x}}$ is arbitrary, this means that also $\vb{P}$ is conserved.
 
 This should be intuitively clear: one point in space is much the same as any other. So why would a system of particles speed up to get somewhere else, when its current position is just as good? This manifests itself as conservation of momentum.
 
-This fact can be also interpreted in the following way: the sum of all forces acting on the point particles in the closed system is zero, i.e., Newton's third law $\sum_k \bm{F}_k = 0$. Which, you have already figured out by solving Exercise \ref{ex:N3l1}.
+This fact can be also interpreted in the following way: the sum of all forces acting on the point particles in the closed system is zero, i.e., Newton's third law $\sum_k \vb{F}_k = 0$. Which, you have already figured out by solving Exercise \ref{ex:N3l1}.
 
 \begin{example}[The barycenter]
-  Consider the galilean transformation $t \mapsto t$, $\bm{x}_k \mapsto \bm{x}'_k + \bm{v}t$.
-  The total momentum $\bm{P}$ transforms as
+  Consider the galilean transformation $t \mapsto t$, $\vb{x}_k \mapsto \vb{x}'_k + \vb{v}t$.
+  The total momentum $\vb{P}$ transforms as
   \begin{equation}
-    \bm{P} = \bm{P}' + \bm{v}  \sum_{k=1}^N m_k.
+    \vb{P} = \vb{P}' + \vb{v}  \sum_{k=1}^N m_k.
   \end{equation}
   If the total momentum is zero with respect to some inertial reference frame (see Section~\ref{sec:dynamicspps}), we say that the system is \emph{stationary} in the reference frame. For a closed system, it is always possible to find an inertial frame of reference, called \emph{co-moving} frame, in which the system becomes stationary. The speed of such special reference frame,
   \begin{equation}
-    \bm{v_T} = \frac{\bm{P}}{\sum_{k=1}^N m_k}
-    = \frac{\sum_{k=1}^N m_k \dot{\bm{x}}_k}{\sum_{k=1}^N m_k},
+    \vb{v_T} = \frac{\vb{P}}{\sum_{k=1}^N m_k}
+    = \frac{\sum_{k=1}^N m_k \dot{\vb{x}}_k}{\sum_{k=1}^N m_k},
   \end{equation}
   can be thought of as the total speed of the mechanical system.
   A rewriting of the formula above gives\footnote{Beware, here (and a few other times below) $M$ denotes a constant, to not be confused with the base manifold. What is what should be inferrable from the constants.}
   \begin{equation}
-    \bm{P} = M \bm{v_T}, \quad M:= \sum_{k=1}^N m_k.
+    \vb{P} = M \vb{v_T}, \quad M:= \sum_{k=1}^N m_k.
   \end{equation}
   In other words, the total momentum of the system is equal to the product of the total mass and the total speed of the system.
   In view of this, we could reinterpret the total speed of the system, seen as a whole, as the speed of a virtual point particle with position
   \begin{equation}
-    \bm{X} = \frac{\sum_{k=1}^N m_k \bm{x}_k}{M}.
+    \vb{X} = \frac{\sum_{k=1}^N m_k \vb{x}_k}{M}.
   \end{equation}
   This special point is called \emph{barycenter} of the system.
   \medskip
 
   Calling \emph{internal energy $E_i$} of a system its total energy in the co-moving frame, the energy of the system with respect to another inertial reference frame is given by
   \begin{equation}
-    E = E_i + \frac{M |\bm{v_T}|^2}{2}, \quad M= \sum_{k=1}^N m_k.
+    E = E_i + \frac{M |\vb{v_T}|^2}{2}, \quad M= \sum_{k=1}^N m_k.
   \end{equation}
 \end{example}
 
 \begin{exercise}
-  Consider, as in Example~\ref{exa:magnetic} and Exercise~\ref{exe:magnetic}, a closed system of charged point particles in the presence of a uniform constant magnetic field $\bm{B}$. Define
+  Consider, as in Example~\ref{exa:magnetic} and Exercise~\ref{exe:magnetic}, a closed system of charged point particles in the presence of a uniform constant magnetic field $\vb{B}$. Define
   \begin{equation}
-    \widetilde{\bm{P}} := \bm{P} + \frac{e}c \bm{B}\wedge \bm{X},
+    \widetilde{\vb{P}} := \vb{P} + \frac{e}c \vb{B}\wedge \vb{X},
   \end{equation}
-  where $\bm{P}$ is the total momentum of the system when $\bm{B} = 0$ and $\bm{X}$ is the sum of the particle positions, you can think of it as some kind of barycenter.
-  Show that for such system, $\widetilde{\bm{P}}$ is a conserved quantity.
+  where $\vb{P}$ is the total momentum of the system when $\vb{B} = 0$ and $\vb{X}$ is the sum of the particle positions, you can think of it as some kind of barycenter.
+  Show that for such system, $\widetilde{\vb{P}}$ is a conserved quantity.
 \end{exercise}
 
 \subsection{Isotropy of space: angular momentum}\label{sec:angm}
@@ -1767,21 +1765,21 @@ This is a consequence of the following proposition.
   \end{equation}
   show that, for sufficiently small $s\in\mathbb{R}$ and modulo higher order corrections, the transformation
   \begin{equation}
-    \bm{x} \mapsto \bm{x} + s X \bm{x} + O(s^2)
+    \vb{x} \mapsto \vb{x} + s X \vb{x} + O(s^2)
   \end{equation}
-  is the rotation around the axis through the origin and parallel to $\bm{N}
-    = (X_{32}, X_{13}, X_{21})$ of angle $\delta\phi = s|\bm{N}|$.
+  is the rotation around the axis through the origin and parallel to $\vb{N}
+    = (X_{32}, X_{13}, X_{21})$ of angle $\delta\phi = s|\vb{N}|$.
   For a hint, see \cite[Chpater 26.D]{book:arnold}.
 \end{exercise}
 
 In view of Exercise~\ref{exe:rotations}, Noether theorem tells us that the conserved quantity for a single particle system would be
 \begin{equation}
-  I = \langle\bm{p}, X\bm{x}\rangle = \langle\bm{p}, \bm{N}\wedge \bm{x}\rangle = \langle\bm{N}, \bm{x}\wedge \bm{p} \rangle,
+  I = \langle\vb{p}, X\vb{x}\rangle = \langle\vb{p}, \vb{N}\wedge \vb{x}\rangle = \langle\vb{N}, \vb{x}\wedge \vb{p} \rangle,
 \end{equation}
 where for the second equality we used the relation between $3\times3$ skew-symmetric matrices and vector products, and for the last we used the cyclicity of the vector product.
 The quantity
 \begin{equation}
-  \bm{M} = \bm{x} \wedge \bm{p}
+  \vb{M} = \vb{x} \wedge \vb{p}
 \end{equation}
 is called \emph{angular momentum}.
 
@@ -1789,35 +1787,35 @@ is called \emph{angular momentum}.
   If a closed system of $N$ particles is invariant with respect to rotations, then the components of its \emph{total angular momentum}
 \end{theorem}
 \begin{equation}
-  \bm{M} = \sum_{k=1}^N \bm{x}_k \wedge \bm{p}_k
+  \vb{M} = \sum_{k=1}^N \vb{x}_k \wedge \vb{p}_k
 \end{equation}
 are conserved quantities.
 \begin{proof}
   On the configuration space $\mathbb{R}^{3N}$ we consider the simultaneous rotation of all the point particles
   \begin{equation}
-    (\bm{x}_1,\ldots,\bm{x}_N) \mapsto
-    (\bm{x}_1,\ldots,\bm{x}_N) +
-    s (X\bm{x}_1,\ldots,X\bm{x}_N) + O(s^2).
+    (\vb{x}_1,\ldots,\vb{x}_N) \mapsto
+    (\vb{x}_1,\ldots,\vb{x}_N) +
+    s (X\vb{x}_1,\ldots,X\vb{x}_N) + O(s^2).
   \end{equation}
-  This is associated to the vector field $(\bm{x}_1,\ldots,\bm{x}_N) \mapsto (X\bm{x}_1,\ldots,X\bm{x}_N)$ and, by Noether theorem, to the first integral
+  This is associated to the vector field $(\vb{x}_1,\ldots,\vb{x}_N) \mapsto (X\vb{x}_1,\ldots,X\vb{x}_N)$ and, by Noether theorem, to the first integral
   \begin{equation}
-    I_X = \sum_{k=1}^N \langle\bm{p}_k, X\bm{x}_k\rangle.
+    I_X = \sum_{k=1}^N \langle\vb{p}_k, X\vb{x}_k\rangle.
   \end{equation}
-  As mentioned above, an antisymmetric matrix $X$ acts as the exterior product with a vector $\bm{X}$, and therefore
+  As mentioned above, an antisymmetric matrix $X$ acts as the exterior product with a vector $\vb{X}$, and therefore
   \begin{align}
-    I_X & = \sum_{k=1}^N \langle\bm{p}_k, \bm{X}\wedge\bm{x}_k\rangle  \\
-        & = \sum_{k=1}^N \langle\bm{X}, \bm{x}_k\wedge \bm{p}_k\rangle \\
-        & = \langle\bm{X}, \sum_{k=1}^N \bm{x}_k\wedge \bm{p}_k\rangle \\
-        & = \langle\bm{X},\bm{M}\rangle.
+    I_X & = \sum_{k=1}^N \langle\vb{p}_k, \vb{X}\wedge\vb{x}_k\rangle  \\
+        & = \sum_{k=1}^N \langle\vb{X}, \vb{x}_k\wedge \vb{p}_k\rangle \\
+        & = \langle\vb{X}, \sum_{k=1}^N \vb{x}_k\wedge \vb{p}_k\rangle \\
+        & = \langle\vb{X},\vb{M}\rangle.
   \end{align}
 
-  The claim follows from the arbitrariness of $\bm{X}$.
+  The claim follows from the arbitrariness of $\vb{X}$.
 \end{proof}
 
 \begin{example}
   Consider a natural lagrangian \eqref{eq:mechlag} with an \emph{axial symmetry}, i.e., whose potential is invariant by simultaneous rotations around a fixed axis.
   For convenience let's say that such axis corresponds to the $z$ axis.
-  Looking back at the proof above, we can infer that the conserved quantity will not be the full total momentum $\bm{M} = (M_x, M_y, M_z)$ but instead only its $z$ component:
+  Looking back at the proof above, we can infer that the conserved quantity will not be the full total momentum $\vb{M} = (M_x, M_y, M_z)$ but instead only its $z$ component:
   \begin{equation}
     M_z = \sum_{k=1}^N m_k\left(x_k \dot y_k - y_k \dot x_k\right) =
     \sum_{k=1}^N m_k r_k^2 \dot \phi_k.
@@ -1844,24 +1842,24 @@ This does not look like a symmetry in our sense, but it is worth investigating i
 \begin{theorem}
   Let $L$ be a natural lagrangian $L=T-U$ as in \eqref{eq:mechlag} whose potential is a homogeneous function of degree $k$:
   \begin{equation}
-    U(\lambda\bm{x}_1, \ldots, \lambda\bm{x}_N) = \lambda^k U(\bm{x}_1, \ldots, \bm{x}_N)
+    U(\lambda\vb{x}_1, \ldots, \lambda\vb{x}_N) = \lambda^k U(\vb{x}_1, \ldots, \vb{x}_N)
     \qquad\forall \lambda>0.
   \end{equation}
   Then the equations of motion are scale invariant with respect to the transformation
   \begin{equation}
     t \mapsto \lambda^{1-\frac{k}2} t, \qquad
-    \bm{x}_k \mapsto \lambda\bm{x}_k \quad k=1,\ldots,n.
+    \vb{x}_k \mapsto \lambda\vb{x}_k \quad k=1,\ldots,n.
   \end{equation}
 \end{theorem}
 \begin{proof}
   The transformation
   \begin{equation}
     t \mapsto \mu t, \qquad
-    \bm{x}_k \mapsto \lambda\bm{x}_k \quad k=1,\ldots,n,
+    \vb{x}_k \mapsto \lambda\vb{x}_k \quad k=1,\ldots,n,
   \end{equation}
   dilates the speeds as
   \begin{equation}
-    \frac{\d}{\d t} \bm{x}_k \mapsto \frac{\lambda}{\mu} \frac{\d}{\d t}\bm{x}_k.
+    \frac{\d}{\d t} \vb{x}_k \mapsto \frac{\lambda}{\mu} \frac{\d}{\d t}\vb{x}_k.
   \end{equation}
   Therefore
   \begin{equation}
@@ -1889,11 +1887,11 @@ This does not look like a symmetry in our sense, but it is worth investigating i
 \begin{example}[Kepler's third law]
   Recall Kepler's problem lagrangian from Examples~\ref{ex:Kepler0} and~\ref{ex:kepler1}:
   \begin{equation}
-    L = \frac{m \dot{\bm{x}}^2}{2} + \frac{\alpha}{\|\bm{x}\|}, \quad \alpha >0.
+    L = \frac{m \dot{\vb{x}}^2}{2} + \frac{\alpha}{\|\vb{x}\|}, \quad \alpha >0.
   \end{equation}
   In this case, the potential is homogeneous of degree $-1$. Therefore $1-k/2 = 3/2$, which means that the planet orbit is invariant with respect to the transformations
   \begin{equation}
-    \bm{x} \mapsto \lambda^2 \bm{x}, \qquad t \mapsto \lambda^3 t.
+    \vb{x} \mapsto \lambda^2 \vb{x}, \qquad t \mapsto \lambda^3 t.
   \end{equation}
 
   This should remind you of \emph{Kepler's third law}: the square of the orbital period of a planet is directly proportional to the cube of the semi--major axis of its orbit, in symbols $\frac{T^2}{X^3} \sim \mathrm{const}$.
@@ -2059,20 +2057,20 @@ As well exemplified from Example~\ref{exa:lissajous}, a sum of characteristic os
 
 \subsection{Decomposition into characteristic oscillations}\label{eq:decomposition}
 
-In view of what we have seen, we can write the characteristic oscillations in the form $q(t) = e^{i\omega t} \bm{\xi}$, then by substituting in the Euler-Lagrange equations,
+In view of what we have seen, we can write the characteristic oscillations in the form $q(t) = e^{i\omega t} \vb{\xi}$, then by substituting in the Euler-Lagrange equations,
 \begin{equation}
   \frac{\d}{\d t} g \dot q = h q,
 \end{equation}
 we find
 \begin{equation}
-  (h - \omega^2 g)\bm{\xi} = 0.
+  (h - \omega^2 g)\vb{\xi} = 0.
 \end{equation}
 
-Solving \eqref{eq:charso}, we find the $n$ eigenvalues $\lambda_k = \omega_k^2$, $k=1, \ldots, n$, to which we can associate $n$ mutually-orthogonal eigenvectors $\bm{\xi}_k$, $k=1, \ldots, n$.
+Solving \eqref{eq:charso}, we find the $n$ eigenvalues $\lambda_k = \omega_k^2$, $k=1, \ldots, n$, to which we can associate $n$ mutually-orthogonal eigenvectors $\vb{\xi}_k$, $k=1, \ldots, n$.
 
 If $\lambda\neq 0$ a general solution then has the form
 \begin{equation}
-  q(t) = \mathbb{R}e \sum_{k=1}^n C_k e^{i \omega_k t}\bm{\xi}_k,
+  q(t) = \mathbb{R}e \sum_{k=1}^n C_k e^{i \omega_k t}\vb{\xi}_k,
 \end{equation}
 even in the case some eigenvalues come with multiplicities.
 
@@ -2112,21 +2110,21 @@ The corresponding Euler-Lagrange equations are then given by
 \end{align}
 which in matrix form becomes
 \begin{equation}
-  \begin{pmatrix}2&1\\1&1\end{pmatrix} \ddot{\bm{x}}
-  = - \frac gl \begin{pmatrix}2&0\\0&1\end{pmatrix} \bm{x}.
+  \begin{pmatrix}2&1\\1&1\end{pmatrix} \ddot{\vb{x}}
+  = - \frac gl \begin{pmatrix}2&0\\0&1\end{pmatrix} \vb{x}.
 \end{equation}
 Inverting the left hand side of the equations of motion to end up with
 \begin{equation}\label{eq:doublep}
-  \ddot{\bm{x}} = - \frac gl \begin{pmatrix}2&-1\\-2&2\end{pmatrix} \bm{x}.
+  \ddot{\vb{x}} = - \frac gl \begin{pmatrix}2&-1\\-2&2\end{pmatrix} \vb{x}.
 \end{equation}
 Diagonalizing the matrix on the right hand side, is equivalent to perform the transformation shown in Section \ref{eq:decomposition}.
 
-The matrix in \eqref{eq:doublep} has eigenvalues $\lambda_\mp = \omega_\mp^2 = \frac{g}l \left(2\mp \sqrt{2}\right)$, the square of the normal frequencies, with corresponding (non normalized) eigenvectors, the normal modes, $\bm{\xi}_\mp = \left(1, \pm \frac1{\sqrt{2}}\right)^T$.
+The matrix in \eqref{eq:doublep} has eigenvalues $\lambda_\mp = \omega_\mp^2 = \frac{g}l \left(2\mp \sqrt{2}\right)$, the square of the normal frequencies, with corresponding (non normalized) eigenvectors, the normal modes, $\vb{\xi}_\mp = \left(1, \pm \frac1{\sqrt{2}}\right)^T$.
 The corresponding motions are then given by
 \begin{equation}
-  \bm{x}(t) = C_+  \cos (\omega_+ (t - t_0)) \bm{\xi}_+ + C_- \cos (\omega_- (t - t_0)) \bm{\xi}_-.
+  \vb{x}(t) = C_+  \cos (\omega_+ (t - t_0)) \vb{\xi}_+ + C_- \cos (\omega_- (t - t_0)) \vb{\xi}_-.
 \end{equation}
-Note that the oscillation frequency for the mode in which the rods oscillate in the same direction, $\bm{\xi}_-$, is lower than the frequency of the mode in which they are out of phase, $\bm{\xi}_+$.
+Note that the oscillation frequency for the mode in which the rods oscillate in the same direction, $\vb{\xi}_-$, is lower than the frequency of the mode in which they are out of phase, $\vb{\xi}_+$.
 
 \subsection{The linear triatomic molecule}\label{sec:triatomic}
 
@@ -2159,13 +2157,13 @@ Recalling our notation, we are left with
 \end{equation}
 The normal modes and their frequencies are then obtained from the pairs of eigenvalues and eigenvectors of $h - \omega^2 g$. In this case, they can be easily computed as:
 \begin{itemize}
-  \item $\lambda_1 = 0$, $\bm{\xi}_1 = (1,1,1)^T$: this is not an oscillation, instead it corresponds to a translation of the molecule.
-  \item $\lambda_2 = \frac km$, $\bm{\xi}_2 = (1,0,-1)^T$: the external atoms oscillate out of phase with frequency $\omega_2 = \sqrt{\frac km}$, while the central one remains stationary.
-  \item $\lambda_3 = \frac km \left(1+2 \frac mM\right)$, $\bm{\xi}_3 = \left(1,-2\frac mM,1\right)^T$. This oscillation is more involved: the external atoms oscillate in the same direction, while the central atom moves in the opposite direction.
+  \item $\lambda_1 = 0$, $\vb{\xi}_1 = (1,1,1)^T$: this is not an oscillation, instead it corresponds to a translation of the molecule.
+  \item $\lambda_2 = \frac km$, $\vb{\xi}_2 = (1,0,-1)^T$: the external atoms oscillate out of phase with frequency $\omega_2 = \sqrt{\frac km}$, while the central one remains stationary.
+  \item $\lambda_3 = \frac km \left(1+2 \frac mM\right)$, $\vb{\xi}_3 = \left(1,-2\frac mM,1\right)^T$. This oscillation is more involved: the external atoms oscillate in the same direction, while the central atom moves in the opposite direction.
 \end{itemize}
 The corresponding small oscillations are given, in general, as the linear combinations of the normal modes above:
 \begin{equation}
-  \bm{x}(t) = \bm{x}^* + (C_1 + \widetilde C_1 t) \bm{\xi}_1 + C_2 \cos(\omega_2 (t-t_2)) \bm{\xi}_2 + C_3 \cos(\omega_3 (t-t_3)) \bm{\xi}_3.
+  \vb{x}(t) = \vb{x}^* + (C_1 + \widetilde C_1 t) \vb{\xi}_1 + C_2 \cos(\omega_2 (t-t_2)) \vb{\xi}_2 + C_3 \cos(\omega_3 (t-t_3)) \vb{\xi}_3.
 \end{equation}
 
 \subsection{Zero modes}
@@ -2173,7 +2171,7 @@ The corresponding small oscillations are given, in general, as the linear combin
 Recall Noether theorem (Theorem~\ref{thm:noether}): every continuous one--parameter group of symmetries $\Phi_s = Q(s,q)$ is associated to an integral of motion $I = p_i \frac{\partial Q^i}{\partial s}\big|_{s=0}$.
 
 Assume that we have $L$ one--parameter families $\Phi^l_s = Q_l(s,q)$, $l=1,\ldots,L$.
-For small oscillations near an equilibrium $q_*$, let's write $q^k = q^k_* + \bm{\eta}^k$. Then the $L$ first integrals can be rewritten as
+For small oscillations near an equilibrium $q_*$, let's write $q^k = q^k_* + \vb{\eta}^k$. Then the $L$ first integrals can be rewritten as
 \begin{equation}
   I_l = C_{li} \dot\eta^i,\quad l=1,\ldots, L,
   \qquad\mbox{where}\qquad
@@ -2182,16 +2180,16 @@ For small oscillations near an equilibrium $q_*$, let's write $q^k = q^k_* + \bm
 
 Therefore, we can define the (non normalized) normal modes
 \begin{equation}
-  \bm{\xi}_l = C_{li} \bm{\eta}^i, \quad l=1,\ldots, L,
+  \vb{\xi}_l = C_{li} \vb{\eta}^i, \quad l=1,\ldots, L,
 \end{equation}
 which satisfy
 \begin{equation}
-  \ddot{\bm{\xi}}_l = 0, \quad l=1,\ldots, L.
+  \ddot{\vb{\xi}}_l = 0, \quad l=1,\ldots, L.
 \end{equation}
 Thus, in systems with continuous symmetries, to each such continuous symmetry there is an associated zero mode, i.e., a mode with $\omega_l = 0$, of the small oscillations problem.
 
 \begin{remark}
-  We have already seen an example of this in Section~\ref{sec:triatomic}: the normal mode $\bm{\xi}_1=(1,1,1)^T$ of the triatomic molecule is the zero mode corresponding to the invariance of the system with respect to horizontal translations.
+  We have already seen an example of this in Section~\ref{sec:triatomic}: the normal mode $\vb{\xi}_1=(1,1,1)^T$ of the triatomic molecule is the zero mode corresponding to the invariance of the system with respect to horizontal translations.
 \end{remark}
 \medskip
 
@@ -2204,30 +2202,30 @@ We will revisit small oscillations once we discuss perturbation theory in the co
   Consider a closed systems of two point particles with masses $m_{1,2}$.
   We now know that, in an inertial frame of reference, their natural lagrangian must have the form
   \begin{equation}
-    L = \frac{m_1 \|\dot{\bm{x}}_1\|^2}{2} + \frac{m_2 \|\dot{\bm{x}}_2\|^2}{2} - U(\|\bm{x}_1 - \bm{x}_2\|).
+    L = \frac{m_1 \|\dot{\vb{x}}_1\|^2}{2} + \frac{m_2 \|\dot{\vb{x}}_2\|^2}{2} - U(\|\vb{x}_1 - \vb{x}_2\|).
   \end{equation}
   We have anticipated that such systems possesses many first integrals, so we can expect to be able to use them to integrate the equations of motion as in some previous examples.
   If we fix the origin in the barycenter of the system, we get
   \begin{equation}
-    m_1 \bm{x}_1 + m_2 \bm{x}_2 = 0.
+    m_1 \vb{x}_1 + m_2 \vb{x}_2 = 0.
   \end{equation}
   This allows us to express the coordinates in terms of a single vector:
   \begin{equation}\label{eq:barycoords}
-    \bm{x} := \bm{x}_1 - \bm{x}_2, \qquad
-    \bm{x}_1 = \frac{m_2}{m_1 + m_2} \bm{x}, \qquad
-    \bm{x}_2 = -\frac{m_1}{m_1 + m_2} \bm{x}.
+    \vb{x} := \vb{x}_1 - \vb{x}_2, \qquad
+    \vb{x}_1 = \frac{m_2}{m_1 + m_2} \vb{x}, \qquad
+    \vb{x}_2 = -\frac{m_1}{m_1 + m_2} \vb{x}.
   \end{equation}
   We can then use \eqref{eq:barycoords} and rewrite the equations of motion
   \begin{equation}
-    m_1 \ddot{\bm{x}}_1 = -\frac{\partial U}{\partial \bm{x}_1}, \qquad m_2 \ddot{\bm{x}}_2 = -\frac{\partial U}{\partial \bm{x}_2},
+    m_1 \ddot{\vb{x}}_1 = -\frac{\partial U}{\partial \vb{x}_1}, \qquad m_2 \ddot{\vb{x}}_2 = -\frac{\partial U}{\partial \vb{x}_2},
   \end{equation}
   into the single equation
   \begin{equation}
-    m \ddot{\bm{x}} = -\nabla U(\|\bm{x}\|), \quad m = \frac{m_1m_2}{m_1+m_2}.
+    m \ddot{\vb{x}} = -\nabla U(\|\vb{x}\|), \quad m = \frac{m_1m_2}{m_1+m_2}.
   \end{equation}
-  These are the equations of motion of a point particle in a \emph{central} potential $U(\|\bm{x}\|)$, i.e., with lagrangian
+  These are the equations of motion of a point particle in a \emph{central} potential $U(\|\vb{x}\|)$, i.e., with lagrangian
   \begin{equation}\label{eq:centralpot}
-    L = \frac{m \|\dot{\bm{x}}\|^2}{2} - U(\|\bm{x}\|).
+    L = \frac{m \|\dot{\vb{x}}\|^2}{2} - U(\|\vb{x}\|).
   \end{equation}
   After solving the equations of motion of this system with \emph{three} degrees of freedom, one can recover the dynamic of the original two bodies, i.e., a system with \emph{six} degrees of freedom, using \eqref{eq:barycoords}.
 \end{example}
@@ -2237,19 +2235,19 @@ In the remainder of this section, we will study the symmetries of systems of the
 We know from Section~\ref{sec:angm}, that angular momentum is a first integral of rotationally symmetric lagrangians.
 This means that the lagrangian \eqref{eq:centralpot} has three constants of motion given by the three components of the angular momentum
 \begin{equation}
-  \bm{M} = \bm{x}\wedge \bm{p}.
+  \vb{M} = \vb{x}\wedge \vb{p}.
 \end{equation}
 
 For convenience, let's rewrite the equations of motion for \eqref{eq:centralpot} as
 \begin{equation}
-  m\ddot{\bm{x}} = - U'(x)\frac{\bm{x}}{x}, \quad x = \|\bm{x}\|, \quad U'(x)=\frac{\d U(x)}{\d x}.
+  m\ddot{\vb{x}} = - U'(x)\frac{\vb{x}}{x}, \quad x = \|\vb{x}\|, \quad U'(x)=\frac{\d U(x)}{\d x}.
 \end{equation}
 
 \begin{theorem}
   The trajectories of \eqref{eq:centralpot} are planar.
 \end{theorem}
 \begin{proof}
-  By construction, the constant vector $\bm{M}$ is orthogonal to $\bm{x}$ and $\bm{p} = m \dot{\bm{x}}$.
+  By construction, the constant vector $\vb{M}$ is orthogonal to $\vb{x}$ and $\vb{p} = m \dot{\vb{x}}$.
   Therefore, the point moves in the plane
   \begin{equation}\label{eq:planarCP}
     \{\mathbf{y} \;\mid\; \langle M, \mathbf{y}\rangle = \mathrm{const} \}.
@@ -2341,7 +2339,7 @@ In the plane, this translates into being confined into an annular region as depi
 
 \subsection{Kepler's problem}
 
-Let's go back to Example~\ref{ex:kepler2}, and replace $U$ with the Newtonian gravitational potential $k/\|\bm{x}\|$ (see Examples~\ref{ex:Kepler0} and \ref{ex:kepler1}).
+Let's go back to Example~\ref{ex:kepler2}, and replace $U$ with the Newtonian gravitational potential $k/\|\vb{x}\|$ (see Examples~\ref{ex:Kepler0} and \ref{ex:kepler1}).
 The effective potential \eqref{eq:effpotcp}, in this case is
 \begin{align}
   U_{\mathrm{eff}} (r) = -\frac kr + \frac {M^2}{2 m r^2}, \quad & k = G \frac{m_1^2 m_2^2}{m_1+m_2} > 0,      \\
@@ -2530,7 +2528,7 @@ In Example~\ref{ex:Kepler0}, we mentioned a third conserved quantity for the Kep
 \begin{exercise}
   Show that the components of the Laplace-Runge-Lenz vector
   \begin{equation}
-    \bm{L} := \dot{\bm{x}}\wedge \bm{M} - k \frac{\bm{x}}{\|\bm{x}\|}
+    \vb{L} := \dot{\vb{x}}\wedge \vb{M} - k \frac{\vb{x}}{\|\vb{x}\|}
   \end{equation}
   are first integrals for the Kepler problem.
 \end{exercise}
@@ -2554,11 +2552,11 @@ From the point of view of Newton, this means that there should be a virtual forc
 
 Let's try again. Consider now a natural lagrangian \eqref{eq:mechlag}
 \begin{equation}
-  L(\bm{x}, \dot{\bm{x}}) = \sum_{k=1}^N \frac{m_k \|\dot{\bm{x}}_k\|^2}{2} - U(\bm{x}_1, \ldots, \bm{x}_N)
+  L(\vb{x}, \dot{\vb{x}}) = \sum_{k=1}^N \frac{m_k \|\dot{\vb{x}}_k\|^2}{2} - U(\vb{x}_1, \ldots, \vb{x}_N)
 \end{equation}
 whose point particles are forced to satisfy a number of \emph{holonomic constraints}, i.e., relationships between the coordinates of the form
 \begin{equation}\label{eq:holonomic}
-  f_1(\bm{x}_1, \ldots,\bm{x}_N) = 0, \;\ldots,\; f_l(\bm{x}_1, \ldots,\bm{x}_N) = 0
+  f_1(\vb{x}_1, \ldots,\vb{x}_N) = 0, \;\ldots,\; f_l(\vb{x}_1, \ldots,\vb{x}_N) = 0
 \end{equation}
 where $f_i : \mathbb{R}^{3N}\to\mathbb{R}$ smooth, $i=1,\ldots,l$.
 
@@ -2579,58 +2577,58 @@ For a brief but more comprehensive discussion of this you can look at \cite[Chap
 \begin{theorem}
   The equations of motion of a mechanical system of $N$ particles with natural lagrangian \eqref{eq:mechlag} under the effect of $l$ independent holonomic constraints \eqref{eq:holonomic} have the form
   \begin{equation}\label{eq:generalnewtonconstraint}
-    m_k \ddot{\bm{x}}_k = - \frac{\partial U}{\partial \bm{x}_k} + \bm{R}_k, \quad k=1, \ldots, N,
+    m_k \ddot{\vb{x}}_k = - \frac{\partial U}{\partial \vb{x}_k} + \vb{R}_k, \quad k=1, \ldots, N,
   \end{equation}
-  where the \emph{constraint force} $\bm{R} = (\bm{R}_1, \ldots, \bm{R}_N)$ belongs to the orthogonal subspace to (the tangent space at $\bm{x}$ of) $Q$.
+  where the \emph{constraint force} $\vb{R} = (\vb{R}_1, \ldots, \vb{R}_N)$ belongs to the orthogonal subspace to (the tangent space at $\vb{x}$ of) $Q$.
 \end{theorem}
 \begin{proof}
   To deal with constraints in the lagrangian formulation, we introduce $l$ new variables $\lambda_1, \ldots, \lambda_l$, called \emph{Lagrange multipliers}\footnote{For a brief introduction on their meaning, I recommend this \href{https://twitter.com/j\_bertolotti/status/1569324058633801729}{twitter thread} or this \href{https://www.youtube.com/watch?v=5A39Ht9Wcu0}{YouTube video}.}, and define a new lagrangian
   \begin{equation}
-    \widetilde L(\bm{x}, \dot{\bm{x}}, t) = L(\bm{x}, \dot{\bm{x}}) + \sum_{j=1}^l \lambda_j f_j(\bm{x}).
+    \widetilde L(\vb{x}, \dot{\vb{x}}, t) = L(\vb{x}, \dot{\vb{x}}) + \sum_{j=1}^l \lambda_j f_j(\vb{x}).
   \end{equation}
   The evolution will be determined by the critical points for the corresponding action functional $\widetilde S$.
 
   Since $\widetilde L$ does not depend on $\dot\lambda$, the Euler-Lagrange equations for $\lambda$ are just
   \begin{equation}
-    \frac{\partial \widetilde L}{\partial \lambda_j} = f_j(\bm{x}) = 0,\quad j=1,\ldots,l,
+    \frac{\partial \widetilde L}{\partial \lambda_j} = f_j(\vb{x}) = 0,\quad j=1,\ldots,l,
   \end{equation}
   which gives us back the constraints defining the submanifold $Q$.
 
   The other equations of motion, on the other hand, take the form
   \begin{equation}\label{eq:newtconstr}
-    m_k \ddot{\bm{x}}_k = -\frac{\partial U}{\partial\bm{x}_k} + \sum_{j=1}^l \lambda_j \frac{\partial f_j(\bm{x})}{\partial \bm{x}_k},
+    m_k \ddot{\vb{x}}_k = -\frac{\partial U}{\partial\vb{x}_k} + \sum_{j=1}^l \lambda_j \frac{\partial f_j(\vb{x})}{\partial \vb{x}_k},
     \quad k=1,\ldots,N.
   \end{equation}
-  For all $j$, the vectors $\frac{\partial f_j(\bm{x})}{\partial \bm{x}_k}$ are orthogonal\footnote{Since $f(\bm{x}) = 0$, for any curve $\bm{x}:\mathbb{R}\to Q$ we have $0 = \frac{d}{dt} f(\bm{x}) = \langle \frac{\partial f(\bm{x})}{\partial \bm{x}}, \dot{\bm{x}} \rangle$.} to (the tangent space at $\bm{x}$ of) $Q$ and thus also their linear combinations $\bm{R}$ are, where
+  For all $j$, the vectors $\frac{\partial f_j(\vb{x})}{\partial \vb{x}_k}$ are orthogonal\footnote{Since $f(\vb{x}) = 0$, for any curve $\vb{x}:\mathbb{R}\to Q$ we have $0 = \frac{d}{dt} f(\vb{x}) = \langle \frac{\partial f(\vb{x})}{\partial \vb{x}}, \dot{\vb{x}} \rangle$.} to (the tangent space at $\vb{x}$ of) $Q$ and thus also their linear combinations $\vb{R}$ are, where
   \begin{equation}
-    \bm{R}_k := \sum_{j=1}^l \lambda_j \frac{\partial f_j(\bm{x})}{\partial \bm{x}_k},
+    \vb{R}_k := \sum_{j=1}^l \lambda_j \frac{\partial f_j(\vb{x})}{\partial \vb{x}_k},
     \quad k=1,\ldots,N.
   \end{equation}
 \end{proof}
 
 \begin{remark}
-  The theorem above is often stated as follows: in a constrained system, the total work of the constraint forces on any virtual variations, i.e., vectors $\delta\bm{x}$ tangent to the submanifold $Q$, is zero.
+  The theorem above is often stated as follows: in a constrained system, the total work of the constraint forces on any virtual variations, i.e., vectors $\delta\vb{x}$ tangent to the submanifold $Q$, is zero.
   One can understand this by observing that for such tangent vectors
   \begin{equation}\label{eq:orthogonalconstraint}
-    \sum_{k=1}^N \left\langle\bm{R}_k, \delta\bm{x}_k\right\rangle = 0.
+    \sum_{k=1}^N \left\langle\vb{R}_k, \delta\vb{x}_k\right\rangle = 0.
   \end{equation}
 \end{remark}
 
 Equations \eqref{eq:generalnewtonconstraint} and \eqref{eq:orthogonalconstraint} fully determine the evolution of the constrained system and the constraint forces.
 
-Constrained motions have also a nice intrinsic description in terms of a mechanical system on $TQ$. Indeed, introducing local coordinates $q= (q_1, \ldots, q_n)\in Q$, where $n = 3N-l$, the substitution $\bm{x}_k = \bm{x}_k(q)$, $k=1,\ldots,N$ immediately implies the following theorem.
+Constrained motions have also a nice intrinsic description in terms of a mechanical system on $TQ$. Indeed, introducing local coordinates $q= (q_1, \ldots, q_n)\in Q$, where $n = 3N-l$, the substitution $\vb{x}_k = \vb{x}_k(q)$, $k=1,\ldots,N$ immediately implies the following theorem.
 
 \begin{theorem}
   The evolution of of a mechanical system on $N$ particles with natural lagrangian \eqref{eq:mechlag} under the effect of $l$ independent holonomic constraints \eqref{eq:holonomic} can be described by mechanical system on $TQ$ with lagrangian
   \begin{equation}
-    L_Q(q,\dot q) = \frac12 g_{ij}(q)\dot q^i \dot q^j - U(\bm{x}_1(q),\ldots,\bm{x}_N(q)), \quad n = 3N-l,
+    L_Q(q,\dot q) = \frac12 g_{ij}(q)\dot q^i \dot q^j - U(\vb{x}_1(q),\ldots,\vb{x}_N(q)), \quad n = 3N-l,
   \end{equation}
   where
   \begin{equation}
-    g_{ij}(q) = \sum_{k=1}^N m_k\left\langle\frac{\partial \bm{x}_k}{\partial q^i},\frac{\partial \bm{x}_k}{\partial q^j}\right\rangle
+    g_{ij}(q) = \sum_{k=1}^N m_k\left\langle\frac{\partial \vb{x}_k}{\partial q^i},\frac{\partial \vb{x}_k}{\partial q^j}\right\rangle
   \end{equation}
   is the riemannian metric induced by the euclidean metric on $Q$ given by
-  $ds^2 = \sum_{j=1}^N m_j\langle\d \bm{x}_j, \d\bm{x}_j\rangle$.
+  $ds^2 = \sum_{j=1}^N m_j\langle\d \vb{x}_j, \d\vb{x}_j\rangle$.
 \end{theorem}
 
 This can be further generalized to mechanical systems which are constrained on the tangent bundle $TM$ of a manifold $M$ of dimension $m$.
@@ -2679,12 +2677,12 @@ As before we can define the constrained motion by minimizing the corresponding a
   We have a system of two point masses with masses $m_1$ and $m_2$ connected by massless rigid rods: one of length $l_2$ connecting them to each other and one of length $l_1$ connecting the first to a pivot on the ceiling. We assume that frictions are absent and that the double pendulum is constrained to move in a single plane.
 
   A priori the position of the two masses is represented by a six dimensional vector
-  $\bm{x} = (x_1, y_1, z_1, x_2, y_2, z_2)\in\mathbb{R}^6$, with the additional constraints
+  $\vb{x} = (x_1, y_1, z_1, x_2, y_2, z_2)\in\mathbb{R}^6$, with the additional constraints
   \begin{align}
-    f_1(\bm{x}) & = y_1 = 0,                               \\
-    f_2(\bm{x}) & = y_2 = 0,                               \\
-    f_3(\bm{x}) & = x_1^2 + z_1^2 - l_1^2 = 0,             \\
-    f_4(\bm{x}) & = (x_2-x_1)^2 + (z_2-z_1)^2 - l_2^2 = 0,
+    f_1(\vb{x}) & = y_1 = 0,                               \\
+    f_2(\vb{x}) & = y_2 = 0,                               \\
+    f_3(\vb{x}) & = x_1^2 + z_1^2 - l_1^2 = 0,             \\
+    f_4(\vb{x}) & = (x_2-x_1)^2 + (z_2-z_1)^2 - l_2^2 = 0,
   \end{align}
   representing the planar motion and the rods restrictions.
 
@@ -3010,28 +3008,28 @@ Leaving all these remarks aside, the crucial point of this whole construction li
 We call \emph{hamiltonian system} a system of differential equations of the form \eqref{eq:Hamsys} and, as one can expect, we say that $H$ is its corresponding hamiltonian function. Equations of the form \eqref{eq:Hamsys} are usually called \emph{canonical equations}.
 
 \begin{example}[A particle in a potential]\label{ex:hamPot}
-  Let's start with a simple prototypical example: a particle in $\mathbb{R}^3$ moving under the influence of a potential $U(\bm{x})$.
+  Let's start with a simple prototypical example: a particle in $\mathbb{R}^3$ moving under the influence of a potential $U(\vb{x})$.
   We are, by now, very accustomed to the corresponding natural lagrangian
   \begin{equation}
-    L(\bm{x},\dot{\bm{x}}) = \frac{m \dot{\bm{x}}^2}{2} - U(\bm{x}).
+    L(\vb{x},\dot{\vb{x}}) = \frac{m \dot{\vb{x}}^2}{2} - U(\vb{x}).
   \end{equation}
   In this case
   \begin{equation}
-    \bm{p} = \frac{\partial L}{\partial \dot{\bm{x}}} = m \dot{\bm{x}}
+    \vb{p} = \frac{\partial L}{\partial \dot{\vb{x}}} = m \dot{\vb{x}}
   \end{equation}
   coincides with what we usually call (kinetic) momentum in physics.
 
   The hamiltonian is then given by
   \begin{equation}
-    H(\bm{p},\bm{x}) = \langle\bm{p}, \dot{\bm{x}}\rangle - L = \frac {\bm{p}^2}{2m} + U(\bm{x}),
+    H(\vb{p},\vb{x}) = \langle\vb{p}, \dot{\vb{x}}\rangle - L = \frac {\vb{p}^2}{2m} + U(\vb{x}),
   \end{equation}
   which should remind you of Theorem~\ref{thm:ham1}.
   Hamilton's equation are then simply
   \begin{equation}
     \left\lbrace
     \begin{aligned}
-      \dot{\bm{x}}   & = \frac{\partial H}{\partial \bm{p}} = \frac1m \bm{p}                        \\
-      \dot {\bm{p}} & = - \frac{\partial H}{\partial \bm{x}} = -\frac{\partial U}{\partial \bm{x}}
+      \dot{\vb{x}}   & = \frac{\partial H}{\partial \vb{p}} = \frac1m \vb{p}                        \\
+      \dot {\vb{p}} & = - \frac{\partial H}{\partial \vb{x}} = -\frac{\partial U}{\partial \vb{x}}
     \end{aligned}
     \right.,
   \end{equation}
@@ -3164,34 +3162,34 @@ We call \emph{hamiltonian system} a system of differential equations of the form
   We saw the Lagrangian for charged particles in an electromagnetic field in Example~\ref{exa:magnetic} and in Exercise~\ref{exe:magnetic}.
   In the simpler case of a single particle, the lagrangian takes the form
   \begin{equation}
-    L(\bm{x},\dot{\bm{x}}) = \frac{m \dot{\bm{x}}^2}{2} - U(\bm{x}) + \frac ec \langle\bm A(\bm{x}), \dot{\bm{x}}\rangle.
+    L(\vb{x},\dot{\vb{x}}) = \frac{m \dot{\vb{x}}^2}{2} - U(\vb{x}) + \frac ec \langle\vb A(\vb{x}), \dot{\vb{x}}\rangle.
   \end{equation}
   The conjugate momentum to the position is then given by
   \begin{equation}\label{eq:magMom}
-    \bm{p} = \frac{\partial L}{\partial \dot{\bm{x}}} = m \dot{\bm{x}} + \frac{e}{c}\bm A(\bm{x})
+    \vb{p} = \frac{\partial L}{\partial \dot{\vb{x}}} = m \dot{\vb{x}} + \frac{e}{c}\vb A(\vb{x})
   \end{equation}
-  which now differs from what we usually call momentum by the additional term containing the magnetic vector potential $\bm A$.
+  which now differs from what we usually call momentum by the additional term containing the magnetic vector potential $\vb A$.
 
   Inverting \eqref{eq:magMom}, we get
   \begin{equation}
-    \dot{\bm{x}} = \frac1m \left( \bm{p} - \frac{e}{c}\bm A(\bm{x}) \right),
+    \dot{\vb{x}} = \frac1m \left( \vb{p} - \frac{e}{c}\vb A(\vb{x}) \right),
   \end{equation}
   so the hamiltonian is
   \begin{align}
-    H(\bm{x}, \bm{p}) & = \langle\bm{p}, \dot{\bm{x}}\rangle - L                                        \\
-                & = \frac1m\ \left\langle \bm{p}, \bm{p} - \frac{e}{c}\bm A(\bm{x})\right\rangle -
-    \frac1{2m}\left\|\bm{p} - \frac{e}{c}\bm A(\bm{x})\right\|^2                                \\
-                & \quad + U(\bm{x})
-    - \frac e{mc} \left\langle\bm A(\bm{x}), \bm{p} - \frac{e}{c}\bm A(\bm{x})\right\rangle
+    H(\vb{x}, \vb{p}) & = \langle\vb{p}, \dot{\vb{x}}\rangle - L                                        \\
+                & = \frac1m\ \left\langle \vb{p}, \vb{p} - \frac{e}{c}\vb A(\vb{x})\right\rangle -
+    \frac1{2m}\left\|\vb{p} - \frac{e}{c}\vb A(\vb{x})\right\|^2                                \\
+                & \quad + U(\vb{x})
+    - \frac e{mc} \left\langle\vb A(\vb{x}), \vb{p} - \frac{e}{c}\vb A(\vb{x})\right\rangle
     \\
-                & = \frac1{2m}\left\|\bm{p} - \frac{e}{c}\bm A(\bm{x})\right\|^2 + U(\bm{x}).
+                & = \frac1{2m}\left\|\vb{p} - \frac{e}{c}\vb A(\vb{x})\right\|^2 + U(\vb{x}).
   \end{align}
   The corresponding Hamilton's equation read
   \begin{equation}
     \left\lbrace
     \begin{aligned}
-      \dot{\bm{x}}^i & = \frac{\partial H}{\partial \bm{p}_i} = \frac1m \left(\bm{p}_i - \frac{e}{c}(\bm A(\bm{x}))^i\right)                                                                                               \\
-      \dot{\bm{p}}_i & = -\frac{\partial H}{\partial \bm{x}^i} = -\frac{\partial U(\bm{x})}{\partial \bm{x}^i} + \frac{e}{mc} \left(\bm{p}_j - \frac{e}{c}(\bm A(\bm{x}))^j\right)\frac{\partial (\bm A(\bm{x}))^j}{\partial \bm{x}^i}
+      \dot{\vb{x}}^i & = \frac{\partial H}{\partial \vb{p}_i} = \frac1m \left(\vb{p}_i - \frac{e}{c}(\vb A(\vb{x}))^i\right)                                                                                               \\
+      \dot{\vb{p}}_i & = -\frac{\partial H}{\partial \vb{x}^i} = -\frac{\partial U(\vb{x})}{\partial \vb{x}^i} + \frac{e}{mc} \left(\vb{p}_j - \frac{e}{c}(\vb A(\vb{x}))^j\right)\frac{\partial (\vb A(\vb{x}))^j}{\partial \vb{x}^i}
     \end{aligned}
     \right.
   \end{equation}
@@ -3201,10 +3199,10 @@ We call \emph{hamiltonian system} a system of differential equations of the form
 \end{example}
 
 \begin{example}[A particle in a constant magnetic field]
-  An important special case of Example~\ref{exe:magneticH} is the case of a uniform magnetic field pointing in the $z$-direction: $\bm B = (0,0,B)$.
-  One convenient choice of vector potential for $\bm B$ is
+  An important special case of Example~\ref{exe:magneticH} is the case of a uniform magnetic field pointing in the $z$-direction: $\vb B = (0,0,B)$.
+  One convenient choice of vector potential for $\vb B$ is
   \begin{equation}
-    \bm A (x,y,z) = (-B y, 0, 0).
+    \vb A (x,y,z) = (-B y, 0, 0).
   \end{equation}
 
   Consider a particle moving in the $(x, y)$-plane.
@@ -3600,36 +3598,36 @@ Let's try to clarify this with some important examples.
 \begin{example}[Fermat principle and geometric optics]
   Propagation of light in an isotropic medium is described by the hamiltonian
   \begin{equation}
-    H(\bm{x}, \bm{p}) = c(\bm{x}) \|\bm{p}\|,
+    H(\vb{x}, \vb{p}) = c(\vb{x}) \|\vb{p}\|,
   \end{equation}
-  where $c(\bm{x}) > 0$ gives the speed of light at the point $\bm{x}$.
+  where $c(\vb{x}) > 0$ gives the speed of light at the point $\vb{x}$.
   %
   Using the procedure described above, one arrives at
   \begin{equation}
-    \dot{\bm{x}} = c(\bm{x})\frac{\bm{p}}{\|\bm{p}\|}, \quad
-    \|\bm{p}\| = \frac{E}{c(\bm{x})},
+    \dot{\vb{x}} = c(\vb{x})\frac{\vb{p}}{\|\vb{p}\|}, \quad
+    \|\vb{p}\| = \frac{E}{c(\vb{x})},
   \end{equation}
   which imply
   \begin{equation}
-    \langle\bm{p}, \d\bm{x}\rangle = \|\bm{p}\|\|\d \bm{x}\| = \frac{E}{c(\bm{x})}\|\d\bm{x}\|.
+    \langle\vb{p}, \d\vb{x}\rangle = \|\vb{p}\|\|\d \vb{x}\| = \frac{E}{c(\vb{x})}\|\d\vb{x}\|.
   \end{equation}
 
   For the action \eqref{eq:variationalMaupertuis} we end up with
   \begin{equation}
-    S_0 = E \int_{\bm{x}_1}^{\bm{x}_2} \frac{\|\d\bm{x}\|}{c(\bm{x})},
+    S_0 = E \int_{\vb{x}_1}^{\vb{x}_2} \frac{\|\d\vb{x}\|}{c(\vb{x})},
   \end{equation}
-  which is $E$ multiplied by the time of propagation of light between the points $\bm{x}_1$ and $\bm{x}_2$.
+  which is $E$ multiplied by the time of propagation of light between the points $\vb{x}_1$ and $\vb{x}_2$.
 
   In summary, we have shown the following.
   \begin{theorem}
     Light in an isotropic medium propagates in a way that minimizes the travel time.
     The trajectories followed by the light are the geodesics of the metric
     \begin{equation}
-      \d s^2_{\mathrm{Fermat}} = \frac{\d s^2}{c^2(\bm{x})}
+      \d s^2_{\mathrm{Fermat}} = \frac{\d s^2}{c^2(\vb{x})}
     \end{equation}
     where
     \begin{equation}
-      \d s^2 = \d \bm{x}^2 = \d x^2 + \d y^2 + \d z^2.
+      \d s^2 = \d \vb{x}^2 = \d x^2 + \d y^2 + \d z^2.
     \end{equation}
   \end{theorem}
 
@@ -3989,7 +3987,7 @@ We can finally state the hamiltonian counterpart of Noether theorem.
 \begin{exercise}
   Given a mechanical system which is invariant with respect to space translations, show that the components of the total momentum
   \begin{equation}
-    \bm P = (P_x, P_y, P_z) = \sum_i \bm{p}_i
+    \vb P = (P_x, P_y, P_z) = \sum_i \vb{p}_i
   \end{equation}
   are mutually commuting:
   \begin{equation}
@@ -4832,21 +4830,21 @@ The coordinates $p$ and $Q$ are expressed through $S_2$ by the relations
 
 In general, fixed a coordinate $q$ we can choose one of $2^n$ collections
 \begin{equation}\label{eq:PQcollection}
-  P_{\bm{i}} = (P_{i_1}, \ldots, P_{i_k}), \quad
-  Q_{\bm{j}} = (Q^{j_1}, \ldots, Q^{j_{n-k}}),
+  P_{\vb{i}} = (P_{i_1}, \ldots, P_{i_k}), \quad
+  Q_{\vb{j}} = (Q^{j_1}, \ldots, Q^{j_{n-k}}),
 \end{equation}
 where $(i_1, \ldots, i_k)$ and $(j_1, \ldots, j_{n-k})$ is a partition of $(1,\ldots,n)$ in disjoint sets.
 These can be used to define a third common family of generating functions.
 
 \begin{theorem}
   Let $\Phi:T^*M \to T^* M$ be the canonical transformation defined by the functions $P(q,p)$ and $Q(q,p)$.
-  Then, in a neighborhood of a point $(q_0, p_0)$ it is possible to choose one of the $2^n$ collections of functions $(q, Q^{\bm j}, P_{\bm i})$ from \eqref{eq:PQcollection} as independent coordinates, i.e., such that
+  Then, in a neighborhood of a point $(q_0, p_0)$ it is possible to choose one of the $2^n$ collections of functions $(q, Q^{\vb j}, P_{\vb i})$ from \eqref{eq:PQcollection} as independent coordinates, i.e., such that
   \begin{equation}\label{eq:choiceofcoordsS3}
-    \det\left(\frac{\partial (q, Q^{\bm j}, P_{\bm i})}{\partial(q,p)}\right) \neq 0.
+    \det\left(\frac{\partial (q, Q^{\vb j}, P_{\vb i})}{\partial(q,p)}\right) \neq 0.
   \end{equation}
   The canonical transformation can then be recovered from
   \begin{equation}
-    \d S_3(q, Q^{\bm j}, P_{\bm i}) = \sum_{l=1}^k Q^{i_l} \d P_{i_l} -\sum_{h=1}^{n-k} P_{j_h} \d Q^{j_h} + \sum_{i=1}^n p_i \d q^i
+    \d S_3(q, Q^{\vb j}, P_{\vb i}) = \sum_{l=1}^k Q^{i_l} \d P_{i_l} -\sum_{h=1}^{n-k} P_{j_h} \d Q^{j_h} + \sum_{i=1}^n p_i \d q^i
   \end{equation}
   via the relations
   \begin{equation}\label{eq:coordgenfun3}
@@ -4856,9 +4854,9 @@ These can be used to define a third common family of generating functions.
   \end{equation}
   where the indices run over the expected ranges $i=1,\ldots,n$, $l=1,\ldots,k$ and $h = 1,\ldots,n-k$.
 
-  Conversely, if $S_3(q, Q^{\bm j}, P_{\bm i})$ is a transformation such that
+  Conversely, if $S_3(q, Q^{\vb j}, P_{\vb i})$ is a transformation such that
   \begin{equation}
-    \det\left(\frac{\partial^2 S_3}{\partial q \partial \widetilde p}\right), \quad \widetilde p = (Q^{\bm j}, P_{\bm i}),
+    \det\left(\frac{\partial^2 S_3}{\partial q \partial \widetilde p}\right), \quad \widetilde p = (Q^{\vb j}, P_{\vb i}),
   \end{equation}
   then \eqref{eq:coordgenfun3} define a canonical transformation around a point $(q_0, p_0)$.
 \end{theorem}
@@ -5601,27 +5599,27 @@ whose corresponding solution is simply
     \end{equation}
     Such flows allows us to define an action of the abelian group $\mathbb{R}^n$ on the manifold $M$ by
     \begin{align}
-       & \Phi_{\bm{t}} := \phi_{t_1}^1 \circ \cdots \circ \phi_{t_n}^n, \quad \bm{t} = (t_1, \ldots, t_n)\in \mathbb{R}^n, \\
-       & \Phi_{\bm t + \bm s} = \Phi_{\bm t} \circ \Phi_{\bm s}, \quad \forall \bm t, \bm s \in \mathbb{R}^n.
+       & \Phi_{\vb{t}} := \phi_{t_1}^1 \circ \cdots \circ \phi_{t_n}^n, \quad \vb{t} = (t_1, \ldots, t_n)\in \mathbb{R}^n, \\
+       & \Phi_{\vb t + \vb s} = \Phi_{\vb t} \circ \Phi_{\vb s}, \quad \forall \vb t, \vb s \in \mathbb{R}^n.
     \end{align}
 
     \begin{exercise}
-      Show that the action $\Phi_{\bm t}$ is transitive, that is, for every two points $x, y\in M$, there exists $\bm t\in\mathbb{R}^n$ such that $y = \Phi_{\bm t} (x)$.
+      Show that the action $\Phi_{\vb t}$ is transitive, that is, for every two points $x, y\in M$, there exists $\vb t\in\mathbb{R}^n$ such that $y = \Phi_{\vb t} (x)$.
     \end{exercise}
 
     For any $x_0 \in M$, the map
     \begin{equation}\label{eq:diffeoRnM}
-      \mathbb{R}^n \to M, \quad \bm t \mapsto \Phi_{\bm t}(x_0)
+      \mathbb{R}^n \to M, \quad \vb t \mapsto \Phi_{\vb t}(x_0)
     \end{equation}
     is smooth, and the set
     \begin{equation}
-      \Gamma = \left\{ \bm t \in \mathbb{R}^n \;\mid\; \Phi_{\bm t}(x_0) = x_0\right\}
+      \Gamma = \left\{ \vb t \in \mathbb{R}^n \;\mid\; \Phi_{\vb t}(x_0) = x_0\right\}
     \end{equation}
     is a subgroup of $\mathbb{R}^n$, called the \emph{isotropy} subgroup.
 
     \begin{exercise}
       Show that the subgroup $\Gamma$ does not depend on $x_0$. \textit{Hint: $\Gamma$ is transitive.}
-      Furthermore, $\Gamma$ is a \emph{discrete} subgroup of $\mathbb{R}^n$, that is, there is an open set $U \ni \bm 0$ such that $U\cap\Gamma = \{\bm 0\}$.
+      Furthermore, $\Gamma$ is a \emph{discrete} subgroup of $\mathbb{R}^n$, that is, there is an open set $U \ni \vb 0$ such that $U\cap\Gamma = \{\vb 0\}$.
     \end{exercise}
 
     Discrete subgroups of $\mathbb{R}^n$ admit a very nice description, which will be handy also later (for the proof see \cite[Lemma 13.4]{book:knauf}).
@@ -5647,9 +5645,9 @@ whose corresponding solution is simply
     \end{equation}
     Since $M$ is compact by hypothesis, $n=m$.
 
-    With $M$ being diffeomorphic to a torus, its points can be parametrized by $n$ angles $\phi_1, \ldots, \phi_n$ in such a way that every $\bm t \in \mathbb{R}^n/\Gamma$ can be written in the form
+    With $M$ being diffeomorphic to a torus, its points can be parametrized by $n$ angles $\phi_1, \ldots, \phi_n$ in such a way that every $\vb t \in \mathbb{R}^n/\Gamma$ can be written in the form
     \begin{equation}
-      \bm t = \frac 1{2\pi}(\phi_1 e_1 + \cdots + \phi_n e_n),
+      \vb t = \frac 1{2\pi}(\phi_1 e_1 + \cdots + \phi_n e_n),
     \end{equation}
     which gives the identification with the standard torus \eqref{eq:idtorusstd}.
   \end{proof}
@@ -5659,7 +5657,7 @@ whose corresponding solution is simply
   To conclude the proof, we only need to show that the hamiltonian dynamics of the angular coordinates $(\phi_1, \ldots, \phi_n)$ is linear.
   For each $x_0\in M_E$, the mapping \eqref{eq:diffeoRnM}, $[0, 2\pi)^n \to M_E$,
   \begin{equation}
-    (\phi_1, \ldots, \phi_n)\mapsto \Phi\left(\sum_{i=1}^n \frac{\phi_i e_i}{2\pi}, x_0\right) := \Phi_{\bm t}(x_0)\Big|_{\bm t = \sum_{i=1}^n \frac{\phi_i e_i}{2\pi}}
+    (\phi_1, \ldots, \phi_n)\mapsto \Phi\left(\sum_{i=1}^n \frac{\phi_i e_i}{2\pi}, x_0\right) := \Phi_{\vb t}(x_0)\Big|_{\vb t = \sum_{i=1}^n \frac{\phi_i e_i}{2\pi}}
   \end{equation}
   is a bijection.
   Assume that the vector $(1, 0, \ldots, 0)\in\mathbb{R}^n$ is represented as $\sum_{i=1}^n \frac{\omega_i}{2\pi} e_i$, then the flow generated by $H$ is of the form
@@ -5769,12 +5767,12 @@ Furthermore, due to their simplicity, the action--angle coordinates are the idea
   \end{equation}
   The smooth functions $q$ and $p$ are $2\pi$-periodic with respect to any of the angular variables $\phi = (\phi_1, \ldots, \phi_n)$, and therefore they can be expanded in Fourier series:
   \begin{align}
-     & x_j = \sum_{\bm k = (k_1, \ldots, k_n)\in\mathbb{Z}^n} A^j_{\bm k}(I) e^{i(k_1 \phi_1 + \cdots + k_n \phi_n)} = \sum_{\bm k\in\mathbb{Z}^n} A^j_{\bm k}(I) e^{i\langle\bm k, \phi\rangle} \\
+     & x_j = \sum_{\vb k = (k_1, \ldots, k_n)\in\mathbb{Z}^n} A^j_{\vb k}(I) e^{i(k_1 \phi_1 + \cdots + k_n \phi_n)} = \sum_{\vb k\in\mathbb{Z}^n} A^j_{\vb k}(I) e^{i\langle\vb k, \phi\rangle} \\
      & x = (q,p), \quad j=1,\ldots,2n.
   \end{align}
   Then, the dynamics of the hamiltonian system in the original coordinates is of the form
   \begin{align}
-     & x_j(t) = \sum_{\bm k\in\mathbb{Z}^n} A^j_{\bm k}(I) e^{i t\langle\bm k, \omega(I)\rangle + i\langle\bm k,\phi^0\rangle} \\
+     & x_j(t) = \sum_{\vb k\in\mathbb{Z}^n} A^j_{\vb k}(I) e^{i t\langle\vb k, \omega(I)\rangle + i\langle\vb k,\phi^0\rangle} \\
      & x = (q,p), \quad j=1,\ldots,2n,
   \end{align}
   where $\omega(I) = (\omega_1(I), \ldots, \omega_n(I))$ and the parameters $I = (I_1, \ldots, I_n)$ and $\phi^0 = (\phi_1^0, \ldots, \phi_n^0)$ can be considered as constants of integration.
@@ -6362,7 +6360,7 @@ If we fix one torus
 for the unperturbed system, we can try to apply Birkhoff's transformation $(\phi, I)\mapsto(\widetilde\phi,\widetilde I)$ from the previous section to reduce the hamiltonian $H_\epsilon$ to a normal form $H_\epsilon = H_\epsilon(\widetilde I; \epsilon)$.
 As we saw, the necessary canonical transformation does not exist even just as formal series when the frequencies $\omega_1^0, \ldots, \omega_n^0$ are resonant.
 Further from being just a problem of the method, it can be shown that resonant tori are destroyed by arbitrarily small values of $\epsilon$.
-Furthermore, the survival of the invariant tori under small perturbation in the non--resonant case has been unclear for a very long time. Indeed, a careful development of the normal form approach around non--resonant frequencies presents the appearance of denominators of the form $(\bm k, \omega)$ with large $\bm k \in\mathbb{Z}^n\setminus\{0\}$: it is often possible to find $\bm k$ that makes such denominators arbitrarily small. If that was not enough, frequencies which are unaffected by the small denominators problem are always arbitrarily close to ``bad'' frequencies.
+Furthermore, the survival of the invariant tori under small perturbation in the non--resonant case has been unclear for a very long time. Indeed, a careful development of the normal form approach around non--resonant frequencies presents the appearance of denominators of the form $(\vb k, \omega)$ with large $\vb k \in\mathbb{Z}^n\setminus\{0\}$: it is often possible to find $\vb k$ that makes such denominators arbitrarily small. If that was not enough, frequencies which are unaffected by the small denominators problem are always arbitrarily close to ``bad'' frequencies.
 
 This problem was so bad that Poincar\'e called it the ``fundamental problem'' of classical mechanics, and it was so pervasive tht in the middle of the last century people formulated an ``ergodic hypothesis'' according to which the trajectories of the motion behave chaotically on generically perturbed energy surfaces.
 
@@ -6376,25 +6374,25 @@ To begin, let's describe the \emph{diophantine conditions} for the non--resonant
 \begin{tcolorbox}
   Let $\alpha>0$, $\tau>0$ be two fixed positive numbers, we say that the frequency satisfy the $(\alpha,\tau)$ diophantine condition if
   \begin{equation}\label{eq:diophat}
-    \left|\sum_{i=1}^n k_i \omega_i \right| \geq \frac{\alpha}{|\bm k|^\tau} \qquad \forall \bm k=(k_1, \ldots, k_n)\in\mathbb{Z}^n,
+    \left|\sum_{i=1}^n k_i \omega_i \right| \geq \frac{\alpha}{|\vb k|^\tau} \qquad \forall \vb k=(k_1, \ldots, k_n)\in\mathbb{Z}^n,
   \end{equation}
-  where $|\bm k| = \sum_{i=1}^n |k_i|$.
+  where $|\vb k| = \sum_{i=1}^n |k_i|$.
   We denote $\Delta_\alpha^\tau\subset\mathbb{R}^n$ the set of vectors $\omega$ satisfying \eqref{eq:diophat}.
 \end{tcolorbox}
 
 First of all observe that for any fixed $\alpha>0$, $\tau>0$, the set $\Delta_\alpha^\tau$ is not empty. Indeed, its complement in $\mathbb{R}^n$ is
 \begin{equation}
-  R_{\alpha}^\tau := \cup_{\bm k \in \mathbb{Z}^n\setminus\{0\}} R_{\alpha}^\tau(\bm k),\quad
-  R_{\alpha}^\tau(\bm k) := \left\{ \omega \in\mathbb{R}^n \;\mid\; |\langle\bm k, \omega\rangle| < \frac{\alpha}{|\bm k|^\tau} \right\}.
+  R_{\alpha}^\tau := \cup_{\vb k \in \mathbb{Z}^n\setminus\{0\}} R_{\alpha}^\tau(\vb k),\quad
+  R_{\alpha}^\tau(\vb k) := \left\{ \omega \in\mathbb{R}^n \;\mid\; |\langle\vb k, \omega\rangle| < \frac{\alpha}{|\vb k|^\tau} \right\}.
 \end{equation}
-For any bounded $\Omega\subset\mathbb{R}^n$, the Lebesgue measure $\mu$ of $\Omega\cap R_{\alpha}^\tau(\bm k)$ can be estimated explicitly as
+For any bounded $\Omega\subset\mathbb{R}^n$, the Lebesgue measure $\mu$ of $\Omega\cap R_{\alpha}^\tau(\vb k)$ can be estimated explicitly as
 \begin{equation}
-  \mu(\Omega\cap R_{\alpha}^\tau(\bm k)) = O\left(\frac{\alpha}{|\bm k|^{\tau+1}}\right).
+  \mu(\Omega\cap R_{\alpha}^\tau(\vb k)) = O\left(\frac{\alpha}{|\vb k|^{\tau+1}}\right).
 \end{equation}
 If $\tau > n-1$,
 \begin{equation}
   \mu\left(\mathbb{R}^n\setminus\Delta_\alpha^\tau)\cap\Omega\right)\leq
-  \sum_{\bm k\in\mathbb{Z}^n} \mu\left(\Delta_{\alpha}^\tau(\bm k)\cap\Omega\right) = O(\alpha),
+  \sum_{\vb k\in\mathbb{Z}^n} \mu\left(\Delta_{\alpha}^\tau(\vb k)\cap\Omega\right) = O(\alpha),
 \end{equation}
 and since
 \begin{equation}
@@ -6553,45 +6551,45 @@ The topic is vast, interesting and very actively developed. I hope the selection
 %         Let $\Phi_s : P \to P$, $s\in\mathbb{R}$, be a one--parameter family of symmetries of the hamiltonian $H$.
 %         This family is called \emph{one--parameter group of symmetries} if
 %         \begin{itemize}
-%             \item $\Phi_0(\bm{x}) = \bm{x}$ for all $\bm{x} \in P$,
-%             \item $\Phi_{s+t}(\bm{x}) = \Phi_s(\Phi_t(\bm{x}))$, for all $\bm{x} \in P$ and all $s,t\in\mathbb{R}$.
+%             \item $\Phi_0(\vb{x}) = \vb{x}$ for all $\vb{x} \in P$,
+%             \item $\Phi_{s+t}(\vb{x}) = \Phi_s(\Phi_t(\vb{x}))$, for all $\vb{x} \in P$ and all $s,t\in\mathbb{R}$.
 %         \end{itemize}
 %     \end{tcolorbox}
 
 %     We have shown in Exercise~\ref{exe:haminfsym} that any one--parameter group of symmetries of a hamiltonian system generates an infinitesimal symmetry defined by the vector field
 %     \begin{eqnarray}
-%         X = \frac{\d}{\d s}\Phi_s(\bm{x})\Big|_{s=0}.
+%         X = \frac{\d}{\d s}\Phi_s(\vb{x})\Big|_{s=0}.
 %     \end{eqnarray}
 %     Moreover, by Theorem~\ref{thm:vf-infsym}, for every infinitesimal symmetry $X$ there exists \emph{locally} a function $F$ on $P$, the hamiltonian generator, such that $X = X_F$ and, due to the invariance of $H$ with respect to $\Phi$,
 %     \begin{equation}
-%         \big\{H,F\big\} = \frac{\d}{\d s}H(\Phi_s(\bm{x}))\Big|_{s=0} = 0.
+%         \big\{H,F\big\} = \frac{\d}{\d s}H(\Phi_s(\vb{x}))\Big|_{s=0} = 0.
 %     \end{equation}
 
 %     We will now show that the existence of a one--parameter group of symmetries allows us to reduce the hamiltonian system to a new hamiltonian system on a symplectic manifold of dimension $2n-2$.
 
 %     To construct the reduced symplectic manifold we consider the quotient of the original symplectic manifold with respect to the action of the one--parameter group. Denote $P/\sim$ the set of equivalence classes
 %     \begin{equation}
-%         [\bm{x}_0] = \big\{\cup_t \Phi_t(\bm{x}_0)\big\}
+%         [\vb{x}_0] = \big\{\cup_t \Phi_t(\vb{x}_0)\big\}
 %     \end{equation}
 %     with respect to the equivalence relation induced by the action:
 %     \begin{equation}
-%         \bm{x}_1\sim\bm{x}_2 \mbox{ if } \exists s\in\mathbb{R} \mbox{ s.t. } \bm{x}_2 = \Phi_x(\bm{x}_1).
+%         \vb{x}_1\sim\vb{x}_2 \mbox{ if } \exists s\in\mathbb{R} \mbox{ s.t. } \vb{x}_2 = \Phi_x(\vb{x}_1).
 %     \end{equation}
 
-%     Assume ,for the moment, that $P/\sim$ is itself a smooth manifold.Given that the trajectories $s\mapsto \Phi_s(\bm{x})$ are one dimensional, the quotient should have dimension $2n-1$: indeed,to define a chart close to the orbit of some point $\bm{x}_0 \in P$,
+%     Assume ,for the moment, that $P/\sim$ is itself a smooth manifold.Given that the trajectories $s\mapsto \Phi_s(\vb{x})$ are one dimensional, the quotient should have dimension $2n-1$: indeed,to define a chart close to the orbit of some point $\vb{x}_0 \in P$,
 %     \begin{equation}
-%         [\bm{x}_0] = \big\{\bigcup_{t\in\mathbb{R}} \Phi_t(\bm{x}_0)\big\} \in P/\Phi_s,
+%         [\vb{x}_0] = \big\{\bigcup_{t\in\mathbb{R}} \Phi_t(\vb{x}_0)\big\} \in P/\Phi_s,
 %     \end{equation}
-%     it is enough to find a hypersurface $\widetilde P\subset P$ transversal to the orbit and containing $\bm{x}_0$.
-%     In fact, $\widetilde P$ being transversal to the orbit implies that $T_{\bm{x}_0}P$ is generated by the subspaces tangent to the hypersurface and the one tangent to the orbit, respectively
+%     it is enough to find a hypersurface $\widetilde P\subset P$ transversal to the orbit and containing $\vb{x}_0$.
+%     In fact, $\widetilde P$ being transversal to the orbit implies that $T_{\vb{x}_0}P$ is generated by the subspaces tangent to the hypersurface and the one tangent to the orbit, respectively
 %     \begin{equation}
-%         T_{\bm{x}_0}\widetilde P \quad\mbox{and}\quad T_{\bm{x}_0} \Phi_s(\bm{x}_0) = \mathrm{span} X(\bm{x}_0).
+%         T_{\vb{x}_0}\widetilde P \quad\mbox{and}\quad T_{\vb{x}_0} \Phi_s(\vb{x}_0) = \mathrm{span} X(\vb{x}_0).
 %     \end{equation}
-%     Locally, we can rectify the vector field around $\bm{x}_0$ to construct the transversal hypersurface $\widetilde P$ provided that $X$ is non zero in $\bm{x}_0$. In such case, the local coordinates $(z^1, \ldots, z^{2n-1})$ on $\widetilde P$ define the coordinates on $P\setminus\Phi_s$.
+%     Locally, we can rectify the vector field around $\vb{x}_0$ to construct the transversal hypersurface $\widetilde P$ provided that $X$ is non zero in $\vb{x}_0$. In such case, the local coordinates $(z^1, \ldots, z^{2n-1})$ on $\widetilde P$ define the coordinates on $P\setminus\Phi_s$.
 
-%     In summary, we have shown that for any $\bm{x}_0 \in P$ such that $X(\bm{x}_0)$ there exists a neighborhood $\bm{x}_0 \in U_{\bm{x}_0}\subset P$ such that the \emph{local} quotient $(P/\sim)_{\mathrm{loc}}$ of equivalence classes of orbits with respect to the local equivalence relation
+%     In summary, we have shown that for any $\vb{x}_0 \in P$ such that $X(\vb{x}_0)$ there exists a neighborhood $\vb{x}_0 \in U_{\vb{x}_0}\subset P$ such that the \emph{local} quotient $(P/\sim)_{\mathrm{loc}}$ of equivalence classes of orbits with respect to the local equivalence relation
 %     \begin{equation}
-%          \bm{x}_1\sim\bm{x}_2 \mbox{ if } \exists s\in\mathbb{R} \mbox{ s.t. } \bm{x}_2 = \Phi_x(\bm{x}_1) \mbox{ and } \bigcup_{t\in[0,s]}\Phi_t(\bm{x}_1)\subset U_{\bm{x}_0}
+%          \vb{x}_1\sim\vb{x}_2 \mbox{ if } \exists s\in\mathbb{R} \mbox{ s.t. } \vb{x}_2 = \Phi_x(\vb{x}_1) \mbox{ and } \bigcup_{t\in[0,s]}\Phi_t(\vb{x}_1)\subset U_{\vb{x}_0}
 %     \end{equation}
 %     is well defined and is a smooth manifold of dimension $2n-1$.
 
@@ -6609,9 +6607,9 @@ The topic is vast, interesting and very actively developed. I hope the selection
 %     But the dimension of $P/\sim$ is odd, therefore the Poisson bracket on the quotient is necessarily degenerate.
 %     This means that there is a $\mathcal{C}^{\infty}$ function that commutes with all the $\mathcal{C}^{\infty}$ functions on the quotient, but this is easily identified as it is $F$ itself!
 %     This function generates the group action $\Phi_s$ which becomes trivial on the quotient $P/\sim$.
-%     It then follows from Frobenius' theorem \todo{add statement and proof?} that we can define a symplectic structure on the level surface of $F(\bm{x}) = f$ of $F$ for values of the parameter $f$ close enough to $f_0 = F(\bm{x}_0)$: 
+%     It then follows from Frobenius' theorem \todo{add statement and proof?} that we can define a symplectic structure on the level surface of $F(\vb{x}) = f$ of $F$ for values of the parameter $f$ close enough to $f_0 = F(\vb{x}_0)$: 
 %     \begin{equation}\label{def:symleaf}
-%         P^f_{\mathrm{r}} := (F(\bm{x}) = f)/\sim.
+%         P^f_{\mathrm{r}} := (F(\vb{x}) = f)/\sim.
 %     \end{equation}
 %     The dimension of the \emph{symplectic leaf} \eqref{def:symleaf} in the $(2n-1)$-dimensional manifold $P/\sim$ is then equal to $2n-2$.
 
@@ -6624,7 +6622,7 @@ The topic is vast, interesting and very actively developed. I hope the selection
 
 %     Because $H$ and $F$ are in involution, $\big\{H,F\big\} = 0$, the flows generated by $X_H$ and $X_F$ commute.
 %     Therefore, the flow generated by $X_H$ moves somewhat rigidly the orbits of the group $\Phi_s$, that is, generates a flow on the orbits space.
-%     This is exactly the flow generated by the reduced hamiltonian $H^f_{\mathrm{r}}$ after its restriction on the symplectic leaf $F(\bm{x}) = f$.
+%     This is exactly the flow generated by the reduced hamiltonian $H^f_{\mathrm{r}}$ after its restriction on the symplectic leaf $F(\vb{x}) = f$.
 
 %     We have shown the following theorem.
 
