@@ -21,6 +21,15 @@ mathjax,                    % Use MathJax to display math.
 \HTMLLanguage{en-UK}
 \HTMLDescription{Lecture notes for Hamiltonian Mechanics}
 
+\usepackage{babel}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks,
+  linkcolor={blue!60!black},
+  citecolor={blue!60!black},
+  urlcolor={blue!60!black},
+  linktoc=page,
+  hypertexnames=false}
 
 \usepackage{booktabs}
 
@@ -53,31 +62,27 @@ mathjax,                    % Use MathJax to display math.
 \PassOptionsToPackage{ type={CC}, modifier={by-nc-sa}, version={4.0}, }{doclicense}
 \usepackage{doclicense}
 
-\usepackage{babel}
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks,
-  linkcolor={blue!60!black},
-  citecolor={blue!60!black},
-  urlcolor={blue!60!black},
-  linktoc=page,
-  hypertexnames=false}
 \DeclareTextCommandDefault{\textbullet}{\ensuremath{\bullet}}
+
+\usepackage[backend=bibtex, style=alphabetic, natbib=true, sortcites=false, noerroretextools]{biblatex}
+\addbibresource{hm.bib}
+
+% workaround needed for autonum
+\let\etoolboxforlistloop\forlistloop 
 \usepackage{autonum}
+\let\forlistloop\etoolboxforlistloop
 
 \begin{warpprint}
-  \usepackage[numbers, sort]{natbib}
-  \setlength{\bibsep}{3pt}
-  \renewcommand{\bibfont}{\small}
+  %\usepackage[numbers, sort]{natbib}
+  %\setlength{\bibsep}{3pt}
+  %\renewcommand{\bibfont}{\small}
   \usepackage{doi}
-  \bibliographystyle{plainnat}
-  % trick for bibliography in subfiles -- part 1
-  \def\biblio{\bibliographystyle{plainnat}\bibliography{../book}}
+  %\bibliographystyle{plainnat}
 \end{warpprint}
 
 \begin{warpHTML}
   \newcommand{\doi}[1]{\href{https://doi.org/#1}{#1}}
-  \bibliographystyle{alpha}
+  %\bibliographystyle{alpha}
 \end{warpHTML}
 
 \DeclareMathOperator{\D}{D}
@@ -123,8 +128,6 @@ mathjax,                    % Use MathJax to display math.
 
 \usepackage{scrhack}
 \begin{document}
-% trick for bibliography in subfiles -- part 2
-\def\biblio{}
 
 \maketitle
 
@@ -178,20 +181,29 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
   Last but not least, I owe a huge debt of gratitude to \href{https://crojasmolina.com}{Constanza Rojas-Molina}, who kindly allowed me to use some of her beautiful artworks in these notes.
 
-  \chapter{Classical mechanics, from Newton to Lagrange and back}
+  \chapter{Classical mechanics}
 
-  In this chapter we will review some basic concepts of classical mechanics.\
+  In this chapter we will review some basic concepts of classical mechanics.
   In particular we will briefly discuss variational calculus, Lagrangian mechanics and Newtonian mechanics, superficially presenting along the way some simple examples to motivate part of the rest of the course.
   For a deeper and more detailed account, you can refer to \cite{book:arnold,book:knauf}.
 
-  \section{Newtonian mechanics}
+  \section{Newtonian mechanics of point particles}
 
-  Our main interest will be in describing equations of motion of an idealized \emph{point particle}.
-  This is a point--like object obtained by ignoring the dimensions of the physical object. Note that in many cases this is a reasonable approximation, for example, when describing planetary motion around the sun, we can consider the planet and the sun as two point particles without affecting much the qualitative properties of the system.
-  Of course this is not a universal simplification: for instance, we cannot do it when describing the motion of a planet around its axes.
+  In the elementary formulation we will focus on, our primary interest is in describing the equations of motion for an idealized \emph{point particle}.
+  This is a point--like object obtained by ignoring the dimensions of the physical object.
+  Note that in many cases this is a reasonable first approximation.
+  For example, when describing planetary motion around the sun, we can consider the planet and the sun as two point particles without significantly affecting the qualitative properties of the system.
+  After all the sun is about 150 million kilometers away from the Earth, compared to which their sizes are negligible.
+    The diameter of the sun is just 0.9\% of this distance and the diameter of the Earth a mere 0,008\%.
+  \begin{figure}
+    \centering
+    \includegraphics[width=.9\linewidth]{images/sun-earth-scale.pdf}
+    \caption{The sun and the Earth to scale. Everything is in the correct scale, there is a --practically invisible-- blue dot at the end of the line}%
+  \end{figure}
+    Of course this is not a universal simplification, even for celestial systems: for instance, we cannot do it when describing the motion of a planet around its axes.
+  In this case, the shape and the internal structure of the body becomes to relevant to ingore.
 
-  For us, a point particle usually carries a \emph{mass} $m$.
-  Its \emph{position} in space is described by the position vector $\vb*{x} = (x, y ,z)$.
+   A point particle is first of all a point, a dimensionless mathematical object in space: its \emph{position} in space is described by the position vector $\vb*{x} = (x, y ,z)$.
   Keep in mind that
   \begin{equation}
     \vb*{x} : \mathbb{R}\to\mathbb{R}^3,\quad t \mapsto \vb*{x}(t),
@@ -209,6 +221,8 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
   \begin{equation}
     \vb*{a} = \dv[2]{\vb*{x}}{t} =: \ddot{\vb*{x}} = (\ddot{x}, \ddot{y}, \ddot{z}).
   \end{equation}
+
+  For us, the main distinction between a mathematical point and a point particle, is that the latter usually carries a \emph{mass} $m$. This is a scalar quantity that, as we will see, measures its resistance to changes in its state of motion, also known as \emph{inertia}.
 
   \begin{tcolorbox}
     The mechanics of the particle is encoded by \emph{Newton's second law of motion}.
@@ -6651,6 +6665,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       % % % \subfile{chapters/contact}
       % \end{appendices}
  
-      \bibliography{hm}
+      %\bibliography{hm}
       \addcontentsline{toc}{chapter}{Bibliography}
+      \printbibliography
 \end{document}
