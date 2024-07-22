@@ -68,7 +68,7 @@ mathjax,                    % Use MathJax to display math.
 \addbibresource{hm.bib}
 
 % workaround needed for autonum
-\let\etoolboxforlistloop\forlistloop 
+\let\etoolboxforlistloop\forlistloop
 \usepackage{autonum}
 \let\forlistloop\etoolboxforlistloop
 
@@ -212,7 +212,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
   In most cases, this will be implicitly assumed and we will omit the explicit dependence on $t$.
 
   The \emph{velocity} of the point particle is given by the rate of change of the position vector,
-  i.e., its derivative with respect to time\footnote{Notation: the symbol $a := b$ means that $a$ is defined by the expression $b$, similarly $b =: a$ is the same statement but read from right to left.} 
+  i.e., its derivative with respect to time\footnote{Notation: the symbol $a := b$ means that $a$ is defined by the expression $b$, similarly $b =: a$ is the same statement but read from right to left.}
   \begin{equation}
     \vb*{v} = \dv{\vb*{x}}{t} =: \dot{\vb*{x}} = (\dot{x}, \dot{y}, \dot{z}).
   \end{equation}
@@ -288,6 +288,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     Clearly, once we know the initial conditions, the full evolution of the solution $x(t)$ is known, in agreement with Newton's principle of determinacy. \medskip
 
     \begin{figure}[ht!]
+      \centering
       \includegraphics[width=.9\linewidth]{images/HM-1-2.pdf}
       \caption{Left: horizontal spring. Right: planar pendulum.}%
       \label{fig:spring-pendulum}
@@ -857,6 +858,13 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     The fact that $H(x,y)$ remains constant on the trajectories is crucial: when this happens we say that the total energy of the system is a \emph{conserved quantity}.
     A curve $(x(t), y(t))$ spanned by a solution of \eqref{eq:oscillatorfirstorder} is called a \emph{phase curve}.
 
+    \begin{figure}[htbp]
+      \centering
+      \includegraphics[width=.7\linewidth]{images/potential-curves-pendulum.pdf}
+      \caption{Integral curves for the pendulum}
+      \label{fig:pendulum}
+    \end{figure}
+
     \begin{example}
       Note that Theorem~\ref{thm:ham1} applies to Example~\ref{ex:sprPen}.
       \begin{itemize}
@@ -869,12 +877,8 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \end{itemize}
     \end{example}
 
-    \begin{figure}[htbp]
-      \centering
-      \includegraphics[width=.7\linewidth]{images/potential-curves-pendulum.pdf}
-      \caption{Integral curves for the pendulum}
-      \label{fig:pendulum}
-    \end{figure}
+    \warpHTMLonly{<div align=center><iframe height=530 width=800 src=https://editor.p5js.org/mseri/full/iar8GHKTU></iframe></div>}
+    \warpHTMLonly{<div align=center><iframe height=530 width=800 src=https://editor.p5js.org/mseri/full/kU1aO7EoZ></iframe></div>}
 
     From these examples we already see that phase curves can consist of only one point. In such cases, the points are called \emph{equilibrium} points.
 
@@ -993,7 +997,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     and to reason about further properties of the solutions.
     To grasp where this comes from, it is enough to spell out
     \begin{equation}
-      \frac m2 \left(\frac{\dd x}{\dd t}\right)^2 = E - U(x) 
+      \frac m2 \left(\frac{\dd x}{\dd t}\right)^2 = E - U(x)
     \end{equation}
     and perform some formal computations with the differentials.
 
@@ -2957,7 +2961,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \begin{quote}
         $f$ is the Legendre transform of $g$ if
         \(
-        f' = (g')^{-1}, 
+        f' = (g')^{-1},
         \)
       \end{quote}
       which nicely emphasizes involutivity and duality between the two functions.
@@ -3295,7 +3299,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     One of the many advantages of the hamiltonian approach comes from an elegant algebraic description.
     This will play a central role in the study of conserved quantities, and provides a remarkable duality with the mathematical description of quantum mechanics.
 
-    From now on, we will denote by $q = (q^1, \ldots, q^n)$ the local coordinates on $M$, and 
+    From now on, we will denote by $q = (q^1, \ldots, q^n)$ the local coordinates on $M$, and
     \begin{equation}
       (q^1, \ldots, q^n, p_1, \ldots, p_n)\in T^*M
     \end{equation}
@@ -5524,7 +5528,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
       \begin{theorem}[Liouville-Arnold]\label{thm:liouvillearnold}
         Consider a completely integrable hamiltonian system on the phase space $\mathbb{R}^{2n}$.
-        Assume that there exists $E^0 = (E^0_1, \ldots, E^0_n)$ such that the functions 
+        Assume that there exists $E^0 = (E^0_1, \ldots, E^0_n)$ such that the functions
         \begin{equation}
           H_1(q,p), \ldots, H_n(q,p)
         \end{equation}
@@ -6642,13 +6646,13 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       %     But the dimension of $P/\sim$ is odd, therefore the Poisson bracket on the quotient is necessarily degenerate.
       %     This means that there is a $\mathcal{C}^{\infty}$ function that commutes with all the $\mathcal{C}^{\infty}$ functions on the quotient, but this is easily identified as it is $F$ itself!
       %     This function generates the group action $\Phi_s$ which becomes trivial on the quotient $P/\sim$.
-      %     It then follows from Frobenius' theorem \todo{add statement and proof?} that we can define a symplectic structure on the level surface of $F(\vb*{x}) = f$ of $F$ for values of the parameter $f$ close enough to $f_0 = F(\vb*{x}_0)$: 
+      %     It then follows from Frobenius' theorem \todo{add statement and proof?} that we can define a symplectic structure on the level surface of $F(\vb*{x}) = f$ of $F$ for values of the parameter $f$ close enough to $f_0 = F(\vb*{x}_0)$:
       %     \begin{equation}\label{def:symleaf}
       %         P^f_{\mathrm{r}} := (F(\vb*{x}) = f)/\sim.
       %     \end{equation}
       %     The dimension of the \emph{symplectic leaf} \eqref{def:symleaf} in the $(2n-1)$-dimensional manifold $P/\sim$ is then equal to $2n-2$.
 
-      %     Finally, the original hamiltonian $H$, being invariant with respect to the action of $\Phi_s$, defines a function on the quotient e, therefore, on its restriction to the symplectic leaf $P^f_{\mathrm{r}}$. We denote this restriction with 
+      %     Finally, the original hamiltonian $H$, being invariant with respect to the action of $\Phi_s$, defines a function on the quotient e, therefore, on its restriction to the symplectic leaf $P^f_{\mathrm{r}}$. We denote this restriction with
       %     \begin{equation}
       %         H^f_{\mathrm{r}} \in \mathcal{C}^\infty(P^f_{\mathrm{r}}).
       %     \end{equation}
@@ -6664,7 +6668,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       % % \chapter{Contact geometry and contact mechanics}
       % % % \subfile{chapters/contact}
       % \end{appendices}
- 
+
       %\bibliography{hm}
       \addcontentsline{toc}{chapter}{Bibliography}
       \printbibliography
