@@ -14,12 +14,15 @@ HomeHTMLFilename=index,     % Filename of the homepage.
 HTMLFilename={chapter-},       % Filename prefix of other pages.
 %   IndexLanguage=english,      % Language for xindy index, glossary.
 mathjax,                    % Use MathJax to display math.
+makeindex
 ]{lwarp}
 \setcounter{FileDepth}{0}
 \boolfalse{FileSectionNames} % Number the file names
 \booltrue{CombineHigherDepths} % Combine parts/chapters/sections
 \HTMLLanguage{en-UK}
 \HTMLDescription{Lecture notes for Hamiltonian Mechanics}
+
+\usepackage{makeidx}
 
 \usepackage{babel}
 \usepackage{hyperref}
@@ -125,8 +128,11 @@ mathjax,                    % Use MathJax to display math.
 }
 \date{}
 
-
 \usepackage{scrhack}
+
+\newcommand{\eindex}[1]{\index{#1}\emph{#1}}
+\makeindex[intoc]
+
 \begin{document}
 
 \maketitle
@@ -189,55 +195,61 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
   \section{Newtonian mechanics of point particles}
 
-  In the elementary formulation we will focus on, our primary interest is in describing the equations of motion for an idealized \emph{point particle}.
+  In the elementary formulation we will focus on, our primary interest is in describing the equations of motion for an idealized \eindex{point particle}.
   This is a point--like object obtained by ignoring the dimensions of the physical object.
   Note that in many cases this is a reasonable first approximation.
   For example, when describing planetary motion around the sun, we can consider the planet and the sun as two point particles without significantly affecting the qualitative properties of the system.
   After all the sun is about 150 million kilometers away from the Earth, compared to which their sizes are negligible.
-    The diameter of the sun is just 0.9\% of this distance and the diameter of the Earth a mere 0,008\%.
+  The diameter of the sun is just 0.9\% of this distance and the diameter of the Earth a mere 0,008\%. See Figure~\ref{fig:sun-earth-scale}.
   \begin{figure}
     \centering
     \includegraphics[width=.9\linewidth]{images/sun-earth-scale.pdf}
-    \caption{The sun and the Earth to scale. Everything is in the correct scale, there is a --practically invisible-- blue dot at the end of the line}%
+    \caption{The sun and the Earth to scale. Everything is in the correct scale, there is a --practically invisible-- blue dot at the end of the line}\label{fig:sun-earth-scale}%
   \end{figure}
-    Of course this is not a universal simplification, even for celestial systems: for instance, we cannot do it when describing the motion of a planet around its axes.
+  Of course this is not a universal simplification, even for celestial systems: for instance, we cannot do it when describing the motion of a planet around its axes.
   In this case, the shape and the internal structure of the body becomes to relevant to ingore.
 
-   A point particle is first of all a point, a dimensionless mathematical object in space: its \emph{position} in space is described by the position vector $\vb*{x} = (x, y ,z)$.
-  Keep in mind that
+   A point particle is first of all a point, a dimensionless mathematical object in space: its \eindex{position} in space is described by the position vector $\vb*{x} = (x, y ,z)$.
+   Keep in mind that
   \begin{equation}
     \vb*{x} : \mathbb{R}\to\mathbb{R}^3,\quad t \mapsto \vb*{x}(t),
   \end{equation}
   is a function of time that describes the instantaneous state of the system during its evolution.
   In most cases, this will be implicitly assumed and we will omit the explicit dependence on $t$.
 
-  The \emph{velocity} of the point particle is given by the rate of change of the position vector,
+  The \eindex{velocity} of the point particle is given by the rate of change of the position vector,
   i.e., its derivative with respect to time\footnote{Notation: the symbol $a := b$ means that $a$ is defined by the expression $b$, similarly $b =: a$ is the same statement but read from right to left.}
   \begin{equation}
     \vb*{v} = \dv{\vb*{x}}{t} =: \dot{\vb*{x}} = (\dot{x}, \dot{y}, \dot{z}).
   \end{equation}
-
-  We call \emph{acceleration}, the rate of change of the velocity, i.e., the second derivative
+  %
+  We call \eindex{acceleration}, the rate of change of the velocity, i.e., the second derivative
   \begin{equation}
     \vb*{a} = \dv[2]{\vb*{x}}{t} =: \ddot{\vb*{x}} = (\ddot{x}, \ddot{y}, \ddot{z}).
   \end{equation}
 
-  For us, the main distinction between a mathematical point and a point particle, is that the latter usually carries a \emph{mass} $m$. This is a scalar quantity that, as we will see, measures its resistance to changes in its state of motion, also known as \emph{inertia}.
+  For us, the main distinction between a mathematical point and a point particle, is that the latter usually carries a \emph{mass} $m$.
+  This is a scalar quantity that, as we will see, measures its resistance to changes in its state of motion, also known as \eindex{inertia}.
 
-  \begin{tcolorbox}
-    The mechanics of the particle is encoded by \emph{Newton's second law of motion}.
-    That is, there exist \emph{frames of reference} (i.e systems of coordinates) in which the motion of the particle is described by a differential equation involving the forces $\vb*{F}$ acting on the point particle, its mass $m$ and its acceleration as follows\footnote{This is not completely true, Newton was already talking about momentum, which \href{https://web.archive.org/web/20211201082909/https://bigthink.com/starts-with-a-bang/most-important-equation-physics/}{makes a deep difference} but would set us off-course right now.}
+  \begin{tcolorbox}[title=Newton's second law of motion]
+    \index{Newton's second law}
+    There exist \eindex{frames of reference}, that is, systems of coordinates, in which the motion of the particle is described by a differential equation involving the forces $\vb*{F}$ acting on the point particle, its mass $m$ and its acceleration as follows
     \begin{equation}\label{eq:newton}
       \vb* F = m \ddot{\vb*{x}}.
     \end{equation}
   \end{tcolorbox}
-  Let's leave it here for now, we will come back to it later on.
-  \medskip
+
+  Note that the law as described above is not completely true: Newton was already talking about momentum, which \href{https://web.archive.org/web/20211201082909/https://bigthink.com/starts-with-a-bang/most-important-equation-physics/}{makes a deep difference}, but would set us off-course right now.
+  Let's leave it here for the time being; we will come back to this later on.
+
+  \subsection{From particles to systems of particles}
 
   In general we will consider systems of $N$ point particles.
   These will be described by a set of $N$ position vectors $\vb*{x}_k = (x_k, y_k ,z_k)$ with masses $m_k$, $k = 1, \ldots, N$.
-  For convenience we will denote\footnote{Here we are identifying $\mathbb{R}^{3\times N}$, the space of $3\times N$ matrices, and $\mathbb{R}^{3N}$, the space of $3N$ vectors. Namely, $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N) = (x_1, y_1, z_1, x_2, y_2, z_2, \ldots, x_N, y_N, z_N)$ is used interchangeably as the vector of positions of the points in three-space or as the vector including all the positions of the $N$ bodies together.} $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N)\in\mathbb{R}^{3N}$, and $\vb*{m} = (m_1, \ldots, m_N)\in\mathbb{R}^N$.
-  We call $\vb*{x}(t)$ the \emph{configuration} of the system at time $t$ in the \emph{configuration space} $\mathbb{R}^{3N}$.
+  For convenience we will denote $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N)\in\mathbb{R}^{3N}$, and $\vb*{m} = (m_1, \ldots, m_N)\in\mathbb{R}^N$.
+  We call $\vb*{x}(t)$ the \eindex{configuration} of the system at time $t$ in the \eindex{configuration space} $\mathbb{R}^{3N}$.
+
+  Note that we are identifying $\mathbb{R}^{3\times N}$, the space of $3\times N$ matrices, and $\mathbb{R}^{3N}$, the space of $3N$ vectors. Namely, $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N) = (x_1, y_1, z_1, x_2, y_2, z_2, \ldots, x_N, y_N, z_N)$ is used interchangeably as the vector of positions of the points in three-space or as the vector including all the positions of the $N$ bodies together.
 
   \begin{example}\label{example:gcoords}
     For example a system of two rigid pendulums in space constrained to oscillate on a vertical plane, is described by two position vectors, so $\vb*{x} = (\vb*{x}_1, \vb*{x}_2)\in\mathbb{R}^{6}$.
@@ -6669,6 +6681,10 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       % \end{appendices}
 
       %\bibliography{hm}
-      \addcontentsline{toc}{chapter}{Bibliography}
+
       \printbibliography
+      \addcontentsline{toc}{chapter}{Bibliography}
+
+      \printindex
+      \addcontentsline{toc}{chapter}{Index}
 \end{document}
