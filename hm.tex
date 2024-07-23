@@ -144,7 +144,7 @@ makeindex
 \thispagestyle{empty}
 \null\vfill
 \begin{center}
-  Version 1.11\\
+  Version 1.20 alpha\\
   \today
 \end{center}
 \begin{warpprint}
@@ -161,6 +161,7 @@ makeindex
 \pagenumbering{arabic}
 \chapter*{Preface}
 
+\todo{Rewrite}
 The literature on classical (or analytical, as it was called by Lagrange) mechanics is full of good material.
 Different sources present the topic from different perspectives and with different points of view, and may suite different people differently.
 In these lecture notes I am iterating on my perspective.
@@ -209,7 +210,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     \caption{The sun and the Earth to scale. Everything is in the correct scale, there is a --practically invisible-- blue dot at the end of the line}\label{fig:sun-earth-scale}%
   \end{figure}
   Of course this is not a universal simplification, even for celestial systems: for instance, we cannot do it when describing the motion of a planet around its axes.
-  In this case, the shape and the internal structure of the body becomes to relevant to ingore.
+  In this case, the shape and the internal structure of the body becomes to relevant to ignore.
 
    A point particle is first of all a point, a dimensionless mathematical object in space: its \emphidx{position} in space is described by the position vector $\vb*{x} = (x, y ,z)$.
    Keep in mind that
@@ -400,25 +401,30 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.
   \end{quotation}
 
-  In other words, this principle states that the initial state $\left(q(t_0), \dot q(t_0)\right)$ uniquely determines its evolution $\left(q(t),\dot q(t)\right)$ for $t > t_0$.
-  We had already observed this fact in Example~\ref{ex:sprPen} of the pendulum, where the initial position and velocity uniquely determined the future trajectory.
-  The Picard-Lindel\"of theorem, also known as ``Existence and uniqueness of solutions of initial value problems'' \cite[Theorem 3.17]{book:knauf}, implies that Newton's principle of determinacy is locally satisfied by the \emphidx{equations of motion} of the mechanical system, i.e., second order differential equations derived from Newton's law.
+  In other words, this principle states the following.
+
+  \begin{tcolorbox}[title=Newton's principle of determinacy]
+    The initial state $\left(q(t_0), \dot q(t_0)\right) \in \mathbb{R}^n$ of a physical system with $n$ degrees of freedom, uniquely determines its evolution $\left(q(t),\dot q(t)\right)$ for all $t > t_0$.
+  \end{tcolorbox}
+
+  We had already observed this fact in Example~\ref{ex:sprPen} of the pendulum, where the initial position and velocity uniquely determined the whole trajectory.
+  Picard-Lindel\"of theorem, also known as ``Existence and uniqueness of solutions of initial value problems'' \cite[Theorem 3.17]{book:knauf}, implies that Newton's principle of determinacy is locally satisfied by the \emphidx{equations of motion} of most mechanical systems, i.e., second order differential equations derived from Newton's law.
 
   \section{Hamilton's variational principle}\label{sec:varpri}
 
   In order to leave more space to discuss Hamiltonian systems and their geometry, we will be brief in our account of Lagrangian mechanics and calculus of variations, although not as brief as this \href{https://web.archive.org/web/20220404153248/https://twitter.com/j\_bertolotti/status/1397159397596581889}{twitter thread}.
-  This, however, should not confuse you: Lagrangian mechanics plays a role as large as Hamiltonian mechanics in the development of classical mechanics!
-  In fact, many sources claim that the most general formulation of the equations of motion in classical mechanics comes from the \emph{principle of least action} or \emph{Hamilton's variational principle}.
-  According to this principle, stated in 1834, the equations of motion of a mechanical system are characterized by a function
+  Our quick treatment shouldn't mislead you, though. Lagrangian mechanics is just as crucial as Hamiltonian mechanics in the grand scheme of classical physics.
+  In fact, many would argue that the most general formulation of motion equations in classical mechanics comes from the \emph{principle of least action}, also known as \emph{Hamilton's variational principle}.
+This principle, introduced by Hamilton in 1834, suggests that a mechanical system's equations of motion are characterized by a function
   \begin{equation}
-    L \equiv L(q, \dot q, t) : \mathbb{R}^n \times \mathbb{R}^n \times \mathbb{R} \to \mathbb{R},
+    L \equiv L(q, v, t) : \mathbb{R}^n \times \mathbb{R}^n \times \mathbb{R} \to \mathbb{R},
   \end{equation}
   called the \emphidx{lagrangian} (function) of the system.
 
   \begin{example}
     The lagrangian of a mechanical system consisting of a point particle with mass $m > 0$ in a potential $U : \mathbb{R}^n \to \mathbb{R}$ is
     \begin{equation}
-      L(q, \dot q, t) = \frac12 m \|\dot q\|^2 - U(q),
+      L(q, v, t) = \frac12 m \|v\|^2 - U(q),
     \end{equation}
     which is the difference between the so-called \emph{kinetic energy} of the particle and its so-called \emph{potential energy} $U$.
     We will see where this equation comes from in Section~\ref{sec:dynamicspps}.
@@ -431,18 +437,17 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
   \begin{tcolorbox}[title=Principle of least action]
     \index{principle of least action}\index{Hamilton's principle}
-    Consider a system with $n$ degrees of freedom.
-    Assume that the system is in the configuration $q_1 = (q_1^1, \ldots, q_1^n)$ at an initial time $t=t_1$ and $q_2 = (q_2^1, \ldots, q_2^n)$ at a final time $t = t_2$.
+    Consider a system with $n$ degrees of freedom which is in the configuration $q_1 = (q_1^1, \ldots, q_1^n)$ at an initial time $t_1$ and $q_2 = (q_2^1, \ldots, q_2^n)$ at a final time $t_2 > t_1$.
 
     The \emph{principle of least action}, or \emph{Hamilton's principle}, states that the evolution of the system in the time interval $[t_1, t_2]$ corresponds to the curve $q(t)$ which is the \emph{critical point} of the action functional $S[q]$ on the space of curves $\gamma:[t_1, t_2] \to \mathbb{R}^n$ with fixed endpoints $\gamma(t_1) = q_1$ and $\gamma(t_2) = q_2$.
   \end{tcolorbox}
 
   To make this precise, we will need to recall some preliminary concepts and make sense of differentiation in $\infty$-dimensional spaces.\medskip
 
-  To state this properly we need the concept of \emphidx{Banach space}, that is a complete normed vector space. If $X$ denotes a Banach space, then we will denote the corresponding norm by $\|\cdot\|_X$.
+  We will present the theory in the general setting of \emphidx{Banach spaces}, that is, complete normed vector spaces. If $X$ is a Banach space, then we will denote the corresponding norm by $\|\cdot\|_X$.
 
   Let $X$ and $Y$ be Banach spaces and $G\subset X$ an open subset of $X$.
-  A function $f: G \to Y$ is called \emph{Fr\'echet differentiable} \index{Frechet ! differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that
+  A function $f: G \to Y$ is called \emph{Fr\'echet differentiable} \index{Frechet!differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that
   \begin{equation}\label{eq:frechetdiff}
     f(x+h) = f(x) + Ah + o(\|h\|_X)
   \end{equation}
@@ -451,7 +456,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     \begin{equation}
       \lim_{\|h\| \to 0} \frac{\|g(h)\|_Y}{\|h\|_X} = 0.
     \end{equation}
-  As in the finite-dimensional case, $A$ is uniquely determined and is called the \emph{Fr\'echet derivative} \index{Frechet ! derivative} of $f$ at $x$ and is denoted $D f(x)$.
+  As in the finite-dimensional case, $A$ is uniquely determined and is called the \emph{Fr\'echet derivative} \index{Frechet!derivative} of $f$ at $x$, which we will denote $D f(x)$.
 
   \begin{remark}
     \begin{enumerate}
@@ -463,7 +468,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     \end{enumerate}
   \end{remark}
 
-  Let $f: X \to \mathbb{R}$ be a (Fr\'echet) differentiable function and $X_0 \subset X$ be a subspace of $X$. Then $\gamma_\star$ is a \emph{critical point} \index{action ! critical point} of $f$ with respect to $X_0$ if
+  Let $f: X \to \mathbb{R}$ be a (Fr\'echet) differentiable function and $X_0 \subset X$ be a subspace of $X$. Then $\gamma_\star$ is a \emph{critical point} \index{action!critical point} of $f$ with respect to $X_0$ if
   \begin{equation}
     Df\big(\gamma_\star\big)\Big|_{X_0} = 0, \quad\mbox{i.e.}\quad
     Df\big(\gamma_\star\big)h = 0 \mbox{ for all } h\in X_0.
@@ -486,7 +491,6 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
   and the evolution of the system is described by the critical points with respect to $\mathcal{C}^2_0$ of $S$ on the space of $\gamma \in \mathcal{C}^2$ with prescribed endpoints.
 
   \todo{Consider rewriting using q and v instead of qdot.}
-
   \begin{theorem}
     Let $L = L(q, \dot q, t) : \mathbb{R}^{n}\times \mathbb{R}^{n}\times \mathbb{R} \to \mathbb{R}$ be differentiable.
     The equations of motion for the mechanical system with lagrangian $L$ are given by the \emphidx{Euler-Lagrange equations}
@@ -502,7 +506,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
   Therefore, you should read the Euler-Lagrange equations above as
   \begin{equation}
-  \frac{\dd}{\dd t}\Bigg(\frac{\partial L(x,v)}{\partial v^i}\Big|_{(x,v) = (q(t),v(t))}\Bigg) - \frac{\partial L(x,v)}{\partial x^i}\Big|_{(x,v) = (q(t),v(t))} = 0, \qquad i=1,\ldots n.
+  \frac{\dd}{\dd t}\Bigg(\frac{\partial L(x,v)}{\partial v^i}\Big|_{(x,v) = (q(t),\dot q(t))}\Bigg) - \frac{\partial L(x,v)}{\partial x^i}\Big|_{(x,v) = (q(t),\dot q(t))} = 0, \qquad i=1,\ldots n.
   \end{equation}
   This explicit formulation, though precise, illustrates why such notational shortcuts are common and why I chose to adopt them.
   \end{remark}
@@ -569,53 +573,56 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     \end{proof}
 
     \begin{remark}
-      The solution $q=q(t)$ of the Euler-Lagrange equations is just a critical point of the $S$ functional:
-      \begin{equation}
-        S[q + \delta q] - S[q] = O(\|\delta q\|^2).
-      \end{equation}
-      It does \textbf{not} have to be a minimum. However, under some additional conditions it can be proven to be a \emph{local} minimum.
+      In general, the solution $q=q(t)$ of the Euler-Lagrange equations is just a \textbf{critical} point of the $S$ functional, i.e., it satisfies $S[q + \delta q] - S[q] = O(\|\delta q\|^2)$.
+      It does \textbf{not} have to be a minimum.
+      However, under some additional conditions it can be proven to be a \emph{local} minimum.
       For example, if the matrix of second derivatives
       \begin{equation}\label{eq:hsd}
-        \Lambda := \left(
-          \frac{\partial^2 L}{\partial\dot q^i \partial\dot q^j}
-        \right)_{1\leq i,j\leq n}
+        \Lambda := \left( \pdv{L}{\dot q^i}{\dot q^j} \right)_{1\leq i,j\leq n}
       \end{equation}
       is positive definite.
-      This case is thoroughly studied in calculus of variation and in some instances of differential geometry.
+      This case is thoroughly studied in calculus of variation and in some branches of differential geometry.
     \end{remark}
 
     \begin{corollary}
-      If the lagrangian of the system is \emph{non--degenerate}, i.e., it satisfies the condition
+      If the lagrangian $L$ of a system is \emph{non--degenerate}\index{lagrangian!non-degenerate}, i.e., it satisfies the condition
       \begin{equation}
-        \det \left(\frac{\partial^2 L}{\partial\dot q^i \partial\dot q^j}
+        \det \left(\pdv{L}{\dot q^i}{\dot q^j}
         \right)_{1\leq i,j\leq n} \neq 0
       \end{equation}
-      then it satisfies Newton's determinacy principle.
+      then the system satisfies Newton's determinacy principle.
     \end{corollary}
+
+    \begin{tcolorbox}[title=Einstein's convention]
+      From now on, we will follow \emphidx{Einstein's convention}, that is, we will omit the summation symbol $\sum$ whenever an index appears twice in an expression.
+      For example, $y^{ji} x_i \equiv \sum_i y^{ji} x_i$.
+    \end{tcolorbox}
+
 
     \begin{proof}
       For a non--degenerate lagrangian, a direct computation shows that the Euler-Lagrange equations can be rewritten in the form
       \begin{equation}
         \ddot q^i = f^i(q,\dot q, t)
-        := \Lambda^{ij}\left(\frac{\partial L}{\partial q^j} - \frac{\partial^2 L}{\partial \dot q^j \partial q^k} \dot q^k - \frac{\partial^2 L}{\partial\dot q^j \partial t}\right),
+        := \Lambda^{ij}\left(\pdv{L}{q^j} - \pdv{L}{\dot q^j}{q^k} \dot q^k - \pdv{L}{\dot q^j}{t}\right),
         \quad i=1,\ldots,n.
       \end{equation}
-      Here $\left(\Lambda^{ij}\right) = \left(\Lambda^{ij}(q, \dot q, t)\right)$ are the coefficients of the inverse to the matrix \eqref{eq:hsd}, i.e.,
+      Here $\left(\Lambda^{ij}\right) = \left(\Lambda^{ij}(q, \dot q, t)\right)$ are the coefficients of the inverse to the matrix $\Lambda$ from equation \eqref{eq:hsd}, i.e.,
       \begin{equation}
-        \Lambda^{ik} \frac{\partial^2 L}{\partial \dot q^k \partial \dot q^j} = \delta_{ij},
+      \Lambda^{ik} \pdv{L}{\dot q^k}{\dot q^j} = \delta^{i}_{j}.
       \end{equation}
-      and it is crucial to remember that we are always using Einstein's convention\footnote{That is, we are summing over repeated indices, for example, $y^{ji} x_i \equiv \sum_i y^{ji} x_i$.}.
     \end{proof}
 
-    In other words, we can use Euler-Lagrange equations as the equations of motion of a mechanical system with non--degenerate lagrangian.
+    The proof of the corollary above shows that the Euler-Lagrange equations are a system of second order differential equations for the generalized coordinates $q$.
+    As such, we can use Euler-Lagrange equations as the equations of motion of a mechanical system with non--degenerate lagrangian.
 
     \begin{remark}\label{rmk:manylagrangians}
+      \index{lagrangian!nonuniqueness}
       \emph{The lagrangian of a mechanical system is defined only up to total derivatives}.
-      Or, in other words, the equations of motion remain unchanged if we add a total derivative to the lagrangian function:
+      That is, the equations of motion remain unchanged if we add a total derivative to the lagrangian function:
       \begin{equation}
         \widetilde L(q,\dot q, t) = L(q, \dot q, t) + \frac{\dd}{\dd t} f(q,t).
       \end{equation}
-      The action $\widetilde S$ of a system with lagrangian $\widetilde L$ is
+      Indeed, the action $\widetilde S$ of a system with lagrangian $\widetilde L$ is
       \begin{align}
         \widetilde S[q] & = \int_{t_1}^{t_2} \widetilde L(q, \dot q, t) \,\dd t                                       \\
                         & = \int_{t_1}^{t_2} L(q, \dot q, t) \,\dd t + \int_{t_1}^{t_2} \frac{\dd}{\dd t} f(q,t) \,\dd t \\
@@ -630,44 +637,48 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
       Similarly, \emph{the lagrangian of a mechanical system does not change if it is multiplied by a constant factor: $\widetilde L = \alpha L$}.
 
-      As an aside, quantum mechanical systems no longer remain invariant under the transformations above. Transformations of the first type lead to rather subtle and interesting effects related to topology, while the number $\alpha$ is related to Planck's constant.
+      As an aside, quantum mechanical systems no longer remain invariant under the transformations above. Transformations of the first type lead to rather subtle and interesting effects depending on the topology of the state space, while the number $\alpha$ is related to Planck's constant.
     \end{remark}
 
-    Coming back to our discussion: with so much freedom, how does one choose a normalization for the lagrangian then?
-    One way, is by using the \emph{principle of additivity}.
-    \begin{tcolorbox}
+    Inn general, physical intuition would suggest that we expect the lagrangian of some system to be constructed composing small subsystems.
+    When these subsystems are not interacting one would also expect them to be independent from each other.
+    This idea takes the name of \emphidx{principle of additivity}.
+    \begin{tcolorbox}[title=Principle of additivity]
       Assume that a mechanical system is the combination of two subsystems, say $A$ and $B$.
-      Let $L_A$ and $L_B$ be their respective lagrangian as if they were isolated (or \emph{closed}) systems.
-      The principle of additivity says that by moving the two subsystems farther apart from each other, in the limit of infinite distance, the lagrangian of the full system tends to the limit lagrangian
+      Let $L_A$ and $L_B$ be their respective lagrangians as if they were isolated (or \emph{closed}) systems.
+      By moving the two subsystems farther apart from each other, in the limit of infinite distance, the lagrangian of the full system tends to the limit lagrangian
       \begin{equation}
         L_{\lim} = L_A + L_B.
       \end{equation}
     \end{tcolorbox}
+    In more practical terms, this principle is saying that the equations of motion of the system $A$ cannot be dependent on quantities pertaining to $B$ and vice versa.
 
 
-    \subsection{Dynamics of point particles: from Lagrange back to Newton}\label{sec:dynamicspps}
+    \subsection{From Lagrange back to Newton}\label{sec:dynamicspps}
 
-    Mechanical laws for the same system can look very different from each other, with varying degrees of simplification or complication: think for example as the motion of planets in a geocentric system of coordinates.
-    There is a system of coordinates that simplifies our life the most: the \emph{inertial} coordinate system.
+    Mechanical laws for the same system can look very different from each other, with varying degrees of simplification or complication: think for example as the motion of planets in a geocentric system of coordinates. The planets will start showing all sorts of epicycles and retrograde motions, while in a heliocentric system they will just move in ellipses.
+    In fact, there is a system of coordinates that simplifies our life the most: the \emph{inertial} coordinate system\index{coordinate system!inertial}.
+    Sadly, it is not unique, however, the galilean principle of relativity states that all inertial systems are equivalent to each other in a rather specific way.
 
-    \begin{tcolorbox}
-      The \emph{galilean principle of relativity} says that there exist coordinate systems, called inertial, with the following two properties
+    \begin{tcolorbox}[title=Galilean principle of relativity]
+      There exist coordinate systems, called inertial, with the following two properties
       \begin{enumerate}
         \item all the laws of nature at all moments of time are the same in all inertial coordinate systems;
         \item all coordinate systems in uniform rectilinear motion with respect to an inertial one are themselves inertial.
       \end{enumerate}
     \end{tcolorbox}
 
-    Although the discussion on the group theoretical aspects of classical mechanics, which very much relates to this discussion, is very interesting and fascinating we will not discuss it here further, we leave \cite{book:marsdenratiu} as an interesting reference.
+    While the group-theoretical aspects of classical mechanics are deeply connected to our discussion and quite fascinating, we won't explore them further here.
+    For those intrigued by this topic, we suggest \cite{book:marsdenratiu} as an engaging reference.
 
-    For our concerns, an inertial system of coordinates on the galilean space-time is an isomorphism with the ``standard'' galilean structure $\mathbb{R}\times\mathbb{R}^3$.
-    If $(t, \vb*{x}) \in \mathbb{R}\times \mathbb{R}^3$ is an element of the ``standard'' galilean space-time, we call \emph{galilean transformations} the transformations $(t,\vb*{x}) \to (\widetilde t, \widetilde{\vb*{x}})$ listed below
+    For our concerns, an inertial system of coordinates on the galilean space-time is a system of coordinates that can be transformed into the ``standard'' galilean structure $\mathbb{R}\times\mathbb{R}^3$ via a galilean transformation.
+  If $(t, \vb*{x}) \in \mathbb{R}\times \mathbb{R}^3$ is an element of the ``standard'' galilean space-time, we call \emphidx{galilean transformation}s the transformations $(t,\vb*{x}) \mapsto (\widetilde t, \widetilde{\vb*{x}})$ listed below
     \begin{enumerate}
       \item translations: $\widetilde t = t + t_0$, $\widetilde{\vb*{x}} = \vb*{x} + \vb*{x}_0$, for $t_0\in\mathbb{R}$, $\vb*{x}_0\in\mathbb{R}^3$;
-      \item rotations and reflections: $\widetilde t = t$, $\widetilde{\vb*{x}} = G\vb*{x}$ for $G\in O(3)$;
+      \item rotations and reflections: $\widetilde t = t$, $\widetilde{\vb*{x}} = G\vb*{x}$ for $G\in O(3)$ a $3\times 3$ orthogonal matrix;
       \item uniform motions with velocity $\vb*{v}\in\mathbb{R}^3$: $\widetilde t = t$, $\widetilde{\vb*{x}} = \vb*{x} + \vb*{v} t$.
     \end{enumerate}
-    Then, the galilean principle of relativity says that the lagrangian of a closed mechanical system is invariant, modulo the sum of total derivatives, with respect to the galilean transformations.
+    Then, the galilean principle of relativity implies that the lagrangian of a closed mechanical system is invariant, modulo total derivatives, with respect to the galilean transformations. \medskip
 
     \begin{figure}[ht]
       \centering
@@ -688,22 +699,37 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       where $m\in\mathbb{R}$ is a constant called the \emph{mass} of the point particle.
     \end{theorem}
     \begin{proof}
-      The invariance from translations implies that the lagrangian must be independent from $t$ and $\vb*{x}$, while the invariance from orthogonal transformations implies that it must be dependent on the square of the velocities:
+      The invariance with respect to translations implies that $L(\vb*{x} + \vb*{x}_0, \dot{\vb*{x}}, t + t_0) = L(\vb*{x}, \dot{\vb*{x}}, t)$, that is, the lagrangian must be independent from $t$ and $\vb*{x}$: the lagrangian $L = L(\dot{\vb*{x}})$ must be a function of the velocity only.
+
+      Euler-Lagrange equations~\eqref{eq:eulerlagrange} then imply that the velocity must be constant. Indeed, we have
+      \begin{equation}
+      0 = \dv{t}\pdv{L}{\dot{\vb*{x}}} - \pdv{L}{\vb*{x}} = \dv{t}\pdv{L}{\dot{\vb*{x}}},
+      \end{equation}
+      that is, $\pdv{L}{\dot{\vb*{x}}} = \mathrm{const}$. Since $L$ only depends on the velocity, this means that either $L$ is the constant function, which would make Euler-Lagrange equations completely trivial, or $\dot{\vb*{x}}(t) = \mathrm{const}$.
+
+      The invariance from orthogonal transformations then implies that $L(\dot{\vb*{x}}) = L(G\dot{\vb*{x}})$, where $G^t G = \Id$. That is, $L$ cannot depend on the direction of the velocity, only on its magnitude:
       \begin{equation}
         L = L(\|\dot{\vb*{x}}\|^2), \quad \|\dot{\vb*{x}}\|^2 := \langle\dot{\vb*{x}}, \dot{\vb*{x}}\rangle.
       \end{equation}
+
       The invariance with respect to uniform motion now implies that the lagrangian must actually be proportional to $\|\dot{\vb*{x}}\|^2$.
       For convenience, let's first look at the case of small velocities: applying the galilean transformation
       \begin{equation}
         \vb*{x} \mapsto \vb*{x} + \epsilon \vb*{v}t,
       \end{equation}
-      in the limit $\epsilon \to 0$, we can apply a Taylor expansion around $\|\dot{\vb*{x}}\|^2$ to get
+      in the limit $\epsilon \to 0$, we can use a Taylor expansion around $\|\dot{\vb*{x}}\|^2$ to get
       \begin{equation}
-        L(\|\dot{\vb*{x}}\|^2) \mapsto L(\|\dot{\vb*{x}}\|^2) + 2\epsilon\,\langle\vb*{v}, \dot{\vb*{x}}\rangle\,L'(\|\dot{\vb*{x}}\|^2) + O(\epsilon^2).
+        L(\|\dot{\vb*{x}}\|^2) \mapsto L(\|\dot{\vb*{x}} + \epsilon \vb*{v}t\|^2) = L(\|\dot{\vb*{x}}\|^2) + 2\epsilon\,\langle\vb*{v}, \dot{\vb*{x}}\rangle\,L'(\|\dot{\vb*{x}}\|^2) + O(\epsilon^2).
       \end{equation}
-      The invariance of the equations of motion then implies that the linear term in $\epsilon$ should be a total derivative $\frac{\dd }{\dd t} f(t, \vb*{x}) = 2\,\langle\vb*{v}, \dot{\vb*{x}}\rangle\,L'(\|\dot{\vb*{x}}\|^2)$.
-      This can happen iff $\dot f(t, \vb*{x}) = 0$ and $\langle \frac{\partial f}{\partial \vb*{x}}, \dot x\rangle  = 2\,\langle\vb*{v}, \dot{\vb*{x}}\rangle L'(\|\dot{\vb*{x}}\|^2)$ is linear also in $\|\dot{\vb*{x}}\|^2$.
-      In particular this means that $L'(\|\dot{\vb*{x}}\|^2) = \mathrm{const} =: \frac{m}2$, that is, the lagrangian is of the form \eqref{eq:singleptlag} for some constant value $m\in\mathbb{R}$.
+      Here the $'$ denotes derivation with respect to the only argument of the function $L$.
+      The invariance of the equations of motion then implies that the linear term in $\epsilon$ should be a total derivative $\dv{t} f(t, \vb*{x}) = 2\,\langle\vb*{v}, \dot{\vb*{x}}\rangle\,L'(\|\dot{\vb*{x}}\|^2)$.
+      This can happen iff $\pdv{t} f(t, \vb*{x}) = 0$ and $\langle \pdv{f}{\vb*{x}}, \dot x\rangle  = 2\,\langle\vb*{v}, \dot{\vb*{x}}\rangle L'(\|\dot{\vb*{x}}\|^2)$ is linear in $\dot{\vb*{x}}$.
+      In particular, this means that
+      \begin{equation}
+        L'(\|\dot{\vb*{x}}\|^2) = \mathrm{const} =: \frac{m}2,
+      \end{equation}
+      that is, the lagrangian is of the form \eqref{eq:singleptlag} for some constant value $m\in\mathbb{R}$.
+
       Finally, the lagrangian \eqref{eq:singleptlag} is transformed by a general galilean transformation $\vb*{x} \mapsto \vb*{x} + \vb*{v}t$ into
       \begin{equation}
         \frac{m \|\dot{\vb*{x}}\|^2}2 \mapsto
@@ -713,8 +739,8 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       and thus the equations of motion remain invariant under the transformation.
     \end{proof}
 
-    \begin{corollary}[Newton's first law]
-      In an inertial frame of reference, an isolated point particle either does not move or is in uniform motion with constant velocity.
+    \begin{corollary}[Newton's first law]\index{Newton|first law}
+      In an inertial frame of reference, an isolated point particle either does not move or it is in uniform motion with constant velocity.
     \end{corollary}
     \begin{proof}
       It follows immediately by computing the Euler-Lagrange equations for \eqref{eq:singleptlag}:
@@ -723,36 +749,39 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \end{equation}
     \end{proof}
 
-    Remembering the additive property of the lagrangians, we can show that for a system of $N$ particles, which do not interact, the lagrangian is the sum
+    Remembering the additive property of the lagrangians, we can show that for a system of $N$ particles which do not interact, the lagrangian is simply the sum
     \begin{equation}\label{eq:freel}
       L = \sum_{k=1}^N \frac{m_k \|\dot{\vb*{x}}_k\|^2}{2}.
     \end{equation}
-    We call lagrangians of this form \emph{free}.
+    We call lagrangians of this form \emph{free}\index{lagrangian!free}.
 
     \begin{remark}
-      The above definition of mass becomes only meaningful, when we take the additive property into account.
       A lagrangian can always be multiplied by an arbitrary constant without affecting the equations of motion;
       such multiplication then amounts to a change in the unit of mass.
-      The ratios of the masses remain unchanged by this and it is only these ratios which are physically meaningful.
+       So, the above definition of mass becomes meaningful when we take the additive property into account: 
+      the ratios of the masses remain unchanged and it is only these ratios which are physically meaningful.
     \end{remark}
 
-    To include interaction between the points in this picture, we need to add to the free lagrangian \eqref{eq:freel} a function $-U(\vb*{x}_1, \ldots, \vb*{x}_N)$ which depends on the nature of the interactions:
+    \index{lagrangian!interactions}
+    To include interactions between the point particles in this formalism, we need to add to the free lagrangian \eqref{eq:freel} a function $-U(\vb*{x}_1, \ldots, \vb*{x}_N)$ which depends on the nature of the interactions:
     \begin{equation}\label{eq:mechlag}
       L := T-U := \sum_{k=1}^N \frac{m_k \|\dot{\vb*{x}}_k\|^2}{2} -U(\vb*{x}_1, \ldots, \vb*{x}_N).
     \end{equation}
-    The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\vb*{x}}_k\|^2}{2}$, is called \emph{kinetic energy} of the particles, while the function $U = U(\vb*{x}_1, \ldots, \vb*{x}_N)$ is called \emph{potential energy}. Lagrangians of the form $T-U$ are often called \emph{natural}.
+    The first sum, $T = \sum_{k=1}^N \frac{m_k \|\dot{\vb*{x}}_k\|^2}{2}$, is called \emph{kinetic energy} of the system of particles, while the function $U = U(\vb*{x}_1, \ldots, \vb*{x}_N)$ is called \emph{potential energy}.
+    Lagrangians of the form $T-U$ are often called \emph{natural}.
+    \index{lagrangian!natural}\index{energy!potential}\index{energy!kinetic}
 
-    \begin{theorem}
+    \begin{theorem}[Newton's second law]
       The equations of motion of a system of $N$ point particles with natural lagrangian \eqref{eq:mechlag} are of the form
       \begin{equation}\label{eq:newton2}
         m_k \ddot{\vb*{x}}_k = \vb*{F}_k, \quad k=1,\ldots,N
       \end{equation}
-      where $\vb*{F}_k = -\frac{\partial U}{\partial \vb*{x}_k}$, $\quad k=1,\ldots,N$.
+      where $\vb*{F}_k (\vb*{x}) = -\pdv{U (\vb*{x})}{\vb*{x}_k}$, $\quad k=1,\ldots,N$.
     \end{theorem}
 
-    The vector $\vb*{F}_k$ is called the \emph{force} acting on the $k$-th point particle, and you should immediately recognize \emph{Newton's second law} in \eqref{eq:newton2}.
+    The vector $\vb*{F}_k$ is called the \emphidx{force} acting on the $k$-th point particle. To be more precise, the force is a vector field since $\vb*{F}_k : \vb*{x} \to \vb*{F}_k(\vb*{x})$ maps every point in the configuration space to its own vector.
 
-    \begin{exercise}\label{ex:N3l1}
+    \begin{exercise}\label{ex:N3l1}\index{Newton!third law}
       Prove \emph{Newton's third law}, i.e., for each of the $k$ point particles it holds
       \begin{equation}
         \vb*{F}_k = -\sum_{j\neq k} \vb*{F}_j.
@@ -762,18 +791,17 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
     \begin{remark}
       \begin{enumerate}
-        \item Mechanical systems are \emph{reversible}: they are also invariant with respect to the transformation $t\mapsto -t$.
-        \item If you consider systems in interaction with the environment, you end up with lagrangians that are no longer invariant with respect to galilean transformations and can explicitly depend on time.
+        \item Mechanical systems are time-\emph{reversible}: they are also invariant with respect to the transformation $t\mapsto -t$.
+        \item If you consider systems in interaction with the environment, you may end up with lagrangians that are no longer invariant with respect to galilean transformations and can explicitly depend on time.
       \end{enumerate}
     \end{remark}
 
-    \begin{example}
+    \begin{example}[Free fall]
       Consider the vertical motion of a point particle of mass $m$ in the external field with potential $U(z) = m g z$, see also Example~\ref{ex:sprPen}. The natural lagrangian of the system is
       \begin{equation}
         L = \frac{m\dot z^2}2 - mgz,
       \end{equation}
       which corresponds to the equation of motion $\ddot z = -g$: this is the equation of motion of a point particle in free fall towards Earth. In agreement with Galileo's law, the acceleration is constant and does not depend on the mass.
-
     \end{example}
 
     \begin{example}\label{ex:kepler1}
@@ -792,6 +820,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       whose equation of motion should remind you of \eqref{eq:keplerex} from Example~\ref{ex:Kepler0}.
     \end{example}
 
+    \index{energy!kinetic}
     To understand better why $T$ in \eqref{eq:mechlag} is called kinetic energy, it is useful to look at its relation with Newton's second law \eqref{eq:newton2}:
     \begin{equation}
       \frac{\dd}{\dd t} T
@@ -805,23 +834,23 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\langle\dot{\vb*{x}}(t), \vb*{F}(\vb*{x}(t))\right\rangle\; \dd t = \int_{\vb*{x}_0}^{\vb*{x}_1} \left\langle\vb*{F}(\vb*{x}), \dd{\vb*{x}}\right\rangle,
     \end{equation}
     where $\vb*{x}_i := \vb*{x}(t_i)$.
-    This is equivalent to say that the change of kinetic energy is equal to the \emph{work} done by the force, i.e., the integral of $\vb*{F}$ along the curve $\vb*{x}(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\vb*{x}) \cdot \dd{\vb*{x}}$ as the infinitesimal contribution of the vector field to the acceleration.
+    This is equivalent to say that the change of kinetic energy is equal to the \emph{work}\index{work done by a force} done by the force, i.e., the integral of $\vb*{F}$ along the curve $\vb*{x}(t)|_{t\in[t_0, t_1]}$. The name comes from the fact that, physically, you can think of $F(\vb*{x}) \cdot \dd{\vb*{x}}$ as the infinitesimal contribution of the vector field to the acceleration.
 
     \begin{remark}
-      For $N=1$, Stokes' theorem implies that the integral above is independent from the path between $\vb*{x}_0 = \vb*{x}(t_0)$ and $\vb*{x}_1 = \vb*{x}(t_1)$ if and only if $\curl \vb*{F} = 0$, which in turn is true if and only if there is a $U:\mathbb{R}^3\to\mathbb{R}$ such that $\vb*{F} = -\frac{\partial U}{\partial \vb*{x}}$.
+      For $N=1$, Stokes' theorem implies that the integral above is independent of the path between $\vb*{x}_0 = \vb*{x}(t_0)$ and $\vb*{x}_1 = \vb*{x}(t_1)$ if and only if $\curl \vb*{F} = 0$, which in turn is true if and only if there exists a function $U:\mathbb{R}^3\to\mathbb{R}$ such that $\vb*{F} = -\frac{\partial U}{\partial \vb*{x}}$.
       %
       In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $U:\mathbb{R}^n\to\mathbb{R}$, unique up to an additive constant, such that $\vb*{F} = -\frac{\partial U}{\partial \vb*{x}}$.
       %
       You can read more about this in \cite[Chapter 2.5]{book:arnold} and \cite[Theorem 6.3 and 8.1]{book:knauf}.
     \end{remark}
 
-    Forces that can be written in the form $\vb*{F} = -\frac{\partial U}{\partial \vb*{x}}$, for some function $U$, are called \emph{conservative}.
+    Forces that can be written in the form $\vb*{F} = -\frac{\partial U}{\partial \vb*{x}}$, for some function $U$, are called \emph{conservative}.\index{force!conservative}
     We will understand better why in a couple of sections.
 
     Not all the forces in nature are conservative, and in that case the results of this section do not directly apply.
     We don't have to go very far to see an example of this, but we can also see that the lagrangian approach can be easily extended to include non-conservative forces.
 
-    \begin{example}\label{exa:magnetic}
+    \begin{example}\label{exa:magnetic}\index{magnetic!field}\index{magentic!vector potential}
       Mechanical systems affected by an external magnetic field $\vb* B$ can be described in the lagrangian formalism by adding a linear term in the velocities to a natural lagrangian \eqref{eq:mechlag}:
       \begin{equation}\label{eq:magLag}
         \widetilde L = L + \frac ec \sum_{k=1}^N \langle\vb* A(\vb*{x}_k), \dot{\vb*{x}}_k\rangle.
@@ -834,11 +863,11 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \begin{exercise}\label{exe:magnetic}
         Show that the equations of motion \eqref{eq:newton2} corresponding to a magnetic lagrangian \eqref{eq:magLag} are given by
         \begin{equation}
-          m_k \ddot{\vb*{x}}_k = \vb*{F}_k + \frac ec \dot{\vb*{x}}_k \wedge \vb* B(\vb*{x}_k)
+          m_k \ddot{\vb*{x}}_k = \vb*{F}_k + \frac ec \dot{\vb*{x}}_k \times \vb* B(\vb*{x}_k)
         \end{equation}
-        where the exterior product corresponds to the usual vector product in $\mathbb{R}^3$ and, as mentioned above, $\vb* B = \curl \vb* A$ is the magnetic field.
+        where $\times$ denotes the usual vector product in $\mathbb{R}^3$ and, as mentioned above, $\vb* B = \curl \vb* A$ is the magnetic field.
 
-        The additional term $\frac ec \dot{\vb*{x}}_k\wedge \vb* B(\vb*{x}_k)$ is the \emph{Lorenz force} acting on the $k$th particle of charge $e$ immersed in the magnetic field $\vb* B$.
+        The additional term $\frac ec \dot{\vb*{x}}_k\times \vb* B(\vb*{x}_k)$ is the \emphidx{Lorenz force} acting on the $k$th particle of charge $e$ immersed in the magnetic field $\vb* B$. By definition, the Lorenz force is orthogonal to the velocity of the particle and to the magnetic field and thus tends to curve the trajectory of the particle.
 
         For a beautiful geometric discussion of this problem, you can refer to \cite[Chapter 8.3]{book:amr} (this has moved to Chapter 9.3 in more recent editions).
       \end{exercise}
@@ -846,16 +875,16 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       Note that the magnetic vector potential is not unique!
       For any function $f$, the transformation
       \begin{equation}
-        \vb* A \mapsto \vb* A + \frac{\partial f}{\partial \vb*{x}}
+        \vb* A \mapsto \vb* A + \pdv{f}{\vb*{x}}
       \end{equation}
       will produce the same field.
-      This is known as \emph{gauge transformation}.
+      This is known as \emphidx{gauge transformation}.
       Under this transformation the lagrangian is transformed as
       \begin{equation}
-        \widetilde L \mapsto \widetilde L + \frac{e}{c} \frac{\dd f}{\dd t}
+        \widetilde L \mapsto \widetilde L + \frac{e}{c} \dv{f}{t}
       \end{equation}
       but we know that the equations of motion remain invariant under the addition of a total derivative to the Lagrangian.
-      The concept of gauge invariance is central in lots of modern physics.
+      The concept of gauge invariance is central in many problems of modern physics.
     \end{example}
 
     \section{First steps with conserved quantities}
