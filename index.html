@@ -5,9 +5,6 @@
 <meta name="generator" content="LaTeX Lwarp package" />
 <meta name="description" content="Lecture notes for Hamiltonian Mechanics" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
 <title>Hamiltonian Mechanics</title>
 <link rel="stylesheet" type="text/css" href="lwarp.css" />
 
@@ -30,206 +27,206 @@ MathJax = {
     subequations: "0",
     section: "",
     loader: {
-        load: ['[tex]/tagformat', '[tex]/textmacros'],
+         load: ['[tex]/tagformat', '[tex]/textmacros'],
     },
     startup: {
-        ready() {
-            //      These would be replaced by import commands if you wanted to make
-            //      a proper extension.
-            const Configuration = MathJax._.input.tex.Configuration.Configuration;
-            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
-            const Macro = MathJax._.input.tex.Symbol.Macro;
-            const TexError = MathJax._.input.tex.TexError.default;
-            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
-            const expandable = MathJax._.util.Options.expandable;
+         ready() {
+             //       These would be replaced by import commands if you wanted to make
+             //       a proper extension.
+             const Configuration = MathJax._.input.tex.Configuration.Configuration;
+             const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+             const Macro = MathJax._.input.tex.Symbol.Macro;
+             const TexError = MathJax._.input.tex.TexError.default;
+             const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+             const expandable = MathJax._.util.Options.expandable;
 
 
-            //      Insert the replacement string into the TeX string, and check
-            //      that there haven't been too many maxro substitutions (prevents
-            //      infinite loops).
-            const useArgument = (parser, text) => {
-                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
-                parser.i = 0;
-                if (++parser.macroCount > parser.configuration.options.maxMacros) {
-                    throw new TexError('MaxMacroSub1',
-                    'MathJax maximum macro substitution count exceeded; ' +
-                    'is there a recursive macro call?');
-                }
-            }
+             //       Insert the replacement string into the TeX string, and check
+             //       that there haven't been too many maxro substitutions (prevents
+             //       infinite loops).
+             const useArgument = (parser, text) => {
+                 parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                 parser.i = 0;
+                 if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                     throw new TexError('MaxMacroSub1',
+                     'MathJax maximum macro substitution count exceeded; ' +
+                     'is there a recursive macro call?');
+                 }
+             }
 
 
-            //      Create the command map for:
-            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
-            new CommandMap('Lwarp-macros', {
-                ifstar: 'IfstarFunction',
-                ifnextchar: 'IfnextcharFunction',
-                ifblank: 'IfblankFunction',
-                ifstrequal: 'IfstrequalFunction',
-                gsubstitute: 'GsubstituteFunction',
-                seteqnumber: 'SeteqnumberFunction'
-            }, {
-                //      This function implements an ifstar macro.
-                IfstarFunction(parser, name) {
-                    const resultstar = parser.GetArgument(name);
-                    const resultnostar = parser.GetArgument(name);
-                    const star = parser.GetStar();                      // true if there is a *
-                    useArgument(parser, star ? resultstar : resultnostar);
-                },
+             //       Create the command map for:
+             //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+             new CommandMap('Lwarp-macros', {
+                 ifstar: 'IfstarFunction',
+                 ifnextchar: 'IfnextcharFunction',
+                 ifblank: 'IfblankFunction',
+                 ifstrequal: 'IfstrequalFunction',
+                 gsubstitute: 'GsubstituteFunction',
+                 seteqnumber: 'SeteqnumberFunction'
+             }, {
+                 //      This function implements an ifstar macro.
+                 IfstarFunction(parser, name) {
+                     const resultstar = parser.GetArgument(name);
+                     const resultnostar = parser.GetArgument(name);
+                     const star = parser.GetStar();                        // true if there is a *
+                     useArgument(parser, star ? resultstar : resultnostar);
+                 },
 
 
-                //      This function implements an ifnextchar macro.
-                IfnextcharFunction(parser, name) {
-                    let whichchar = parser.GetArgument(name);
-                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
-                        // $ syntax highlighting
-                        whichchar = String.fromCodePoint(parseInt(whichchar));
-                    }
-                    const resultnextchar = parser.GetArgument(name);
-                    const resultnotnextchar = parser.GetArgument(name);
-                    const gotchar = (parser.GetNext() === whichchar);
-                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
-                },
+                 //      This function implements an ifnextchar macro.
+                 IfnextcharFunction(parser, name) {
+                     let whichchar = parser.GetArgument(name);
+                     if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                         // $ syntax highlighting
+                         whichchar = String.fromCodePoint(parseInt(whichchar));
+                     }
+                     const resultnextchar = parser.GetArgument(name);
+                     const resultnotnextchar = parser.GetArgument(name);
+                     const gotchar = (parser.GetNext() === whichchar);
+                     useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                 },
 
 
-                // This function implements an ifblank macro.
-                IfblankFunction(parser, name) {
-                    const blankarg = parser.GetArgument(name);
-                    const resultblank = parser.GetArgument(name);
-                    const resultnotblank = parser.GetArgument(name);
-                    const isblank = (blankarg.trim() == "");
-                    useArgument(parser, isblank ? resultblank : resultnotblank);
-                },
+                 // This function implements an ifblank macro.
+                 IfblankFunction(parser, name) {
+                     const blankarg = parser.GetArgument(name);
+                     const resultblank = parser.GetArgument(name);
+                     const resultnotblank = parser.GetArgument(name);
+                     const isblank = (blankarg.trim() == "");
+                     useArgument(parser, isblank ? resultblank : resultnotblank);
+                 },
 
 
-                // This function implements an ifstrequal macro.
-                IfstrequalFunction(parser, name) {
-                    const strequalfirst = parser.GetArgument(name);
-                    const strequalsecond = parser.GetArgument(name);
-                    const resultequal = parser.GetArgument(name);
-                    const resultnotequal = parser.GetArgument(name);
-                    const isequal = (strequalfirst == strequalsecond);
-                    useArgument(parser, isequal ? resultequal : resultnotequal);
-                },
+                 // This function implements an ifstrequal macro.
+                 IfstrequalFunction(parser, name) {
+                     const strequalfirst = parser.GetArgument(name);
+                     const strequalsecond = parser.GetArgument(name);
+                     const resultequal = parser.GetArgument(name);
+                     const resultnotequal = parser.GetArgument(name);
+                     const isequal = (strequalfirst == strequalsecond);
+                     useArgument(parser, isequal ? resultequal : resultnotequal);
+                 },
 
 
-                // This function implements a gsub macro.
-                GsubstituteFunction(parser, name) {
-                    const gsubfirst = parser.GetArgument(name);
-                    const gsubsecond = parser.GetArgument(name);
-                    const gsubthird = parser.GetArgument(name);
-                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
-                    useArgument(parser, gsubresult);
-                },
+                 // This function implements a gsub macro.
+                 GsubstituteFunction(parser, name) {
+                     const gsubfirst = parser.GetArgument(name);
+                     const gsubsecond = parser.GetArgument(name);
+                     const gsubthird = parser.GetArgument(name);
+                     let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                     useArgument(parser, gsubresult);
+                 },
 
 
-                //      This function modifies the equation numbers.
-                SeteqnumberFunction(parser, name) {
-                        //   Get the macro parameters
-                        const star = parser.GetStar();                    // true if there is a *
-                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
-                        const newsubequations = parser.GetArgument(name);    // the subequations argument
-                        const neweqsection = parser.GetArgument(name);    // the eq section argument
-                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
-                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
-                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
-                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
-                }
+                 //      This function modifies the equation numbers.
+                 SeteqnumberFunction(parser, name) {
+                         //   Get the macro parameters
+                         const star = parser.GetStar();                       // true if there is a *
+                         const optBrackets = parser.GetBrackets(name);        // contents of optional brackets
+                         const newsubequations = parser.GetArgument(name);       // the subequations argument
+                         const neweqsection = parser.GetArgument(name);       // the eq section argument
+                         const neweqnumber = parser.GetArgument(name);        // the eq number argument
+                         MathJax.config.subequations=newsubequations ;        // a string with boolean meaning
+                         MathJax.config.section=neweqsection ;                // a string with numeric meaning
+                         parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                 }
 
 
-            });
+             });
 
 
-            //      Create the Lwarp-macros package
-            Configuration.create('Lwarp-macros', {
-                handler: {macro: ['Lwarp-macros']}
-            });
+             //       Create the Lwarp-macros package
+             Configuration.create('Lwarp-macros', {
+                 handler: {macro: ['Lwarp-macros']}
+             });
 
 
-            MathJax.startup.defaultReady();
+             MathJax.startup.defaultReady();
 
 
-            // For forward references:
-            MathJax.startup.input[0].preFilters.add(({math}) => {
-                if (math.inputData.recompile){
-                        MathJax.config.subequations = math.inputData.recompile.subequations;
-                        MathJax.config.section = math.inputData.recompile.section;
-                }
-            });
-            MathJax.startup.input[0].postFilters.add(({math}) => {
-                if (math.inputData.recompile){
-                        math.inputData.recompile.subequations = MathJax.config.subequations;
-                        math.inputData.recompile.section = MathJax.config.section;
-                }
-            });
+             // For forward references:
+             MathJax.startup.input[0].preFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         MathJax.config.subequations = math.inputData.recompile.subequations;
+                         MathJax.config.section = math.inputData.recompile.section;
+                 }
+             });
+             MathJax.startup.input[0].postFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         math.inputData.recompile.subequations = MathJax.config.subequations;
+                         math.inputData.recompile.section = MathJax.config.section;
+                 }
+             });
 
 
-                // For \left, \right with unicode-math:
-                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
-                const {Symbol} = MathJax._.input.tex.Symbol;
-                const {MapHandler} = MathJax._.input.tex.MapHandler;
-                const delimiter = MapHandler.getMap('delimiter');
-                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
-                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
-                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
-                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
-                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
-                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
-                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
-                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
-                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
-                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
-                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
-                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
-                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
-                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
-                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
-                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
-                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
-                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
-                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
-                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
-                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
-                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
-                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
-                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
-                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
-                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
-                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
-                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
-                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
-                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
-                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
-                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
-                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
-                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
-                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
-                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
-                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
-                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
-                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
-        }        // ready
+                 // For \left, \right with unicode-math:
+                 const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                 const {Symbol} = MathJax._.input.tex.Symbol;
+                 const {MapHandler} = MathJax._.input.tex.MapHandler;
+                 const delimiter = MapHandler.getMap('delimiter');
+                 delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                 delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                 delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                 delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                 delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                 delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                 delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                 delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                 delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                 delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                 delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                 delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                 delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                 delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                 delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                 delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                 delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                 delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                 delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                 delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                 delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                 delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                 delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                 delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                 delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                 delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                 delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                 delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                 delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                 delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                 delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                 delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                 delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                 delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                 delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                 delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                 delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                 delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                 delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+         }       // ready
     },           // startup
 
 
     tex: {
-        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
-        tags: "ams",
-                tagformat: {
-                        number: function (n) {
-                             if(MathJax.config.subequations==0)
-                                 return(MathJax.config.section + n);
-                             else
-                                 return(MathJax.config.section + String.fromCharCode(96+n));
-                        },
-                },
+         packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+         tags: "ams",
+                 tagformat: {
+                         number: function (n) {
+                              if(MathJax.config.subequations==0)
+                                     return(MathJax.config.section + n);
+                              else
+                                     return(MathJax.config.section + String.fromCharCode(96+n));
+                         },
+                 },
     }
 }
 </script>
 
 
 <script
-        id="MathJax-script"
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+         id="MathJax-script"
+         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 ></script>
 
 </head>
@@ -247,9 +244,9 @@ MathJax = {
 <a id="hm-autofile-0"></a>
 
 <!--MathJax customizations:-->
-
-
-<div class="hidden">
+<div data-nosnippet
+    style="display:none"
+>
 
 \(\newcommand{\footnotename}{footnote}\)
 
@@ -452,7 +449,7 @@ University of Groningen<br />
 
 <p>
 Version 1.11<br />
-September 27, 2023
+July 23, 2024
 </p>
 </div>
 <!--
@@ -463,361 +460,301 @@ September 27, 2023
 
 
 
-
 <nav class="toc">
 <p>
 <a href="chapter-1.html#autosec-7" class="tocchapter" >
-<span class="sectionnumber">1</span>&#x2003;Classical mechanics, from Newton to Lagrange and back</a>
+<span class="sectionnumber">1</span>&#x2003;Classical mechanics</a>
 </p>
-
 
 <p>
 <a href="chapter-1.html#autosec-8" class="tocsection" >
-<span class="sectionnumber">1.1</span>&#x2003;Newtonian mechanics</a>
+<span class="sectionnumber">1.1</span>&#x2003;Newtonian mechanics of point particles</a>
 </p>
 
-
 <p>
-<a href="chapter-1.html#autosec-16" class="tocsubsection" >
+<a href="chapter-1.html#autosec-17" class="tocsubsection" >
 <span class="sectionnumber">1.1.1</span>&#x2003;Motion in one degree of freedom</a>
 </p>
 
-
 <p>
-<a href="chapter-1.html#autosec-19" class="tocsection" >
+<a href="chapter-1.html#autosec-21" class="tocsection" >
 <span class="sectionnumber">1.2</span>&#x2003;Hamilton’s variational principle</a>
 </p>
 
-
 <p>
-<a href="chapter-1.html#autosec-30" class="tocsubsection" >
+<a href="chapter-1.html#autosec-32" class="tocsubsection" >
 <span class="sectionnumber">1.2.1</span>&#x2003;Dynamics of point particles: from Lagrange back to Newton</a>
 </p>
 
-
 <p>
-<a href="chapter-1.html#autosec-45" class="tocsection" >
+<a href="chapter-1.html#autosec-47" class="tocsection" >
 <span class="sectionnumber">1.3</span>&#x2003;First steps with conserved quantities</a>
 </p>
 
-
 <p>
-<a href="chapter-1.html#autosec-46" class="tocsubsection" >
+<a href="chapter-1.html#autosec-48" class="tocsubsection" >
 <span class="sectionnumber">1.3.1</span>&#x2003;Back to one degree of freedom</a>
 </p>
 
-
 <p>
-<a href="chapter-1.html#autosec-55" class="tocsubsection" >
+<a href="chapter-1.html#autosec-53" class="tocsubsection" >
 <span class="sectionnumber">1.3.2</span>&#x2003;The conservation of energy</a>
 </p>
 
-
 <p>
-<a href="chapter-1.html#autosec-60" class="tocsubsection" >
+<a href="chapter-1.html#autosec-58" class="tocsubsection" >
 <span class="sectionnumber">1.3.3</span>&#x2003;Fun with the phase portrait</a>
 </p>
 
-
 <p>
-<a href="chapter-1.html#autosec-70" class="tocsection" >
+<a href="chapter-1.html#autosec-68" class="tocsection" >
 <span class="sectionnumber">1.4</span>&#x2003;Euler-Lagrange equations on smooth manifolds</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-81" class="tocchapter" >
+<a href="chapter-2.html#autosec-79" class="tocchapter" >
 <span class="sectionnumber">2</span>&#x2003;Conservation Laws</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-82" class="tocsection" >
+<a href="chapter-2.html#autosec-80" class="tocsection" >
 <span class="sectionnumber">2.1</span>&#x2003;Noether theorem</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-98" class="tocsubsection" >
+<a href="chapter-2.html#autosec-92" class="tocsubsection" >
 <span class="sectionnumber">2.1.1</span>&#x2003;Homogeneity of space: total momentum</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-102" class="tocsubsection" >
+<a href="chapter-2.html#autosec-96" class="tocsubsection" >
 <span class="sectionnumber">2.1.2</span>&#x2003;Isotropy of space: angular momentum</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-109" class="tocsubsection" >
+<a href="chapter-2.html#autosec-103" class="tocsubsection" >
 <span class="sectionnumber">2.1.3</span>&#x2003;Homogeneity of time: the energy</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-110" class="tocsubsection" >
+<a href="chapter-2.html#autosec-104" class="tocsubsection" >
 <span class="sectionnumber">2.1.4</span>&#x2003;Scale invariance: Kepler’s third law</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-116" class="tocsection" >
+<a href="chapter-2.html#autosec-110" class="tocsection" >
 <span class="sectionnumber">2.2</span>&#x2003;The spherical pendulum</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-119" class="tocsection" >
+<a href="chapter-2.html#autosec-113" class="tocsection" >
 <span class="sectionnumber">2.3</span>&#x2003;Intermezzo: small oscillations</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-130" class="tocsubsection" >
+<a href="chapter-2.html#autosec-118" class="tocsubsection" >
 <span class="sectionnumber">2.3.1</span>&#x2003;Decomposition into characteristic oscillations</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-132" class="tocsubsection" >
+<a href="chapter-2.html#autosec-120" class="tocsubsection" >
 <span class="sectionnumber">2.3.2</span>&#x2003;The double pendulum</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-133" class="tocsubsection" >
+<a href="chapter-2.html#autosec-121" class="tocsubsection" >
 <span class="sectionnumber">2.3.3</span>&#x2003;The linear triatomic molecule</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-140" class="tocsubsection" >
+<a href="chapter-2.html#autosec-122" class="tocsubsection" >
 <span class="sectionnumber">2.3.4</span>&#x2003;Zero modes</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-142" class="tocsection" >
+<a href="chapter-2.html#autosec-124" class="tocsection" >
 <span class="sectionnumber">2.4</span>&#x2003;Motion in a central potential</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-151" class="tocsubsection" >
+<a href="chapter-2.html#autosec-133" class="tocsubsection" >
 <span class="sectionnumber">2.4.1</span>&#x2003;Kepler’s problem</a>
 </p>
 
-
 <p>
-<a href="chapter-2.html#autosec-161" class="tocsection" >
+<a href="chapter-2.html#autosec-143" class="tocsection" >
 <span class="sectionnumber">2.5</span>&#x2003;D’Alembert principle and systems with constraints</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-176" class="tocchapter" >
+<a href="chapter-3.html#autosec-158" class="tocchapter" >
 <span class="sectionnumber">3</span>&#x2003;Hamiltonian mechanics</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-177" class="tocsection" >
+<a href="chapter-3.html#autosec-159" class="tocsection" >
 <span class="sectionnumber">3.1</span>&#x2003;The Legendre Transform in the euclidean plane</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-179" class="tocsection" >
+<a href="chapter-3.html#autosec-161" class="tocsection" >
 <span class="sectionnumber">3.2</span>&#x2003;Intermezzo: cotangent bundle and differential forms</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-180" class="tocsection" >
+<a href="chapter-3.html#autosec-162" class="tocsection" >
 <span class="sectionnumber">3.3</span>&#x2003;The Legendre Transform</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-201" class="tocsection" >
+<a href="chapter-3.html#autosec-183" class="tocsection" >
 <span class="sectionnumber">3.4</span>&#x2003;Poisson brackets and first integrals of motion</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-212" class="tocsubsection" >
+<a href="chapter-3.html#autosec-194" class="tocsubsection" >
 <span class="sectionnumber">3.4.1</span>&#x2003;The symplectic matrix</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-213" class="tocsubsection" >
+<a href="chapter-3.html#autosec-195" class="tocsubsection" >
 <span class="sectionnumber">3.4.2</span>&#x2003;A brief detour on time-dependent hamiltonians</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-214" class="tocsection" >
+<a href="chapter-3.html#autosec-196" class="tocsection" >
 <span class="sectionnumber">3.5</span>&#x2003;Variational principles of hamiltonian mechanics</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-227" class="tocsection" >
+<a href="chapter-3.html#autosec-209" class="tocsection" >
 <span class="sectionnumber">3.6</span>&#x2003;Canonical transformations</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-233" class="tocsubsection" >
+<a href="chapter-3.html#autosec-215" class="tocsubsection" >
 <span class="sectionnumber">3.6.1</span>&#x2003;Hamiltonian vector fields</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-241" class="tocsubsection" >
+<a href="chapter-3.html#autosec-223" class="tocsubsection" >
 <span class="sectionnumber">3.6.2</span>&#x2003;The hamiltonian Noether theorem</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-249" class="tocsection" >
+<a href="chapter-3.html#autosec-231" class="tocsection" >
 <span class="sectionnumber">3.7</span>&#x2003;The symplectic structure on the cotangent bundle</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-263" class="tocsubsection" >
+<a href="chapter-3.html#autosec-245" class="tocsubsection" >
 <span class="sectionnumber">3.7.1</span>&#x2003;Symplectomorphisms and generating functions</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-271" class="tocsubsection" >
+<a href="chapter-3.html#autosec-253" class="tocsubsection" >
 <span class="sectionnumber">3.7.2</span>&#x2003;Darboux Theorem</a>
 </p>
 
-
 <p>
-<a href="chapter-3.html#autosec-276" class="tocsubsection" >
+<a href="chapter-3.html#autosec-258" class="tocsubsection" >
 <span class="sectionnumber">3.7.3</span>&#x2003;Liouville theorem</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-284" class="tocchapter" >
+<a href="chapter-4.html#autosec-266" class="tocchapter" >
 <span class="sectionnumber">4</span>&#x2003;Integrable systems</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-285" class="tocsection" >
+<a href="chapter-4.html#autosec-267" class="tocsection" >
 <span class="sectionnumber">4.1</span>&#x2003;Lagrangian submanifolds</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-294" class="tocsection" >
+<a href="chapter-4.html#autosec-276" class="tocsection" >
 <span class="sectionnumber">4.2</span>&#x2003;Canonical transformations revisited</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-296" class="tocsubsection" >
+<a href="chapter-4.html#autosec-278" class="tocsubsection" >
 <span class="sectionnumber">4.2.1</span>&#x2003;The generating function \(S_1\)</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-301" class="tocsubsection" >
+<a href="chapter-4.html#autosec-283" class="tocsubsection" >
 <span class="sectionnumber">4.2.2</span>&#x2003;The generating functions \(S_2\) and \(S_3\)</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-306" class="tocsubsection" >
+<a href="chapter-4.html#autosec-288" class="tocsubsection" >
 <span class="sectionnumber">4.2.3</span>&#x2003;Infinitesimal canonical transformations</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-310" class="tocsubsection" >
+<a href="chapter-4.html#autosec-292" class="tocsubsection" >
 <span class="sectionnumber">4.2.4</span>&#x2003;Time-dependent hamiltonian systems</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-317" class="tocsection" >
+<a href="chapter-4.html#autosec-299" class="tocsection" >
 <span class="sectionnumber">4.3</span>&#x2003;Hamilton-Jacobi equations</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-320" class="tocsubsection" >
+<a href="chapter-4.html#autosec-302" class="tocsubsection" >
 <span class="sectionnumber">4.3.1</span>&#x2003;Separable hamiltonians</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-325" class="tocsubsection" >
+<a href="chapter-4.html#autosec-307" class="tocsubsection" >
 <span class="sectionnumber">4.3.2</span>&#x2003;A few exercises</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-331" class="tocsection" >
+<a href="chapter-4.html#autosec-313" class="tocsection" >
 <span class="sectionnumber">4.4</span>&#x2003;The Liouville-Arnold theorem</a>
 </p>
 
-
 <p>
-<a href="chapter-4.html#autosec-346" class="tocsubsection" >
+<a href="chapter-4.html#autosec-324" class="tocsubsection" >
 <span class="sectionnumber">4.4.1</span>&#x2003;Action-angle variables</a>
 </p>
 
-
 <p>
-<a href="chapter-5.html#autosec-354" class="tocchapter" >
+<a href="chapter-5.html#autosec-332" class="tocchapter" >
 <span class="sectionnumber">5</span>&#x2003;Hamiltonian perturbation theory</a>
 </p>
 
-
 <p>
-<a href="chapter-5.html#autosec-355" class="tocsection" >
+<a href="chapter-5.html#autosec-333" class="tocsection" >
 <span class="sectionnumber">5.1</span>&#x2003;Small oscillations revisited</a>
 </p>
 
-
 <p>
-<a href="chapter-5.html#autosec-363" class="tocsection" >
+<a href="chapter-5.html#autosec-341" class="tocsection" >
 <span class="sectionnumber">5.2</span>&#x2003;Birkhoff normal forms</a>
 </p>
 
-
 <p>
-<a href="chapter-5.html#autosec-367" class="tocsection" >
+<a href="chapter-5.html#autosec-345" class="tocsection" >
 <span class="sectionnumber">5.3</span>&#x2003;A brief look at KAM theory</a>
 </p>
 
-
 <p>
-<a href="chapter-5.html#autosec-371" class="tocsection" >
+<a href="chapter-5.html#autosec-349" class="tocsection" >
 <span class="sectionnumber">5.4</span>&#x2003;Nekhoroshev theorem</a>
 </p>
 
-
 <p>
-<a href="chapter-6.html#autosec-374" class="tocchapter" >
+<a href="chapter-6.html#autosec-352" class="tocchapter" >
 <span class="sectionnumber">6</span>&#x2003;Conclusion</a>
 </p>
 
-
 <p>
-<a href="chapter-6.html#autosec-375" class="tocchapter" >
+<a href="chapter-6.html#autosec-352" class="tocchapter" >
 Bibliography</a>
 </p>
-
 
 </nav>
 <!--
@@ -829,18 +766,21 @@ Bibliography</a>
 
 <p>
 The literature on classical (or analytical, as it was called by Lagrange) mechanics is full of good material. Different sources present the topic from different perspectives and with different points of view, and may suite different people differently. In
-these lecture notes I am iterating on my perspective. The approach I am taking has been heavily influenced by [Arn89, Kna18, Dub10, Low12, MR99, Ton05, LLSB76].
+these lecture notes I am iterating on my perspective. The approach I am taking has been heavily influenced by [<a href="chapter-6.html#LWR-ht-cite.0@book:arnold">Arn89</a>; <a
+href="chapter-6.html#LWR-ht-cite.0@book:knauf">Kna18</a>; <a href="chapter-6.html#LWR-ht-cite.0@lectures:dubrovin">Dub10</a>; <a href="chapter-6.html#LWR-ht-cite.0@book:lowenstein">Low12</a>; <a
+href="chapter-6.html#LWR-ht-cite.0@book:marsdenratiu">MR99</a>; <a href="chapter-6.html#LWR-ht-cite.0@lectures:tong">Ton05</a>; <a href="chapter-6.html#LWR-ht-cite.0@landau1976mechanics">Lan+76</a>].
 </p>
 
 <p>
-The book [Kna18] will be a good extra reference for the course. In addition to being a good introduction to many topics in classical mechanics that we will not have time to discuss during the lectures, it covers almost all the material that we will treat
-in chapters 1, 6, 8, 10, 11, 13, 15. Furthermore, the book can be freely and legally accessed via the University proxy using the <a href="https://link.springer.com/book/10.1007%2F978-3-662-55774-7" target="_blank" >SpringerLink</a>
-service.
+The book [<a href="chapter-6.html#LWR-ht-cite.0@book:knauf">Kna18</a>] will be a good extra reference for the course. In addition to being a good introduction to many topics in classical mechanics that we will not have time to discuss during
+the lectures, it covers almost all the material that we will treat in chapters 1, 6, 8, 10, 11, 13, 15. Furthermore, the book can be freely and legally accessed via the University proxy using the <a
+href="https://link.springer.com/book/10.1007%2F978-3-662-55774-7" target="_blank" >SpringerLink</a> service.
 </p>
 
 <p>
-I had lots of fun reading [Sch19], if none of the references above satisfies you, consider having a look at that. And for an unusual approach to the topic, centered around the idea that everything should be explicit enough to be directly computable by a
-computer, you can have a look at the marvellous [SW15]. Finally, a good and enjoyable classical reference is [GPS13].
+I had lots of fun reading [<a href="chapter-6.html#LWR-ht-cite.0@schwichtenberg2019no">Sch19</a>], if none of the references above satisfies you, consider having a look at that. And for an unusual approach to the topic, centered around the
+idea that everything should be explicit enough to be directly computable by a computer, you can have a look at the marvellous [<a href="chapter-6.html#LWR-ht-cite.0@book:sicm">SW15</a>]. Finally, a good and enjoyable classical reference is
+[<a href="chapter-6.html#LWR-ht-cite.0@goldstein2013classical">GPS13</a>].
 </p>
 
 <p>
@@ -869,7 +809,7 @@ Please don’t be afraid to send me comments to improve the course or the text a
 
 <p>
 I am extremely grateful to Nithesh Balasubramanian, Senan Bird, Riccardo Bonetto, Josephine van Driel, Ramsay Duff, Mollie Jagoe-Brown, Jesse Mulder, Dijs de Neeling, Anouk Pelzer, Iisekki Rotko, Danique de Ruiter, Robbert Scholtens, Felix
-Semler, Albert S&#x030C;ilvans, Marit van Straaten and Jermain Walle&#x0301; for their careful reading of the notes and their useful comments and corrections.
+Semler, Albert Šilvans, Marit van Straaten and Jermain Wallé for their careful reading of the notes and their useful comments and corrections.
 </p>
 
 <p>

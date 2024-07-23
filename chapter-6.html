@@ -6,9 +6,6 @@
 <meta name="generator" content="LaTeX Lwarp package" />
 <meta name="description" content="Lecture notes for Hamiltonian Mechanics" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
 <title>Hamiltonian Mechanics — Conclusion</title>
 <link rel="stylesheet" type="text/css" href="lwarp.css" />
 
@@ -31,213 +28,213 @@ MathJax = {
     subequations: "0",
     section: "",
     loader: {
-        load: ['[tex]/tagformat', '[tex]/textmacros'],
+         load: ['[tex]/tagformat', '[tex]/textmacros'],
     },
     startup: {
-        ready() {
-            //      These would be replaced by import commands if you wanted to make
-            //      a proper extension.
-            const Configuration = MathJax._.input.tex.Configuration.Configuration;
-            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
-            const Macro = MathJax._.input.tex.Symbol.Macro;
-            const TexError = MathJax._.input.tex.TexError.default;
-            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
-            const expandable = MathJax._.util.Options.expandable;
+         ready() {
+             //       These would be replaced by import commands if you wanted to make
+             //       a proper extension.
+             const Configuration = MathJax._.input.tex.Configuration.Configuration;
+             const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+             const Macro = MathJax._.input.tex.Symbol.Macro;
+             const TexError = MathJax._.input.tex.TexError.default;
+             const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+             const expandable = MathJax._.util.Options.expandable;
 
 
-            //      Insert the replacement string into the TeX string, and check
-            //      that there haven't been too many maxro substitutions (prevents
-            //      infinite loops).
-            const useArgument = (parser, text) => {
-                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
-                parser.i = 0;
-                if (++parser.macroCount > parser.configuration.options.maxMacros) {
-                    throw new TexError('MaxMacroSub1',
-                    'MathJax maximum macro substitution count exceeded; ' +
-                    'is there a recursive macro call?');
-                }
-            }
+             //       Insert the replacement string into the TeX string, and check
+             //       that there haven't been too many maxro substitutions (prevents
+             //       infinite loops).
+             const useArgument = (parser, text) => {
+                 parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                 parser.i = 0;
+                 if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                     throw new TexError('MaxMacroSub1',
+                     'MathJax maximum macro substitution count exceeded; ' +
+                     'is there a recursive macro call?');
+                 }
+             }
 
 
-            //      Create the command map for:
-            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
-            new CommandMap('Lwarp-macros', {
-                ifstar: 'IfstarFunction',
-                ifnextchar: 'IfnextcharFunction',
-                ifblank: 'IfblankFunction',
-                ifstrequal: 'IfstrequalFunction',
-                gsubstitute: 'GsubstituteFunction',
-                seteqnumber: 'SeteqnumberFunction'
-            }, {
-                //      This function implements an ifstar macro.
-                IfstarFunction(parser, name) {
-                    const resultstar = parser.GetArgument(name);
-                    const resultnostar = parser.GetArgument(name);
-                    const star = parser.GetStar();                      // true if there is a *
-                    useArgument(parser, star ? resultstar : resultnostar);
-                },
+             //       Create the command map for:
+             //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+             new CommandMap('Lwarp-macros', {
+                 ifstar: 'IfstarFunction',
+                 ifnextchar: 'IfnextcharFunction',
+                 ifblank: 'IfblankFunction',
+                 ifstrequal: 'IfstrequalFunction',
+                 gsubstitute: 'GsubstituteFunction',
+                 seteqnumber: 'SeteqnumberFunction'
+             }, {
+                 //      This function implements an ifstar macro.
+                 IfstarFunction(parser, name) {
+                     const resultstar = parser.GetArgument(name);
+                     const resultnostar = parser.GetArgument(name);
+                     const star = parser.GetStar();                        // true if there is a *
+                     useArgument(parser, star ? resultstar : resultnostar);
+                 },
 
 
-                //      This function implements an ifnextchar macro.
-                IfnextcharFunction(parser, name) {
-                    let whichchar = parser.GetArgument(name);
-                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
-                        // $ syntax highlighting
-                        whichchar = String.fromCodePoint(parseInt(whichchar));
-                    }
-                    const resultnextchar = parser.GetArgument(name);
-                    const resultnotnextchar = parser.GetArgument(name);
-                    const gotchar = (parser.GetNext() === whichchar);
-                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
-                },
+                 //      This function implements an ifnextchar macro.
+                 IfnextcharFunction(parser, name) {
+                     let whichchar = parser.GetArgument(name);
+                     if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                         // $ syntax highlighting
+                         whichchar = String.fromCodePoint(parseInt(whichchar));
+                     }
+                     const resultnextchar = parser.GetArgument(name);
+                     const resultnotnextchar = parser.GetArgument(name);
+                     const gotchar = (parser.GetNext() === whichchar);
+                     useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                 },
 
 
-                // This function implements an ifblank macro.
-                IfblankFunction(parser, name) {
-                    const blankarg = parser.GetArgument(name);
-                    const resultblank = parser.GetArgument(name);
-                    const resultnotblank = parser.GetArgument(name);
-                    const isblank = (blankarg.trim() == "");
-                    useArgument(parser, isblank ? resultblank : resultnotblank);
-                },
+                 // This function implements an ifblank macro.
+                 IfblankFunction(parser, name) {
+                     const blankarg = parser.GetArgument(name);
+                     const resultblank = parser.GetArgument(name);
+                     const resultnotblank = parser.GetArgument(name);
+                     const isblank = (blankarg.trim() == "");
+                     useArgument(parser, isblank ? resultblank : resultnotblank);
+                 },
 
 
-                // This function implements an ifstrequal macro.
-                IfstrequalFunction(parser, name) {
-                    const strequalfirst = parser.GetArgument(name);
-                    const strequalsecond = parser.GetArgument(name);
-                    const resultequal = parser.GetArgument(name);
-                    const resultnotequal = parser.GetArgument(name);
-                    const isequal = (strequalfirst == strequalsecond);
-                    useArgument(parser, isequal ? resultequal : resultnotequal);
-                },
+                 // This function implements an ifstrequal macro.
+                 IfstrequalFunction(parser, name) {
+                     const strequalfirst = parser.GetArgument(name);
+                     const strequalsecond = parser.GetArgument(name);
+                     const resultequal = parser.GetArgument(name);
+                     const resultnotequal = parser.GetArgument(name);
+                     const isequal = (strequalfirst == strequalsecond);
+                     useArgument(parser, isequal ? resultequal : resultnotequal);
+                 },
 
 
-                // This function implements a gsub macro.
-                GsubstituteFunction(parser, name) {
-                    const gsubfirst = parser.GetArgument(name);
-                    const gsubsecond = parser.GetArgument(name);
-                    const gsubthird = parser.GetArgument(name);
-                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
-                    useArgument(parser, gsubresult);
-                },
+                 // This function implements a gsub macro.
+                 GsubstituteFunction(parser, name) {
+                     const gsubfirst = parser.GetArgument(name);
+                     const gsubsecond = parser.GetArgument(name);
+                     const gsubthird = parser.GetArgument(name);
+                     let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                     useArgument(parser, gsubresult);
+                 },
 
 
-                //      This function modifies the equation numbers.
-                SeteqnumberFunction(parser, name) {
-                        //   Get the macro parameters
-                        const star = parser.GetStar();                    // true if there is a *
-                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
-                        const newsubequations = parser.GetArgument(name);    // the subequations argument
-                        const neweqsection = parser.GetArgument(name);    // the eq section argument
-                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
-                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
-                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
-                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
-                }
+                 //      This function modifies the equation numbers.
+                 SeteqnumberFunction(parser, name) {
+                         //   Get the macro parameters
+                         const star = parser.GetStar();                       // true if there is a *
+                         const optBrackets = parser.GetBrackets(name);        // contents of optional brackets
+                         const newsubequations = parser.GetArgument(name);       // the subequations argument
+                         const neweqsection = parser.GetArgument(name);       // the eq section argument
+                         const neweqnumber = parser.GetArgument(name);        // the eq number argument
+                         MathJax.config.subequations=newsubequations ;        // a string with boolean meaning
+                         MathJax.config.section=neweqsection ;                // a string with numeric meaning
+                         parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                 }
 
 
-            });
+             });
 
 
-            //      Create the Lwarp-macros package
-            Configuration.create('Lwarp-macros', {
-                handler: {macro: ['Lwarp-macros']}
-            });
+             //       Create the Lwarp-macros package
+             Configuration.create('Lwarp-macros', {
+                 handler: {macro: ['Lwarp-macros']}
+             });
 
 
-            MathJax.startup.defaultReady();
+             MathJax.startup.defaultReady();
 
 
-            // For forward references:
-            MathJax.startup.input[0].preFilters.add(({math}) => {
-                if (math.inputData.recompile){
-                        MathJax.config.subequations = math.inputData.recompile.subequations;
-                        MathJax.config.section = math.inputData.recompile.section;
-                }
-            });
-            MathJax.startup.input[0].postFilters.add(({math}) => {
-                if (math.inputData.recompile){
-                        math.inputData.recompile.subequations = MathJax.config.subequations;
-                        math.inputData.recompile.section = MathJax.config.section;
-                }
-            });
+             // For forward references:
+             MathJax.startup.input[0].preFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         MathJax.config.subequations = math.inputData.recompile.subequations;
+                         MathJax.config.section = math.inputData.recompile.section;
+                 }
+             });
+             MathJax.startup.input[0].postFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         math.inputData.recompile.subequations = MathJax.config.subequations;
+                         math.inputData.recompile.section = MathJax.config.section;
+                 }
+             });
 
 
-                // For \left, \right with unicode-math:
-                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
-                const {Symbol} = MathJax._.input.tex.Symbol;
-                const {MapHandler} = MathJax._.input.tex.MapHandler;
-                const delimiter = MapHandler.getMap('delimiter');
-                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
-                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
-                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
-                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
-                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
-                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
-                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
-                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
-                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
-                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
-                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
-                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
-                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
-                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
-                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
-                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
-                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
-                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
-                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
-                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
-                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
-                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
-                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
-                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
-                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
-                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
-                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
-                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
-                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
-                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
-                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
-                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
-                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
-                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
-                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
-                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
-                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
-                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
-                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
-        }        // ready
+                 // For \left, \right with unicode-math:
+                 const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                 const {Symbol} = MathJax._.input.tex.Symbol;
+                 const {MapHandler} = MathJax._.input.tex.MapHandler;
+                 const delimiter = MapHandler.getMap('delimiter');
+                 delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                 delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                 delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                 delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                 delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                 delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                 delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                 delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                 delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                 delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                 delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                 delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                 delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                 delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                 delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                 delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                 delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                 delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                 delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                 delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                 delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                 delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                 delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                 delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                 delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                 delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                 delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                 delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                 delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                 delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                 delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                 delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                 delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                 delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                 delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                 delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                 delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                 delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                 delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+         }       // ready
     },           // startup
 
 
     tex: {
-        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
-        tags: "ams",
-                tagformat: {
-                        number: function (n) {
-                             if(MathJax.config.subequations==0)
-                                 return(MathJax.config.section + n);
-                             else
-                                 return(MathJax.config.section + String.fromCharCode(96+n));
-                        },
-                },
+         packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+         tags: "ams",
+                 tagformat: {
+                         number: function (n) {
+                              if(MathJax.config.subequations==0)
+                                     return(MathJax.config.section + n);
+                              else
+                                     return(MathJax.config.section + String.fromCharCode(96+n));
+                         },
+                 },
     }
 }
 </script>
 
 
 <script
-        id="MathJax-script"
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+         id="MathJax-script"
+         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 ></script>
 
 </head>
 <body>
 
 
-<a id="hm-autopage-373"></a>
+<a id="hm-autopage-351"></a>
 <nav class="topnavigation"><a href="index.html" class="linkhome" >
 Home</a></nav>
 
@@ -270,186 +267,186 @@ Home</a>
 
 <p>
 <a href="chapter-1.html#autosec-7" class="tocchapter" >
-<span class="sectionnumber">1</span>&#x2003;Classical mechanics, from Newton to Lagrange and back</a>
+<span class="sectionnumber">1</span>&#x2003;Classical mechanics</a>
 </p>
 
 
 <p>
 <a href="chapter-1.html#autosec-8" class="tocsection" >
-<span class="sectionnumber">1.1</span>&#x2003;Newtonian mechanics</a>
+<span class="sectionnumber">1.1</span>&#x2003;Newtonian mechanics of point particles</a>
 </p>
 
 
 <p>
-<a href="chapter-1.html#autosec-19" class="tocsection" >
+<a href="chapter-1.html#autosec-21" class="tocsection" >
 <span class="sectionnumber">1.2</span>&#x2003;Hamilton’s variational principle</a>
 </p>
 
 
 <p>
-<a href="chapter-1.html#autosec-45" class="tocsection" >
+<a href="chapter-1.html#autosec-47" class="tocsection" >
 <span class="sectionnumber">1.3</span>&#x2003;First steps with conserved quantities</a>
 </p>
 
 
 <p>
-<a href="chapter-1.html#autosec-70" class="tocsection" >
+<a href="chapter-1.html#autosec-68" class="tocsection" >
 <span class="sectionnumber">1.4</span>&#x2003;Euler-Lagrange equations on smooth manifolds</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-81" class="tocchapter" >
+<a href="chapter-2.html#autosec-79" class="tocchapter" >
 <span class="sectionnumber">2</span>&#x2003;Conservation Laws</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-82" class="tocsection" >
+<a href="chapter-2.html#autosec-80" class="tocsection" >
 <span class="sectionnumber">2.1</span>&#x2003;Noether theorem</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-116" class="tocsection" >
+<a href="chapter-2.html#autosec-110" class="tocsection" >
 <span class="sectionnumber">2.2</span>&#x2003;The spherical pendulum</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-119" class="tocsection" >
+<a href="chapter-2.html#autosec-113" class="tocsection" >
 <span class="sectionnumber">2.3</span>&#x2003;Intermezzo: small oscillations</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-142" class="tocsection" >
+<a href="chapter-2.html#autosec-124" class="tocsection" >
 <span class="sectionnumber">2.4</span>&#x2003;Motion in a central potential</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-161" class="tocsection" >
+<a href="chapter-2.html#autosec-143" class="tocsection" >
 <span class="sectionnumber">2.5</span>&#x2003;D’Alembert principle and systems with constraints</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-176" class="tocchapter" >
+<a href="chapter-3.html#autosec-158" class="tocchapter" >
 <span class="sectionnumber">3</span>&#x2003;Hamiltonian mechanics</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-177" class="tocsection" >
+<a href="chapter-3.html#autosec-159" class="tocsection" >
 <span class="sectionnumber">3.1</span>&#x2003;The Legendre Transform in the euclidean plane</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-179" class="tocsection" >
+<a href="chapter-3.html#autosec-161" class="tocsection" >
 <span class="sectionnumber">3.2</span>&#x2003;Intermezzo: cotangent bundle and differential forms</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-180" class="tocsection" >
+<a href="chapter-3.html#autosec-162" class="tocsection" >
 <span class="sectionnumber">3.3</span>&#x2003;The Legendre Transform</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-201" class="tocsection" >
+<a href="chapter-3.html#autosec-183" class="tocsection" >
 <span class="sectionnumber">3.4</span>&#x2003;Poisson brackets and first integrals of motion</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-214" class="tocsection" >
+<a href="chapter-3.html#autosec-196" class="tocsection" >
 <span class="sectionnumber">3.5</span>&#x2003;Variational principles of hamiltonian mechanics</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-227" class="tocsection" >
+<a href="chapter-3.html#autosec-209" class="tocsection" >
 <span class="sectionnumber">3.6</span>&#x2003;Canonical transformations</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-249" class="tocsection" >
+<a href="chapter-3.html#autosec-231" class="tocsection" >
 <span class="sectionnumber">3.7</span>&#x2003;The symplectic structure on the cotangent bundle</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-284" class="tocchapter" >
+<a href="chapter-4.html#autosec-266" class="tocchapter" >
 <span class="sectionnumber">4</span>&#x2003;Integrable systems</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-285" class="tocsection" >
+<a href="chapter-4.html#autosec-267" class="tocsection" >
 <span class="sectionnumber">4.1</span>&#x2003;Lagrangian submanifolds</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-294" class="tocsection" >
+<a href="chapter-4.html#autosec-276" class="tocsection" >
 <span class="sectionnumber">4.2</span>&#x2003;Canonical transformations revisited</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-317" class="tocsection" >
+<a href="chapter-4.html#autosec-299" class="tocsection" >
 <span class="sectionnumber">4.3</span>&#x2003;Hamilton-Jacobi equations</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-331" class="tocsection" >
+<a href="chapter-4.html#autosec-313" class="tocsection" >
 <span class="sectionnumber">4.4</span>&#x2003;The Liouville-Arnold theorem</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-354" class="tocchapter" >
+<a href="chapter-5.html#autosec-332" class="tocchapter" >
 <span class="sectionnumber">5</span>&#x2003;Hamiltonian perturbation theory</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-355" class="tocsection" >
+<a href="chapter-5.html#autosec-333" class="tocsection" >
 <span class="sectionnumber">5.1</span>&#x2003;Small oscillations revisited</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-363" class="tocsection" >
+<a href="chapter-5.html#autosec-341" class="tocsection" >
 <span class="sectionnumber">5.2</span>&#x2003;Birkhoff normal forms</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-367" class="tocsection" >
+<a href="chapter-5.html#autosec-345" class="tocsection" >
 <span class="sectionnumber">5.3</span>&#x2003;A brief look at KAM theory</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-371" class="tocsection" >
+<a href="chapter-5.html#autosec-349" class="tocsection" >
 <span class="sectionnumber">5.4</span>&#x2003;Nekhoroshev theorem</a>
 </p>
 
 
 <p>
-<a href="chapter-6.html#autosec-374" class="tocchapter" >
+<a href="chapter-6.html#autosec-352" class="tocchapter" >
 <span class="sectionnumber">6</span>&#x2003;Conclusion</a>
 </p>
 
 
 <p>
-<a href="chapter-6.html#autosec-375" class="tocchapter" >
+<a href="chapter-6.html#autosec-352" class="tocchapter" >
 Bibliography</a>
 </p>
 
@@ -469,9 +466,9 @@ Bibliography</a>
 <h1>Hamiltonian Mechanics</h1>
 
 <!--MathJax customizations:-->
-
-
-<div class="hidden">
+<div data-nosnippet
+    style="display:none"
+>
 
 \(\newcommand{\footnotename}{footnote}\)
 
@@ -643,12 +640,11 @@ Bibliography</a>
 
 </div>
 
-<p>
 <!--
 ...... chapter Conclusion ......
 -->
-<h3 id="autosec-374"><span class="sectionnumber">6&#x2003;</span>Conclusion</h3>
-<a id="hm-autopage-374"></a>
+<h3 id="autosec-352"><span class="sectionnumber">6&#x2003;</span>Conclusion</h3>
+<a id="hm-autopage-352"></a>
 <a id="hm-autofile-6"></a>
 
 <p>
@@ -664,195 +660,315 @@ classical mechanics.
 <!--
 ...... chapter Bibliography ......
 -->
-<h3 id="autosec-375">Bibliography</h3>
-<a id="hm-autopage-375"></a>
+<h3 id="autosec-353">Bibliography</h3>
+<a id="hm-autopage-353"></a>
 
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
+
 
 <li>
 <p>
-[AKN06]&#x2003; Vladimir&nbsp;I. Arnold, Valery&nbsp;V. Kozlov, and Anatoly&nbsp;I. Neishtadt. <i>Mathematical Aspects of Classical and Celestial Mechanics</i>, volume&nbsp;3 of <i>Encyclopaedia of Mathematical Sciences</i>.
-Springer-Verlag, Berlin, Heidelberg, 3rd edition edition, 2006.
+<span class="listmarker">[AKN06]</span> <a id="LWR-ht-cite.0@book:arnoldcelestial"></a>Vladimir I. Arnold, Valery V. Kozlov, and Anatoly I. Neishtadt. <em>Mathematical Aspects of Classical and Celestial Mechanics</em>. 3rd edition.
+Vol.&nbsp;3. Encyclopaedia of Mathematical Sciences. Springer-Verlag, Berlin, Heidelberg, 2006. <span class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-3-540-48926-9" target="_blank" >10.1007/978-3-540-48926-9</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[AMR88]&#x2003; Ralph Abraham, Jerrold&nbsp;E. Marsden, and Tudor Ratiu. <i>Manifolds, Tensor Analysis, and Applications</i>. Springer New York, 1988.
+<span class="listmarker">[AMR88]</span> <a id="LWR-ht-cite.0@book:amr"></a>Ralph Abraham, Jerrold E. Marsden, and Tudor Ratiu. <em>Manifolds, Tensor Analysis, and Applications</em>. Springer New York, 1988. <span
+class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-1-4612-1029-0" target="_blank" >10.1007/978-1-4612-1029-0</a>. <span class="textsc">url</span>: <a href="https://doi.org/10.1007%2F978-1-4612-1029-0"
+target="_blank" >https://doi.org/10.1007%2F978-1-4612-1029-0</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Arn89]&#x2003; Vladimir&nbsp;I. Arnold. <i>Mathematical methods of classical mechanics</i>, volume&nbsp;60 of <i>Graduate Texts in Mathematics</i>. Springer-Verlag, New York, 2nd edition edition, 1989.
+<span class="listmarker">[Arn10]</span> <a id="LWR-ht-cite.0@book:celletti"></a>Vladimir Igorevich Arnold. <em>Stability and Chaos in Celestial Mechanics</em>. Springer-Verlag, Berlin, Heidelberg, 2010. <span
+class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-3-540-85146-2" target="_blank" >10.1007/978-3-540-85146-2</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Arn10]&#x2003; Vladimir&nbsp;Igorevich Arnold. <i>Stability and Chaos in Celestial Mechanics</i>. Springer-Verlag, Berlin, Heidelberg, 2010.
+<span class="listmarker">[Arn89]</span> <a id="LWR-ht-cite.0@book:arnold"></a>Vladimir I. Arnold. <em>Mathematical methods of classical mechanics</em>. 2nd edition. Vol.&nbsp;60. Graduate Texts in Mathematics. Springer-Verlag, New
+York, 1989. <span class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-1-4757-2063-1" target="_blank" >10.1007/978-1-4757-2063-1</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[BGG85]&#x2003; Giancarlo Benettin, Luigi Galgani, and Antonio Giorgilli. A proof of Nekhoroshev’s theorem for the stability times in nearly integrable Hamiltonian systems. <i>Celestial Mechanics</i>, 37(1):1–25, 1985.
+<span class="listmarker">[BGG85]</span> <a id="LWR-ht-cite.0@Benettin1985"></a>Giancarlo Benettin, Luigi Galgani, and Antonio Giorgilli. “A proof of Nekhoroshev’s theorem for the stability times in nearly integrable Hamiltonian systems”.
+In: <em>Celestial Mechanics</em> 37.1 (1985), pp. 1–25. <span class="textsc">issn</span>: 00088174. <span class="textsc">doi</span>: <a href="https://doi.org/10.1007/BF01230338" target="_blank" >10.1007/BF01230338</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[BKF95]&#x2003; A&nbsp;V Bolsinov, V&nbsp;V Kozlov, and A&nbsp;T Fomenko. The maupertuis principle and geodesic flows on the sphere arising from integrable cases in the dynamics of a rigid body. <i>Russian Mathematical Surveys</i>,
-50(3):473–501, jun 1995.
+<span class="listmarker">[BKF95]</span> <a id="LWR-ht-cite.0@Bolsinov_1995"></a>A V Bolsinov, V V Kozlov, and A T Fomenko. “The Maupertuis principle and geodesic flows on the sphere arising from integrable cases in the dynamics of
+a rigid body”. In: <em>Russian Mathematical Surveys</em> 50.3 (1995), pp. 473–501. <span class="textsc">doi</span>: <a href="https://doi.org/10.1070/rm1995v050n03abeh002100" target="_blank"
+>10.1070/rm1995v050n03abeh002100</a>. <span class="textsc">url</span>: <a href="https://doi.org/10.1070%2Frm1995v050n03abeh002100" target="_blank" >https://doi.org/10.1070%2Frm1995v050n03abeh002100</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Bro04]&#x2003; Henk&nbsp;W. Broer. KAM theory: The legacy of Kolmogorov’s 1954 paper. <i>Bulletin of the American Mathematical Society</i>, 41(04):507–522, feb 2004.
+<span class="listmarker">[Bro04]</span> <a id="LWR-ht-cite.0@Broer2004"></a>Henk W. Broer. “KAM theory: The legacy of Kolmogorov’s 1954 paper”. In: <em>Bulletin of the American Mathematical Society</em> 41.04 (2004), pp. 507–522.
+<span class="textsc">issn</span>: 0273-0979. <span class="textsc">doi</span>: <a href="https://doi.org/10.1090/S0273-0979-04-01009-2" target="_blank" >10.1090/S0273-0979-04-01009-2</a>. <span class="textsc">url</span>: <a
+href="http://www.ams.org/journal-getitem?pii=S0273-0979-04-01009-2" target="_blank" >http://www.ams.org/journal-getitem?pii=S0273-0979-04-01009-2</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Bro09]&#x2003; Henk&nbsp;W. Broer. Normal forms in perturbation theory. In <i>Encyclopedia of Complexity and Systems Science</i>, pages 6310–6329. Springer New York, 2009.
+<span class="listmarker">[Bro09]</span> <a id="LWR-ht-cite.0@Broer_2009"></a>Henk W. Broer. “Normal Forms in Perturbation Theory”. In: <em>Encyclopedia of Complexity and Systems Science</em>. Springer New York, 2009,
+pp. 6310–6329. <span class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-0-387-30440-3_372" target="_blank" >10.1007/978-0-387-30440-3_372</a>. <span class="textsc">url</span>: <a
+href="http://www.math.rug.nl/\~{}broer/pdf/nfpt.pdf" target="_blank" >http://www.math.rug.nl/\~{}broer/pdf/nfpt.pdf</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Bro16]&#x2003; H.W. Broer. <i>Near the horizon: an invitation to geometric optics</i>, volume&nbsp;33 of <i>The Carus Mathematical Monographs</i>. 2016.
+<span class="listmarker">[Bro16]</span> <a id="LWR-ht-cite.0@book:broer"></a>H.W. Broer. <em>Near the horizon: an invitation to geometric optics</em>. Ed. by MAA. Vol.&nbsp;33. The Carus Mathematical Monographs. 2016.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[BW05]&#x2003; John&nbsp;C. Baez and Derek&nbsp;K. Wise. Lectures on classical dynamics, 2005. Unpublished lecture notes.
+<span class="listmarker">[BW05]</span> <a id="LWR-ht-cite.0@lectures:baez"></a>John C. Baez and Derek K. Wise. <em>Lectures on Classical Dynamics</em>. Unpublished lecture notes. 2005. <span class="textsc">url</span>: <a
+href="http://www.math.ucr.edu/home/baez/classical/texfiles/2005/book/classical_20180116.pdf" target="_blank" >http://www.math.ucr.edu/home/baez/classical/texfiles/2005/book/classical_20180116.pdf</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Cel09]&#x2003; Alessandra Celletti. Perturbation TheoryPerturbation theory in celestial MechanicsCelestial mechanics. In <i>Encyclopedia of Complexity and Systems Science</i>, pages 6673–6686. Springer New York, 2009.
+<span class="listmarker">[Cel09]</span> <a id="LWR-ht-cite.0@Celletti_2009"></a>Alessandra Celletti. “Perturbation TheoryPerturbation theory in Celestial MechanicsCelestial mechanics”. In: <em>Encyclopedia of Complexity and Systems
+Science</em>. Springer New York, 2009, pp. 6673–6686. <span class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-0-387-30440-3_397" target="_blank" >10.1007/978-0-387-30440-3_397</a>. <span
+class="textsc">url</span>: <a href="https://doi.org/10.1007%2F978-0-387-30440-3_397" target="_blank" >https://doi.org/10.1007%2F978-0-387-30440-3_397</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[dS08]&#x2003; Ana&nbsp;Cannas da&nbsp;Silva. <i>Lectures on Symplectic Geometry</i>, volume 1764 of <i>Lecture Notes in Mathematics</i>. 2008.
+<span class="listmarker">[Dub10]</span> <a id="LWR-ht-cite.0@lectures:dubrovin"></a>Boris Dubrovin. <em>Appunti sulla MECCANICA ANALITICA</em>. Unpublished lecture notes (in Italian). 2010. <span
+class="textsc">url</span>: <a href="https://archive.org/details/Boris_DUBROVIN___Meccanica_Analitica" target="_blank" >https://archive.org/details/Boris_DUBROVIN___Meccanica_Analitica</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Dub10]&#x2003; Boris Dubrovin. Appunti sulla meccanica analitica, 2010. Unpublished lecture notes (in Italian).
+<span class="listmarker">[GF00]</span> <a id="LWR-ht-cite.0@book:gelfand"></a>I.M. Gelfand and S.V. Fomin. <em>Calculus of Variations</em>. Dover Books on Mathematics. Dover Publications, New York, 2000. <span
+class="textsc">isbn</span>: 9780486414485.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[GF00]&#x2003; I.M. Gelfand and S.V. Fomin. <i>Calculus of Variations</i>. Dover Books on Mathematics. Dover Publications, New York, 2000.
+<span class="listmarker">[GPS13]</span> <a id="LWR-ht-cite.0@goldstein2013classical"></a>H. Goldstein, C.P. Poole, and J. Safko. <em>Classical Mechanics</em>. Pearson, 2013. <span class="textsc">isbn</span>: 9781292026558.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[GPS13]&#x2003; H.&nbsp;Goldstein, C.P. Poole, and J.&nbsp;Safko. <i>Classical Mechanics</i>. Pearson, 2013.
+<span class="listmarker">[Guz15]</span> <a id="LWR-ht-cite.0@Guzzo2015"></a>M. Guzzo. “The Nekhoroshev theorem and long-term stabilities in the solar system”. In: <em>Serbian Astronomical Journal</em> 1.190 (2015), pp. 1–10. <span
+class="textsc">issn</span>: 1450698X. <span class="textsc">doi</span>: <a href="https://doi.org/10.2298/SAJ1590001G" target="_blank" >10.2298/SAJ1590001G</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Guz15]&#x2003; M.&nbsp;Guzzo. The Nekhoroshev theorem and long-term stabilities in the solar system. <i>Serbian Astronomical Journal</i>, 1(190):1–10, 2015.
+<span class="listmarker">[J.M13]</span> <a id="LWR-ht-cite.0@book:lee"></a>Lee J.M. <em>Introduction to Smooth Manifolds</em>. Vol.&nbsp;218. Graduate Texts in Mathematics. Springer, New York, 2013. <span
+class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-1-4419-9982-5" target="_blank" >10.1007/978-1-4419-9982-5</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[J.M13]&#x2003; Lee J.M. <i>Introduction to Smooth Manifolds</i>, volume 218 of <i>Graduate Texts in Mathematics</i>. Springer, New York, 2013.
+<span class="listmarker">[Kna18]</span> <a id="LWR-ht-cite.0@book:knauf"></a>Andreas Knauf. <em>Mathematical physics: classical mechanics</em>. Vol.&nbsp;109. UNITEXT. Springer, New York, 2018. <span
+class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-3-662-55774-7" target="_blank" >10.1007/978-3-662-55774-7</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Kna18]&#x2003; Andreas Knauf. <i>Mathematical physics: classical mechanics</i>, volume 109 of <i>UNITEXT</i>. Springer, New York, 2018.
+<span class="listmarker">[Lan+76]</span> <a id="LWR-ht-cite.0@landau1976mechanics"></a>L.D. Landau et al. <em>Mechanics: Volume 1</em>. Butterworth-Heinemann. Elsevier Science, 1976. <span class="textsc">isbn</span>:
+9780750628969.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Lap51]&#x2003; Pierre&nbsp;Simon Laplace. <i>A Philosophical Essay on Probabilities</i>. 1951. translated into English from the original French 6th ed. by Truscott, F.W. and Emory, F.L.
+<span class="listmarker">[Lap51]</span> <a id="LWR-ht-cite.0@book:laplace"></a>Pierre Simon Laplace. <em>A Philosophical Essay on Probabilities</em>. Ed. by New York Dover Publications. translated into English from the original French
+6th ed. by Truscott, F.W. and Emory, F.L. 1951.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[LL76]&#x2003; L.D. Landau and E.M. Lifshitz. <i>Mechanics: Volume 1</i>. Butterworth-Heinemann. Elsevier Science, 1976.
+<span class="listmarker">[LL76]</span> <a id="LWR-ht-cite.0@book:ll"></a>L.D. Landau and E.M. Lifshitz. <em>Mechanics: Volume 1</em>. Butterworth-Heinemann. Elsevier Science, 1976. <span class="textsc">isbn</span>:
+9780750628969.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[LLSB76]&#x2003; L.D. Landau, E.M. Lifshitz, J.B. Sykes, and J.S. Bell. <i>Mechanics: Volume 1</i>. Butterworth-Heinemann. Elsevier Science, 1976.
+<span class="listmarker">[Low12]</span> <a id="LWR-ht-cite.0@book:lowenstein"></a>John H. Lowenstein. <em>Essentials of Hamiltonian Dynamics</em>. Cambridge University Press, 2012. <span class="textsc">doi</span>: <a
+href="https://doi.org/10.1017/CBO9780511793721" target="_blank" >10.1017/CBO9780511793721</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Low12]&#x2003; John&nbsp;H. Lowenstein. <i>Essentials of Hamiltonian Dynamics</i>. Cambridge University Press, 2012.
+<span class="listmarker">[MR11]</span> <a id="LWR-ht-cite.0@zbMATH05911037"></a>Jaume Masoliver and Ana Ros. “Integrability and chaos: the classical uncertainty.” English. In: <em>Eur. J. Phys.</em> 32.2 (2011), pp. 431–458. <span
+class="textsc">issn</span>: 0143-0807. <span class="textsc">url</span>: <a href="https://www-e.ovgu.de/mertens/teaching/seminar/themen/ejp_integrability_chaos.pdf" target="_blank"
+>https://www-e.ovgu.de/mertens/teaching/seminar/themen/ejp_integrability_chaos.pdf</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[MR99]&#x2003; Jerold&nbsp;E. Marsden and Tudor&nbsp;S. Ratiu. <i>Introduction to Mechanics and Symmetry</i>, volume&nbsp;17 of <i>Texts in Applied Mathematics</i>. Springer, New York, 2nd edition, 1999.
+<span class="listmarker">[MR99]</span> <a id="LWR-ht-cite.0@book:marsdenratiu"></a>Jerold E. Marsden and Tudor S. Ratiu. <em>Introduction to Mechanics and Symmetry</em>. 2nd. Vol.&nbsp;17. Texts in Applied Mathematics. Springer,
+New York, 1999. <span class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-0-387-21792-5" target="_blank" >10.1007/978-0-387-21792-5</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[MR11]&#x2003; Jaume Masoliver and Ana Ros. Integrability and chaos: the classical uncertainty. <i>Eur. J. Phys.</i>, 32(2):431–458, 2011.
+<span class="listmarker">[P0̈1]</span> <a id="LWR-ht-cite.0@poschel2001"></a>Jürgen Pöschel. “A lecture on the classical KAM theorem.” In: <em>Smooth ergodic theory and its applications. Proceedings of the AMS summer research institute,
+Seattle, WA, USA, July 26–August 13, 1999</em>. Providence, RI: American Mathematical Society (AMS), 2001, pp. 707–732. <span class="textsc">isbn</span>: 0-8218-2682-4/hbk. <span class="textsc">doi</span>: <a
+href="https://doi.org/10.1090/pspum/069" target="_blank" >10.1090/pspum/069</a>. <span class="textsc">url</span>: <a href="http://www.poschel.de/pbl/kam-1.pdf" target="_blank" >http://www.poschel.de/pbl/kam-1.pdf</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[P9&#x0308;3]&#x2003; Ju&#x0308;rgen Po&#x0308;schel. Nekhoroshev estimates for quasi-convex hamiltonian systems. <i>Mathematische Zeitschrift</i>, 213(1):187–216, may 1993.
+<span class="listmarker">[P9̈3]</span> <a id="LWR-ht-cite.0@Poschel1993"></a>Jürgen Pöschel. “Nekhoroshev estimates for quasi-convex hamiltonian systems”. In: <em>Mathematische Zeitschrift</em> 213.1 (1993), pp. 187–216. <span
+class="textsc">issn</span>: 0025-5874. <span class="textsc">doi</span>: <a href="https://doi.org/10.1007/BF03025718" target="_blank" >10.1007/BF03025718</a>. <span class="textsc">url</span>: <a
+href="http://link.springer.com/10.1007/BF03025718" target="_blank" >http://link.springer.com/10.1007/BF03025718</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[P0&#x0308;1]&#x2003; Ju&#x0308;rgen Po&#x0308;schel. A lecture on the classical KAM theorem. In <i>Smooth ergodic theory and its applications. Proceedings of the AMS summer research institute, Seattle, WA, USA, July 26–August 13,
-1999</i>, pages 707–732. Providence, RI: American Mathematical Society (AMS), 2001.
+<span class="listmarker">[Sch19]</span> <a id="LWR-ht-cite.0@schwichtenberg2019no"></a>J. Schwichtenberg. <em>No-Nonsense Classical Mechanics: A Student-Friendly Introduction</em>. No-Nonsense Books, 2019. <span
+class="textsc">url</span>: <a href="https://nononsensebooks.com/cm/" target="_blank" >https://nononsensebooks.com/cm/</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Sch19]&#x2003; J.&nbsp;Schwichtenberg. <i>No-Nonsense Classical Mechanics: A Student-Friendly Introduction</i>. No-Nonsense Books, 2019.
+<span class="listmarker">[Ser20]</span> <a id="LWR-ht-cite.0@lectures:aom:seri"></a>Marcello Seri. <em>Analysis on Manifolds</em>. Unpublished lecture notes, version 0.10. 2020. <span class="textsc">url</span>: <a
+href="https://github.com/mseri/AoM/releases" target="_blank" >https://github.com/mseri/AoM/releases</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[Ser20]&#x2003; Marcello Seri. Analysis on manifolds, 2020. Unpublished lecture notes, version 0.10.
+<span class="listmarker">[Sil08]</span> <a id="LWR-ht-cite.0@book:dasilva"></a>Ana Cannas da Silva. <em>Lectures on Symplectic Geometry</em>. Ed. by Heidelberg Springer-Verlag Berlin. Vol.&nbsp;1764. Lecture Notes in Mathematics.
+2008. <span class="textsc">doi</span>: <a href="https://doi.org/10.1007/978-3-540-45330-7" target="_blank" >10.1007/978-3-540-45330-7</a>. <span class="textsc">url</span>: <a
+href="https://people.math.ethz.ch/~acannas/Papers/lsg.pdf" target="_blank" >https://people.math.ethz.ch/~acannas/Papers/lsg.pdf</a>.
 </p>
+
+
 </li>
 <li>
 
+
 <p>
-[SW15]&#x2003; Gerald&nbsp;J. Sussman and Jack Wisdom. <i>Structure and Interpretation of Classical Mechanics</i>. 2015.
+<span class="listmarker">[SW15]</span> <a id="LWR-ht-cite.0@book:sicm"></a>Gerald J. Sussman and Jack Wisdom. <em>Structure and Interpretation of Classical Mechanics</em>. Ed. by MIT Press. 2015. <span
+class="textsc">url</span>: <a href="https://mitpress.mit.edu/books/structure-and-interpretation-classical-mechanics-second-edition" target="_blank"
+>https://mitpress.mit.edu/books/structure-and-interpretation-classical-mechanics-second-edition</a>.
 </p>
+
+
 </li>
 <li>
 
-<p>
-[Ton05]&#x2003; David Tong. Classical dynamics, 2005. Unbpublished lecture notes.
-</p>
-<p>
 
+<p>
+<span class="listmarker">[Ton05]</span> <a id="LWR-ht-cite.0@lectures:tong"></a>David Tong. <em>Classical Dynamics</em>. Unbpublished lecture notes. 2005. <span class="textsc">url</span>: <a
+href="http://www.damtp.cam.ac.uk/user/tong/dynamics/clas.pdf" target="_blank" >http://www.damtp.cam.ac.uk/user/tong/dynamics/clas.pdf</a>.
 </p>
 </li>
 </ul>

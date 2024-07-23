@@ -6,9 +6,6 @@
 <meta name="generator" content="LaTeX Lwarp package" />
 <meta name="description" content="Lecture notes for Hamiltonian Mechanics" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
 <title>Hamiltonian Mechanics — Hamiltonian perturbation theory</title>
 <link rel="stylesheet" type="text/css" href="lwarp.css" />
 
@@ -31,213 +28,213 @@ MathJax = {
     subequations: "0",
     section: "",
     loader: {
-        load: ['[tex]/tagformat', '[tex]/textmacros'],
+         load: ['[tex]/tagformat', '[tex]/textmacros'],
     },
     startup: {
-        ready() {
-            //      These would be replaced by import commands if you wanted to make
-            //      a proper extension.
-            const Configuration = MathJax._.input.tex.Configuration.Configuration;
-            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
-            const Macro = MathJax._.input.tex.Symbol.Macro;
-            const TexError = MathJax._.input.tex.TexError.default;
-            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
-            const expandable = MathJax._.util.Options.expandable;
+         ready() {
+             //       These would be replaced by import commands if you wanted to make
+             //       a proper extension.
+             const Configuration = MathJax._.input.tex.Configuration.Configuration;
+             const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+             const Macro = MathJax._.input.tex.Symbol.Macro;
+             const TexError = MathJax._.input.tex.TexError.default;
+             const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+             const expandable = MathJax._.util.Options.expandable;
 
 
-            //      Insert the replacement string into the TeX string, and check
-            //      that there haven't been too many maxro substitutions (prevents
-            //      infinite loops).
-            const useArgument = (parser, text) => {
-                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
-                parser.i = 0;
-                if (++parser.macroCount > parser.configuration.options.maxMacros) {
-                    throw new TexError('MaxMacroSub1',
-                    'MathJax maximum macro substitution count exceeded; ' +
-                    'is there a recursive macro call?');
-                }
-            }
+             //       Insert the replacement string into the TeX string, and check
+             //       that there haven't been too many maxro substitutions (prevents
+             //       infinite loops).
+             const useArgument = (parser, text) => {
+                 parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                 parser.i = 0;
+                 if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                     throw new TexError('MaxMacroSub1',
+                     'MathJax maximum macro substitution count exceeded; ' +
+                     'is there a recursive macro call?');
+                 }
+             }
 
 
-            //      Create the command map for:
-            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
-            new CommandMap('Lwarp-macros', {
-                ifstar: 'IfstarFunction',
-                ifnextchar: 'IfnextcharFunction',
-                ifblank: 'IfblankFunction',
-                ifstrequal: 'IfstrequalFunction',
-                gsubstitute: 'GsubstituteFunction',
-                seteqnumber: 'SeteqnumberFunction'
-            }, {
-                //      This function implements an ifstar macro.
-                IfstarFunction(parser, name) {
-                    const resultstar = parser.GetArgument(name);
-                    const resultnostar = parser.GetArgument(name);
-                    const star = parser.GetStar();                      // true if there is a *
-                    useArgument(parser, star ? resultstar : resultnostar);
-                },
+             //       Create the command map for:
+             //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+             new CommandMap('Lwarp-macros', {
+                 ifstar: 'IfstarFunction',
+                 ifnextchar: 'IfnextcharFunction',
+                 ifblank: 'IfblankFunction',
+                 ifstrequal: 'IfstrequalFunction',
+                 gsubstitute: 'GsubstituteFunction',
+                 seteqnumber: 'SeteqnumberFunction'
+             }, {
+                 //      This function implements an ifstar macro.
+                 IfstarFunction(parser, name) {
+                     const resultstar = parser.GetArgument(name);
+                     const resultnostar = parser.GetArgument(name);
+                     const star = parser.GetStar();                        // true if there is a *
+                     useArgument(parser, star ? resultstar : resultnostar);
+                 },
 
 
-                //      This function implements an ifnextchar macro.
-                IfnextcharFunction(parser, name) {
-                    let whichchar = parser.GetArgument(name);
-                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
-                        // $ syntax highlighting
-                        whichchar = String.fromCodePoint(parseInt(whichchar));
-                    }
-                    const resultnextchar = parser.GetArgument(name);
-                    const resultnotnextchar = parser.GetArgument(name);
-                    const gotchar = (parser.GetNext() === whichchar);
-                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
-                },
+                 //      This function implements an ifnextchar macro.
+                 IfnextcharFunction(parser, name) {
+                     let whichchar = parser.GetArgument(name);
+                     if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                         // $ syntax highlighting
+                         whichchar = String.fromCodePoint(parseInt(whichchar));
+                     }
+                     const resultnextchar = parser.GetArgument(name);
+                     const resultnotnextchar = parser.GetArgument(name);
+                     const gotchar = (parser.GetNext() === whichchar);
+                     useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                 },
 
 
-                // This function implements an ifblank macro.
-                IfblankFunction(parser, name) {
-                    const blankarg = parser.GetArgument(name);
-                    const resultblank = parser.GetArgument(name);
-                    const resultnotblank = parser.GetArgument(name);
-                    const isblank = (blankarg.trim() == "");
-                    useArgument(parser, isblank ? resultblank : resultnotblank);
-                },
+                 // This function implements an ifblank macro.
+                 IfblankFunction(parser, name) {
+                     const blankarg = parser.GetArgument(name);
+                     const resultblank = parser.GetArgument(name);
+                     const resultnotblank = parser.GetArgument(name);
+                     const isblank = (blankarg.trim() == "");
+                     useArgument(parser, isblank ? resultblank : resultnotblank);
+                 },
 
 
-                // This function implements an ifstrequal macro.
-                IfstrequalFunction(parser, name) {
-                    const strequalfirst = parser.GetArgument(name);
-                    const strequalsecond = parser.GetArgument(name);
-                    const resultequal = parser.GetArgument(name);
-                    const resultnotequal = parser.GetArgument(name);
-                    const isequal = (strequalfirst == strequalsecond);
-                    useArgument(parser, isequal ? resultequal : resultnotequal);
-                },
+                 // This function implements an ifstrequal macro.
+                 IfstrequalFunction(parser, name) {
+                     const strequalfirst = parser.GetArgument(name);
+                     const strequalsecond = parser.GetArgument(name);
+                     const resultequal = parser.GetArgument(name);
+                     const resultnotequal = parser.GetArgument(name);
+                     const isequal = (strequalfirst == strequalsecond);
+                     useArgument(parser, isequal ? resultequal : resultnotequal);
+                 },
 
 
-                // This function implements a gsub macro.
-                GsubstituteFunction(parser, name) {
-                    const gsubfirst = parser.GetArgument(name);
-                    const gsubsecond = parser.GetArgument(name);
-                    const gsubthird = parser.GetArgument(name);
-                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
-                    useArgument(parser, gsubresult);
-                },
+                 // This function implements a gsub macro.
+                 GsubstituteFunction(parser, name) {
+                     const gsubfirst = parser.GetArgument(name);
+                     const gsubsecond = parser.GetArgument(name);
+                     const gsubthird = parser.GetArgument(name);
+                     let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                     useArgument(parser, gsubresult);
+                 },
 
 
-                //      This function modifies the equation numbers.
-                SeteqnumberFunction(parser, name) {
-                        //   Get the macro parameters
-                        const star = parser.GetStar();                    // true if there is a *
-                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
-                        const newsubequations = parser.GetArgument(name);    // the subequations argument
-                        const neweqsection = parser.GetArgument(name);    // the eq section argument
-                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
-                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
-                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
-                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
-                }
+                 //      This function modifies the equation numbers.
+                 SeteqnumberFunction(parser, name) {
+                         //   Get the macro parameters
+                         const star = parser.GetStar();                       // true if there is a *
+                         const optBrackets = parser.GetBrackets(name);        // contents of optional brackets
+                         const newsubequations = parser.GetArgument(name);       // the subequations argument
+                         const neweqsection = parser.GetArgument(name);       // the eq section argument
+                         const neweqnumber = parser.GetArgument(name);        // the eq number argument
+                         MathJax.config.subequations=newsubequations ;        // a string with boolean meaning
+                         MathJax.config.section=neweqsection ;                // a string with numeric meaning
+                         parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                 }
 
 
-            });
+             });
 
 
-            //      Create the Lwarp-macros package
-            Configuration.create('Lwarp-macros', {
-                handler: {macro: ['Lwarp-macros']}
-            });
+             //       Create the Lwarp-macros package
+             Configuration.create('Lwarp-macros', {
+                 handler: {macro: ['Lwarp-macros']}
+             });
 
 
-            MathJax.startup.defaultReady();
+             MathJax.startup.defaultReady();
 
 
-            // For forward references:
-            MathJax.startup.input[0].preFilters.add(({math}) => {
-                if (math.inputData.recompile){
-                        MathJax.config.subequations = math.inputData.recompile.subequations;
-                        MathJax.config.section = math.inputData.recompile.section;
-                }
-            });
-            MathJax.startup.input[0].postFilters.add(({math}) => {
-                if (math.inputData.recompile){
-                        math.inputData.recompile.subequations = MathJax.config.subequations;
-                        math.inputData.recompile.section = MathJax.config.section;
-                }
-            });
+             // For forward references:
+             MathJax.startup.input[0].preFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         MathJax.config.subequations = math.inputData.recompile.subequations;
+                         MathJax.config.section = math.inputData.recompile.section;
+                 }
+             });
+             MathJax.startup.input[0].postFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         math.inputData.recompile.subequations = MathJax.config.subequations;
+                         math.inputData.recompile.section = MathJax.config.section;
+                 }
+             });
 
 
-                // For \left, \right with unicode-math:
-                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
-                const {Symbol} = MathJax._.input.tex.Symbol;
-                const {MapHandler} = MathJax._.input.tex.MapHandler;
-                const delimiter = MapHandler.getMap('delimiter');
-                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
-                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
-                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
-                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
-                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
-                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
-                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
-                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
-                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
-                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
-                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
-                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
-                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
-                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
-                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
-                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
-                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
-                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
-                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
-                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
-                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
-                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
-                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
-                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
-                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
-                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
-                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
-                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
-                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
-                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
-                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
-                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
-                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
-                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
-                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
-                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
-                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
-                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
-                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
-        }        // ready
+                 // For \left, \right with unicode-math:
+                 const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                 const {Symbol} = MathJax._.input.tex.Symbol;
+                 const {MapHandler} = MathJax._.input.tex.MapHandler;
+                 const delimiter = MapHandler.getMap('delimiter');
+                 delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                 delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                 delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                 delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                 delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                 delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                 delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                 delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                 delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                 delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                 delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                 delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                 delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                 delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                 delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                 delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                 delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                 delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                 delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                 delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                 delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                 delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                 delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                 delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                 delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                 delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                 delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                 delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                 delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                 delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                 delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                 delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                 delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                 delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                 delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                 delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                 delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                 delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                 delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+         }       // ready
     },           // startup
 
 
     tex: {
-        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
-        tags: "ams",
-                tagformat: {
-                        number: function (n) {
-                             if(MathJax.config.subequations==0)
-                                 return(MathJax.config.section + n);
-                             else
-                                 return(MathJax.config.section + String.fromCharCode(96+n));
-                        },
-                },
+         packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+         tags: "ams",
+                 tagformat: {
+                         number: function (n) {
+                              if(MathJax.config.subequations==0)
+                                     return(MathJax.config.section + n);
+                              else
+                                     return(MathJax.config.section + String.fromCharCode(96+n));
+                         },
+                 },
     }
 }
 </script>
 
 
 <script
-        id="MathJax-script"
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+         id="MathJax-script"
+         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 ></script>
 
 </head>
 <body>
 
 
-<a id="hm-autopage-353"></a>
+<a id="hm-autopage-331"></a>
 <nav class="topnavigation"><a href="index.html" class="linkhome" >
 Home</a></nav>
 
@@ -270,186 +267,186 @@ Home</a>
 
 <p>
 <a href="chapter-1.html#autosec-7" class="tocchapter" >
-<span class="sectionnumber">1</span>&#x2003;Classical mechanics, from Newton to Lagrange and back</a>
+<span class="sectionnumber">1</span>&#x2003;Classical mechanics</a>
 </p>
 
 
 <p>
 <a href="chapter-1.html#autosec-8" class="tocsection" >
-<span class="sectionnumber">1.1</span>&#x2003;Newtonian mechanics</a>
+<span class="sectionnumber">1.1</span>&#x2003;Newtonian mechanics of point particles</a>
 </p>
 
 
 <p>
-<a href="chapter-1.html#autosec-19" class="tocsection" >
+<a href="chapter-1.html#autosec-21" class="tocsection" >
 <span class="sectionnumber">1.2</span>&#x2003;Hamilton’s variational principle</a>
 </p>
 
 
 <p>
-<a href="chapter-1.html#autosec-45" class="tocsection" >
+<a href="chapter-1.html#autosec-47" class="tocsection" >
 <span class="sectionnumber">1.3</span>&#x2003;First steps with conserved quantities</a>
 </p>
 
 
 <p>
-<a href="chapter-1.html#autosec-70" class="tocsection" >
+<a href="chapter-1.html#autosec-68" class="tocsection" >
 <span class="sectionnumber">1.4</span>&#x2003;Euler-Lagrange equations on smooth manifolds</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-81" class="tocchapter" >
+<a href="chapter-2.html#autosec-79" class="tocchapter" >
 <span class="sectionnumber">2</span>&#x2003;Conservation Laws</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-82" class="tocsection" >
+<a href="chapter-2.html#autosec-80" class="tocsection" >
 <span class="sectionnumber">2.1</span>&#x2003;Noether theorem</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-116" class="tocsection" >
+<a href="chapter-2.html#autosec-110" class="tocsection" >
 <span class="sectionnumber">2.2</span>&#x2003;The spherical pendulum</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-119" class="tocsection" >
+<a href="chapter-2.html#autosec-113" class="tocsection" >
 <span class="sectionnumber">2.3</span>&#x2003;Intermezzo: small oscillations</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-142" class="tocsection" >
+<a href="chapter-2.html#autosec-124" class="tocsection" >
 <span class="sectionnumber">2.4</span>&#x2003;Motion in a central potential</a>
 </p>
 
 
 <p>
-<a href="chapter-2.html#autosec-161" class="tocsection" >
+<a href="chapter-2.html#autosec-143" class="tocsection" >
 <span class="sectionnumber">2.5</span>&#x2003;D’Alembert principle and systems with constraints</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-176" class="tocchapter" >
+<a href="chapter-3.html#autosec-158" class="tocchapter" >
 <span class="sectionnumber">3</span>&#x2003;Hamiltonian mechanics</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-177" class="tocsection" >
+<a href="chapter-3.html#autosec-159" class="tocsection" >
 <span class="sectionnumber">3.1</span>&#x2003;The Legendre Transform in the euclidean plane</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-179" class="tocsection" >
+<a href="chapter-3.html#autosec-161" class="tocsection" >
 <span class="sectionnumber">3.2</span>&#x2003;Intermezzo: cotangent bundle and differential forms</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-180" class="tocsection" >
+<a href="chapter-3.html#autosec-162" class="tocsection" >
 <span class="sectionnumber">3.3</span>&#x2003;The Legendre Transform</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-201" class="tocsection" >
+<a href="chapter-3.html#autosec-183" class="tocsection" >
 <span class="sectionnumber">3.4</span>&#x2003;Poisson brackets and first integrals of motion</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-214" class="tocsection" >
+<a href="chapter-3.html#autosec-196" class="tocsection" >
 <span class="sectionnumber">3.5</span>&#x2003;Variational principles of hamiltonian mechanics</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-227" class="tocsection" >
+<a href="chapter-3.html#autosec-209" class="tocsection" >
 <span class="sectionnumber">3.6</span>&#x2003;Canonical transformations</a>
 </p>
 
 
 <p>
-<a href="chapter-3.html#autosec-249" class="tocsection" >
+<a href="chapter-3.html#autosec-231" class="tocsection" >
 <span class="sectionnumber">3.7</span>&#x2003;The symplectic structure on the cotangent bundle</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-284" class="tocchapter" >
+<a href="chapter-4.html#autosec-266" class="tocchapter" >
 <span class="sectionnumber">4</span>&#x2003;Integrable systems</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-285" class="tocsection" >
+<a href="chapter-4.html#autosec-267" class="tocsection" >
 <span class="sectionnumber">4.1</span>&#x2003;Lagrangian submanifolds</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-294" class="tocsection" >
+<a href="chapter-4.html#autosec-276" class="tocsection" >
 <span class="sectionnumber">4.2</span>&#x2003;Canonical transformations revisited</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-317" class="tocsection" >
+<a href="chapter-4.html#autosec-299" class="tocsection" >
 <span class="sectionnumber">4.3</span>&#x2003;Hamilton-Jacobi equations</a>
 </p>
 
 
 <p>
-<a href="chapter-4.html#autosec-331" class="tocsection" >
+<a href="chapter-4.html#autosec-313" class="tocsection" >
 <span class="sectionnumber">4.4</span>&#x2003;The Liouville-Arnold theorem</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-354" class="tocchapter" >
+<a href="chapter-5.html#autosec-332" class="tocchapter" >
 <span class="sectionnumber">5</span>&#x2003;Hamiltonian perturbation theory</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-355" class="tocsection" >
+<a href="chapter-5.html#autosec-333" class="tocsection" >
 <span class="sectionnumber">5.1</span>&#x2003;Small oscillations revisited</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-363" class="tocsection" >
+<a href="chapter-5.html#autosec-341" class="tocsection" >
 <span class="sectionnumber">5.2</span>&#x2003;Birkhoff normal forms</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-367" class="tocsection" >
+<a href="chapter-5.html#autosec-345" class="tocsection" >
 <span class="sectionnumber">5.3</span>&#x2003;A brief look at KAM theory</a>
 </p>
 
 
 <p>
-<a href="chapter-5.html#autosec-371" class="tocsection" >
+<a href="chapter-5.html#autosec-349" class="tocsection" >
 <span class="sectionnumber">5.4</span>&#x2003;Nekhoroshev theorem</a>
 </p>
 
 
 <p>
-<a href="chapter-6.html#autosec-374" class="tocchapter" >
+<a href="chapter-6.html#autosec-352" class="tocchapter" >
 <span class="sectionnumber">6</span>&#x2003;Conclusion</a>
 </p>
 
 
 <p>
-<a href="chapter-6.html#autosec-375" class="tocchapter" >
+<a href="chapter-6.html#autosec-352" class="tocchapter" >
 Bibliography</a>
 </p>
 
@@ -469,9 +466,9 @@ Bibliography</a>
 <h1>Hamiltonian Mechanics</h1>
 
 <!--MathJax customizations:-->
-
-
-<div class="hidden">
+<div data-nosnippet
+    style="display:none"
+>
 
 \(\newcommand{\footnotename}{footnote}\)
 
@@ -643,27 +640,27 @@ Bibliography</a>
 
 </div>
 
-<p>
 <!--
 ...... chapter Hamiltonian perturbation theory ......
 -->
-<h3 id="autosec-354"><span class="sectionnumber">5&#x2003;</span>Hamiltonian perturbation theory</h3>
-<a id="hm-autopage-354"></a>
+<h3 id="autosec-332"><span class="sectionnumber">5&#x2003;</span>Hamiltonian perturbation theory</h3>
+<a id="hm-autopage-332"></a>
 <a id="hm-autofile-5"></a>
 
 <p>
 In this chapter we will briefly review perturbation theory for hamiltonian systems. We will start revisiting the small oscillations approach, and then give a brief glimpse of the powerful tools available when perturbing integrable systems. For a nice
-and compact overview of perturbation theory you can refer to [Cel09], also available from arXiv.
+and compact overview of perturbation theory you can refer to [<a href="chapter-6.html#LWR-ht-cite.0@Celletti_2009">Cel09</a>], also available from arXiv.
 </p>
 
 <p>
-For brevity, I decided to omit a discussion of parametric resonances and adiabatic invariants. For those, refer respectively to [Arn89, Chapter 25] and [Kna18, Chapter 5.4] and to [Kna18, Chapter 15.1].
+For brevity, I decided to omit a discussion of parametric resonances and adiabatic invariants. For those, refer respectively to [<a href="chapter-6.html#LWR-ht-cite.0@book:arnold">Arn89</a>, Chapter 25] and [<a
+href="chapter-6.html#LWR-ht-cite.0@book:knauf">Kna18</a>, Chapter 5.4] and to [<a href="chapter-6.html#LWR-ht-cite.0@book:knauf">Kna18</a>, Chapter 15.1].
 </p>
 <!--
 ...... section Small oscillations revisited ......
 -->
-<h4 id="autosec-355"><span class="sectionnumber">5.1&#x2003;</span>Small oscillations revisited</h4>
-<a id="hm-autopage-355"></a>
+<h4 id="autosec-333"><span class="sectionnumber">5.1&#x2003;</span>Small oscillations revisited</h4>
+<a id="hm-autopage-333"></a>
 
 
 <p>
@@ -674,9 +671,9 @@ For convenience, let’s assume \(M=\mathbb {R}^n\). Given a hamiltonian \(H=H(q
 
 <!--
 
-                                                                                                                         ∂H              ∂H
-                                                                                                                            (q0 , p0 ) =    (q0 , p0 ) = 0.                                                                                      (5.1)
-                                                                                                                         ∂q              ∂p
+                                                                                                                        ∂H              ∂H
+                                                                                                                           (q0 , p0 ) =    (q0 , p0 ) = 0.                                                                                       (5.1)
+                                                                                                                        ∂q              ∂p
 
 -->
 
@@ -701,7 +698,7 @@ Without loss of generality, let’s assume \(H\) has an equilibrium at the origi
 <!--
 
 
-                                                            H(q, p) = H0 (q0 , p0 ) + H2 (q, p) + H3 (q, p) + · · ·                                                          (5.2)                                     --><a id="eq:hamidevl"></a><!--
+                                                            H(q, p) = H0 (q0 , p0 ) + H2 (q, p) + H3 (q, p) + · · ·                                                     (5.2)                                          --><a id="eq:hamidevl"></a><!--
 
 -->
 
@@ -726,15 +723,19 @@ The hamiltonian system <span class="textup">(<a href="chapter-3.html#eq:Hamsys">
 
 <!--
 
-                                                                            ∂H2
                                                                     
-                                                                     q̇i =
+                                                                            ∂H2
+                                                                     q̇i = ∂p
                                                                     
-                                                                             ∂pi
-                                                                                      ,   i = 1, . . . , n,                                                               (5.3)                                    --><a id="eq:lienarizedH"></a><!--
-                                                                    ṗi = − ∂H2
                                                                     
-                                                                               ∂qi
+                                                                                                                                                                     (5.3)
+                                                                               i
+                                                                                  ,     i = 1, . . . , n,                                                                                                          --><a id="eq:lienarizedH"></a><!--
+                                                                             ∂H2
+                                                                    ṗi = −
+                                                                    
+                                                                    
+                                                                              ∂qi
 
 -->
 
@@ -755,7 +756,7 @@ is the <em>linearization</em> of the hamiltonian system with hamiltonian \(H\) o
 <!--
 
 
-                                                                           ẋ = Bx,       x = (q, p),                                                                        (5.4)                                     --><a id="eq:hamsoivp"></a><!--
+                                                                           ẋ = Bx,    x = (q, p),                                                                      (5.4)                                          --><a id="eq:hamsoivp"></a><!--
 
 -->
 
@@ -779,11 +780,13 @@ The solution of the initial value problem <span class="textup">(<a href="chapter
 
 <!--
 
-                                                                                                                                                   ∞
-                                                                                                                                                   X B k tk
-                                                                                                                      x(t) = eBt x0 ,     eBt =                       ,                                                                          (5.5)
-                                                                                                                                                             k!
-                                                                                                                                                   k=0
+                                                                                                                                                     ∞
+                                                                                                                                                       B k tk
+                                                                                                                                                                                                                                                 (5.5)
+                                                                                                                                                     X
+                                                                                                                      x(t) = eBt x0 ,    eBt =                   ,
+                                                                                                                                                           k!
+                                                                                                                                                     k=0
 
 
 -->
@@ -808,9 +811,9 @@ We can always find a symmetric matrix \(A\) to rewrite the quadratic polynomial 
 
 <!--
 
-                                                                                                                                          1
-                                                                                                                               H2 (x) =     ⟨Ax, x⟩.                                                                                             (5.6)
-                                                                                                                                          2
+                                                                                                                                         1
+                                                                                                                              H2 (x) =     hAx, xi.                                                                                              (5.6)
+                                                                                                                                         2
 -->
 
 <p>
@@ -829,10 +832,12 @@ Then, it follows by <span class="textup">(<a href="chapter-3.html#eq:hamsysJ">3.
 
 <!--
 
-                                                                                                                                                            
-                                                                                                                                             0         Idn
-                                                                                                                       B = JA,      J=                            .                                                                              (5.7)
-                                                                                                                                           − Idn        0
+
+                                                                                                                                                       Idn
+                                                                                                                                                          
+                                                                                                                                               0
+                                                                                                                       B = JA,      J=                       .                                                                                   (5.7)
+                                                                                                                                             − Idn      0
 
 -->
 
@@ -845,14 +850,14 @@ B = J A, \quad J = \begin{pmatrix} 0 &amp; \Id _n \\-\Id _n&amp;0 \end {pmatrix}
 </p>
 <div class="amsthmbodyplain">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-356"></a>
-<span class="amsthmnameplain">Lemma</span><span class="amsthmnumberplain"> <span class="textup">5.1</span></span>.     <a id="eq:lemmaCP"></a> Let \(A\) be a symmetric matrix and \(J\) be the symplectic matrix. The
+<span class="listmarker"><a id="hm-autopage-334"></a>
+<span class="amsthmnameplain">Lemma</span><span class="amsthmnumberplain"> <span class="textup">5.1</span></span>. </span> <a id="eq:lemmaCP"></a> Let \(A\) be a symmetric matrix and \(J\) be the symplectic matrix. The
 characteristic polynomial of the matrix \(B=JA\) has the form
 </p>
 
@@ -862,7 +867,7 @@ characteristic polynomial of the matrix \(B=JA\) has the form
 
 
 
-                                                                                           det(B − λI) = det(A − λJ) = Pn (λ2 )                                                                                          (5.8)
+                                                                                              det(B − λI) = det(A − λJ) = Pn (λ2 )                                                                                           (5.8)
 
 -->
 
@@ -887,15 +892,15 @@ where \(P_n\) is a polynomial of degree \(n\).
 </div>
 <div class="amsthmproof">
 
-<a id="hm-autopage-357"></a>
+<a id="hm-autopage-335"></a>
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<span class="amsthmproofname">Proof.</span> We use \(J^2 = \Id \) and \(\det J= 1\) to write
+<span class="listmarker"> <span class="amsthmproofname">Proof.</span></span> We use \(J^2 = \Id \) and \(\det J= 1\) to write
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{}{8}\)</span>
@@ -904,9 +909,9 @@ where \(P_n\) is a polynomial of degree \(n\).
 
 
 
-                                                                                          det(B − λI) = det JA − λJ 2 = det(J) det(A − λJ) = det(A − λJ).
-                                                                                                                       
-                                                                                                                                                                                                                                                  (5.9)
+                                                                                          det(B − λI) = det JA − λJ 2 = det(J) det(A − λJ) = det(A − λJ).                                                                                         (5.9)
+                                                                                                                     
+
 
 -->
 
@@ -928,11 +933,8 @@ Using the invariance of the characteristic polynomials by transposition, we have
 
 <!--
 
-
-
-                                                                                                     det(A − λJ) = det AT − λJ T = det(A + λJ),
-                                                                                                                                    
-                                                                                                                                                                                                                                                 (5.10)
+                                                                                                                              
+                                                                                                    det(A − λJ) = det AT − λJ T = det(A + λJ),                                                                                                   (5.10)
 
 -->
 
@@ -962,14 +964,14 @@ In the <em>generic</em> case of \(n\) distinct roots of the polynomial \(P_n\), 
 </p>
 <div class="amsthmbodyplain">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-358"></a>
-<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.2</span></span>.           Let \(H_2(x) = \frac 12\langle Ax,x\rangle \) be a generic quadratic hamiltonian. The the solution
+<span class="listmarker"><a id="hm-autopage-336"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.2</span></span>. </span> Let \(H_2(x) = \frac 12\langle Ax,x\rangle \) be a generic quadratic hamiltonian. The the solution
 \((q(t), p(t)) = (0,0)\) of the linear system <span class="textup">(<a href="chapter-5.html#eq:lienarizedH">5.3</a>)</span> is stable if and only if all the roots of the polynomial \(P_n(z)\) from the Lemma&nbsp;<a
 href="chapter-5.html#eq:lemmaCP">5.1</a> are real and negative.
 </p>
@@ -985,25 +987,26 @@ More precisely, one can prove the following.
 </p>
 <div class="amsthmbodyplain">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-359"></a>
-<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.3</span></span>.                                    Let \(H(x) = \frac 12\langle Ax,x \rangle \) be a quadratic hamiltonian in \(\mathbb {R}^{2n}\) such
-that the characteristic polynomial has the form
+<span class="listmarker"><a id="hm-autopage-337"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.3</span></span>. </span> Let \(H(x) = \frac 12\langle Ax,x \rangle \) be a quadratic hamiltonian in \(\mathbb {R}^{2n}\)
+such that the characteristic polynomial has the form
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{}{10}\)</span>
 
 <!--
 
-                                                                                                                    n
-                                                                                                                    Y
-                                                                                                  det(A − λJ) =           (λ + ωi2 ),       ω1 , . . . , ωn ∈ R+ , ωi ̸= ωj .                                                                             (5.11)
-                                                                                                                    i=1
+                                                                                                                        n
+                                                                                                      det(A − λJ) =                                                                                                    (5.11)
+                                                                                                                        Y
+                                                                                                                            (λ + ωi2 ),       ω1 , . . . , ωn ∈ R+ , ωi 6= ωj .
+                                                                                                                        i=1
 
 
 -->
@@ -1026,10 +1029,10 @@ Then, there exists a linear canonical transformation
 
 <!--
 
-                                                                                                               !           !                !
-                                                                                                           q              qe            q
-                                                                                                                   7→          =Q               ,   QJQT = J,                                                                                             (5.12)
-                                                                                                           p              pe            p
+                                                                                                                   !            !             !
+                                                                                                               q              qe          q
+                                                                                                                       7→           =Q            ,   QJQT = J,                                                        (5.12)
+                                                                                                               p              pe          p
 
 -->
 
@@ -1052,11 +1055,10 @@ which reduces the hamiltonian to the following <em>normal form</em>:
 <!--
 
                                                                                n
-                                                                          1X
-                                                                       H=    ωi (pe2i + qei2 ).                                                                                      (5.13)                                      --><a id="eq:HamNF"></a><!--
-                                                                          2
-                                                                              i=1
-
+                                                                            1X
+                                                                       H=             p2i + qei2 ).
+                                                                                  ωi (e                                                                                           (5.13)        --><a id="eq:HamNF"></a><!--
+                                                                            2 i=1
 
 -->
 
@@ -1082,14 +1084,14 @@ which reduces the hamiltonian to the following <em>normal form</em>:
 </div>
 <div class="amsthmbodydefinition">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-360"></a>
-<span class="amsthmnamedefinition">Example</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span>.                                                  If we consider the lagrangian
+<span class="listmarker"><a id="hm-autopage-338"></a>
+<span class="amsthmnamedefinition">Example</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span>. </span> If we consider the lagrangian
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{}{13}\)</span>
@@ -1098,10 +1100,8 @@ which reduces the hamiltonian to the following <em>normal form</em>:
 
                                                                                                                                           n
                                                                                                                                       1 X
-                                                                                                                         L(x, ẋ) =       gij ẋi ẋj − U (x)                                                                                (5.14)
-                                                                                                                                      2
-                                                                                                                                         i,j=1
-
+                                                                                                                         L(x, ẋ) =           gij ẋi ẋj − U (x)                                                    (5.14)
+                                                                                                                                      2 i,j=1
 
 -->
 
@@ -1125,10 +1125,8 @@ as in Section&nbsp;<a href="chapter-2.html#sec:soc">2.3</a>, then we have alread
 
                                                                                                                                               n
                                                                                                                                          1X 2
-                                                                                                                          L0 (y, ẏ) =     (ẏi − λi yi2 ).                                                                                  (5.15)
-                                                                                                                                         2
-                                                                                                                                              i=1
-
+                                                                                                                          L0 (y, ẏ) =         (ẏi − λi yi2 ).                                                      (5.15)
+                                                                                                                                         2 i=1
 
 -->
 
@@ -1152,10 +1150,8 @@ If all the eigenvalues are positive, \(\lambda _i = \omega _i^2\), \(\omega _i &
 
                                                                                                                            n
                                                                                                                       1X 2
-                                                                                                                 H=     (pi + ωi2 qi2 ),            (qi , pi ) = (yi , ẏi ).                                                                (5.16)
-                                                                                                                      2
-                                                                                                                         n=1
-
+                                                                                                                 H=        (pi + ωi2 qi2 ),        (qi , pi ) = (yi , ẏi ).                                         (5.16)
+                                                                                                                      2 n=1
 
 -->
 
@@ -1179,7 +1175,7 @@ Then, the canonical transformation
 
 
                                                                                                                          √                   1
-                                                                                                                 pi 7→    ωi pi ,     qi 7→ √ q i ,      i = 1, . . . , n                                                                    (5.17)
+                                                                                                                 pi 7→    ωi pi ,     qi 7→ √ q i ,     i = 1, . . . , n                                             (5.17)
                                                                                                                                              ωi
 
 -->
@@ -1212,11 +1208,11 @@ Solutions of the hamiltonian system with hamiltonian <span class="textup">(<a hr
 
 <!--
 
-                                                            (
-                                                                qi = ρi sin ωi t + ϕ0i
-                                                                                         
-                                                                                         ,   i = 1, . . . , n                                                                              (5.18)              --><a id="eq:easycomplint"></a><!--
-                                                                pi = ρi cos ωi t + ϕ0i
+
+                                                                qi = ρi sin ωi t + φ0i
+                                                            (                            
+                                                                                         ,   i = 1, . . . , n                                                                 (5.18)   --><a id="eq:easycomplint"></a><!--
+                                                                pi = ρi cos ωi t + φ0i
 
 -->
 
@@ -1233,14 +1229,14 @@ where \(\rho _i\geq 0\) and \(\phi _i^0\) are constants of integration.
 </p>
 <div class="amsthmbodydefinition">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-361"></a>
-<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span>.                               The hamiltonian systems with hamiltonian <span class="textup">(<a
+<span class="listmarker"><a id="hm-autopage-339"></a>
+<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span>. </span> The hamiltonian systems with hamiltonian <span class="textup">(<a
 href="chapter-5.html#eq:HamNF">5.13</a>)</span> is completely integrable. With the notation of <span class="textup">(<a href="chapter-5.html#eq:easycomplint">5.18</a>)</span>, the invariant tori \(\mathbb {T}^n\) are defined by the
 equations
 </p>
@@ -1300,7 +1296,7 @@ and the angular coordinates are introduced as
 
 
                                                                                                   √                       √
-                                                                                           qk =    2Ik sin ϕk ,    pk =       2Ik cos ϕk ,       k = 1, . . . , n,                                                               (5.21)
+                                                                                           qk =    2Ik sin φk ,   pk =     2Ik cos φk ,          k = 1, . . . , n,                                                               (5.21)
 
 -->
 
@@ -1327,8 +1323,9 @@ Then, the hamiltonian \(H_2\) is the linear function of the actions
 <!--
 
                                                                                                                           n
+                                                                                                                                                                                                                                 (5.22)
                                                                                                                           X
-                                                                                                                  H2 =           ωk Ik                                                                                           (5.22)
+                                                                                                                  H2 =           ωk Ik
                                                                                                                           k=1
 
 
@@ -1356,15 +1353,15 @@ H_2 = \sum _{k=1}^n \omega _k I_k
 </div>
 <div class="amsthmbodydefinition">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-362"></a>
-<span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span><span class="amsthmnotedefinition"> (The linear triatomic molecule)</span>.                              Use the hamiltonian
-approach to small oscillations to compute the normal modes of the linear triatomic molecule from Section&nbsp;<a href="chapter-2.html#sec:triatomic">2.3.3</a>.
+<span class="listmarker"><a id="hm-autopage-340"></a>
+<span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span><span class="amsthmnotedefinition"> (The linear triatomic molecule)</span>. </span> Use the
+hamiltonian approach to small oscillations to compute the normal modes of the linear triatomic molecule from Section&nbsp;<a href="chapter-2.html#sec:triatomic">2.3.3</a>.
 </p>
 
 </li>
@@ -1374,18 +1371,19 @@ approach to small oscillations to compute the normal modes of the linear triatom
 </div>
 
 <p>
-There is a beautiful duality between normal modes and creation and annihilation operators in quantum mechanics. For further information, refer to [Low12, Chapter 2.10].
+There is a beautiful duality between normal modes and creation and annihilation operators in quantum mechanics. For further information, refer to [<a href="chapter-6.html#LWR-ht-cite.0@book:lowenstein">Low12</a>, Chapter 2.10].
 </p>
 
 <p>
 In the first edition of these notes, I was going to conclude this section showing the stability of the Lagrange points for the restricted three body problem. This has been removed due to time constraints, but you can see it developed, with a similar
-approach, for the points \(L_4\) and \(L_5\) in [Low12, Chapter 2.10] and slightly differently but without sparing details in [AKN06, Arn10].
+approach, for the points \(L_4\) and \(L_5\) in [<a href="chapter-6.html#LWR-ht-cite.0@book:lowenstein">Low12</a>, Chapter 2.10] and slightly differently but without sparing details in [<a
+href="chapter-6.html#LWR-ht-cite.0@book:arnoldcelestial">AKN06</a>; <a href="chapter-6.html#LWR-ht-cite.0@book:celletti">Arn10</a>].
 </p>
 <!--
 ...... section Birkhoff normal forms ......
 -->
-<h4 id="autosec-363"><span class="sectionnumber">5.2&#x2003;</span>Birkhoff normal forms</h4>
-<a id="hm-autopage-363"></a>
+<h4 id="autosec-341"><span class="sectionnumber">5.2&#x2003;</span>Birkhoff normal forms</h4>
+<a id="hm-autopage-341"></a>
 
 
 <p>
@@ -1398,7 +1396,7 @@ generic and stable</em> and still in the case of <em>small oscillations near an 
 <!--
 
 
-                                                                                                                    H = H2 + H3 + · · · .                                                                                                            (5.23)
+                                                                                                                     H = H2 + H3 + · · · .                                                                                                           (5.23)
 
 -->
 
@@ -1423,7 +1421,7 @@ The rescaling
 <!--
 
 
-                                                                                                               (q, p) 7→ (ϵq, ϵp),   H 7→ ϵ−2 H,                                                                                                     (5.24)
+                                                                                                                (q, p) 7→ (q, p),   H 7→ −2 H,                                                                                                    (5.24)
 
 -->
 
@@ -1444,7 +1442,7 @@ where \(\epsilon &gt; 0\) is a small parameter, transforms the hamiltonian into
 <!--
 
 
-                                                                                                                H = H2 + ϵH3 + ϵ2 H4 + · · · .                                                                                                       (5.25)
+                                                                                                                H = H2 + H3 + 2 H4 + · · · .                                                                                                       (5.25)
 
 -->
 
@@ -1457,8 +1455,9 @@ H = H_2 + \epsilon H_3 + \epsilon ^2 H_4 + \cdots .
 </p>
 
 <p>
-The behavior of the solutions of the perturbed hamiltonian system can then be studied using a family of canonical transformations suggested by Birkhoff. For a more detailed account, please refer to [Arn10, Chapter 6.5], [AKN06, Chapter 8.3] and
-[Kna18, Chapters 15.2 and 15.3].
+The behavior of the solutions of the perturbed hamiltonian system can then be studied using a family of canonical transformations suggested by Birkhoff. For a more detailed account, please refer to [<a
+href="chapter-6.html#LWR-ht-cite.0@book:celletti">Arn10</a>, Chapter 6.5], [<a href="chapter-6.html#LWR-ht-cite.0@book:arnoldcelestial">AKN06</a>, Chapter 8.3] and [<a
+href="chapter-6.html#LWR-ht-cite.0@book:knauf">Kna18</a>, Chapters 15.2 and 15.3].
 </p>
 
 <p>
@@ -1469,10 +1468,13 @@ We look for a canonical transformation
 
 <!--
 
-                                                                                                                                             X i
-                                                                                                          x = (q, p) 7→ x
-                                                                                                                        e = (qe, pe) = x +         ϵ ∆i x,                                                                                           (5.26)
-                                                                                                                                             i>0
+
+                                                                                                                                                                                                                                                     (5.26)
+                                                                                                                                              X i
+                                                                                                           x = (q, p) 7→ x
+                                                                                                                         e = (e
+                                                                                                                              q , pe) = x +     ∆i x,
+                                                                                                                                              i>0
 
 
 -->
@@ -1494,9 +1496,9 @@ expressed as a formal series in \(\epsilon \) which cancels the first cubic term
 <!--
 
 
-                                                                                                                                      + O(ϵ2 )
+                                                                                                                   x 7→ x +  x, F + O(2 )                                                                                                          (5.27)
                                                                                                                              
-                                                                                                                  x 7→ x + ϵ x, F                                                                                                                    (5.27)
+
 
 -->
 
@@ -1517,9 +1519,9 @@ for some hamiltonian \(F\), we can compute the shift due to \(F\) in the transfo
 <!--
 
 
-                                                                                                                   + O(ϵ2 ) = H2 + ϵ H3 − H2 , F                 + O(ϵ2 ).
-                                                                                                                                                           
-                                                                                               H 7→ H − ϵ H, F                                                                                                                                       (5.28)
+                                                                                                H 7→ H −  H, F + O(2 ) = H2 +  H3 − H2 , F + O(2 ).                                                                                              (5.28)
+                                                                                                                                            
+
 
 -->
 
@@ -1539,8 +1541,10 @@ We are left to find a <em>cubic</em> hamiltonian \(F\) that solves
 
 <!--
 
+
+                                                                                                                                                                  (5.29)                                         --><a id="eq:linearmapH_2"></a><!--
                                                                           
-                                                                           H2 , F   = H3 .                                                                                   (5.29)                              --><a id="eq:linearmapH_2"></a><!--
+                                                                              H2 , F   = H3 .
 
 -->
 
@@ -1563,14 +1567,14 @@ pseudodifferential calculus, it provides an incredibly powerful tool.
 </p>
 <div class="amsthmbodydefinition">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-364"></a>
-<span class="amsthmnamedefinition">Example</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>.                            Consider the following hamiltonian for a system with one degree of freedom
+<span class="listmarker"><a id="hm-autopage-342"></a>
+<span class="amsthmnamedefinition">Example</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>. </span> Consider the following hamiltonian for a system with one degree of freedom
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{}{29}\)</span>
@@ -1579,7 +1583,7 @@ pseudodifferential calculus, it provides an incredibly powerful tool.
 
 
                                                                                                    ω 2
-                                                                                            H=       (p + q 2 ) + ϵ(C1 p3 + C2 p2 q + C3 pq 2 + C4 q 3 ) + O(ϵ2 ),                                                                      (5.30)
+                                                                                            H=       (p + q 2 ) + (C1 p3 + C2 p2 q + C3 pq 2 + C4 q 3 ) + O(2 ),                                                                      (5.30)
                                                                                                    2
 
 -->
@@ -1602,11 +1606,10 @@ where \(\omega &gt;0\). Choosing
 
 <!--
 
-
+                                                                                                                                              
                                                                                                     1       C2 + 2C4 3 C1 2    C4 2 C3 + 2C1 3
-                                                                                                                                                            
                                                                                               F =                   p −   p q+   pq −       q ,                                                                                         (5.31)
-                                                                                                    ω           6       2      2       6
+                                                                                                    ω           6       2      2        6
 
 -->
 
@@ -1630,7 +1633,7 @@ and applying the infinitesimal canonical transformation discussed above, our ham
 
 
                                                                                                                    ω 2
-                                                                                                              H=     (p + q 2 ) + ϵ2 H4 + O(ϵ3 ).                                                                                       (5.32)
+                                                                                                              H=     (p + q 2 ) + 2 H4 + O(3 ).                                                                                       (5.32)
                                                                                                                    2
 
 -->
@@ -1655,9 +1658,9 @@ We can now look for a fourth oder polynomial \(G\) such that the canonical trans
 
 
 
-                                                                                                                x 7→ x + ϵ2 x, G + O(ϵ3 )
-                                                                                                                            
-                                                                                                                                                                                                                                        (5.33)
+                                                                                                                x 7→ x + 2 x, G + O(3 )                                                                                               (5.33)
+                                                                                                                           
+
 
 -->
 
@@ -1688,14 +1691,14 @@ For systems with one degree of freedom, we can summarize the situation as follow
 </p>
 <div class="amsthmbodydefinition">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-365"></a>
-<span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>.                                    Let \(H\) be an hamiltonian of the form
+<span class="listmarker"><a id="hm-autopage-343"></a>
+<span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>. </span> Let \(H\) be an hamiltonian of the form
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{}{33}\)</span>
@@ -1703,10 +1706,12 @@ For systems with one degree of freedom, we can summarize the situation as follow
 <!--
 
 
-                                                                                                                             ω 2            X k−2
-                                                                                                              H(p, q; ϵ) =     (p + q 2 ) +  ϵ    Hk (q, p),                                                                             (5.34)
-                                                                                                                             2
-                                                                                                                                                k≥3
+                                                                                                                           ω 2
+                                                                                                                                                                                                                                        (5.34)
+                                                                                                                                          X k−2
+                                                                                                            H(p, q; ) =     (p + q 2 ) +      Hk (q, p),
+                                                                                                                           2
+                                                                                                                                          k≥3
 
 
 -->
@@ -1730,9 +1735,11 @@ where \(H_k(q,p)\) is a polynomial in \((q,p)\) homogeneous of degree \(k\), \(k
 <!--
 
 
-                                                                                                                                      X k−3
-                                                                                                                      F (q, p; ϵ) =         ϵ    Fk (q, p),                                                                              (5.35)
-                                                                                                                                      k≥3
+
+                                                                                                                                                                                                                                        (5.35)
+                                                                                                                                    X k−3
+                                                                                                                    F (q, p; ) =        Fk (q, p),
+                                                                                                                                    k≥3
 
 
 -->
@@ -1756,10 +1763,12 @@ where \(F_k(q,p)\) is a polynomial in \((q,p)\) homogeneous of degree \(k\), \(k
 <!--
 
 
-                                                                             ϵ2                 ϵ3 
-                                                 x 7→ x
-                                                      e = x + ϵ x, F      +         x, F , F   +          x, F , F , F   + ···                                                        (5.36)                      --><a id="eq:ictbnf"></a><!--
-                                                                              2!                   3!
+                                                                        2             3 
+                                                                                                                                                                               (5.36)                            --><a id="eq:ictbnf"></a><!--
+                                                                
+                                                  x 7→ x
+                                                       e = x +  x, F +       x, F , F +        x, F , F , F + · · ·
+                                                                        2!               3!
 
 -->
 
@@ -1783,10 +1792,13 @@ transforms the hamiltonian \(H\) into
 <!--
 
 
-                                                                                          ω    X 2k−2
-                                                      H = h(pe2 + qe2 ; ϵ),   h(z; ϵ) =     z+  ϵ     Ck (ϵ)z k ,                                                                (5.37)                      --><a id="eq:bnormalform"></a><!--
-                                                                                          2
-                                                                                               k≥2
+                                                                                         ω
+                                                                                                                                                                          (5.37)                           --><a id="eq:bnormalform"></a><!--
+                                                                                              X 2k−2
+                                                            p2 + qe2 ; ),
+                                                      H = h(e                h(z; ) =     z+       Ck ()z k ,
+                                                                                         2
+                                                                                              k≥2
 
 
 -->
@@ -1824,7 +1836,8 @@ The trajectories of the perturbed system are then the deformed circles
 <!--
 
 
-                                                                                                                             h(pe2 + qe2 ; ϵ) = E,                                                                                       (5.38)
+                                                                                                                             p2 + qe2 ; ) = E,
+                                                                                                                           h(e                                                                                                          (5.38)
 
 -->
 
@@ -1844,11 +1857,11 @@ over which the particle moves uniformly as
 
 <!--
 
-                                                                                                                                                ∂
-                                                                                                      ϕ(t) = ω
-                                                                                                             e(E; ϵ)t + ϕ0 ,     ω
-                                                                                                                                 e(E; ϵ) = 2       h(z; ϵ),   h(z; ϵ) = E.                                                               (5.39)
-                                                                                                                                                ∂z
+                                                                                                                                             ∂
+                                                                                                    φ(t) = ω
+                                                                                                           e (E; )t + φ0 ,   ω
+                                                                                                                              e (E; ) = 2      h(z; ),   h(z; ) = E.                                                                 (5.39)
+                                                                                                                                             ∂z
 -->
 
 <p>
@@ -1865,25 +1878,27 @@ Remark&nbsp;<a href="chapter-4.html#rmk:nonresonant">4.8</a>.
 </p>
 <div class="amsthmbodyplain">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-366"></a>
-<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.4</span></span><span class="amsthmnoteplain"> (Birkhoff)</span>.                         Let \(H\) be an hamiltonian of the form
+<span class="listmarker"><a id="hm-autopage-344"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.4</span></span><span class="amsthmnoteplain"> (Birkhoff)</span>. </span> Let \(H\) be an hamiltonian of the form
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{}{39}\)</span>
 
 <!--
 
-                                                                                                                             n
-                                                                                                                        1X                   X k−2
-                                                                                                      H(p, q; ϵ) =         ωi (p2i + qi2 ) +  ϵ    Hk (q, p),                                                                                     (5.40)
-                                                                                                                        2
-                                                                                                                             i=1                           k≥3
+                                                                                                                            n
+                                                                                                                      1X
+                                                                                                                                                                                                                                                  (5.40)
+                                                                                                                                              X k−2
+                                                                                                    H(p, q; ) =            ωi (p2i + qi2 ) +      Hk (q, p),
+                                                                                                                      2 i=1
+                                                                                                                                                 k≥3
 
 
 -->
@@ -1910,14 +1925,16 @@ href="chapter-5.html#eq:ictbnf">5.36</a>)</span> which transforms the hamiltonia
 
 
 
-                                                                                                                   H = h(z1 , . . . , zn ; ϵ),                                                                                                    (5.41)
-                                                                                                                              n
-                                                                                                                             1X                  X 2k−2
-                                                                                                  h(z1 , . . . , zn ; ϵ) =             ωi zi +         ϵ         hk (z1 , . . . , zn ; ϵ),                                                        (5.42)
-                                                                                                                             2
-                                                                                                                                 i=1             k≥2
+                                                                                                                 H = h(z1 , . . . , zn ; ),                                                                                                      (5.41)
+                                                                                                                             n
+                                                                                                                           1
+                                                                                                                                                                                                                                                  (5.42)
+                                                                                                                             X            X 2k−2
+                                                                                                h(z1 , . . . , zn ; ) =         ω i zi +       hk (z1 , . . . , zn ; ),
+                                                                                                                           2 i=1
+                                                                                                                                          k≥2
 
-                                                                                                                   zi = pe2i + qei2 ,      i = 1, . . . , n,                                                                                      (5.43)
+                                                                                                                 zi = pe2i + qei2 ,    i = 1, . . . , n,                                                                                          (5.43)
 
 
 
@@ -1952,13 +1969,14 @@ href="chapter-5.html#eq:ictbnf">5.36</a>)</span> for \(n&gt;1\) is a rather deli
 </p>
 
 <p>
-For further details, please refer to [Bro09], [Arn10, Chapter 6.5], [AKN06, Chapter 8.3] or [Kna18, Chapters 15.2 and 15.3], as suggested also at the beginning of this section.
+For further details, please refer to [<a href="chapter-6.html#LWR-ht-cite.0@Broer_2009">Bro09</a>], [<a href="chapter-6.html#LWR-ht-cite.0@book:celletti">Arn10</a>, Chapter 6.5], [<a
+href="chapter-6.html#LWR-ht-cite.0@book:arnoldcelestial">AKN06</a>, Chapter 8.3] or [<a href="chapter-6.html#LWR-ht-cite.0@book:knauf">Kna18</a>, Chapters 15.2 and 15.3], as suggested also at the beginning of this section.
 </p>
 <!--
 ...... section A brief look at KAM theory ......
 -->
-<h4 id="autosec-367"><span class="sectionnumber">5.3&#x2003;</span>A brief look at KAM theory</h4>
-<a id="hm-autopage-367"></a>
+<h4 id="autosec-345"><span class="sectionnumber">5.3&#x2003;</span>A brief look at KAM theory</h4>
+<a id="hm-autopage-345"></a>
 
 
 <p>
@@ -1978,7 +1996,7 @@ conditionally periodic motion on a Liouville \(n\)-torus. Even better, we constr
 <!--
 
 
-                                                                                                                                       I1 = I10 , . . . , In = In0                                                                                 (5.44)
+                                                                                                                                            I1 = I10 , . . . , In = In0                                                                            (5.44)
 
 -->
 
@@ -1999,7 +2017,7 @@ identify a Liouville torus with its standard angular coordinates \(\phi _1, \ldo
 <!--
 
 
-                                                                                                                         Tn = {(ϕ1 , . . . , ϕn ) ∈ Rn | ϕk ∼ ϕk + 2π} .                                                                           (5.45)
+                                                                                                                              Tn = {(φ1 , . . . , φn ) ∈ Rn | φk ∼ φk + 2π} .                                                                      (5.45)
 
 -->
 
@@ -2020,7 +2038,7 @@ In the \((I,\phi )\) coordinates, the hamiltonian is independent of the angular 
 <!--
 
 
-                                                                                                                                        H = H(I1 , . . . , In ),                                                                                   (5.46)
+                                                                                                                                             H = H(I1 , . . . , In ),                                                                              (5.46)
 
 -->
 
@@ -2040,9 +2058,9 @@ and the corresponding equations of motion
 
 <!--
 
-                                                                                                                                    ∂H(I)
-                                                                                                                            ϕ̇j =         ,      I˙j = 0,       j = 1, . . . , n,                                                                  (5.47)
-                                                                                                                                     ∂Ij
+                                                                                                                                         ∂H(I)
+                                                                                                                                 φ̇j =         ,      I˙j = 0,       j = 1, . . . , n,                                                             (5.47)
+                                                                                                                                          ∂Ij
 
 -->
 
@@ -2062,9 +2080,9 @@ are immediately solved as linear motions on the torus:
 
 <!--
 
-                                                                                                                                                                          ∂H(I)
-                                                                                                                           ϕj (t) = ωj (I)t + ϕ0j ,       ωj (I) =              ,                                                                  (5.48)
-                                                                                                                                                                           ∂Ij
+                                                                                                                                                                               ∂H(I)
+                                                                                                                                φj (t) = ωj (I)t + φ0j ,       ωj (I) =              ,                                                             (5.48)
+                                                                                                                                                                                ∂Ij
 
 -->
 
@@ -2098,7 +2116,7 @@ We now focus on systems that are <em>almost</em> integrable, in the sense that t
 <!--
 
 
-                                                                                                                                    Hϵ = H0 (I) + ϵHpert (I, ϕ),                                                                                   (5.49)
+                                                                                                                                         H = H0 (I) + Hpert (I, φ),                                                                              (5.49)
 
 -->
 
@@ -2120,7 +2138,7 @@ defined on
 <!--
 
 
-                                                                                                                                    (I, ϕ) ∈ I × Tn ⊆ Rn × Tn .                                                                                    (5.50)
+                                                                                                                                         (I, φ) ∈ I × Tn ⊆ Rn × Tn .                                                                               (5.50)
 
 -->
 
@@ -2145,7 +2163,7 @@ If we fix one torus
 <!--
 
 
-                                                                                                                                       I1 = I10 , . . . , In = In0 ,                                                                               (5.51)
+                                                                                                                                            I1 = I10 , . . . , In = In0 ,                                                                          (5.51)
 
 -->
 
@@ -2166,8 +2184,8 @@ possible to find \(\vb * k\) that makes such denominators arbitrarily small. If 
 </p>
 
 <p>
-This problem was so bad that Poincare&#x0301; called it the “fundamental problem” of classical mechanics, and it was so pervasive tht in the middle of the last century people formulated an “ergodic hypothesis” according to which the trajectories of
-the motion behave chaotically on generically perturbed energy surfaces.
+This problem was so bad that Poincaré called it the “fundamental problem” of classical mechanics, and it was so pervasive tht in the middle of the last century people formulated an “ergodic hypothesis” according to which the trajectories of the
+motion behave chaotically on generically perturbed energy surfaces.
 </p>
 
 <p>
@@ -2183,7 +2201,7 @@ To begin, let’s describe the <em>diophantine conditions</em> for the non–res
 
 <div
     class="tcolorbox"
-    style=" border: 1px solid #404040; background:                #F2F2F2; "
+    style=" border: 1px solid #404040; background: #F2F2F2; "
 >
 
 
@@ -2201,11 +2219,12 @@ Let \(\alpha &gt;0\), \(\tau &gt;0\) be two fixed positive numbers, we say that 
 <!--
 
                                                           n
-                                                          X                α
-                                                                ki ωi ≥              ∀k = (k1 , . . . , kn ) ∈ Zn ,                                                                          (5.52)                  --><a id="eq:diophat"></a><!--
-                                                                          |k|τ
+                                                                            α
+                                                                                                                                                                                                (5.52)               --><a id="eq:diophat"></a><!--
+                                                          X
+                                                                ki ωi ≥                   ∀k = (k1 , . . . , kn ) ∈ Zn ,
                                                           i=1
-
+                                                                           |k|τ
 
 -->
 
@@ -2232,10 +2251,13 @@ First of all observe that for any fixed \(\alpha &gt;0\), \(\tau &gt;0\), the se
 
 <!--
 
-                                                                                                                                                                                                 
-                                                                                                           τ                τ                τ                                              α
-                                                                                                          Rα := ∪k∈Zn \{0} Rα (k),          Rα (k) :=         ω ∈ Rn | |⟨k, ω⟩| <                     .                                            (5.53)
-                                                                                                                                                                                           |k|τ
+                                                                                                                                                                                        
+                                                                                                                                                                                     α
+                                                                                                                τ
+                                                                                                               Rα                τ
+                                                                                                                  := ∪k∈Zn \{0} Rα (k),           τ
+                                                                                                                                                 Rα (k) :=      ω ∈ Rn | |hk, ωi| <        .                                                       (5.53)
+                                                                                                                                                                                    |k|τ
 
 -->
 
@@ -2256,10 +2278,11 @@ For any bounded \(\Omega \subset \mathbb {R}^n\), the Lebesgue measure \(\mu \) 
 
 <!--
 
-                                                                                                                                                                         
-                                                                                                                                       τ                          α
-                                                                                                                                µ(Ω ∩ Rα (k)) = O                             .                                                                    (5.54)
-                                                                                                                                                                |k|τ +1
+                                                                                                                                                                              
+                                                                                                                                                                       α
+                                                                                                                                            τ
+                                                                                                                                     µ(Ω ∩ Rα (k)) = O                             .                                                               (5.54)
+                                                                                                                                                                     |k|τ +1
 
 -->
 
@@ -2279,9 +2302,11 @@ If \(\tau &gt; n-1\),
 
 <!--
 
-                                                                                                                                                X
-                                                                                                                      µ (Rn \ ∆τα ) ∩ Ω) ≤             µ (∆τα (k) ∩ Ω) = O(α),                                                                     (5.55)
-                                                                                                                                                k∈Zn
+
+                                                                                                                                                                                                                                                   (5.55)
+                                                                                                                                                     X
+                                                                                                                           µ (Rn \ ∆τα ) ∩ Ω) ≤            µ (∆τα (k) ∩ Ω) = O(α),
+                                                                                                                                                    k∈Zn
 
 
 -->
@@ -2302,8 +2327,8 @@ and since
 
 <!--
 
-                                                                                                                                                  τ
-                                                                                                                                         µ (∩α>0 Rα ) = 0,                                                                                         (5.56)
+                                                                                                                                                       τ
+                                                                                                                                              µ (∩α>0 Rα ) = 0,                                                                                    (5.56)
 
 -->
 
@@ -2336,10 +2361,11 @@ Let’s go back to hamiltonian systems. In what follows, we assume that the unpe
 
 <!--
 
-                                                           2         
-                                                           ∂ H0 (I)
-                                                    det                   ̸= 0,     ∀I = (I1 , . . . , In ) ∈ I ⊂ Rn .                                                                       (5.57)                  --><a id="eq:Hnondeg"></a><!--
-                                                            ∂Ij ∂Ik
+
+                                                              ∂ 2 H0 (I)
+                                                                          
+                                                    det                        6= 0,     ∀I = (I1 , . . . , In ) ∈ I ⊂ Rn .                                                                     (5.57)               --><a id="eq:Hnondeg"></a><!--
+                                                               ∂Ij ∂Ik
 
 -->
 
@@ -2359,9 +2385,9 @@ Similarly as we have seen for Legendre transformations, non–degenerate hamilto
 
 <!--
 
-                                                                                  ∂H0 (I)
-                                                                 I 7→ ω(I) =              .                                                                                       (5.58)                  --><a id="eq:H0omegalocaldiffeo"></a><!--
-                                                                                    ∂I
+                                                                                       ∂H0 (I)
+                                                                 I 7→ ω(I) =                   .                                                                                       (5.58)            --><a id="eq:H0omegalocaldiffeo"></a><!--
+                                                                                         ∂I
 -->
 
 <p>
@@ -2392,7 +2418,7 @@ The set \(\Omega _\alpha \), as the set \(\Delta _\alpha \), is a Cantor set: cl
 <!--
 
 
-                                                                                                                                        µ(Ω \ Ωα ) = O(α).                                                                                         (5.59)
+                                                                                                                                             µ(Ω \ Ωα ) = O(α).                                                                                    (5.59)
 
 -->
 
@@ -2409,15 +2435,15 @@ We are finally ready to state the KAM theorem.
 </p>
 <div class="amsthmbodyplain">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-368"></a>
-<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.5</span></span><span class="amsthmnoteplain"> (KAM theorem)</span>.                          Let \(H_0(I)\), \(I\in \mathcal {I}\subset
-\mathbb {R}^n\), be a non–degenerate hamiltonian such that
+<span class="listmarker"><a id="hm-autopage-346"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.5</span></span><span class="amsthmnoteplain"> (KAM theorem)</span>. </span> Let \(H_0(I)\), \(I\in \mathcal
+{I}\subset \mathbb {R}^n\), be a non–degenerate hamiltonian such that
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{}{59}\)</span>
@@ -2451,7 +2477,7 @@ is a diffeomorphism. Assume that the perturbed hamiltonian
 
 
 
-                                                                                                             Hϵ = H0 (I) + ϵHpert (I, ϕ),                                                                                                      (5.61)
+                                                                                                             H = H0 (I) + Hpert (I, φ),                                                                                                      (5.61)
 
 -->
 
@@ -2475,7 +2501,7 @@ is real analytic on \(\overline {\mathcal {I}}\times \mathbb {T}^n\). Then, ther
 
 
 
-                                                                                                                       |ϵ| < δα2                                                                                                               (5.62)
+                                                                                                                       || < δα2                                                                                                               (5.62)
 
 -->
 
@@ -2501,15 +2527,15 @@ all the invariant tori of the unperturbed system with \(\omega \in \Omega _\alph
 </div>
 <div class="amsthmbodydefinition">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-369"></a>
-<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>.                      Here, by being real analytic on \(\overline {\mathcal {I}}\times \mathbb {T}^n\) we mean that
-the analyticity extends to a uniform neighborhood of \(\mathcal {I}\).
+<span class="listmarker"><a id="hm-autopage-347"></a>
+<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>. </span> Here, by being real analytic on \(\overline {\mathcal {I}}\times \mathbb {T}^n\) we
+mean that the analyticity extends to a uniform neighborhood of \(\mathcal {I}\).
 </p>
 
 </li>
@@ -2529,15 +2555,15 @@ probability \(1-O(\alpha )\).
 </p>
 <div class="amsthmbodydefinition">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-370"></a>
-<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.3</span></span>.                        The hamiltonian nature of the equations is almost indispensable. Analogous results are true for
-reversible systems, but in all cases the system has to be conservative: any kind of dissipation immediately destroys the Cantor family of tori, although isolated ones may persist as attractors.
+<span class="listmarker"><a id="hm-autopage-348"></a>
+<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.3</span></span>. </span> The hamiltonian nature of the equations is almost indispensable. Analogous results are true
+for reversible systems, but in all cases the system has to be conservative: any kind of dissipation immediately destroys the Cantor family of tori, although isolated ones may persist as attractors.
 </p>
 
 </li>
@@ -2547,20 +2573,22 @@ reversible systems, but in all cases the system has to be conservative: any kind
 </div>
 
 <p>
-Every proof of KAM theorem is complicated. After all, KAM theory is “one of the big mathematical achievements” of the 20th century, as commented by Winfried Scharlau in 1992 on the occasion of the award of the Cantor medal to Ju&#x0308;rgen
-Moser. We will omit the proof here, and refer the interested reader to [Kna18, Chapter 15] and [P0&#x0308;1]. For a nice and readable account of KAM theory and its developments, you can refer to [Bro04].
+Every proof of KAM theorem is complicated. After all, KAM theory is “one of the big mathematical achievements” of the 20th century, as commented by Winfried Scharlau in 1992 on the occasion of the award of the Cantor medal to Jürgen Moser.
+We will omit the proof here, and refer the interested reader to [<a href="chapter-6.html#LWR-ht-cite.0@book:knauf">Kna18</a>, Chapter 15] and [<a href="chapter-6.html#LWR-ht-cite.0@poschel2001">P0̈1</a>]. For a nice and readable
+account of KAM theory and its developments, you can refer to [<a href="chapter-6.html#LWR-ht-cite.0@Broer2004">Bro04</a>].
 </p>
 <!--
 ...... section Nekhoroshev theorem ......
 -->
-<h4 id="autosec-371"><span class="sectionnumber">5.4&#x2003;</span>Nekhoroshev theorem</h4>
-<a id="hm-autopage-371"></a>
+<h4 id="autosec-349"><span class="sectionnumber">5.4&#x2003;</span>Nekhoroshev theorem</h4>
+<a id="hm-autopage-349"></a>
 
 
 <p>
 In this section we will briefly discuss another approach to the perturbation theory of integrable systems developed by Nekhoroshev at the end of the 1970s. This is a less known but extremely useful result for perturbation theory which deals with long
-time stability of the perturbed orbits. We will state a simpler version of the original theorem, as presented in [BGG85]. An accessible proof of a slightly more general statement can be found in [P9&#x0308;3]. For a more detailed and general account,
-including applications to celestial mechanics, please refer to [Arn10, Chapter 8] and [AKN06, Chapter 6].
+time stability of the perturbed orbits. We will state a simpler version of the original theorem, as presented in [<a href="chapter-6.html#LWR-ht-cite.0@Benettin1985">BGG85</a>]. An accessible proof of a slightly more general statement can be
+found in [<a href="chapter-6.html#LWR-ht-cite.0@Poschel1993">P9̈3</a>]. For a more detailed and general account, including applications to celestial mechanics, please refer to [<a
+href="chapter-6.html#LWR-ht-cite.0@book:celletti">Arn10</a>, Chapter 8] and [<a href="chapter-6.html#LWR-ht-cite.0@book:arnoldcelestial">AKN06</a>, Chapter 6].
 </p>
 
 <p>
@@ -2578,7 +2606,7 @@ It turns out that the answer is yes, and the result is stronger than one may exp
 <!--
 
 
-                                                                                                                        |t| < T (ϵ) ∼ e1/ϵ .                                                                                                              (5.63)
+                                                                                                                        |t| < T () ∼ e1/ .                                                                                                             (5.63)
 
 -->
 
@@ -2599,7 +2627,7 @@ The starting point is an analytical hamiltonian of the usual form
 <!--
 
 
-                                                       Hϵ = H0 (I) + ϵHpert (I, ϕ),   (I, ϕ) ∈ I × Tn ,                                                      (5.64)                                                         --><a id="eq:hamneko"></a><!--
+                                                       H = H0 (I) + Hpert (I, φ),   (I, φ) ∈ I × Tn ,                                                      (5.64)                                                         --><a id="eq:hamneko"></a><!--
 
 -->
 
@@ -2628,10 +2656,12 @@ We say that the unperturbed hamiltonian \(H_0\) is a <em>uniformly convex</em> f
 <!--
 
                                                                                                                 n                              n
-                                                                                                                X ∂ 2 H0 (I)                   X
-                                                                                                                                 Xi Xj ≥ λ           Xi2 .                                                                                                (5.65)
-                                                                                                                       ∂Ii ∂Ij
-                                                                                                               i,j=1                           i=1
+                                                                                                                  ∂ 2 H0 (I)
+                                                                                                                                                                                                                                                         (5.65)
+                                                                                                                X                              X
+                                                                                                                                 Xi Xj ≥ λ           Xi2 .
+                                                                                                               i,j=1
+                                                                                                                       ∂Ii ∂Ij                 i=1
 
 
 -->
@@ -2653,15 +2683,15 @@ Finally, given a positive number \(\delta &gt;0\), we denote \(\mathcal {I}_\del
 </p>
 <div class="amsthmbodyplain">
 
-<ul style="list-style-type:none">
+<ul class="list" style="list-style-type:none">
 
 
 
 <li>
 <p>
-<a id="hm-autopage-372"></a>
-<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.6</span></span><span class="amsthmnoteplain"> (Nekhoroshev)</span>.                            Let \(H_\epsilon \) be an hamiltonian of the form
-<span class="textup">(<a href="chapter-5.html#eq:hamneko">5.64</a>)</span> with \(H_0\) uniformly convex. Then there exists positive numbers \(a,b,\alpha ,\beta ,\epsilon _0\in \mathbb {R}_+\) such that for any \(|\epsilon
+<span class="listmarker"><a id="hm-autopage-350"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.6</span></span><span class="amsthmnoteplain"> (Nekhoroshev)</span>. </span> Let \(H_\epsilon \) be an hamiltonian of the
+form <span class="textup">(<a href="chapter-5.html#eq:hamneko">5.64</a>)</span> with \(H_0\) uniformly convex. Then there exists positive numbers \(a,b,\alpha ,\beta ,\epsilon _0\in \mathbb {R}_+\) such that for any \(|\epsilon
 |&lt; \epsilon _0\) and for any solution \((\phi (t), I(t))\) of Hamilton’s equations
 </p>
 
@@ -2670,9 +2700,9 @@ Finally, given a positive number \(\delta &gt;0\), we denote \(\mathcal {I}_\del
 <!--
 
 
-                                                                                                                ∂Hϵ             ∂Hϵ
-                                                                                                        ϕ̇k =       ,   I˙k = −     ,       k = 1, . . . , n,                                                                                       (5.66)
-                                                                                                                ∂Ik             ∂ϕk
+                                                                                                                ∂H             ∂H
+                                                                                                        φ̇k =       ,   I˙k = −     ,        k = 1, . . . , n,                                                                                      (5.66)
+                                                                                                                ∂Ik             ∂φk
 
 -->
 
@@ -2696,7 +2726,7 @@ it holds that
 
 
 
-                                                                                                                    |I(t) − I(0)| < α|ϵ|a                                                                                                           (5.67)
+                                                                                                                    |I(t) − I(0)| < α||a                                                                                                           (5.67)
 
 -->
 
@@ -2720,7 +2750,7 @@ for all initial conditions \((\phi (0), I(0))\) satisfying
 
 
 
-                                                                                                                 I(0) ∈ Iδ       for   δ = α|ϵ|a                                                                                                    (5.68)
+                                                                                                                 I(0) ∈ Iδ       for   δ = α||a                                                                                                    (5.68)
 
 -->
 
@@ -2742,11 +2772,10 @@ and for all \(t\) such that
 
 <!--
 
-                                                                                                                                           b
-                                                                                                                                 ϵ0        ϵ0
-                                                                                                                             q
-                                                                                                                   |t| ≤ β          exp          .                                                                                                  (5.69)
-                                                                                                                                  ϵ        ϵb
+                                                                                                                             r             b
+                                                                                                                                 0        0
+                                                                                                                   |t| ≤ β          exp        .                                                                                                    (5.69)
+                                                                                                                                          b
 
 -->
 
@@ -2774,13 +2803,14 @@ and for all \(t\) such that
 <p>
 This theorem does not exclude the chaotic motion of the variables \(I\), but guarantees that their variation remains small for extremely long times – which may for example surpass the lifetime of the physical system itself. In fact, one of the most
 important outcomes of Nekhoroshev is the long–term stability of various celestial systems. To cite a few, it helped understand motions observed in the asteroid belt and to show the stability of the motion of some restricted planetary problems (for
-example, the Sun-Jupiter-Saturn system or the planar Sun-Jupiter-Saturn-Uranus system), for which it implies that they remain close to an invariant torus of the system for times comparable to Solar System lifetime [Guz15]. Indeed, one of the
-motivations behind Nekhoroshev idea is the analysis of the stability of the Trojan asteroids and the \(L_4, L_5\) Lagrange points of equilibiria.
+example, the Sun-Jupiter-Saturn system or the planar Sun-Jupiter-Saturn-Uranus system), for which it implies that they remain close to an invariant torus of the system for times comparable to Solar System lifetime [<a
+href="chapter-6.html#LWR-ht-cite.0@Guzzo2015">Guz15</a>]. Indeed, one of the motivations behind Nekhoroshev idea is the analysis of the stability of the Trojan asteroids and the \(L_4, L_5\) Lagrange points of equilibiria.
 </p>
 
 <p>
 The KAM theorem can be considered the turning point in the study of deterministic chaos, a broad and lively topic that had huge impact also outside classical mechanics. Many of the ideas in these chapters are at the hearth of ideas in perturbation
-theory of operators and semi-classical mechanics. For an overview of the classical aspects of deterministic chaos, with an emphasis on the influence of KAM theory, you can refer to the beautiful paper [MR11].
+theory of operators and semi-classical mechanics. For an overview of the classical aspects of deterministic chaos, with an emphasis on the influence of KAM theory, you can refer to the beautiful paper [<a
+href="chapter-6.html#LWR-ht-cite.0@zbMATH05911037">MR11</a>].
 </p>
 
 </section>

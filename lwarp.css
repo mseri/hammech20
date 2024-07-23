@@ -92,6 +92,10 @@ span.textup, div.textup {
     font-variant-numeric: normal ;
 }
 
+/* For complex number i,j symbols */
+span.ijit {font-style: italic; font-variant: normal}
+span.ijup {font-style: normal; font-variant: normal}
+
 span.textsc, div.textsc {
     font-variant: small-caps;
     font-variant-numeric: oldstyle-nums ;
@@ -646,8 +650,10 @@ span.abstractrunintitle{
 }
 
 .fancyvrb {
-    font-size:.85em ;
-    margin: 3ex 0pt 3ex 0pt
+    margin: 3ex 0pt 3ex 0pt ;
+    font-family: "DejaVu Mono", "Bitstream Vera Mono", "Lucida Console",
+        "Nimbus Mono L", "Liberation Mono", "FreeMono", "Andale Mono",
+        "Courier New", monospace;
 }
 
 .fancyvrblabel {
@@ -1185,7 +1191,7 @@ div.programlisting pre.verbatim span.callout{
     font-size: .85em ;
 }
 
-span.verbatim {
+span.verbatim, span.verb {
     font-family: "DejaVu Mono", "Bitstream Vera Mono", "Lucida Console",
         "Nimbus Mono L", "Liberation Mono", "FreeMono", "Andale Mono",
         "Courier New", monospace;
