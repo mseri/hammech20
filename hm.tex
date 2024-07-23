@@ -57,7 +57,9 @@ makeindex
 \pgfplotsset{compat=1.16}
 \input{insbox.tex}
 \usepackage{tcolorbox}
-%\usepackage{todonotes}
+
+% uncomment once no todo is left
+\usepackage{todonotes}
 
 
 % comment before publication
@@ -130,8 +132,8 @@ makeindex
 
 \usepackage{scrhack}
 
-\newcommand{\eindex}[1]{\index{#1}\emph{#1}}
-\makeindex[intoc]
+\newcommand{\emphidx}[1]{\index{#1}\emph{#1}}
+\makeindex
 
 \begin{document}
 
@@ -195,7 +197,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
   \section{Newtonian mechanics of point particles}
 
-  In the elementary formulation we will focus on, our primary interest is in describing the equations of motion for an idealized \eindex{point particle}.
+  In the elementary formulation we will focus on, our primary interest is in describing the equations of motion for an idealized \emphidx{point particle}.
   This is a point--like object obtained by ignoring the dimensions of the physical object.
   Note that in many cases this is a reasonable first approximation.
   For example, when describing planetary motion around the sun, we can consider the planet and the sun as two point particles without significantly affecting the qualitative properties of the system.
@@ -209,7 +211,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
   Of course this is not a universal simplification, even for celestial systems: for instance, we cannot do it when describing the motion of a planet around its axes.
   In this case, the shape and the internal structure of the body becomes to relevant to ingore.
 
-   A point particle is first of all a point, a dimensionless mathematical object in space: its \eindex{position} in space is described by the position vector $\vb*{x} = (x, y ,z)$.
+   A point particle is first of all a point, a dimensionless mathematical object in space: its \emphidx{position} in space is described by the position vector $\vb*{x} = (x, y ,z)$.
    Keep in mind that
   \begin{equation}
     \vb*{x} : \mathbb{R}\to\mathbb{R}^3,\quad t \mapsto \vb*{x}(t),
@@ -217,152 +219,126 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
   is a function of time that describes the instantaneous state of the system during its evolution.
   In most cases, this will be implicitly assumed and we will omit the explicit dependence on $t$.
 
-  The \eindex{velocity} of the point particle is given by the rate of change of the position vector,
-  i.e., its derivative with respect to time\footnote{Notation: the symbol $a := b$ means that $a$ is defined by the expression $b$, similarly $b =: a$ is the same statement but read from right to left.}
+  The \emphidx{velocity} of the point particle is given by the rate of change of the position vector,
+  i.e., its derivative with respect to time\footnote{Notation: the symbol $a := b$ means that $a$ is defined by the expression $b$. Similarly $b =: a$ is the same statement but read from right to left.}
   \begin{equation}
     \vb*{v} = \dv{\vb*{x}}{t} =: \dot{\vb*{x}} = (\dot{x}, \dot{y}, \dot{z}).
   \end{equation}
   %
-  We call \eindex{acceleration}, the rate of change of the velocity, i.e., the second derivative
+  We call \emphidx{acceleration}, the rate of change of the velocity, i.e., the second derivative
   \begin{equation}
     \vb*{a} = \dv[2]{\vb*{x}}{t} =: \ddot{\vb*{x}} = (\ddot{x}, \ddot{y}, \ddot{z}).
   \end{equation}
 
   For us, the main distinction between a mathematical point and a point particle, is that the latter usually carries a \emph{mass} $m$.
-  This is a scalar quantity that, as we will see, measures its resistance to changes in its state of motion, also known as \eindex{inertia}.
+  This is a scalar quantity that, as we will see, measures its resistance to changes in its state of motion, also known as \emphidx{inertia}.
 
   \begin{tcolorbox}[title=Newton's second law of motion]
-    \index{Newton's second law}
-    There exist \eindex{frames of reference}, that is, systems of coordinates, in which the motion of the particle is described by a differential equation involving the forces $\vb*{F}$ acting on the point particle, its mass $m$ and its acceleration as follows
+    \index{Newton ! second law}
+    There exist \emphidx{frames of reference}, that is, systems of coordinates, in which the motion of the particle is described by a differential equation involving the forces $\vb*{F}$ acting on the point particle, its mass $m$ and its acceleration as follows
     \begin{equation}\label{eq:newton}
       \vb* F = m \ddot{\vb*{x}}.
     \end{equation}
   \end{tcolorbox}
+  Note that the law as described above is not completely true: Newton was already talking about momentum, which \href{https://web.archive.org/web/20211201082909/https://bigthink.com/starts-with-a-bang/most-important-equation-physics/}{makes a deep difference}, but would set us off-course right now. \medskip
 
-  Note that the law as described above is not completely true: Newton was already talking about momentum, which \href{https://web.archive.org/web/20211201082909/https://bigthink.com/starts-with-a-bang/most-important-equation-physics/}{makes a deep difference}, but would set us off-course right now.
-  Let's leave it here for the time being; we will come back to this later on.
-
-  \subsection{From particles to systems of particles}
-
-  In general we will consider systems of $N$ point particles.
-  These will be described by a set of $N$ position vectors $\vb*{x}_k = (x_k, y_k ,z_k)$ with masses $m_k$, $k = 1, \ldots, N$.
-  For convenience we will denote $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N)\in\mathbb{R}^{3N}$, and $\vb*{m} = (m_1, \ldots, m_N)\in\mathbb{R}^N$.
-  We call $\vb*{x}(t)$ the \eindex{configuration} of the system at time $t$ in the \eindex{configuration space} $\mathbb{R}^{3N}$.
-
-  Note that we are identifying $\mathbb{R}^{3\times N}$, the space of $3\times N$ matrices, and $\mathbb{R}^{3N}$, the space of $3N$ vectors. Namely, $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N) = (x_1, y_1, z_1, x_2, y_2, z_2, \ldots, x_N, y_N, z_N)$ is used interchangeably as the vector of positions of the points in three-space or as the vector including all the positions of the $N$ bodies together.
-
-  \begin{example}\label{example:gcoords}
-    For example a system of two rigid pendulums in space constrained to oscillate on a vertical plane, is described by two position vectors, so $\vb*{x} = (\vb*{x}_1, \vb*{x}_2)\in\mathbb{R}^{6}$.
-    However, to describe their configuration we only need two angular variables, one for each of the pendulums. So, for all practical purposes, the system could be completely described\footnote{Here there is an hidden statement: $\mathbb{S}^1\times\mathbb{S}^1 \simeq \mathbb{T}^2$. This should be read as: the 2-torus, the surface of a doughnut, is diffemorphic to the product of two circles. Here, diffeomorphic is a concept from the theory of smooth manifolds, and stands for the existence a smooth bijection between the two constructions. Note that $\simeq$ usually denotes some kind of equivalence, but which specific kind is context-dependent and not often well explicited.} by $q = (q^1, q^2) \in \mathbb{S}^1\times\mathbb{S}^1 \simeq \mathbb{T}^2$. See Figure~\ref{fig:twopend}.
-  \end{example}
-
-  \begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.9\linewidth,trim={0 1cm 0 1cm}, clip]{images/HM-1-1.pdf}
-    \caption{Left: a system of two decoupled pendulums in $\mathbb{R}^3$. Right: corresponding generalized coordinates.}%
-    \label{fig:twopend}
-  \end{figure}
-
-  We say that a system of $N$ particles has \emph{$n$ degrees of freedom} if we need $n$ independent parameters to uniquely specify the system configuration\footnote{As Example~\ref{example:gcoords} shows, the $n$ degrees of freedom do not have to be the cartesian coordinates of the point particles.}. We call \emph{generalized coordinates} any set of $n$ parameters $q = (q^1, \ldots, q^n)$ that uniquely determine the configuration of a system with $n$ degrees of freedom, and \emph{generalized velocities} their time derivatives $\dot q = (\dot q^1, \ldots, \dot q^n)$. The \emph{state} of the system is then characterized by the set of (generalized) coordinates and velocities $(q, \dot q) = \left(q^1, \ldots, q^n,\dot q^1, \ldots, \dot q^n\right)$.
-
-  If you recall differential geometry, you may (correctly) guess that the generalized coordinates will be points on some differentiable manifold $q\in M$, their evolution will be described by a curve $q: \mathbb{R} \to M$ parametrized by time and the state of the system will be a point in the tangent bundle $(q, \dot q)\in TM$, i.e., $\dot q \in T_q M$ (see also section~\ref{sec:lagrangianonmanifold}).
-  \medskip
-
-  We have now all the elements to translate the \emph{Newtonian principle of determinacy} in mathematical terms.
-  In 1814, Laplace \cite{book:laplace} wrote
-
-  \begin{quotation}
-    We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.
-  \end{quotation}
-
-  In other words, this principle states that the initial state $\left(q(t_0), \dot q(t_0)\right)$ uniquely determines its evolution $\left(q(t),\dot q(t)\right)$ for $t > t_0$.
-  The Picard-Lindel\"of theorem\footnote{Also known as ``Existence and uniqueness of solutions of initial value problems'', \cite[Theorem 3.17]{book:knauf}.} implies that the Newtonian principle of determinacy is locally satisfied by the \emph{equations of motion} of the mechanical system, i.e., second order differential equations derived from Newton's law.
-
-  \subsection{Motion in one degree of freedom}
-
-  Before taking a little detour into Lagrangian mechanics, let's anticipate some of the upcoming concepts in a few simple cases.
+  Before moving on, let's anticipate three examples that will come back over and over in the course of this book.
+  Here we will just sketch them, but we will come back to them in more detail later.
 
   \begin{example}[Horizontal spring and pendulum]\label{ex:sprPen}
-    Consider an idealized system consisting of a point particle of mass $m$ attached to a spring with stiffness $k$, sliding on a frictionless surface.
-    Assume that the motion is one-dimensional along the axis of the spring and let $x$ denote the displacement of the system from its equilibrium position, i.e., the position in which the spring is completely at rest: not compressed nor extended. We consider this system to exclude gravitational forces from the picture.
+    \index{spring}\index{pendulum}
+    Consider an ideal spring, that is, an idealized system consisting of a point particle of mass $m$ attached to a spring with stiffness $k$, sliding on a frictionless surface.
+    Assume that the motion is one-dimensional, along the axis of the spring, and let $x$ denote the displacement of the system from its equilibrium position, i.e., the position in which the spring is completely at rest: not compressed nor extended.
+    It is convenient to assume that the sliding happens on a flat surface.
+    This allows us to exclude gravitational forces from the picture, making this example as simple as it could be.
 
-    \emph{Hooke's law} states that the restoring force $F$ exerted by the spring on whatever is pulling its free end scales linearly with respect to the distance it's been pulled: i.e., $F(x) = - k x$, see Figure~\ref{fig:spring-pendulum} left. According to \eqref{eq:newton}, then, the motion of the point particle is given by
+    \begin{figure}[ht!]
+      \centering
+      \includegraphics[width=\linewidth]{images/HM-1-2.pdf}
+      \caption{Left: horizontal spring. Right: planar pendulum.}%
+      \label{fig:spring-pendulum}
+    \end{figure}
+
+    \emph{Hooke's law} \index{spring!Hooke's law} states that the restoring force $F$ exerted by an ideal spring is directly proportional to its displacement $x$ from equilibrium.
+    The law is expressed mathematically as $F(x) = -kx$, where $k$ is the spring constant\index{spring!constant}, a measure of the spring's stiffness.
+    The negative sign indicates that the force acts in the opposite direction of the displacement, always seeking to restore the spring to its equilibrium position. See Figure~\ref{fig:spring-pendulum}, left panel.
+    According to \eqref{eq:newton}, then, the motion of the point particle is given by
     \begin{equation}\label{eq:spring}
       m \ddot{x} = - k x \qquad\mbox{or}\qquad \ddot{x} = - \omega^2 x \quad\mbox{where } \omega = \sqrt{k/m}.
     \end{equation}
     The solution, $x(t)$, is generally described by
     \begin{equation}\label{eq:springsol}
       x(t) = R \cos(\omega t + \phi),
-    \end{equation} with the unknowns $R$ and $\phi$ uniquely prescribed by the initial conditions
+    \end{equation} with the unknowns $R\in\mathbb{R}$ and $\phi\in[0,2\pi)$ uniquely prescribed by the initial conditions
     \begin{equation}
       x(0) = R\cos(\phi) \qquad\mbox{and}\qquad \dot x(0) = -\omega R \sin(\phi).
     \end{equation}
-    Clearly, once we know the initial conditions, the full evolution of the solution $x(t)$ is known, in agreement with Newton's principle of determinacy. \medskip
+    Once we know the initial conditions, the full evolution of the solution $x(t)$ is known.
+    \medskip
 
-    \begin{figure}[ht!]
-      \centering
-      \includegraphics[width=.9\linewidth]{images/HM-1-2.pdf}
-      \caption{Left: horizontal spring. Right: planar pendulum.}%
-      \label{fig:spring-pendulum}
-    \end{figure}
+    Consider, now, an ideal pendulum \index{pendulum!ideal}. That is, a point particle of mass $m$ attached to a pivot on the ceiling via a rigid rod of length $l$.
+    Assume the motion is frictionless and happening only in a vertical plane.
+    Let $x$ denote the angle of displacement of the system from its equilibrium position on this plane, i.e., the lowest point on the arc of motion.
+    Without loss of generality, we can assume the angle at equilibrium to be zero, with positive sign on the right hand side of the vertical, and negative on the left. See Figure~\ref{fig:spring-pendulum}, right panel.
 
-    Consider, now, a point particle of mass $m$ attached to a pivot on the ceiling via a rigid rod of length $l$.
-    Assume the motion is frictionless and happening only in the vertical direction.
-    Let $x$ denote the angle of displacement of the system from its equilibrium position, i.e., the lowest point on the arc of motion. Take the angle at equilibrium to be zero, with positive sign on the right hand side of the vertical, and negative on the left.
-
-    The force acting on the pendulum is Earth's gravitational attraction. According to \eqref{eq:newton}, then, the motion of the point particle is given by
+    The force acting on the pendulum is Earth's gravitational attraction.
+    According to \eqref{eq:newton}, then, the motion of the point particle is given by
     \begin{equation}
       m l \ddot{x} = - m g \sin(x) \qquad\mbox{or}\qquad \ddot{x} = - \omega^2 \sin(x) \quad\mbox{where } \omega = \sqrt{g/l}.
     \end{equation}
     Here, $g \approx 9.8 m s^{-2}$ denotes the gravitational acceleration.
 
-    Although it is possible to solve the equation of motion of the pendulum by means of elliptic integrals, this is rather cumbersome.
-    Under certain conditions, when $\sin x \approx x$, we can actually avoid doing this and instead we use the equation of the spring as a model for the pendulum oscillation via the so-called called \emph{small oscillations} approximation.
+    Although it is possible to solve the equation of motion of the pendulum explicitl yby means of \emphidx{elliptic integrals}~\cite{elliptic}, this is rather cumbersome.
+    In some cases, when $\sin x \approx x$, we can simplify our life and, instead, use the equation of the spring as a model for the pendulum oscillation via the so-called \emph{small oscillations} approximation.
     We will come back to this later on.
   \end{example}
 
   \begin{example}[Idealized motion of the Earth around the Sun]\label{ex:Kepler0}
-    Let us approximate the Sun with a point particle of mass $M$ positioned at the origin $\vb*{0}\in\mathbb{R}^3$ of the Euclidean space. In this solar system, with the Sun fixed at the origin, we will describe the Earth by a point particle of mass $m$ whose position (and motion) is described by a vector $\vb*{x}\in\mathbb{R}^3$.
+    Let us approximate the Sun with a point particle of mass $M$ positioned at the origin $\vb*{0}\in\mathbb{R}^3$ of the Euclidean space.
+    In this model of the solar system, with the Sun fixed at the origin, we will describe the Earth by a point particle of mass $m$ whose position (and motion) is described by a vector $\vb*{x}\in\mathbb{R}^3$.
 
-    Due to our choice of coordinates, the gravitational attraction of the Sun acts in direction $-\vb*{x}(t)$. \emph{Newton's law of universal gravitation} says that such a force is proportional to
+    Due to our choice of coordinates, the gravitational attraction of the Sun acts in the direction of $-\vb*{x}(t)$.
+    \emph{Newton's law of universal gravitation} \index{Newton ! universal gravitation} says that such a force is proportional to
     \begin{equation}
       \frac{GmM}{\|\vb*{0}-\vb*{x}\|^2} = \frac{GmM}{\|\vb*{x}\|^2},
     \end{equation}
-    where $G \sim 6.674 \cdot 10^{-11} \frac{m^3}{s^2\,kg}$ is called the \emph{gravitational constant}.
-    Once we collect all the elements into Newton's second law \eqref{eq:newton}, we obtain the equation of motion
+    where $G \sim 6.674 \cdot 10^{-11} \frac{m^3}{s^2\,kg}$ is called the \emphidx{gravitational constant}.
+    Newton's second law \eqref{eq:newton}, then, leads to the equation of motion
     \begin{equation}\label{eq:keplerex}
-      m \ddot{\vb*{x}} = - G\frac{mM}{\|\vb*{x}\|^2} \frac{\vb*{x}}{\|\vb*{x}\|}.
+      m \ddot{\vb*{x}} = - \frac{GmM}{\|\vb*{x}\|^2} \frac{\vb*{x}}{\|\vb*{x}\|}.
     \end{equation}
     This is an autonomous second order ordinary differential equation on the configuration space $\mathbb{R}^3\setminus\big\{\vb*{0}\big\}$.
-    Providing the initial conditions $\vb*{x}(0)=\vb*{x}_0$ and $\dot{\vb*{x}}(0)=\vb*{v}_0$, we can try to explicitly solve \eqref{eq:keplerex}, however in this case we could already get a lot of insight by taking a slightly different point of view.
+    Providing the initial conditions $\vb*{x}(0)=\vb*{x}_0$ and $\dot{\vb*{x}}(0)=\vb*{v}_0$, we can try to solve \eqref{eq:keplerex}, and you are welcome to try.
+    As it is often the case, though, things can become easier by taking a step back and looking at the problem differently.\medskip
 
-    Behind differential equations in classical mechanics lies a surprisingly rich geometrical structure, in which conserved quantities play a special role.
-    These can help to obtain extensive information on the solution of classical equations of motion without the need to explicitly solve the equations (which would be, in general, impossible).
+    Behind differential equations in classical mechanics lies a surprisingly rich geometrical structure, in which symmetries and conserved quantities play a special role.
+    These can help to obtain extensive information on the solution of classical equations of motion without the need to explicitly solve the equations (which, in general, is impossible).
+    Let's have an initial brief look at this in the context of the Kepler problem.
 
-    On the tangent bundle $(\mathbb{R}^3\setminus\big\{\vb*{0}\big\})\times\mathbb{R}^3$, let us define the total energy
+    Consider the space $\big(\mathbb{R}^3\setminus\big\{\vb*{0}\big\}\big)\times\mathbb{R}^3$, and define there, for the moment without further justification or explanation, the total energy function
     \begin{equation}\label{eq:energyKepler}
       E(\vb*{x},\vb*{v}) = \frac{1}{2}m\|\vb*{v}\|^2 - \frac{GmM}{\|\vb*{x}\|},
     \end{equation}
     the angular momentum
     \begin{equation}
-      L(\vb*{x},\vb*{v}) = m \vb*{v} \wedge \vb*{x},
+      L(\vb*{x},\vb*{v}) = m \vb*{v} \times \vb*{x},
     \end{equation}
     and the Laplace-Runge-Lenz vector
     \begin{equation}
-      A(\vb*{x},\vb*{v}) = m \vb*{v} \wedge L(\vb*{x}, \vb*{v}) + \frac{G m^2 M^2}{m+M} \frac{\vb*{x}}{\|\vb*{x}\|}.
+      A(\vb*{x},\vb*{v}) = m \vb*{v} \times L(\vb*{x}, \vb*{v}) + \frac{G m^2 M^2}{m+M} \frac{\vb*{x}}{\|\vb*{x}\|}.
     \end{equation}
-    Along the solutions of \eqref{eq:keplerex}, let us define $E(t):=E(\vb*{x}(t),\dot{\vb*{x}}(t))$ and, similarly, $L(t)$ and $A(t)$. Then, there exist solutions such that $L(t) = L(0) \neq 0$ for all times, and also $E(t) = E(0)$ and $A(t) = A(0)$. Furthermore, a solution that lives on the ``submanifold'' defined by
-    \begin{equation}
-      \begin{aligned}
+    Along the solutions $\vb*{x}(t)$ of \eqref{eq:keplerex}, let us define $E(t) := E(\vb*{x}(t),\dot{\vb*{x}}(t))$ and, similarly, $L(t)$ and $A(t)$.
+
+    In due time we will show that, $L(t) = L(0) \neq 0$ for all times, and also $E(t) = E(0)$ and $A(t) = A(0)$ are constant for all times.
+    Furthermore, any solution that lives on the subspace defined by
+    \begin{align}
         \big\{
-       & (\vb*{x}, \vb*{v})\in (\mathbb{R}^3\setminus\big\{\vb*{0}\big\})\times\mathbb{R}^3 \;\mid \\
-       & \;
+       (\vb*{x}, \vb*{v})\in \big(\mathbb{R}^3\setminus\big\{\vb*{0}\big\}\big)\times\mathbb{R}^3 \;\mid\;
        E(\vb*{x},\vb*{v}) = E(\vb*{x}_0, \vb*{v}_0),\;
        L(\vb*{x},\vb*{v}) = L(\vb*{x}_0, \vb*{v}_0),\;
        A(\vb*{x},\vb*{v}) = A(\vb*{x}_0, \vb*{v}_0)
      \big\},
-      \end{aligned}
-    \end{equation}
+    \end{align}
     must be a conic of the following type
     \begin{equation}
       \begin{split}
@@ -373,149 +349,223 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     \end{equation}
 
     This is an example of a central force field, and is one of the most prominent and most important examples in this course.
-    The impatient reader can find in \cite[Ch. 1]{book:knauf} a nice and compact derivation of Kepler's laws and the invariants above from \eqref{eq:keplerex} and its solutions.
+    The impatient reader can find in \cite[Ch. 1]{book:knauf} a nice and compact derivation of Kepler's laws and the invariants above from \eqref{eq:keplerex}.
   \end{example}
+
+  \subsection{From particles to systems of particles}
+
+  It is a bit limiting to consider only systems with one particle and, indeed, many interesting problems in classical mechanics involve systems on interacting particles.
+
+  In general a system of $N$ point particles \index{point particle!system} will be described by a set of $N$ position vectors $\vb*{x}_k = (x_k, y_k ,z_k)$ with masses $m_k$, $k = 1, \ldots, N$.
+  For convenience we will denote $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N)\in\mathbb{R}^{3N}$, and $\vb*{m} = (m_1, \ldots, m_N)\in\mathbb{R}^N$.
+  We call $\vb*{x}(t)$ the \emphidx{configuration} of the system at time $t$ in the \emph{configuration space} \index{configuration!space} $\mathbb{R}^{3N}$.
+
+  Note that we are identifying $\mathbb{R}^{3\times N}$, the space of $3\times N$ matrices, and $\mathbb{R}^{3N}$, the space of $3N$ vectors. Namely, $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N) = (x_1, y_1, z_1, x_2, y_2, z_2, \ldots, x_N, y_N, z_N)$ is used interchangeably as the vector of positions of the points in three-space or as the vector including all the positions of the $N$ bodies together.
+
+  \begin{example}\label{example:gcoords}
+    A system of two ideal pendulums is described by two position vectors, so $\vb*{x} = (\vb*{x}_1, \vb*{x}_2)\in\mathbb{R}^{6}$.
+    Notice, however, that to describe their configuration we only need \emph{two angular variables}, one for each of the pendulums.
+    So, for all practical purposes, the system could be completely described by $q = (q^1, q^2) \in \mathbb{S}^1\times\mathbb{S}^1 \simeq \mathbb{T}^2$. See Figure~\ref{fig:twopend}.
+
+    \begin{figure}[ht!]
+      \centering
+      \includegraphics[width=0.9\linewidth,trim={0 1cm 0 1cm}, clip]{images/HM-1-1.pdf}
+      \caption{Left: a system of two decoupled pendulums in $\mathbb{R}^3$. Right: corresponding generalized coordinates.}%
+      \label{fig:twopend}
+    \end{figure}
+
+    The symbol $\simeq$ usually denotes some kind of equivalence, but which specific kind is context-dependent and not often well explicited.
+    So, let us take this opportunity to clarify the notation.
+    What we wrote above, $\mathbb{S}^1\times\mathbb{S}^1 \simeq \mathbb{T}^2$, should be read as: the 2-torus, i.e., the surface of a doughnut, is \emphidx{diffemorphic} to the product of two circles. Here, diffeomorphic is a concept from the theory of smooth manifolds, and stands for the existence a smooth bijection between the two constructions.
+
+    If we then think of a circle $\mathbb{S}^1$ as the interval $[0, 2\pi)$ with the endpoints identified, the observation above is saying that the torus $\mathbb{T}^2$ can be thought of as the square $[0, 2\pi)\times[0, 2\pi)$ with the edges identified in the usual way and $q = (q^1, q^2) \in [0, 2\pi)\times[0, 2\pi) \subseteq \mathbb{R}^2$.
+
+    Such a long story to say that, while in principle this system is 6-dimensional, for all practical purposes it is 2-dimensional.
+  \end{example}
+
+  As exemplified by the example above, we want to set up a formalism that allows us to describe the configuration of a system in a way that is independent of the number of particles and instead captures the minimal number of parameters that are really necessary to describe it.
+
+  We say that a system of $N$ particles has \emph{$n$ degrees of freedom} \index{degrees of freedom} if we need $n$ independent parameters to uniquely specify the system configuration.
+  We call \emph{generalized coordinates} \index{generalized!coordinates}any set of $n$ parameters $q = (q^1, \ldots, q^n)$ that uniquely determine the configuration of a system with $n$ degrees of freedom, and \emph{generalized velocities} \index{generalized!velocities} their time derivatives $\dot q = (\dot q^1, \ldots, \dot q^n)$.
+  The \emph{state} \index{state space} of the system is then characterized by the set of (generalized) coordinates and velocities $(q, \dot q) = \left(q^1, \ldots, q^n,\dot q^1, \ldots, \dot q^n\right)$.
+
+  As Example~\ref{example:gcoords} shows, the $n$ degrees of freedom do not have to be the cartesian coordinates of the point particles.
+  If you recall differential geometry, you may (correctly) guess that the generalized coordinates will be points on some differentiable manifold $q\in M$, their evolution will be described by a curve $q: \mathbb{R} \to M$ parametrized by time and the state of the system will be a point in the tangent bundle $(q, \dot q)\in TM$, i.e., $\dot q \in T_q M$. If you don't have any previous experience with these concepts, don't dispare! We will take our time to introduce them as they appear throughout the course. See also section~\ref{sec:lagrangianonmanifold}).
+  \medskip
+
+  We have now all the elements to translate the \emph{Newton's principle of determinacy} \index{Newton!principle of determinacy} in mathematical terms.
+  In 1814, Laplace \cite{book:laplace} wrote
+
+  \begin{quotation}
+    We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.
+  \end{quotation}
+
+  In other words, this principle states that the initial state $\left(q(t_0), \dot q(t_0)\right)$ uniquely determines its evolution $\left(q(t),\dot q(t)\right)$ for $t > t_0$.
+  We had already observed this fact in Example~\ref{ex:sprPen} of the pendulum, where the initial position and velocity uniquely determined the future trajectory.
+  The Picard-Lindel\"of theorem, also known as ``Existence and uniqueness of solutions of initial value problems'' \cite[Theorem 3.17]{book:knauf}, implies that Newton's principle of determinacy is locally satisfied by the \emphidx{equations of motion} of the mechanical system, i.e., second order differential equations derived from Newton's law.
 
   \section{Hamilton's variational principle}\label{sec:varpri}
 
-  In order to leave more space to discuss Hamiltonian systems and their geometry, we will be brief\footnote{Although not as brief as a \href{https://twitter.com/j\_bertolotti/status/1397159397596581889}{twitter thread}.} in our account of Lagrangian mechanics and calculus of variations. For a more detailed account refer to \cite[Part II]{book:arnold}.
-  This, however, should not confuse you: Lagrangian mechanics plays a role as large as Hamiltonian mechanics in the development of classical mechanics.
-
-  In fact, one should not be surprised if there are many sources claiming that the most general formulation of the equations of motion in classical mechanics comes from the \emph{principle of least action} or \emph{Hamilton's variational principle}.
-
-  According to this principle, stated in 1834, the equations of motion of a mechanical system are characterized by a function $L \equiv L(q, \dot q, t) : \mathbb{R}^n \times \mathbb{R}^n \times \mathbb{R} \to \mathbb{R}$, called the \emph{lagrangian (function)} of the system.
+  In order to leave more space to discuss Hamiltonian systems and their geometry, we will be brief in our account of Lagrangian mechanics and calculus of variations, although not as brief as this \href{https://web.archive.org/web/20220404153248/https://twitter.com/j\_bertolotti/status/1397159397596581889}{twitter thread}.
+  This, however, should not confuse you: Lagrangian mechanics plays a role as large as Hamiltonian mechanics in the development of classical mechanics!
+  In fact, many sources claim that the most general formulation of the equations of motion in classical mechanics comes from the \emph{principle of least action} or \emph{Hamilton's variational principle}.
+  According to this principle, stated in 1834, the equations of motion of a mechanical system are characterized by a function
+  \begin{equation}
+    L \equiv L(q, \dot q, t) : \mathbb{R}^n \times \mathbb{R}^n \times \mathbb{R} \to \mathbb{R},
+  \end{equation}
+  called the \emphidx{lagrangian} (function) of the system.
 
   \begin{example}
-    The lagrangian of a non-relativistic particle with mass $m > 0$ in a potential $U : \mathbb{R}^n \to \mathbb{R}$ is
+    The lagrangian of a mechanical system consisting of a point particle with mass $m > 0$ in a potential $U : \mathbb{R}^n \to \mathbb{R}$ is
     \begin{equation}
       L(q, \dot q, t) = \frac12 m \|\dot q\|^2 - U(q),
     \end{equation}
-    which is the difference between the so-called kinetic energy of the particle and its so-called potential energy.
+    which is the difference between the so-called \emph{kinetic energy} of the particle and its so-called \emph{potential energy} $U$.
     We will see where this equation comes from in Section~\ref{sec:dynamicspps}.
   \end{example}
 
-  Given a curve $\gamma:[t_1, t_2] \to \mathbb{R}^n$, we define the \emph{action} functional
+  Given a curve $\gamma:[t_1, t_2] \to \mathbb{R}^n$, we define the \emphidx{action} functional as
   \begin{equation}\label{eq:Laction}
     S[\gamma] := \int_{t_1}^{t_2} L(\gamma(s), \dot \gamma(s), s) \dd s.
   \end{equation}
 
-  \begin{tcolorbox}
-    Assume that the configuration of our system is $q_1 = (q_1^1, \ldots, q_1^n)$ at an initial time $t=t_1$ and $q_2 = (q_2^1, \ldots, q_2^n)$ at a final time $t = t_2$. The \emph{principle of least action}, or \emph{Hamilton's principle}, states that the evolution of our system in the time interval $[t_1, t_2]$ corresponds to the curve $q(t)$ which is the critical point of the action functional $S[q]$ on the space of curves $q(t)$ with $q(t_1) = q_1$ and $q(t_2) = q_2$.
+  \begin{tcolorbox}[title=Principle of least action]
+    \index{principle of least action}\index{Hamilton's principle}
+    Consider a system with $n$ degrees of freedom.
+    Assume that the system is in the configuration $q_1 = (q_1^1, \ldots, q_1^n)$ at an initial time $t=t_1$ and $q_2 = (q_2^1, \ldots, q_2^n)$ at a final time $t = t_2$.
+
+    The \emph{principle of least action}, or \emph{Hamilton's principle}, states that the evolution of the system in the time interval $[t_1, t_2]$ corresponds to the curve $q(t)$ which is the \emph{critical point} of the action functional $S[q]$ on the space of curves $\gamma:[t_1, t_2] \to \mathbb{R}^n$ with fixed endpoints $\gamma(t_1) = q_1$ and $\gamma(t_2) = q_2$.
   \end{tcolorbox}
 
-  To make this precise, we will need to recall some preliminary concepts and make sense of differentiation in $\infty$-dimensional spaces.
+  To make this precise, we will need to recall some preliminary concepts and make sense of differentiation in $\infty$-dimensional spaces.\medskip
 
-  Let $X$ and $Y$ be Banach spaces\footnote{Banach space: complete normed vector space.}  and $G\subset X$ an open subset of $X$.
-  A function $f: G \to Y$ is called \emph{Fr\'echet differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that\footnote{Here, $g = o(\|h\|_X)$ if
-    \begin{equation}
-      \lim_{\|h\| \to 0} \frac{\|g(h)\|_Y}{\|h\|_X} = 0.
-    \end{equation}
-  }
+  To state this properly we need the concept of \emphidx{Banach space}, that is a complete normed vector space. If $X$ denotes a Banach space, then we will denote the corresponding norm by $\|\cdot\|_X$.
+
+  Let $X$ and $Y$ be Banach spaces and $G\subset X$ an open subset of $X$.
+  A function $f: G \to Y$ is called \emph{Fr\'echet differentiable} \index{Frechet ! differentiable} at $x\in G$, if there exists a bounded linear operator $A: X \to Y$, such that
   \begin{equation}\label{eq:frechetdiff}
     f(x+h) = f(x) + Ah + o(\|h\|_X)
   \end{equation}
-  for any $h$ in a sufficiently small neighborhood of $0\in X$. Alternatively, you can say asymptotically as $\|h\|_X\to 0$.
-
-  As in the finite-dimensional case, $A$ is uniquely determined and is called the \emph{Fr\'echet derivative} of $f$ at $x$ and is denoted $D f(x)$.
+  asymptotically as $\|h\|_X\to 0$, that is, for any $h$ in a sufficiently small neighborhood of $0\in X$.
+  Here, we write $g = o(\|h\|_X)$ if $g : X \to Y$ satisfies
+    \begin{equation}
+      \lim_{\|h\| \to 0} \frac{\|g(h)\|_Y}{\|h\|_X} = 0.
+    \end{equation}
+  As in the finite-dimensional case, $A$ is uniquely determined and is called the \emph{Fr\'echet derivative} \index{Frechet ! derivative} of $f$ at $x$ and is denoted $D f(x)$.
 
   \begin{remark}
     \begin{enumerate}
-      \item In the finite dimensional setting, Fr\'echet differentiability corresponds to total differentiability. As with the finite dimensional case, Fr\'echet's differentiability implies the continuity of the mapping.
-      \item The analogy with the finite dimensional case goes further. Indeed, the chain rule, mean value theorem, implicit functions theorem, inverse mapping theorem and statements about local extremes with and without constraints, all hold also for differentiable functions on Banach spaces.
-      \item Requiring the operator $A$ to be bounded is crucial. In $\infty$-dimensional normed spaces, linearity does not imply continuity.
-      \item In calculus of variation, the curve $h$ from the small neighborhood of $0\in X$, is usually called a variation and denoted $\delta x$.
+      \item In the finite dimensional setting, Fr\'echet differentiability corresponds to total differentiability.
+      \item As in the finite dimensional case, Fr\'echet differentiability implies the continuity of the mapping.
+      \item The analogy with the finite dimensional case goes further. Indeed, the chain rule, mean value theorem, implicit function theorem, inverse mapping theorem and the statements about local extremes with and without constraints, all hold also for Fr\'echet differentiable functions on Banach spaces.
+      \item Requiring the operator $A$ above to be bounded is crucial: in $\infty$-dimensional normed spaces, linearity does not imply continuity.
+      \item In calculus of variation, the curve $h$ from the small neighborhood of $0\in X$, is usually called a \emphidx{variation} and denoted $\delta x$. Don't confuse this with a Dirac delta function or a small real parameter.
     \end{enumerate}
   \end{remark}
 
-  Let $f: X \to \mathbb{R}$ be a (Fr\'echet) differentiable function and $X_0 \subset X$ be a subspace of $X$. Then $\gamma_\star$ is a \emph{critical point} of $f$ with respect to $X_0$ if
+  Let $f: X \to \mathbb{R}$ be a (Fr\'echet) differentiable function and $X_0 \subset X$ be a subspace of $X$. Then $\gamma_\star$ is a \emph{critical point} \index{action ! critical point} of $f$ with respect to $X_0$ if
   \begin{equation}
-    Df(\gamma_\star)\Big|_{X_0} = 0, \quad\mbox{i.e.}\quad
-    Df(\gamma_\star)h = 0 \mbox{ for all } h\in X_0.
+    Df\big(\gamma_\star\big)\Big|_{X_0} = 0, \quad\mbox{i.e.}\quad
+    Df\big(\gamma_\star\big)h = 0 \mbox{ for all } h\in X_0.
   \end{equation}
-
+  %
   It is possible to show that the space of curves
   \begin{equation}
-    X := \big\{ \gamma: [t_1, t_2] \to M \mid \gamma \mbox{ is twice continuously differentiable}\big\},
+    \mathcal{C}^2 := \big\{ \gamma: [t_1, t_2] \to M \mid \gamma \mbox{ is twice continuously differentiable}\big\},
   \end{equation} equipped with the norm
   \begin{equation}
-    \|\gamma\|_X :=
+    \|\gamma\|_{\mathcal{C}^2} :=
     \|\gamma\|_\infty + \|\dot \gamma\|_\infty + \|\ddot \gamma\|_\infty,
   \end{equation}
-  is a Banach space, and $X_0 = \big\{h\in X \mid h(t_1) = h(t_2) = 0\big\}$ with the induced norm, is a Banach subspace of $X$.
+  is a Banach space, and $\mathcal{C}^2_0 = \big\{h\in \mathcal{C}^2 \mid h(t_1) = h(t_2) = 0\big\}$ with the induced norm, is a Banach subspace of $\mathcal{C}^2$.
 
   Therefore, the action defined above is a functional
   \begin{equation}
-    S : X \to \mathbb{R},\qquad \gamma \mapsto S[\gamma],
+    S : \mathcal{C}^2 \to \mathbb{R},\qquad \gamma \mapsto S[\gamma],
   \end{equation}
-  and the evolution of the system is described by the critical points with respect to $X_0$ of $S$ on the space of $\gamma \in X$ with prescribed endpoints.
+  and the evolution of the system is described by the critical points with respect to $\mathcal{C}^2_0$ of $S$ on the space of $\gamma \in \mathcal{C}^2$ with prescribed endpoints.
+
+  \todo{Consider rewriting using q and v instead of qdot.}
 
   \begin{theorem}
     Let $L = L(q, \dot q, t) : \mathbb{R}^{n}\times \mathbb{R}^{n}\times \mathbb{R} \to \mathbb{R}$ be differentiable.
-    The equations of motion for the mechanical system with lagrangian $L$ are given by the \emph{Euler-Lagrange equations}
+    The equations of motion for the mechanical system with lagrangian $L$ are given by the \emphidx{Euler-Lagrange equations}
     \begin{equation}\label{eq:eulerlagrange}
       \frac{\dd}{\dd t}\frac{\partial L}{\partial \dot q^i} - \frac{\partial L}{\partial q^i} = 0, \quad i=1,\ldots n.
     \end{equation}
   \end{theorem}
 
-  \begin{proof}
-    We need to show that any critical point of $S$ with respect to $X_0$ has to satisfy \eqref{eq:eulerlagrange}.
+  \begin{remark}
+  Be careful: when we omit the indices $i$, we use $\pdv{L}{q}$ to denote the gradient of $L$ with respect to the position variables $q$, and $\pdv{L}{\dot q}$ the gradient of $L$ with respect to velocity variables $\dot q$.
+  %
+  In particular, $\dot q$ in $\pdv{L}{\dot q}$ serves as a label to denote the velocity variable, and \textbf{not} as the derivative of $q$ with respect to time. We consider $q$ and $\dot q$ as curves parametrised by time only when we apply $\dv{t}$.
 
-    First of all observe that for small $h$, we get
+  Therefore, you should read the Euler-Lagrange equations above as
+  \begin{equation}
+  \frac{\dd}{\dd t}\Bigg(\frac{\partial L(x,v)}{\partial v^i}\Big|_{(x,v) = (q(t),v(t))}\Bigg) - \frac{\partial L(x,v)}{\partial x^i}\Big|_{(x,v) = (q(t),v(t))} = 0, \qquad i=1,\ldots n.
+  \end{equation}
+  This explicit formulation, though precise, illustrates why such notational shortcuts are common and why I chose to adopt them.
+  \end{remark}
+
+  \begin{proof}
+    We need to show that any critical point of $S$ with respect to $\mathcal{C}^2_0$ has to satisfy \eqref{eq:eulerlagrange}.
+
+    First of all observe that for small $h\in \mathcal{C}^2_0$, we get
     \begin{align}
       S(\gamma + h) &= \int_{t_1}^{t_2} L(\gamma + h, \dot \gamma + \dot h, s) \dd s \\
                     &= \int_{t_1}^{t_2} % not clear how this step happens, specifically where the inner product comes from, maybe a comment on the procedure beforehand
                     L(\gamma, \dot \gamma, s) \dd s \\
                     &\quad + \int_{t_1}^{t_2} \left[
                       \left\langle
-                        \frac{\partial L}{\partial q}(\gamma, \dot \gamma, s),\;
+                        \pdv{L}{q}(\gamma, \dot \gamma, s),\;
                         h(s)
                       \right\rangle
                       + \left\langle
-                        \frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\;
+                        \pdv{L}{\dot q}(\gamma, \dot \gamma, s),\;
                         \dot h(s)
                       \right\rangle
                     \right] \dd s \\
-                    &\quad + O(\|h\|^2_X),
+                    &\quad + O(\|h\|^2_{\mathcal{C}^2}),
     \end{align}
-    where the inner product $\langle\cdot,\cdot\rangle$ is the usual scalar product in $\mathbb{R}^n$.
+    where the inner product $\langle\cdot,\cdot\rangle$ is the usual scalar product in $\mathbb{R}^n$, and the last identity follows from applying a Taylor expansion of $L$ to second order around $(\gamma, \dot \gamma)$.
 
     Therefore,
     \begin{align}
       S(\gamma+h) - S(\gamma) &= \int_{t_1}^{t_2} \left[
-        \left\langle\frac{\partial L}{\partial q}(\gamma, \dot \gamma, s),\; h(s)\right\rangle
-        + \left\langle\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\; \dot h(s)\right\rangle
+        \left\langle\pdv{L}{q}(\gamma, \dot \gamma, s),\; h(s)\right\rangle
+        + \left\langle\pdv{L}{\dot q}(\gamma, \dot \gamma, s),\; \dot h(s)\right\rangle
       \right] \dd s\\
-                              &\quad + O(\|h\|^2_X)\\
-                              &= \left\langle\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\; h(s)\right\rangle \Big|_{t_1}^{t_2} \\
+                              &\quad + O(\|h\|^2_{\mathcal{C}^2})\\
+                              &= \left\langle\pdv{L}{\dot q}(\gamma, \dot \gamma, s),\; h(s)\right\rangle \Big|_{t_1}^{t_2} \\
                               &\quad + \int_{t_1}^{t_2} \left\langle
-                                \frac{\partial L}{\partial q}(\gamma, \dot \gamma, s)
-                                - \frac{\dd}{\dd s}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s)
+                                \pdv{L}{q}(\gamma, \dot \gamma, s)
+                                - \dv{s}\pdv{L}{\dot q}(\gamma, \dot \gamma, s)
                               ,\; h(s)\right\rangle \dd s\\
-                              &\quad + O(\|h\|^2_X).
+                              &\quad + O(\|h\|^2_{\mathcal{C}^2}).
       \end{align}
 
-      The differential $DS(\gamma): X \to \mathbb{R}$ can now be read from the equation above and is well--defined and is a bounded linear operator for all $\gamma\in X$.
+      The differential $DS(\gamma): {\mathcal{C}^2} \to \mathbb{R}$ can now be read from the equation above and is well--defined and is a bounded linear operator for all $\gamma\in {\mathcal{C}^2}$. Let's look at it term by term.\medskip
 
-      For $h\in X_0$, the first term $\left\langle\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s),\; h(s)\right\rangle\Big|_{t_1}^{t_2}$ has to vanish. Therefore, for $\gamma$ to be a critical point for $S$ it follows that the inner product
+      For $h\in \mathcal{C}^2_0$, the first term $\left\langle\pdv{L}{\dot q}(\gamma, \dot \gamma, s),\; h(s)\right\rangle\Big|_{t_1}^{t_2}$ has to vanish. Therefore, for $\gamma$ to be a critical point for $S$ it follows that the inner product in the integral has to vanish as well, i.e.,
       \begin{equation}
         \left\langle
-          \frac{\partial L}{\partial q}(\gamma, \dot \gamma, s)
-          - \frac{\dd}{\dd s}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, s)
-        ,\; h(s)\right\rangle = 0 \quad\mbox{for all } h\in X_0.
+          \pdv{L}{q}(\gamma, \dot \gamma, s)
+          - \dv{s}\pdv{L}{\dot q}(\gamma, \dot \gamma, s)
+        ,\; h(s)\right\rangle = 0 \quad\mbox{for all } h\in \mathcal{C}^2_0.
       \end{equation}
-
-      Our choice of $h$ is arbitrary, so after a relabeling of the time, this implies\footnote{%
-        Why is that the case? Assume that \eqref{eq:EL-from-proof} is non vanishing, then you can choose %
-        $h$ with vanishing endpoints but non vanishing on the support of \eqref{eq:EL-from-proof}. %
-      With such an $h$ the integral above is strictly positive, contradicting the hypothesis.}
+      %
+      Our choice of $h$ is arbitrary, so after a relabeling of the time, this implies
       \begin{equation}\label{eq:EL-from-proof}
-        \frac{\partial L}{\partial q}(\gamma, \dot \gamma, t)
-        - \frac{\dd}{\dd t}\frac{\partial L}{\partial \dot q}(\gamma, \dot \gamma, t) = 0,
+        \pdv{L}{q}(\gamma, \dot \gamma, t)
+        - \frac{\dd}{\dd t}\pdv{L}{\dot q}(\gamma, \dot \gamma, t) = 0.
       \end{equation}
-      which, expanded, means
+      Why is that the case? Assume that \eqref{eq:EL-from-proof} is non vanishing, then you can choose an $h$ with vanishing endpoints but non vanishing on the support of \eqref{eq:EL-from-proof}. With such an $h$ the integral above is strictly positive, contradicting the hypothesis.
+
+      Once we look at \eqref{eq:EL-from-proof} componentwise, we obtain the Euler-Lagrange equations
       \begin{equation}
-        \frac{\dd}{\dd t}\frac{\partial L}{\partial \dot q^i}(\gamma, \dot \gamma, t) - \frac{\partial L}{\partial q^i}(\gamma, \dot \gamma, t) = 0, \quad i=1,\ldots n.
+        \frac{\dd}{\dd t}\frac{\partial L}{\partial \dot q^i}(\gamma, \dot \gamma, t) - \frac{\partial L}{\partial q^i}(\gamma, \dot \gamma, t) = 0, \quad i=1,\ldots n,
       \end{equation}
+      as stated in the theorem, thereby concluding the proof.
     \end{proof}
 
     \begin{remark}
@@ -1570,7 +1620,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
     \begin{remark}
       \emph{To any one--parameter group of diffeomorphism we can associate a smooth vector field $X : q\in M \mapsto X(q)\in T_qM$} by
       \begin{equation}
-        X(q) := \frac{\dd}{\dd s} \Phi_s(q) \Big|_{s=0}.
+        X(q) := \dv{s} \Phi_s(q) \Big|_{s=0}.
       \end{equation}
       This is clearly seen for small values of $|s|$, in which case the diffeomorphism $\Phi_s$ acts in coordinates as
       \begin{equation}\label{eq:infinitesimalSymmetryExp}
@@ -1603,7 +1653,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \begin{equation}
         I(q,\dot q) := p_i X^i,
         \quad p_i(q, \dot q) := \frac{\partial L}{\partial \dot q^i},
-        \quad X(q) := \frac{\dd}{\dd s} \Phi_s(q) \Big|_{s=0}.
+        \quad X(q) := \dv{s} \Phi_s(q) \Big|_{s=0}.
       \end{equation}
     \end{theorem}
 
@@ -2994,7 +3044,7 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
       \end{align}
       such that for all $v,w \in T_q M$
       \begin{align}
-        \mathbb{F}L(v) w := \frac{\dd}{\dd s} L(q, v + s w) \big|_{s=0}.
+        \mathbb{F}L(v) w := \dv{s} L(q, v + s w) \big|_{s=0}.
       \end{align}
       That is, $\mathbb{F}L(v) w$ is the derivative of $L$ at $v$ in the direction $w$ along the fiber $T_qM$.
       The last observation is crucial: the map is fiber-preserving in the sense that it maps the fiber $T_qM$ to the fiber $T^*_qM$.
@@ -6608,11 +6658,11 @@ The book \cite{book:knauf} will be a good extra reference for the course. In add
 
       %     We have shown in Exercise~\ref{exe:haminfsym} that any one--parameter group of symmetries of a hamiltonian system generates an infinitesimal symmetry defined by the vector field
       %     \begin{eqnarray}
-      %         X = \frac{\dd}{\dd s}\Phi_s(\vb*{x})\Big|_{s=0}.
+      %         X = \dv{s}\Phi_s(\vb*{x})\Big|_{s=0}.
       %     \end{eqnarray}
       %     Moreover, by Theorem~\ref{thm:vf-infsym}, for every infinitesimal symmetry $X$ there exists \emph{locally} a function $F$ on $P$, the hamiltonian generator, such that $X = X_F$ and, due to the invariance of $H$ with respect to $\Phi$,
       %     \begin{equation}
-      %         \big\{H,F\big\} = \frac{\dd}{\dd s}H(\Phi_s(\vb*{x}))\Big|_{s=0} = 0.
+      %         \big\{H,F\big\} = \dv{s}H(\Phi_s(\vb*{x}))\Big|_{s=0} = 0.
       %     \end{equation}
 
       %     We will now show that the existence of a one--parameter group of symmetries allows us to reduce the hamiltonian system to a new hamiltonian system on a symplectic manifold of dimension $2n-2$.
