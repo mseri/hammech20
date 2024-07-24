@@ -892,7 +892,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \section{First steps with conserved quantities}
     \subsection{Back to one degree of freedom}\label{sec:bdf}
 
-    Consider the equation
+    Consider the one dimensional Newton's equation for a point particle with unit mass and position $x(t)$:
     \begin{equation}\label{eq:oscillator}
       \ddot x = F(x), \qquad F:\mathbb{R}\to\mathbb{R}, \quad t\in \mathbb{R}.
     \end{equation}
@@ -905,8 +905,9 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
         \end{aligned}
       \right..
     \end{equation}
-    The solutions of \eqref{eq:oscillatorfirstorder} are parametric curves\footnote{Usually called \emph{integral curves} of the ordinary differential equation.} $(x(t),y(t)):\mathbb{R}\to\mathbb{R}^2$ in the $(x,y)$-space.
-    %
+    The solutions of \eqref{eq:oscillatorfirstorder} are parametric curves $(x(t),y(t)):\mathbb{R}\to\mathbb{R}^2$ in the $(x,y)$-space.
+    These curves are often called \emphidx{trajectories} of the system or \emph{integral curves} of the ordinary differential equation, it depends mostly on the context and the research fields in which they appear.
+
     If $y\neq0$, we can apply the chain rule, $\frac{\dd y}{\dd t} = \frac{\dd y}{\dd x} \frac{\dd x}{\dd t}$, to get
     \begin{equation}\label{eq:lef}
       \frac{F(x)}y = \frac{\dot y}{\dot x} = \frac{\dd y}{\dd x}.
