@@ -495,7 +495,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     Let $L = L(q, \dot q, t) : \mathbb{R}^{n}\times \mathbb{R}^{n}\times \mathbb{R} \to \mathbb{R}$ be differentiable.
     The equations of motion for the mechanical system with lagrangian $L$ are given by the \emphidx{Euler-Lagrange equations}
     \begin{equation}\label{eq:eulerlagrange}
-      \frac{\dd}{\dd t}\frac{\partial L}{\partial \dot q^i} - \frac{\partial L}{\partial q^i} = 0, \quad i=1,\ldots n.
+      \dv{t}\pdv{L}{\dot q^i} - \pdv{L}{q^i} = 0, \quad i=1,\ldots n.
     \end{equation}
   \end{theorem}
 
@@ -506,7 +506,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
 
   Therefore, you should read the Euler-Lagrange equations above as
   \begin{equation}
-  \frac{\dd}{\dd t}\Bigg(\frac{\partial L(x,v)}{\partial v^i}\Big|_{(x,v) = (q(t),\dot q(t))}\Bigg) - \frac{\partial L(x,v)}{\partial x^i}\Big|_{(x,v) = (q(t),\dot q(t))} = 0, \qquad i=1,\ldots n.
+  \dv{t}\Bigg(\pdv{L(x,v)}{v^i}\Big|_{(x,v) = (q(t),\dot q(t))}\Bigg) - \pdv{L(x,v)}{x^i}\Big|_{(x,v) = (q(t),\dot q(t))} = 0, \qquad i=1,\ldots n.
   \end{equation}
   This explicit formulation, though precise, illustrates why such notational shortcuts are common and why I chose to adopt them.
   \end{remark}
@@ -561,13 +561,13 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       Our choice of $h$ is arbitrary, so after a relabeling of the time, this implies
       \begin{equation}\label{eq:EL-from-proof}
         \pdv{L}{q}(\gamma, \dot \gamma, t)
-        - \frac{\dd}{\dd t}\pdv{L}{\dot q}(\gamma, \dot \gamma, t) = 0.
+        - \dv{t}\pdv{L}{\dot q}(\gamma, \dot \gamma, t) = 0.
       \end{equation}
       Why is that the case? Assume that \eqref{eq:EL-from-proof} is non vanishing, then you can choose an $h$ with vanishing endpoints but non vanishing on the support of \eqref{eq:EL-from-proof}. With such an $h$ the integral above is strictly positive, contradicting the hypothesis.
 
       Once we look at \eqref{eq:EL-from-proof} componentwise, we obtain the Euler-Lagrange equations
       \begin{equation}
-        \frac{\dd}{\dd t}\frac{\partial L}{\partial \dot q^i}(\gamma, \dot \gamma, t) - \frac{\partial L}{\partial q^i}(\gamma, \dot \gamma, t) = 0, \quad i=1,\ldots n,
+        \dv{t}\pdv{L}{\dot q^i}(\gamma, \dot \gamma, t) - \pdv{L}{q^i}(\gamma, \dot \gamma, t) = 0, \quad i=1,\ldots n,
       \end{equation}
       as stated in the theorem, thereby concluding the proof.
     \end{proof}
@@ -620,12 +620,12 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \emph{The lagrangian of a mechanical system is defined only up to total derivatives}.
       That is, the equations of motion remain unchanged if we add a total derivative to the lagrangian function:
       \begin{equation}
-        \widetilde L(q,\dot q, t) = L(q, \dot q, t) + \frac{\dd}{\dd t} f(q,t).
+        \widetilde L(q,\dot q, t) = L(q, \dot q, t) + \dv{t} f(q,t).
       \end{equation}
       Indeed, the action $\widetilde S$ of a system with lagrangian $\widetilde L$ is
       \begin{align}
         \widetilde S[q] & = \int_{t_1}^{t_2} \widetilde L(q, \dot q, t) \,\dd t                                       \\
-                        & = \int_{t_1}^{t_2} L(q, \dot q, t) \,\dd t + \int_{t_1}^{t_2} \frac{\dd}{\dd t} f(q,t) \,\dd t \\
+                        & = \int_{t_1}^{t_2} L(q, \dot q, t) \,\dd t + \int_{t_1}^{t_2} \dv{t} f(q,t) \,\dd t \\
                         & = S[q] + f(q_2, t_2) - f(q_1, t_1).
       \end{align}
       As the additional $f$-dependent part is constant,
@@ -739,14 +739,15 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       and thus the equations of motion remain invariant under the transformation.
     \end{proof}
 
-    \begin{corollary}[Newton's first law]\index{Newton|first law}
+    \begin{corollary}[Newton's first law]\index{Newton!first law}
       In an inertial frame of reference, an isolated point particle either does not move or it is in uniform motion with constant velocity.
     \end{corollary}
     \begin{proof}
-      It follows immediately by computing the Euler-Lagrange equations for \eqref{eq:singleptlag}:
+      It follows immediately by computing the Euler-Lagrange equations for \eqref{eq:singleptlag}
       \begin{equation}
-        \frac{\dd}{\dd t} \frac{\partial L}{\partial \dot x^i} - \frac{\partial L}{\partial x^i} = m \ddot x^i = 0, \qquad i=1,2,3.
+        0 = \dv{t} \pdv{L}{\dot x^i} - \pdv{L}{x^i} = m \ddot x^i, \qquad i=1,2,3,
       \end{equation}
+      whose solutions are all of the form $x^i(t) = x^i_0 + v^i_0 t$.
     \end{proof}
 
     Remembering the additive property of the lagrangians, we can show that for a system of $N$ particles which do not interact, the lagrangian is simply the sum
@@ -758,7 +759,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{remark}
       A lagrangian can always be multiplied by an arbitrary constant without affecting the equations of motion;
       such multiplication then amounts to a change in the unit of mass.
-       So, the above definition of mass becomes meaningful when we take the additive property into account: 
+       So, the above definition of mass becomes meaningful when we take the additive property into account:
       the ratios of the masses remain unchanged and it is only these ratios which are physically meaningful.
     \end{remark}
 
@@ -772,6 +773,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \index{lagrangian!natural}\index{energy!potential}\index{energy!kinetic}
 
     \begin{theorem}[Newton's second law]
+      \index{Newton!second law}
       The equations of motion of a system of $N$ point particles with natural lagrangian \eqref{eq:mechlag} are of the form
       \begin{equation}\label{eq:newton2}
         m_k \ddot{\vb*{x}}_k = \vb*{F}_k, \quad k=1,\ldots,N
@@ -823,7 +825,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \index{energy!kinetic}
     To understand better why $T$ in \eqref{eq:mechlag} is called kinetic energy, it is useful to look at its relation with Newton's second law \eqref{eq:newton2}:
     \begin{equation}
-      \frac{\dd}{\dd t} T
+      \dv{t} T
       = m \langle\dot{\vb*{x}}(t), \ddot{\vb*{x}}(t)\rangle
       = \left\langle\dot{\vb*{x}}(t), \vb*{F}(\vb*{x}(t))\right\rangle.
     \end{equation}
@@ -979,7 +981,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{tcolorbox}
       Given a mechanical system, the function $I = I(q, \dot q, t)$ of the coordinates, their time derivatives and (possibly) time, is called the \emph{(first) integral}, or \emph{constant of motion} or \emph{conserved quantity}, if the total derivative of the function $I$ is zero:
       \begin{equation}\label{eq:firstintegralD}
-        \frac{\dd}{\dd t}I =
+        \dv{t}I =
         \frac{\partial I}{\partial q^i} \dot q^i +
         \frac{\partial I}{\partial \dot q^i} \ddot q^i +
         \frac{\partial I}{\partial t}
@@ -995,21 +997,21 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{theorem}\label{thm:conservationEnergy}
       If the lagrangian of the mechanical system does not explicitly depend on time, $L = L(q, \dot q)$, then the \emph{energy} of the system
       \begin{equation}\label{eq:energy1}
-        E(q,\dot q) = p_i \dot q^i - L,\qquad p_i := \frac{\partial L}{\partial \dot q^i}
+        E(q,\dot q) = p_i \dot q^i - L,\qquad p_i := \pdv{L}{\dot q^i}
       \end{equation}
       is conserved.
     \end{theorem}
     \begin{proof}
       Using the Euler-Lagrange equation, we have
       \begin{equation}
-        \frac{\dd}{\dd t} L
-        = \frac{\partial L}{\partial q^i} \dot q^i + \frac{\partial L}{\partial \dot q^i} \ddot q^i
-        \overset{\text{(EL)}}{=} \dot q^i \frac{\dd}{\dd t} \frac{\partial L}{\partial \dot q^i} + \frac{\partial L}{\partial \dot q^i} \ddot q^i
-        = \frac{\dd}{\dd t}\left(\frac{\partial L}{\partial \dot q^i} \dot q^i\right),
+        \dv{t} L
+        = \pdv{L}{q^i} \dot q^i + \pdv{L}{\dot q^i} \ddot q^i
+        \overset{\text{(EL)}}{=} \dot q^i \dv{t} \pdv{L}{\dot q^i} + \pdv{L}{\dot q^i} \ddot q^i
+        = \dv{t}\left(\pdv{L}{\dot q^i} \dot q^i\right),
       \end{equation}
       that is,
       \begin{equation}
-        \frac{\dd}{\dd t}\left(\frac{\partial L}{\partial \dot q^i} \dot q^i - L\right) = 0.
+        \dv{t}\left(\pdv{L}{\dot q^i} \dot q^i - L\right) = 0.
       \end{equation}
     \end{proof}
 
@@ -1415,7 +1417,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{exercise}\label{exe:coordinatesInd}
       Let $L=L(q,\dot q):TM \to \mathbb{R}$ be a smooth function. Show that the \emph{linear momenta}, i.e., the derivatives
       \begin{equation}
-        p_i := \frac{\partial L}{\partial \dot q^i}, \quad i=1,\ldots,n,
+        p_i := \pdv{L}{\dot q^i}, \quad i=1,\ldots,n,
       \end{equation}
       transform in ``the opposite way as $\dot q$'' in the sense that:
       \begin{equation}
@@ -1438,7 +1440,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \end{equation}
     It turns out\footnote{Truth be told, we are hiding some extra complications involving infinite dimensional manifolds here, for a full account of the theory involved you can refer to \cite[Chapters 7 and 8]{book:marsdenratiu}.} that also in this case the critical points of the functional are determined by the Euler-Lagrange equations
     \begin{equation}
-      \frac{\dd}{\dd t}\frac{\partial L}{\partial \dot q^i} - \frac{\partial L}{\partial q^i} =0, \quad i=1,\ldots,n,
+      \dv{t}\pdv{L}{\dot q^i} - \pdv{L}{q^i} =0, \quad i=1,\ldots,n,
     \end{equation}
     which have the exact same form as \eqref{eq:eulerlagrange}.
     Under the time-independence and non--degeneracy conditions, the lagrangian defines a dynamical system on the tangent bundle $TM$.
@@ -1498,7 +1500,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
           \end{equation}
           We have already seen in Exercise \ref{exe:geodesic1} that the solutions of the Euler-Lagrange equations are geodesic curves.
           Show that geodesic curves have constant speed, i.e., $\langle\dot q, \dot q\rangle = \mathrm{const}$.
-          %\item Consider a time-dependent lagrangian $L = L(q,\dot q, t)$. Show that $\frac{\dd}{\dd t} E = \frac{\partial E}{\partial t}$.
+          %\item Consider a time-dependent lagrangian $L = L(q,\dot q, t)$. Show that $\dv{t} E = \frac{\partial E}{\partial t}$.
       \end{enumerate}
     \end{exercise}
 
@@ -1580,7 +1582,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       Consider a mechanical system with $n$ degrees of freedom described by the lagrangian $L=L(q,\dot q)$, $q=(q^1,\ldots,q^n)$.
       If there is $i$ such that $L$ does not depend on $q^i$, i.e.
       \begin{eqnarray}
-        \frac{\partial L}{\partial q^i} = 0,
+        \pdv{L}{q^i} = 0,
       \end{eqnarray}
       then the coordinate $q^i$ is said to be \emph{cyclic} and the kinetic momentum
       \begin{eqnarray}
@@ -1591,7 +1593,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       This is easily verified by using Euler-Lagrange equations:
       \begin{eqnarray}
         \frac{\dd p_j}{\dd t} =
-        \frac{\dd}{\dd t} \left(\frac{\partial L}{\partial \dot q^j}\right)=
+        \dv{t} \left(\frac{\partial L}{\partial \dot q^j}\right)=
         \frac{\partial L}{\partial q^j} = 0.
       \end{eqnarray}
     \end{example}
@@ -1601,7 +1603,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     Let $M$ be a smooth manifold. A smooth map $\phi : M \to M$ is called \emph{diffeomorphism} if it is invertible and its inverse $\phi^{-1}$ is smooth. At each point $q\in M$ we can define the \emph{differential} of $\phi$, i.e., the linear map $\phi_*$ between tangent spaces (sometimes also denoted $\dd\phi_q$)
     \begin{equation}
       \phi_*: T_q M \to T_{\phi(q)} M,
-      \quad \phi_* v := \phi_*(q) v := \frac{\dd}{\dd t} (\phi \circ \gamma) \Big|_{t=0},
+      \quad \phi_* v := \phi_*(q) v := \dv{t} (\phi \circ \gamma) \Big|_{t=0},
       \quad v\in T_q M,
     \end{equation}
     where $\gamma:(-\epsilon, \epsilon)\subset\mathbb{R} \to M$ is a smooth curve such that $\gamma(0)=q$, $\gamma'(0) = v$.
@@ -1681,7 +1683,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       In local coordinates $q$ on $M$, the integral $I$ takes the form
       \begin{equation}
         I(q,\dot q) := p_i X^i,
-        \quad p_i(q, \dot q) := \frac{\partial L}{\partial \dot q^i},
+        \quad p_i(q, \dot q) := \pdv{L}{\dot q^i},
         \quad X(q) := \dv{s} \Phi_s(q) \Big|_{s=0}.
       \end{equation}
     \end{theorem}
@@ -1691,11 +1693,11 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       By definition, see \eqref{eq:firstintegralD}, $I$ is a first integral if it is constant on the phase curves.
       Let's compute its time derivative,
       \begin{align}
-        \frac{\dd}{\dd t} I(q, \dot q)
-     & = \frac{\dd}{\dd t} p_i(q, \dot q) X^i(q)                                                                                 \\
+        \dv{t} I(q, \dot q)
+     & = \dv{t} p_i(q, \dot q) X^i(q)                                                                                 \\
      & = \frac{\dd p_i}{\dd t} X^i + p_i \frac{\partial X^i}{\partial q^j} \dot q^j                                              \\
-     & = \left(\frac{\dd}{\dd t}\frac{\partial L}{\partial \dot q^i}\right) X^i + p_i \frac{\partial X^i}{\partial q^j} \dot q^j \\
-     & = \frac{\partial L}{\partial q^i} X^i + p_i \frac{\partial X^i}{\partial q^j} \dot q^j. \label{eq:ntref1}
+     & = \left(\dv{t}\pdv{L}{\dot q^i}\right) X^i + p_i \frac{\partial X^i}{\partial q^j} \dot q^j \\
+     & = \pdv{L}{q^i} X^i + p_i \frac{\partial X^i}{\partial q^j} \dot q^j. \label{eq:ntref1}
       \end{align}
       The last equality follows from the Euler-Lagrange equations.
 
@@ -1706,7 +1708,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \end{equation}
       Expanding the left hand side in series, simplifying the term $L(q, \dot q)$ and sending $s\to 0$, the condition becomes
       \begin{equation}\label{eq:ntref2}
-        \frac{\partial L}{\partial q^i} X^i + p_i \frac{\partial X^i}{\partial q^j} \dot q^j = 0.
+        \pdv{L}{q^i} X^i + p_i \frac{\partial X^i}{\partial q^j} \dot q^j = 0.
       \end{equation}
       Which shows that \eqref{eq:ntref1} is $0$ and, thus, that $I$ is a first integral.
     \end{proof}
@@ -1737,7 +1739,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       In that case, the invariance condition \eqref{eq:invariance} holds only up to total derivatives \cite[Chapter 4.20]{book:gelfand}, i.e., there is a function $f(q)$ on $M$ such that
       \begin{equation}
         L\left( q + s X(q), \dot q + s \frac{\partial X}{\partial q} \dot q\right)
-        = L(q, \dot q) + s \frac{\dd}{\dd t}f(q) + O(s^2).
+        = L(q, \dot q) + s \dv{t}f(q) + O(s^2).
       \end{equation}
       Show that in this case the first integral of the system would be
       \begin{equation}
@@ -1977,7 +1979,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \end{equation}
       dilates the speeds as
       \begin{equation}
-        \frac{\dd}{\dd t} \vb*{x}_k \mapsto \frac{\lambda}{\mu} \frac{\dd}{\dd t}\vb*{x}_k.
+        \dv{t} \vb*{x}_k \mapsto \frac{\lambda}{\mu} \dv{t}\vb*{x}_k.
       \end{equation}
       Therefore
       \begin{equation}
@@ -2177,7 +2179,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
 
     In view of what we have seen, we can write the characteristic oscillations in the form $q(t) = e^{i\omega t} \vb*{\xi}$, then by substituting in the Euler-Lagrange equations,
     \begin{equation}
-      \frac{\dd}{\dd t} g \dot q = h q,
+      \dv{t} g \dot q = h q,
     \end{equation}
     we find
     \begin{equation}
@@ -2828,12 +2830,12 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     %The starting point for our investigation will be Theorems~\ref{thm:ham1} and~\ref{thm:conservationEnergy}, and Example~\ref{ex:natlagham}.
     In the previous chapters, we saw that the $n$ generalized momenta
     \begin{equation}
-      p_i = \frac{\partial L}{\partial \dot q^i}, \quad i=1,\ldots,n,
+      p_i = \pdv{L}{\dot q^i}, \quad i=1,\ldots,n,
     \end{equation}
     play a relevant role in the first integrals at the core of Noether theorem, and in particular in the conservation of energy.
     If we then look at the Euler-Lagrange equations and revisit them in terms of the momenta, they acquire the nice form
     \begin{equation}
-      \dot p_i = \frac{\partial L}{\partial q^i}, \quad i=1,\ldots,n.
+      \dot p_i = \pdv{L}{q^i}, \quad i=1,\ldots,n.
     \end{equation}
     Which seems to bring a nice symmetry between the coordinates and the momenta, and seems to allow us to reduce the problem to a first order system of equations.
 
@@ -2972,7 +2974,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     Finally, an important operation in differential geometry is the Lie derivative, the concept is quite general but we will only need it in the context of differential forms.
     Given a vector field $X$ on a manifold $P$ and the one--parameter group of diffeomorphisms $\Phi_t$ that it generates, we define the \emph{Lie derivative of a differential form $\theta$ with respect to $X$} as
     \begin{equation}\label{eq:lie-derivative}
-      \mathcal{L}_X \theta = \frac{\dd}{\dd t}\Phi_t^*\theta \Big|_{t=0}.
+      \mathcal{L}_X \theta = \dv{t}\Phi_t^*\theta \Big|_{t=0}.
     \end{equation}
     The Lie derivative evaluates the change of a tensor field (including scalar function, vector field and differential forms), along the flow defined by another vector field.
 
@@ -3083,7 +3085,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \end{equation}
       That is, the coefficients of the covector $p = \mathbb{F}L(\dot q) \simeq p_i dq^i$ are given by
       \begin{equation}
-        p_i = \frac{\partial L}{\partial \dot q^i}.
+        p_i = \pdv{L}{\dot q^i}.
       \end{equation}
       For non-degenerate lagrangians the fiber derivative is a smooth morphism of fiber bundles.
 
@@ -3112,14 +3114,14 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       can be explicitly computed using its definition:
       \begin{align}
         \dd H(q,p) & = \dd{}\left( p_i\dot{q}^i(q,p) - L(q, \dot{q}(q,p)) \right)                                                                             \\
-                   & = \dot{q}^i \dd{p_i} + p_i \dd{\dot{q}^i}(q,p) - \frac{\partial L}{\partial q^i} \dd{q^i} - \frac{\partial L}{\partial \dot{q}^i} \dd{\dot{q}^i} \\
+                   & = \dot{q}^i \dd{p_i} + p_i \dd{\dot{q}^i}(q,p) - \pdv{L}{q^i} \dd{q^i} - \frac{\partial L}{\partial \dot{q}^i} \dd{\dot{q}^i} \\
                    & = \dot{q}^i \dd{p_i} - \dot{p}_i \dd{q^i}, \label{eq:dHlc2}
       \end{align}
       where we used the Euler-Lagrange equations to get
       \begin{equation}
         p_i = \frac{\partial L}{\partial \dot{q}^i}
         \qquad\mbox{and}\qquad
-        \dot p_i = \frac{\dd }{\dd t}\frac{\partial L}{\partial \dot{q}^i} = \frac{\partial L}{\partial q^i}.
+        \dot p_i = \frac{\dd }{\dd t}\frac{\partial L}{\partial \dot{q}^i} = \pdv{L}{q^i}.
       \end{equation}
       The theorem follows comparing coefficients in \eqref{eq:dHlc} and \eqref{eq:dHlc2}.
     \end{proof}
@@ -3447,7 +3449,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       Let $H=H(q,p)$ be the hamiltonian of an hamiltonian system \eqref{eq:Hamsys} and $F=F(q,p)\in\mathcal{C}^\infty(T^*M)$.
       Then, along the flow $(q(t), p(t))$ of $H$, we have
       \begin{equation}
-        \frac{\dd}{\dd t} F = \frac{\partial F}{\partial q^i} \dot q^i + \frac{\partial F}{\partial p_i} \dot p_i = \big\{F,H\big\}.
+        \dv{t} F = \frac{\partial F}{\partial q^i} \dot q^i + \frac{\partial F}{\partial p_i} \dot p_i = \big\{F,H\big\}.
       \end{equation}
     \end{theorem}
 
@@ -3837,11 +3839,11 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{proof}
       Let $\widetilde x(t) := \Phi(x(t))$. Theorem~\ref{thm:poissondtdF} implies that for any smooth function $f$, it holds
       \begin{equation}
-        \frac{\dd}{\dd t} f(x) = \big\{f(x), H(x)\big\}\Big|_{x=x(t)}.
+        \dv{t} f(x) = \big\{f(x), H(x)\big\}\Big|_{x=x(t)}.
       \end{equation}
       Which for $f(\widetilde x(t)) = f(\Phi(x(t))) = \Phi^* f(x(t))$, reduces to
       \begin{equation}
-        \frac{\dd}{\dd t} f(\widetilde x(t)) = \big\{f(\Phi(x)), H(x)\big\}.
+        \dv{t} f(\widetilde x(t)) = \big\{f(\Phi(x)), H(x)\big\}.
       \end{equation}
       By using $x = \Phi^{-1}(\Phi(x))$ and the definition of canonical transformations we can manipulate the right hand side as follows
       \begin{align}
@@ -3851,7 +3853,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \end{align}
       Collecting both sides, one gets
       \begin{equation}
-        \frac{\dd}{\dd t} f(\widetilde x(t)) = \big\{f, (\Phi^{-1})^* H\big\}\Big|_{x=\widetilde x(t)}
+        \dv{t} f(\widetilde x(t)) = \big\{f, (\Phi^{-1})^* H\big\}\Big|_{x=\widetilde x(t)}
       \end{equation}
     \end{proof}
 
@@ -4012,7 +4014,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       Show that the hamiltonian generator of the canonical transformations $\Phi_t$ depends linearly on the coordinates $p_1, \ldots, p_n$ and is given by the following formula
       \begin{align}
      & H(q,p) = \langle p, X(q) \rangle = p_i X^i(q), \label{eq:linhamp}                   \\
-     & X(q) = (X^1(q), \ldots, X^n(q)), \quad X(q) = \frac{\dd}{\dd t} \phi_t(q)\Big|_{t=0}.
+     & X(q) = (X^1(q), \ldots, X^n(q)), \quad X(q) = \dv{t} \phi_t(q)\Big|_{t=0}.
       \end{align}
     \end{exercise}
 
@@ -5719,7 +5721,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
         \begin{proof}
           Since $M$ is compact, the one--parameter group of diffeomorphisms
           \begin{equation}
-            \Phi_t^i: M \to M, \quad \frac{\dd}{\dd t} \Phi_t^i(x)\Big|_{t=0} = X_i(x)
+            \Phi_t^i: M \to M, \quad \dv{t} \Phi_t^i(x)\Big|_{t=0} = X_i(x)
           \end{equation}
           generated by the vector fields is well defined for all $t\in\mathbb{R}$.
           The commutativity of the vector fields implies the commutativity of the groups, that is,
