@@ -1021,26 +1021,25 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
 
     \subsection{Conservation of energy}\label{sec:energy}
 
-    Let's see how general is the phenomenon described in the previous section.
-
-    \begin{tcolorbox}
-      Given a mechanical system, the function $I = I(q, \dot q, t)$ of the coordinates, their time derivatives and (possibly) time, is called the \emph{(first) integral}, or \emph{constant of motion} or \emph{conserved quantity}, if the total derivative of the function $I$ is zero:
-      \begin{equation}\label{eq:firstintegralD}
-        \dv{t}I =
+    Let's see how general is the phenomenon described in the previous section by first introducing the concept of \emph{conserved quantity}.
+    %
+    Given a mechanical system, the function $I = I(q, v, t) : \mathbb{R}^n \times \mathbb{R}^n \times t$ of the generalized coordinates, the generalized velocities and (possibly) time, is called the \emphidx{(first) integral}, or \emphidx{constant of motion} or \emphidx{conserved quantity}, of the system if the total derivative of the function $I$ vanishes along the trajectories of the system.
+    That is, if the following equation holds for all $t$:
+    \begin{equation}\label{eq:firstintegralD}
+        \dv{t}I(q,v,t) \big|_{(q,v,t)=(q(t), \dot{q}(t), t)} =
         \frac{\partial I}{\partial q^i} \dot q^i +
         \frac{\partial I}{\partial \dot q^i} \ddot q^i +
         \frac{\partial I}{\partial t}
         = 0.
-      \end{equation}
-    \end{tcolorbox}
+    \end{equation}
 
-    In other words, if the function $I$ remains constant along the paths followed by the system:
+    In other words, the function $I$ is conserved if it remains constant along the paths followed by the system:
     \begin{equation}
       I(q(t),\dot q(t), t) = \mathrm{const}.
     \end{equation}
 
     \begin{theorem}\label{thm:conservationEnergy}
-      If the lagrangian of the mechanical system does not explicitly depend on time, $L = L(q, \dot q)$, then the \emph{energy} of the system
+      If the lagrangian of the mechanical system does not explicitly depend on time, $L \equiv L(q, \dot q)$, then the \emphidx{energy} of the system
       \begin{equation}\label{eq:energy1}
         E(q,\dot q) = p_i \dot q^i - L,\qquad p_i := \pdv{L}{\dot q^i}
       \end{equation}
@@ -1074,25 +1073,25 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \begin{equation}\label{eq:energyFromL}
         E = 2T - T + U = T + U.
       \end{equation}
-      We call $\vb*{p}_k := m_k \dot{\vb*{x}}_k$ the kinetic momentum, replacing it in the equation above we get that
+      We call $\vb*{p}_k := m_k \dot{\vb*{x}}_k$ the \emph{(kinetic) momentum}\index{momentum}, replacing it in the equation above we get that
       \begin{equation}
-        E = H(q,p) := \frac{1}{2 m_k}\|\vb*{p}_k\|^2 + U
+        E = \frac{1}{2 m_k}\|\vb*{p}_k\|^2 + U =: H(q,p)
       \end{equation}
       is the sum of kinetic and potential energies, as in \eqref{eq:energyKepler} and Theorem \ref{thm:ham1}.
     \end{example}
 
     \begin{remark}
       This is probably a good point to discuss the question: why does nature want to minimize the action? And why the lagrangian is of the form \eqref{eq:mechlag}?
+      A nice answer to these questions was provided in~\cite{lectures:baez}, where you can also read a nice historical account on how scientists came up with the principle of least action in the first place.
+      I'll try to summarize the main points here.
 
       Theorem~\ref{thm:conservationEnergy} tells us that the total energy is conserved, and \eqref{eq:energyFromL} tells us that for closed systems this implies that the energy is transferred back and forth between the kinetic and the potential components.
       We saw towards the end of Section~\ref{sec:dynamicspps} that while the kinetic energy measures how much the system is moving around, the potential energy measures the capacity of the system to change: its name can be intended as `potential' in the sense of yet unexpressed possibilities.
 
       Looking at the lagrangian itself, we see that it is minimal when the potential energy is large and maximal when the kinetic energy is large.
       So, the lagrangian measures in some sense how `active' a system is: the higher the kinetic energy the more active a system is, and the higher the potential energy the less active the system.
-      %
-      The principle of least action tells us that nature is lazy: she likes to find a compromise that minimizes its activity over time, i.e., its total action.
 
-      You can read a nice historical account on how scientists came up with the principle of least action in \cite{lectures:baez}.
+      The principle of least action, then, tells us that nature is lazy: she likes to find a compromise that minimizes its activity over time, i.e., its total action.
     \end{remark}
 
     % Exercise: H\'enon-Heiles 1964
@@ -1103,16 +1102,16 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
 
     % Lecture: page 22, Chapter 2.5 Arnold on conservation of energy in 2 deg of freedom.
 
-    \subsection{Fun with the phase portrait}\label{sec:1deg-again}
+    \subsection{The phase portrait strikes back}\label{sec:1deg-again}
 
     As we observed in the previous sections, the conservation of energy has remarkable consequences for systems with one degree of freedom.
-    In this final section, we will investigate this into more details.
+    In this section we will bring back the phase portrait and explore this further.
 
-    A general natural lagrangians for a system with one degree of freedom in isolation has the form
-    \begin{equation}
-      L = \frac12 g(q)\dot q^2 - U(q),
-    \end{equation}
-    we will justify this in Section~\ref{sec:lagrangianonmanifold}.
+    %A general natural lagrangians for a system with one degree of freedom in isolation has the form
+    %\begin{equation}
+    %  L = \frac12 g(q)\dot q^2 - U(q),
+    %\end{equation}
+    %we will justify this in Section~\ref{sec:lagrangianonmanifold}.
     As one would hope, in cartesian coordinates $q = x$ that is just the natural lagrangian $L = \frac{m \dot x^2}{2} - U(x)$.
     In this case we can easily observe that Theorem \ref{thm:ham1} and Theorem \ref{thm:conservationEnergy} coincide.
 
