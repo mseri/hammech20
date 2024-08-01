@@ -40,6 +40,7 @@ makeindex
 \usepackage{graphicx}
 
 \usepackage{amsmath, amssymb, amsthm}
+\numberwithin{equation}{chapter}
 \usepackage{physics} % documentation at https://mirror.koddos.net/CTAN/macros/latex/contrib/physics/physics.pdf
 \begin{warpprint}
   \usepackage{fourier}
@@ -698,18 +699,29 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \end{equation}
       where $m\in\mathbb{R}$ is a constant called the \emph{mass} of the point particle.
     \end{theorem}
+    \begin{remark}
+      In view of our previous discussions, the statement above should be read as
+      \begin{quote}
+        the lagrangian of an isolated point particle in an inertial system of coordinates has the form~\eqref{eq:singleptlag} up to total derivatives.
+    \end{quote}
+    \end{remark}
     \begin{proof}
       The invariance with respect to translations implies that $L(\vb*{x} + \vb*{x}_0, \dot{\vb*{x}}, t + t_0) = L(\vb*{x}, \dot{\vb*{x}}, t)$, that is, the lagrangian must be independent from $t$ and $\vb*{x}$: the lagrangian $L = L(\dot{\vb*{x}})$ must be a function of the velocity only.
 
-      Euler-Lagrange equations~\eqref{eq:eulerlagrange} then imply that the velocity must be constant. Indeed, we have
+      Euler-Lagrange equations~\eqref{eq:eulerlagrange} then imply that either $L$ is the constant function altogether or the velocity must be constant. Indeed, we have
       \begin{equation}
       0 = \dv{t}\pdv{L}{\dot{\vb*{x}}} - \pdv{L}{\vb*{x}} = \dv{t}\pdv{L}{\dot{\vb*{x}}},
       \end{equation}
       that is, $\pdv{L}{\dot{\vb*{x}}} = \mathrm{const}$. Since $L$ only depends on the velocity, this means that either $L$ is the constant function, which would make Euler-Lagrange equations completely trivial, or $\dot{\vb*{x}}(t) = \mathrm{const}$.
+      We just derived an alternative proof of Corollary~\ref{cor:Nfl}, Newton's first law, from the Galilean principle of relativity.
 
       The invariance from orthogonal transformations then implies that $L(\dot{\vb*{x}}) = L(G\dot{\vb*{x}})$, where $G^t G = \Id$. That is, $L$ cannot depend on the direction of the velocity, only on its magnitude:
       \begin{equation}
-        L = L(\|\dot{\vb*{x}}\|^2), \quad \|\dot{\vb*{x}}\|^2 := \langle\dot{\vb*{x}}, \dot{\vb*{x}}\rangle.
+        L(\dot{\vb*{x}}) = L(\|\dot{\vb*{x}}\|), \quad \|\dot{\vb*{x}}\|^2 := \langle\dot{\vb*{x}}, \dot{\vb*{x}}\rangle.
+      \end{equation}
+      Since we expect the lagrangian to be a smooth function, we want to avoid square roots and therefore we will write
+      \begin{equation}
+        L(\dot{\vb*{x}}) = L(\|\dot{\vb*{x}}\|^2).
       \end{equation}
 
       The invariance with respect to uniform motion now implies that the lagrangian must actually be proportional to $\|\dot{\vb*{x}}\|^2$.
@@ -734,12 +746,12 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \begin{equation}
         \frac{m \|\dot{\vb*{x}}\|^2}2 \mapsto
         \frac{m \|\dot{\vb*{x}}\|^2}2 + m\,\langle\vb*{v},\dot{\vb*{x}}\rangle + \frac{m \vb*{v}^2}2
-        = \frac{m \|\dot{\vb*{x}}\|^2}2 + \frac{\dd }{\dd t}\left(m\,\langle\vb*{v},\vb*{x}\rangle + \frac{m \vb*{v}^2 t}2\right),
+        = \frac{m \|\dot{\vb*{x}}\|^2}2 + \dv{t}\left(m\,\langle\vb*{v},\vb*{x}\rangle + \frac{m \vb*{v}^2 t}2\right),
       \end{equation}
       and thus the equations of motion remain invariant under the transformation.
     \end{proof}
 
-    \begin{corollary}[Newton's first law]\index{Newton!first law}
+    \begin{corollary}[Newton's first law]\label{cor:Nfl}\index{Newton!first law}
       In an inertial frame of reference, an isolated point particle either does not move or it is in uniform motion with constant velocity.
     \end{corollary}
     \begin{proof}
@@ -750,7 +762,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       whose solutions are all of the form $x^i(t) = x^i_0 + v^i_0 t$.
     \end{proof}
 
-    Remembering the additive property of the lagrangians, we can show that for a system of $N$ particles which do not interact, the lagrangian is simply the sum
+    The additive property of the lagrangians now implies that for a system of $N$ particles which do not interact, the lagrangian is simply the sum
     \begin{equation}\label{eq:freel}
       L = \sum_{k=1}^N \frac{m_k \|\dot{\vb*{x}}_k\|^2}{2}.
     \end{equation}
@@ -759,7 +771,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{remark}
       A lagrangian can always be multiplied by an arbitrary constant without affecting the equations of motion;
       such multiplication then amounts to a change in the unit of mass.
-       So, the above definition of mass becomes meaningful when we take the additive property into account:
+      So, the above definition of mass becomes meaningful when we take the additive property into account:
       the ratios of the masses remain unchanged and it is only these ratios which are physically meaningful.
     \end{remark}
 
@@ -831,7 +843,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \end{equation}
     This confirms the intuitive notion that the kinetic energy should increase if a force pushes the particle in the direction of the current motion and should decrease when it pulls the particle in the opposite direction.
 
-    There is more, in fact
+    There is more, in fact our computation above shows that
     \begin{equation}
       T(t_1) - T(t_0) = \int_{t_0}^{t_1} \left\langle\dot{\vb*{x}}(t), \vb*{F}(\vb*{x}(t))\right\rangle\; \dd t = \int_{\vb*{x}_0}^{\vb*{x}_1} \left\langle\vb*{F}(\vb*{x}), \dd{\vb*{x}}\right\rangle,
     \end{equation}
@@ -844,6 +856,19 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       In fact, this is true in any dimension by using the general version of Stokes' theorem: the work done by the force depends only on the endpoints of the integral if and only if there is $U:\mathbb{R}^n\to\mathbb{R}$, unique up to an additive constant, such that $\vb*{F} = -\frac{\partial U}{\partial \vb*{x}}$.
       %
       You can read more about this in \cite[Chapter 2.5]{book:arnold} and \cite[Theorem 6.3 and 8.1]{book:knauf}.
+    \end{remark}
+
+
+    \begin{remark}
+      Often in physics, the kinetic energy is instead defined as \emph{the work required to bring the mass from rest to some speed~$\dot{\vb{x}}$}.
+      One can then perform the computation above backwards
+      \begin{equation}
+        \int_{x_0}^{x^1} \left\langle\vb*{F}(\vb*{x}), \dd{\vb*{x}}\right\rangle
+        = \int_{t_0}^{t_1} \left\langle\dot{\vb*{x}}(t), \vb*{F}(\vb*{x}(t))\right\rangle\; \dd t
+        = \int_{t_0}^{t_1} m \langle\dot{\vb*{x}}(t), \ddot{\vb*{x}}(t)\rangle\; \dd t
+        = \int_{t_0}^{t_1} \dv{t} \frac{m}{2} \langle\dot{\vb*{x}}(t), \dot{\vb*{x}}(t)\rangle \; \dd t,
+      \end{equation},
+      leading to the definition of kinetic energy as $T = \frac{m}{2} \|\dot{\vb{x}}\|^2$.
     \end{remark}
 
     Forces that can be written in the form $\vb*{F} = -\frac{\partial U}{\partial \vb*{x}}$, for some function $U$, are called \emph{conservative}.\index{force!conservative}
@@ -874,7 +899,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
         \warpHTMLonly{<p><iframe scrolling=no title=The Lorentz force src=https://www.geogebra.org/material/iframe/id/axnqyhdx/width/1100/height/800/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/false/ctl/false width=1100px height=800px style=border:0px;> </iframe></p>
         <p>In the simulation above you can see how the Lorentz force can affect a charged particle motion in a uniform magnetic field. For an easy comparison two different particles are shown, with independent parameters but immersed in the same magnetic field. The value $q = e/c$ corresponds to the charge of the particle. The standalone version of this applet is <a href=https://www.geogebra.org/m/tvbfjfct>available on geogebra</a> and was derived from an <a href=https://www.geogebra.org/m/xpRMzPgc>applet by Luca Moroni</a>.</p>}
 
-        For a beautiful geometric discussion of this problem, you can refer to \cite[Chapter 8.3]{book:amr} (this has moved to Chapter 9.3 in more recent editions).
+        For a beautiful geometric discussion of this problem, you can refer to \cite[Chapter 8.3 (9.3 in more recent editions)]{book:amr}.
       \end{exercise}
 
       Note that the magnetic vector potential is not unique!
@@ -893,13 +918,13 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \end{example}
 
     \section{First steps with conserved quantities}
-    \subsection{Back to one degree of freedom}\label{sec:bdf}
+    \subsection{One degree of freedom}\label{sec:bdf}
 
     Consider the one dimensional Newton's equation for a point particle with unit mass and position $x(t)$:
     \begin{equation}\label{eq:oscillator}
       \ddot x = F(x), \qquad F:\mathbb{R}\to\mathbb{R}, \quad t\in \mathbb{R}.
     \end{equation}
-    It should come as no surprise, that introducing the auxiliary variable $y(t) = \dot x(t)$, \eqref{eq:oscillator} is equivalent to the system of first order equations
+    Introducing the auxiliary variable $y(t) = \dot x(t)$, \eqref{eq:oscillator} is equivalent to the system of first order equations
     \begin{equation}\label{eq:oscillatorfirstorder}
       \left\lbrace
         \begin{aligned}
@@ -909,51 +934,63 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \right..
     \end{equation}
     The solutions of \eqref{eq:oscillatorfirstorder} are parametric curves $(x(t),y(t)):\mathbb{R}\to\mathbb{R}^2$ in the $(x,y)$-space.
-    These curves are often called \emphidx{trajectories} of the system or \emph{integral curves} of the ordinary differential equation, it depends mostly on the context and the research fields in which they appear.
+    These curves are often called \emphidx{trajectories} of the system or \emph{integral curves} of the ordinary differential equation.
 
-    If $y\neq0$, we can apply the chain rule, $\frac{\dd y}{\dd t} = \frac{\dd y}{\dd x} \frac{\dd x}{\dd t}$, to get
+    If $y\neq0$, we can apply the chain rule, $\dv{y}{t} = \dv{y}{x} \dv{x}{t}$, to get
     \begin{equation}\label{eq:lef}
-      \frac{F(x)}y = \frac{\dot y}{\dot x} = \frac{\dd y}{\dd x}.
+      \frac{F(x)}y = \frac{\dot y}{\dot x} = \dv{y}{x}.
     \end{equation}
-    Reasoning formally\footnote{For a rigorous understanding of this, you can refer to \cite[Equation (5.1) with $f=y$ and Remark 5.1.3]{lectures:aom:seri}.} for a moment, we can rephrase this as
-    \begin{equation}
-      y\,\dd y - F(x)\, \dd x = 0.
-    \end{equation}
+    What is important here, is that this new equation does not depend on time. Although eliminating time and considering \eqref{eq:lef} comes at a cost -- the solution is now an implicit curve $y(x)$ -- it also presents a substantial benefit: this new equation can be solved exactly!
 
-    Getting rid of time and considering equation \eqref{eq:lef} comes with a price, the solution is now an implicit curve $y(x)$, but also with a huge advantage: this new equation can be solved exactly!
-
-    How is that so? We can separate $x$ and $y$ and integrate to get
+    How is that so? After a bit of algebra and integrating both sides with respect to $x$, we can rewrite this as
+    \begin{align}
+      &\int y\,\dv{y}{x}\dd x - \int F(x)\, \dd x \notag \\
+      & = \int y\,\dd y - \int F(x)\, \dd x = 0 \label{eq:pp-notime-int}
+    \end{align}
+    Integrating the integral on the left, we get
     \begin{equation}
-      \frac12 y^2 + C_y = \int F(x) dx
+      \frac12 y^2 + C_y = \int F(x) dx.
     \end{equation}
-    If $U(x)$ is such that $F(x) = -\frac{\dd U}{\dd x}$, we can further simplify the equation into
-    \begin{equation}
+    %
+    \begin{remark}
+        This identity in \eqref{eq:pp-notime-int} is often expressed as
+        \begin{equation}
+        y\,\dd y - F(x)\, \dd x = 0.
+        \end{equation}
+        This may look like a formal manipulation, but it is actually a rigorous identity in terms of differential forms.
+        To know more, you can refer to \cite[Equation (5.1) with $f=y$ and Remark 5.1.3]{lectures:aom:seri} or any good textbook on differential forms.
+        For simplicity, we will limit ourselves to the formal manipulation.
+    \end{remark}
+    %
+
+    If $U(x)$ is such that $F(x) = -\dv{U}{x}$, we can further simplify the equation into
+    \begin{equation}\label{eq:pp-energy}
       \frac12 y^2 = -U(x) + C,
     \end{equation}
-    where $C = C_x - C_y \in\mathbb{R}$ is just a number due to the constants of integration.
-    We can locally invert the equation above to get
+    where $C = C_x - C_y \in\mathbb{R}$ is just a number due to the constants of integration. Varying $C$, \eqref{eq:pp-energy} describes a family of curves in the $(x,y)$-plane which correspond to different solutions of our original problem.
+    We can also locally invert the equation above to get the explicit solution
     \begin{equation}
       y(x) = \pm \sqrt{2(C-U(x))}.
     \end{equation}
 
-    The equation above may already be familiar: $\frac12 y^2 + U(x)$ is the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$. In fact, the statement above is a theorem and we can prove it without the need of the formal step with the differentials.
+    Equation \eqref{eq:pp-energy} may already be familiar: $\frac12 y^2 + U(x)$ is the sum of the kinetic energy $\frac12 y^2 = \frac12 {\dot x}^2$ of the particle and its potential energy $U$. In fact, the statement above is a theorem and we can prove it without the need of the formal step with the differentials.
 
     \begin{theorem}\label{thm:ham1}
-      Let $H(x, y) := \frac12 y^2 + U(x)$ where $U:\mathbb{R}\to\mathbb{R}$ is such that $F(x) = -\frac{\dd U}{\dd x}$.
+      Let $H(x, y) := \frac12 y^2 + U(x)$ where $U:\mathbb{R}\to\mathbb{R}$ is such that $F(x) = -\dv{U}{x}$.
       Then, the connected components of the level curves $H(x,y) = C$ are the integral curves of \eqref{eq:oscillatorfirstorder}.
     \end{theorem}
-    The function $H$ is called the \emph{total energy} of the mechanical system and we are already mimicking the notation that we will use when we will describe hamiltonian systems.
+    The function $H$ introduced in Theorem~\ref{thm:ham1} is called the \emph{total energy}\index{energy} of the mechanical system.
     \begin{proof}
       The proof is surprisingly simple:
       \begin{align}
-        \dot H & = \frac{\partial H}{\partial x}\frac{\dd x}{\dd t} + \frac{\partial H}{\partial y}\frac{\dd y}{\dd t} \\
-               & = \frac{\dd U}{\dd x} y + y F(x)
+        \dot H & = \frac{\partial H}{\partial x}\dv{x}{t} + \frac{\partial H}{\partial y}\dv{y}{t} \\
+               & = \dv{U}{x} y + y F(x)
                = -y F(x) + y F(x) = 0.
       \end{align}
     \end{proof}
 
-    The fact that $H(x,y)$ remains constant on the trajectories is crucial: when this happens we say that the total energy of the system is a \emph{conserved quantity}.
-    A curve $(x(t), y(t))$ spanned by a solution of \eqref{eq:oscillatorfirstorder} is called a \emph{phase curve}.
+    The fact that $H(x,y)$ remains constant on the trajectories is crucial: when this happens we say that the total energy of the system is a \emph{conserved quantity}\index{energy!conservation (1d)}.
+    A curve $(x(t), y(t))$ spanned by a solution of \eqref{eq:oscillatorfirstorder} is called a \emphidx{phase curve}.
 
     \begin{figure}[htbp]
       \centering
@@ -976,9 +1013,13 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \end{itemize}
     \end{example}
 
-    From these examples we already see that phase curves can consist of only one point. In such cases, the points are called \emph{equilibrium} points.
+    From these examples we already see that phase curves can consist of only one point. In such cases, the points are called \emphidx{equilibrium} points since at these points the system is at rest.
 
-    \subsection{The conservation of energy}\label{sec:energy}
+    \begin{exercise}
+        Show that at the equilibrium points of the examples above the system is at rest, that is, $\dot x = \dot y = 0$.
+    \end{exercise}
+
+    \subsection{Conservation of energy}\label{sec:energy}
 
     Let's see how general is the phenomenon described in the previous section.
 
@@ -1093,7 +1134,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     and to reason about further properties of the solutions.
     To grasp where this comes from, it is enough to spell out
     \begin{equation}
-      \frac m2 \left(\frac{\dd x}{\dd t}\right)^2 = E - U(x)
+      \frac m2 \left(\dv{x}{t}\right)^2 = E - U(x)
     \end{equation}
     and perform some formal computations with the differentials.
 
@@ -3125,7 +3166,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \begin{equation}
         p_i = \frac{\partial L}{\partial \dot{q}^i}
         \qquad\mbox{and}\qquad
-        \dot p_i = \frac{\dd }{\dd t}\frac{\partial L}{\partial \dot{q}^i} = \pdv{L}{q^i}.
+        \dot p_i = \dv{t}\frac{\partial L}{\partial \dot{q}^i} = \pdv{L}{q^i}.
       \end{equation}
       The theorem follows comparing coefficients in \eqref{eq:dHlc} and \eqref{eq:dHlc2}.
     \end{proof}
@@ -3878,7 +3919,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       Let $\Phi_t:T^*M \to T^*M$ denote a one--parameter group of canonical transformations, i.e $\big\{\Phi_t^* f, \Phi_t^* g\big\} = \Phi_t^*\big\{f,g\big\}$ for all $t\in\mathbb{R}$.
       Show that the vector field $X$ which generates the group,
       \begin{equation}
-        X(x) := \frac{\dd }{\dd t}\Phi_t(x)\Big|_{t=0},
+        X(x) := \dv{t}\Phi_t(x)\Big|_{t=0},
       \end{equation}
       is an infinitesimal symmetry.
 
@@ -3991,7 +4032,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{tcolorbox}
       Given a one--parameter group of canonical transformations $\Phi_t:T^*M\to T^*M$, we call \emph{hamiltonian generator} of the group the hamiltonian $H$ on $T^*M$ such that
       \begin{equation}
-        \frac{\dd }{\dd t}\Phi_t(x)\Big|_{t=0} = X_H(x).
+        \dv{t}\Phi_t(x)\Big|_{t=0} = X_H(x).
       \end{equation}
     \end{tcolorbox}
 
