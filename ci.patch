@@ -1,0 +1,17 @@
+diff --git a/hm.tex b/hm.tex
+index 094b8dd..4402186 100644
+--- a/hm.tex
++++ b/hm.tex
+@@ -7,9 +7,9 @@
+   \usepackage[utf8]{inputenc}
+ \else
+   \usepackage{fontspec} % XeLaTeX or LuaLaTeX
+-  \setmainfont{OpenDyslexic}
+-  \setsansfont{OpenDyslexic}
+-  \setmonofont{OpenDyslexicMono}
++  \setmainfont[Path=/usr/share/fonts/opentype/opendyslexic/, Extension=.otf]{OpenDyslexic}
++  \setsansfont[Path=/usr/share/fonts/opentype/opendyslexic/, Extension=.otf]{OpenDyslexic}
++  \setmonofont[Path=/usr/share/fonts/opentype/opendyslexic/, Extension=.otf]{OpenDyslexicMono}
+ 
+   \setmainfont[Renderer=Basic, Numbers=OldStyle, Scale = 1.0]{TeX Gyre Pagella}
+   \setsansfont[Renderer=Basic, Scale=0.90]{TeX Gyre Heros}

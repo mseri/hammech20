@@ -63,6 +63,9 @@ jobs:
     #   run: |
     #     tectonic hm.tex
     #     mv hm.pdf assets/hm-tg.pdf
+
+    - name: prepare sources
+      run: git apply hm.patch
    
     - name: compile.sh
       uses: dante-ev/latex-action@latest
@@ -84,7 +87,7 @@ jobs:
         if-no-files-found: error
     
     - name: Remove TeX Gyre font customizations, falls back to OpenDyslxic
-      run: sed -i.bak '11,13d' hm.tex
+      run: sed -i.bak '14,16d' hm.tex
    
     # - name: Run Tectonic
     #   run: |
@@ -94,7 +97,10 @@ jobs:
     - name: compile.sh again
       uses: dante-ev/latex-action@latest
       with:
-        entrypoint: ./compile.sh
+        root_file: hm.tex
+        compiler: lualatex
+        args: -interaction=nonstopmode -shell-escape
+        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber
 
     - name: rename od
       run: mv hm.pdf assets/hm-od.pdf
