@@ -87,11 +87,14 @@ jobs:
     #   run: |
     #     tectonic hm.tex
     #     mv hm.pdf assets/hm-od.pd
-    
-    - name: recompile
-      run: |
-        ./compile.sh
-        mv hm.pdf assets/hm-od.pdf
+   
+    - name: compile.sh again
+      uses: dante-ev/latex-action@latest
+      with:
+        entrypoint: ./compile.sh
+
+    - name: rename od
+      run: mv hm.pdf assets/hm-od.pdf
 
     - name: Upload release assets
       if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
