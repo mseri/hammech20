@@ -491,7 +491,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
   \end{equation}
   and the evolution of the system is described by the critical points with respect to $\mathcal{C}^2_0$ of $S$ on the space of $\gamma \in \mathcal{C}^2$ with prescribed endpoints.
 
-  \todo{Consider rewriting using q and v instead of qdot.}
+  %TODO: Consider rewriting using q and v instead of qdot.
   \begin{theorem}
     Let $L = L(q, \dot q, t) : \mathbb{R}^{n}\times \mathbb{R}^{n}\times \mathbb{R} \to \mathbb{R}$ be differentiable.
     The equations of motion for the mechanical system with lagrangian $L$ are given by the \emphidx{Euler-Lagrange equations}
@@ -1039,7 +1039,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \end{equation}
 
     \begin{theorem}\label{thm:conservationEnergy}
-      If the lagrangian of the mechanical system does not explicitly depend on time, $L \equiv L(q, \dot q)$, then the \emphidx{energy} of the system
+      If the lagrangian of the mechanical system does not explicitly depend on time, $L \equiv L(q, \dot q) : \mathbb{R}^{2n}\to\mathbb{R}$, then the \emphidx{energy} of the system
       \begin{equation}\label{eq:energy1}
         E(q,\dot q) = p_i \dot q^i - L,\qquad p_i := \pdv{L}{\dot q^i}
       \end{equation}
@@ -1082,14 +1082,14 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
 
     \begin{remark}
       This is probably a good point to discuss the question: why does nature want to minimize the action? And why the lagrangian is of the form \eqref{eq:mechlag}?
-      A nice answer to these questions was provided in~\cite{lectures:baez}, where you can also read a nice historical account on how scientists came up with the principle of least action in the first place.
+      A nice answer to these questions can be found in~\cite{lectures:baez}, where you can also read a nice historical account on how scientists came up with the principle of least action in the first place.
       I'll try to summarize the main points here.
 
       Theorem~\ref{thm:conservationEnergy} tells us that the total energy is conserved, and \eqref{eq:energyFromL} tells us that for closed systems this implies that the energy is transferred back and forth between the kinetic and the potential components.
-      We saw towards the end of Section~\ref{sec:dynamicspps} that while the kinetic energy measures how much the system is moving around, the potential energy measures the capacity of the system to change: its name can be intended as `potential' in the sense of yet unexpressed possibilities.
+      We saw towards the end of Section~\ref{sec:dynamicspps} that while the kinetic energy measures how much the system is moving around, the potential energy measures the ``potential'' of the system to change, where ``potential'' is intended in the sense of yet unexpressed possibilities.
 
       Looking at the lagrangian itself, we see that it is minimal when the potential energy is large and maximal when the kinetic energy is large.
-      So, the lagrangian measures in some sense how `active' a system is: the higher the kinetic energy the more active a system is, and the higher the potential energy the less active the system.
+      So, in some sense, the lagrangian measures how ``active'' a system is: the higher the kinetic energy the more active a system is, and the higher the potential energy the less active the system.
 
       The principle of least action, then, tells us that nature is lazy: she likes to find a compromise that minimizes its activity over time, i.e., its total action.
     \end{remark}
@@ -1112,30 +1112,33 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     %  L = \frac12 g(q)\dot q^2 - U(q),
     %\end{equation}
     %we will justify this in Section~\ref{sec:lagrangianonmanifold}.
-    As one would hope, in cartesian coordinates $q = x$ that is just the natural lagrangian $L = \frac{m \dot x^2}{2} - U(x)$.
+    %As one would hope,
+    In cartesian coordinates $q = x$, the natural lagrangian for a system with one degree of freedom is given by
+    \begin{equation}
+    L = \frac{m \dot x^2}{2} - U(x).
+    \end{equation}
     In this case we can easily observe that Theorem \ref{thm:ham1} and Theorem \ref{thm:conservationEnergy} coincide.
 
-    As we have seen in Section~\ref{sec:bdf}, the conservation of energy,
+    Then, as we have seen in Section~\ref{sec:bdf}, the conservation of energy,
     \begin{equation}\label{eq:cenergy1}
       \frac{m \dot x^2}{2} + U(x) = E \in\mathbb{R} \mbox{ constant},
     \end{equation}
-    allows us to explicitly describe phase curves, i.e., solutions of the equations of motion in the plane $(x, y := \dot x)$.
-    On each phase curve the value of the energy is constant, so the phase curve lies entirely in one energy level (the set of points $H(x,y)=E$). It turns out that, even though we got rid of the time, we can manipulate the system to reconstruct some interesting time-related properties.
+    allows us to explicitly describe the phase curves, i.e., the solutions of the equations of motion in the plane $(x, y := \dot x)$.
+    On each phase curve, the value of the energy is constant, so the phase curve lies entirely in the set of points $H(x,y)=E$, called \emphidx{energy level} of the system with energy $E\in\mathbb{R}$. Even though to show all of this we got rid of the time dependence, in the case of one degree of freedom we can still manipulate the system to reconstruct some time--related properties.
 
     To begin with, we can use \eqref{eq:cenergy1} to integrate the equations of motion
     \begin{equation}
-      m \ddot x = - \frac{\dd U(x)}{\dd x}
+      m \ddot x = - \frac{\dd U(x)}{\dd x}.
     \end{equation}
-    by quadrature, i.e., solving the equation as
+    Indeed, we can rearrange its term into
     \begin{equation}
-      t_2 - t_1 = \sqrt{\frac m2} \int_{x_1}^{x_2} \frac{\dd x}{\sqrt{E-U(x)}},
+      \frac m2 \left(\dv{x}{t}\right)^2 = E - U(x),
     \end{equation}
-    and to reason about further properties of the solutions.
-    To grasp where this comes from, it is enough to spell out
+    which can be then integrated to get
     \begin{equation}
-      \frac m2 \left(\dv{x}{t}\right)^2 = E - U(x)
+      t_2 - t_1 = \sqrt{\frac m2} \int_{x_1}^{x_2} \frac{\dd x}{\sqrt{E-U(x)}}.
     \end{equation}
-    and perform some formal computations with the differentials.
+    This equation contains all the information we need to reconstruct the motion of the system in time.
 
     Given that the kinetic energy is always non-negative, $E \geq U(x)$, and thus, the point can move only in the intervals $\{ x\in\mathbb{R} \mid U(x) \leq E\}$. At the points $x^* = x^*(E)$ such that $U(x^*) = E$, we have $\dot x^* = 0$ and the system is stationary. If the motion is bounded between two such stationary points, say $x_1^*$ and $x_2^*$, then the motion has to be finite.
     Furthermore, it must be \emph{oscillatory}: the point particles move inside the potential well between the points $x_1^*$ and $x_2^*$.
