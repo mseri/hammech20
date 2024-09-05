@@ -63,9 +63,6 @@ jobs:
     #   run: |
     #     tectonic hm.tex
     #     mv hm.pdf assets/hm-tg.pdf
-
-    - name: prepare sources
-      run: git apply ci.patch
    
     - name: compile.sh
       uses: dante-ev/latex-action@latest
@@ -86,9 +83,9 @@ jobs:
         name: hm-tg-${{ env.BUILD_DATE }}-${{ env.GITHUB_TAG }}.pdf
         if-no-files-found: error
     
-    - name: Remove TeX Gyre font customizations, falls back to OpenDyslxic
-      run: sed -i.bak '14,16d' hm.tex
-   
+    - name: Use OpenDyslxic
+      run: git apply ci.patch
+
     # - name: Run Tectonic
     #   run: |
     #     tectonic hm.tex
