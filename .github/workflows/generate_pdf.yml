@@ -52,12 +52,12 @@ jobs:
     #   with:
     #     github-token: ${{ secrets.GITHUB_TOKEN }}
  
-    - name: Prepare env
-      run: |
-        sudo apt update
-        sudo apt install fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber
-        sudo rm -rf /usr/share/fonts/woff/opendyslexic
-        mkdir assets
+    # - name: Prepare env
+    #   run: |
+    #     sudo apt update
+    #     sudo apt install fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber
+    #     sudo rm -rf /usr/share/fonts/woff/opendyslexic
+    #     mkdir assets
     
     # - name: Run Tectonic
     #   run: |
@@ -67,10 +67,13 @@ jobs:
     - name: compile.sh
       uses: dante-ev/latex-action@latest
       with:
+        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber
         entrypoint: ./compile.sh
 
     - name: rename tg
-      run: mv hm.pdf assets/hm-tg.pdf
+      run: |
+        mkdir assets
+        mv hm.pdf assets/hm-tg.pdf
 
     - name: Upload PDF
       if: ${{ success() }}
