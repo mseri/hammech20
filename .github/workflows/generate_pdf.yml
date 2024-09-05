@@ -67,7 +67,7 @@ jobs:
     - name: compile.sh
       uses: dante-ev/latex-action@latest
       with:
-        entrypoint: sh compile.sh
+        entrypoint: ./compile.sh
 
     - name: rename tg
       run: mv hm.pdf assets/hm-tg.pdf
@@ -90,7 +90,7 @@ jobs:
     
     - name: recompile
       run: |
-        sh compile.sh
+        ./compile.sh
         mv hm.pdf assets/hm-od.pdf
 
     - name: Upload release assets
