@@ -40,17 +40,17 @@ jobs:
         echo "GITHUB_TAG=$(git describe --always --tags)" >> $GITHUB_ENV
         echo "BUILD_DATE=$(date +'%Y_%m_%d')" >> $GITHUB_ENV
     
-    - uses: actions/cache@v2
-      name: Tectonic Cache
-      with:
-        path: ~/.cache/Tectonic
-        key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
-        restore-keys: |
-          ${{ runner.os }}-tectonic-
-    
-    - uses: wtfjoke/setup-tectonic@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    # - uses: actions/cache@v2
+    #   name: Tectonic Cache
+    #   with:
+    #     path: ~/.cache/Tectonic
+    #     key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-tectonic-
+    #
+    # - uses: wtfjoke/setup-tectonic@v2
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
  
     - name: Prepare env
       run: |
@@ -59,11 +59,19 @@ jobs:
         sudo rm -rf /usr/share/fonts/woff/opendyslexic
         mkdir assets
     
-    - name: Run Tectonic
-      run: |
-        tectonic hm.tex
-        mv hm.pdf assets/hm-tg.pdf
-    
+    # - name: Run Tectonic
+    #   run: |
+    #     tectonic hm.tex
+    #     mv hm.pdf assets/hm-tg.pdf
+   
+    - name: compile.sh
+      uses: dante-ev/latex-action@latest
+      with:
+        entrypoint: ./compile.sh
+
+    - name: rename tg
+      run: mv hm.pdf assets/hm-tg.pdf
+
     - name: Upload PDF
       if: ${{ success() }}
       uses: actions/upload-artifact@v2
@@ -75,11 +83,16 @@ jobs:
     - name: Remove TeX Gyre font customizations, falls back to OpenDyslxic
       run: sed -i.bak '11,13d' hm.tex
    
-    - name: Run Tectonic
-      run: |
-        tectonic hm.tex
-        mv hm.pdf assets/hm-od.pd
+    # - name: Run Tectonic
+    #   run: |
+    #     tectonic hm.tex
+    #     mv hm.pdf assets/hm-od.pd
     
+    - name: recompile
+      run: |
+        ./compile.sh
+        mv hm.pdf assets/hm-od.pdf
+
     - name: Upload release assets
       if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
       id: upload-release-assets
@@ -89,3 +102,16 @@ jobs:
       with:
         release_id: ${{ needs.create_draft_release.outputs.id }}
         assets_path: assets/
+
+    - name: Prepare for deployment
+      run: |
+        mkdir public
+        mv hm-images/ images/ chapter*.html index.html *.css public/
+
+    - name: Deploy release
+      if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_branch: master
+        publish_dir: ./public
