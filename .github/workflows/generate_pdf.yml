@@ -91,13 +91,13 @@ jobs:
     #     tectonic hm.tex
     #     mv hm.pdf assets/hm-od.pd
    
-    - name: compile.sh again
+    - name: compile the notes again
       uses: dante-ev/latex-action@latest
       with:
         root_file: hm.tex
         compiler: lualatex
         args: -interaction=nonstopmode -shell-escape
-        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber
+        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex
 
     - name: rename od
       run: mv hm.pdf assets/hm-od.pdf
