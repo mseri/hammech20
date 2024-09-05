@@ -67,7 +67,7 @@ jobs:
     - name: compile.sh
       uses: dante-ev/latex-action@latest
       with:
-        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber
+        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
         entrypoint: ./compile.sh
 
     - name: rename tg
@@ -97,7 +97,7 @@ jobs:
         root_file: hm.tex
         compiler: lualatex
         args: -interaction=nonstopmode -shell-escape
-        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex
+        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
 
     - name: rename od
       run: mv hm.pdf assets/hm-od.pdf
