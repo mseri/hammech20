@@ -65,7 +65,7 @@ jobs:
     #     mv hm.pdf assets/hm-tg.pdf
 
     - name: prepare sources
-      run: git apply hm.patch
+      run: git apply ci.patch
    
     - name: compile.sh
       uses: dante-ev/latex-action@latest
