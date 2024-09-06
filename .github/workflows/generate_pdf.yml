@@ -40,11 +40,60 @@ jobs:
           echo "GITHUB_TAG=$(git describe --always --tags)" >> $GITHUB_ENV
           echo "BUILD_DATE=$(date +'%Y_%m_%d')" >> $GITHUB_ENV
 
-      - name: compile.sh
-        uses: dante-ev/latex-action@latest
+      - name: Prepare env
+        run: |
+          sudo apt update
+          sudo apt install fonts-opendyslexic fonts-texgyre
+          sudo rm -rf /usr/share/fonts/woff/opendyslexic
+
+      - name: Setup TexLive
+        uses: teatimeguest/setup-texlive-action@v3
         with:
-          extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
-          entrypoint: ./check.sh
+          # Obtained with
+          #   rg '%?\\usepackage\[?.*\]?\{(.*)\}.*$' --trim -r '$1' --no-line-number
+          packages: |
+            scheme-medium
+            iftex
+            lmodern
+            fontenc
+            inputenc
+            fontspec
+            makeidx
+            babel
+            hyperref
+            booktabs
+            xcolor
+            graphicx
+            amsmath
+            amssymb
+            amsthm
+            physics
+            fourier
+            amsbsy
+            units
+            tikz
+            pgfplots
+            tikz-3dplot
+            tcolorbox
+            todonotes
+            showlabels
+            doclicense
+            biblatex
+            autonum
+            natbib
+            doi
+            appendix
+            subfiles
+            scrhack
+
+      - name: Check and TG are installed
+        run: ./check.sh
+
+      # - name: compile.sh
+      #   uses: dante-ev/latex-action@latest
+      #   with:
+      #     extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
+      #     entrypoint: ./check.sh
 
       # - name: compile.sh
       #   uses: dante-ev/latex-action@latest
@@ -81,13 +130,15 @@ jobs:
       - name: Use OpenDyslxic
         run: git apply ci.patch
 
-      - name: compile the notes again
-        uses: dante-ev/latex-action@latest
-        with:
-          root_file: hm.tex
-          compiler: lualatex
-          args: -interaction=nonstopmode -shell-escape
-          extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
+      - name: compile.sh
+
+      # - name: compile the notes again
+      #   uses: dante-ev/latex-action@latest
+      #   with:
+      #     root_file: hm.tex
+      #     compiler: lualatex
+      #     args: -interaction=nonstopmode -shell-escape
+      #     extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
 
       # - name: rename od
       #   run: mv hm.pdf assets/hm-od.pdf
