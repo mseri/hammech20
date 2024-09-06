@@ -52,11 +52,11 @@ jobs:
 
       - name: compile
         run: |
-          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
+          lualatex -interaction=nonstopmode hm.tex || true
           bibtex hm
           makeindex hm
-          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
-          lualatex -interaction=nonstopmode -shell-escape hm.tex
+          lualatex -interaction=nonstopmode hm.tex || true
+          lualatex -interaction=nonstopmode hm.tex
 
       - name: rename tg
         run: |
@@ -76,11 +76,11 @@ jobs:
 
       - name: compile again
         run: |
-          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
+          lualatex -interaction=nonstopmode hm.tex || true
           bibtex hm
           makeindex hm
-          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
-          lualatex -interaction=nonstopmode -shell-escape hm.tex
+          lualatex -interaction=nonstopmode hm.tex || true
+          lualatex -interaction=nonstopmode hm.tex
 
       - name: rename od
         run: mv hm.pdf assets/hm-od.pdf
