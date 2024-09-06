@@ -46,37 +46,37 @@ jobs:
           extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
           entrypoint: ./check.sh
 
-      - name: compile.sh
-        uses: dante-ev/latex-action@latest
-        with:
-          extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
-          entrypoint: ./compile.sh
+      # - name: compile.sh
+      #   uses: dante-ev/latex-action@latest
+      #   with:
+      #     extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
+      #     entrypoint: ./compile.sh
 
-      - name: rename tg
-        run: |
-          mkdir assets
-          mv hm.pdf assets/hm-tg.pdf
+      # - name: rename tg
+      #   run: |
+      #     mkdir assets
+      #     mv hm.pdf assets/hm-tg.pdf
 
-      - name: Upload PDF
-        if: ${{ success() }}
-        uses: actions/upload-artifact@v2
-        with:
-          path: assets/hm-tg.pdf
-          name: hm-tg-${{ env.BUILD_DATE }}-${{ env.GITHUB_TAG }}.pdf
-          if-no-files-found: error
+      # - name: Upload PDF
+      #   if: ${{ success() }}
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     path: assets/hm-tg.pdf
+      #     name: hm-tg-${{ env.BUILD_DATE }}-${{ env.GITHUB_TAG }}.pdf
+      #     if-no-files-found: error
 
-      - name: Prepare for deployment
-        run: |
-          mkdir public
-          mv hm-images/ images/ chapter*.html index.html *.css public/
+      # - name: Prepare for deployment
+      #   run: |
+      #     mkdir public
+      #     mv hm-images/ images/ chapter*.html index.html *.css public/
 
-      - name: Deploy release
-        if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_branch: master
-          publish_dir: ./public
+      # - name: Deploy release
+      #   if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+      #     publish_branch: master
+      #     publish_dir: ./public
 
       - name: Use OpenDyslxic
         run: git apply ci.patch
@@ -89,15 +89,15 @@ jobs:
           args: -interaction=nonstopmode -shell-escape
           extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
 
-      - name: rename od
-        run: mv hm.pdf assets/hm-od.pdf
+      # - name: rename od
+      #   run: mv hm.pdf assets/hm-od.pdf
 
-      - name: Upload od assets
-        if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
-        id: upload-release-assets
-        uses: dwenegar/upload-release-assets@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          release_id: ${{ needs.create_draft_release.outputs.id }}
-          assets_path: assets/
+      # - name: Upload od assets
+      #   if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
+      #   id: upload-release-assets
+      #   uses: dwenegar/upload-release-assets@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     release_id: ${{ needs.create_draft_release.outputs.id }}
+      #     assets_path: assets/

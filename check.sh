@@ -7,5 +7,5 @@ cat << EOF > /etc/fonts/conf.d/09-texlive.conf
 </fontconfig>
 EOF
 
-fc-cache
+fc-cache -vf
 fc-list :outline -f "%{family}\n" | grep -i Open
