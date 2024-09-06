@@ -85,8 +85,8 @@ jobs:
             subfiles
             scrhack
 
-      - name: Check and TG are installed
-        run: ./check.sh
+      # - name: Check and TG are installed
+      #  run: ./check.sh
 
       # - name: compile.sh
       #   uses: dante-ev/latex-action@latest
