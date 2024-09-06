@@ -48,7 +48,7 @@ jobs:
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           execute_install_scripts: true
-          packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra texlive-luatex texlive-latex texlive-latex-recommended texlive-latex-extra texlive-fonts-extra texlive-science
+          packages: fonts-opendyslexic fonts-texgyre bibtex texlive-bibtex-extra texlive-luatex texlive-latex texlive-latex-recommended texlive-latex-extra texlive-fonts-extra texlive-science
 
       - name: Prepare env
         run: |
