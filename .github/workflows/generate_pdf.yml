@@ -43,7 +43,7 @@ jobs:
       - name: Install fonts and texlive
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra texlive-luatex texlive-latex-recommended texlive-latex-extra texlive-fonts-extra texlive-science
+          packages: fonts-opendyslexic fonts-texgyre biber texlive-bibtex-extra texlive-luatex texlive-latex-recommended texlive-latex-extra texlive-fonts-extra texlive-science
 
       - name: Prepare env
         run: |
@@ -51,7 +51,12 @@ jobs:
           sudo fc-cache
 
       - name: full compile
-        run: ./compile.sh
+        run: |
+          lualatex -interaction=nonstopmode -shell-escape hm.tex
+          biber hm
+          makeindex hm
+          lualatex -interaction=nonstopmode -shell-escape hm.tex
+          lualatex -interaction=nonstopmode -shell-escape hm.tex
 
       - name: rename tg
         run: |
@@ -66,18 +71,18 @@ jobs:
       #     name: hm-tg-${{ env.BUILD_DATE }}-${{ env.GITHUB_TAG }}.pdf
       #     if-no-files-found: error
 
-      - name: Prepare for deployment
-        run: |
-          mkdir public
-          mv hm-images/ images/ chapter*.html index.html *.css public/
+      # - name: Prepare for deployment
+      #   run: |
+      #     mkdir public
+      #     mv hm-images/ images/ chapter*.html index.html *.css public/
 
-      - name: Deploy release
-        if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_branch: master
-          publish_dir: ./public
+      # - name: Deploy release
+      #   if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+      #     publish_branch: master
+      #     publish_dir: ./public
 
       - name: Use OpenDyslxic
         run: git apply ci.patch
