@@ -130,7 +130,13 @@ jobs:
       - name: Use OpenDyslxic
         run: git apply ci.patch
 
-      - name: compile.sh
+      - name: compile again
+        run: |
+          lualatex -interaction=nonstopmode -shell-escape hm.tex
+          biber hm
+          makeindex hm
+          lualatex -interaction=nonstopmode -shell-escape hm.tex
+          lualatex -interaction=nonstopmode -shell-escape hm.tex
 
       # - name: compile the notes again
       #   uses: dante-ev/latex-action@latest
