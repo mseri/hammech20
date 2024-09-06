@@ -23,101 +23,104 @@ jobs:
   latex-job:
     needs: create_draft_release
     runs-on: ubuntu-latest
-    
+
     name: Compile And Upload PDF
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    
-    - name: Set git user
-      run: |
-        git config --global user.name github-actions
-        git config --global user.email github-actions-bot@users.noreply.github.com
-    
-    - name: Define env
-      run: |
-        echo "GITHUB_TAG=$(git describe --always --tags)" >> $GITHUB_ENV
-        echo "BUILD_DATE=$(date +'%Y_%m_%d')" >> $GITHUB_ENV
-    
-    # - uses: actions/cache@v2
-    #   name: Tectonic Cache
-    #   with:
-    #     path: ~/.cache/Tectonic
-    #     key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-tectonic-
-    #
-    # - uses: wtfjoke/setup-tectonic@v2
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
- 
-    # - name: Prepare env
-    #   run: |
-    #     sudo apt update
-    #     sudo apt install fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber
-    #     sudo rm -rf /usr/share/fonts/woff/opendyslexic
-    #     mkdir assets
-    
-    # - name: Run Tectonic
-    #   run: |
-    #     tectonic hm.tex
-    #     mv hm.pdf assets/hm-tg.pdf
-   
-    - name: compile.sh
-      uses: dante-ev/latex-action@latest
-      with:
-        extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber
-        entrypoint: ./compile.sh
+      - name: checkout
+        uses: actions/checkout@v2
 
-    - name: rename tg
-      run: |
-        mkdir assets
-        mv hm.pdf assets/hm-tg.pdf
+      - name: set git user
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions-bot@users.noreply.github.com
 
-    - name: Upload PDF
-      if: ${{ success() }}
-      uses: actions/upload-artifact@v2
-      with:
-        path: assets/hm-tg.pdf
-        name: hm-tg-${{ env.BUILD_DATE }}-${{ env.GITHUB_TAG }}.pdf
-        if-no-files-found: error
-    
-    - name: Remove TeX Gyre font customizations, falls back to OpenDyslxic
-      run: sed -i.bak '11,13d' hm.tex
-   
-    # - name: Run Tectonic
-    #   run: |
-    #     tectonic hm.tex
-    #     mv hm.pdf assets/hm-od.pd
-   
-    - name: compile.sh again
-      uses: dante-ev/latex-action@latest
-      with:
-        entrypoint: ./compile.sh
+      - name: define env
+        run: |
+          echo "GITHUB_TAG=$(git describe --always --tags)" >> $GITHUB_ENV
+          echo "BUILD_DATE=$(date +'%Y_%m_%d')" >> $GITHUB_ENV
 
-    - name: rename od
-      run: mv hm.pdf assets/hm-od.pdf
+      - name: prepare env
+        run: |
+          sudo apt update
+          sudo apt install fonts-opendyslexic fonts-texgyre texlive-bibtex-extra texlive-luatex texlive-latex-recommended texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-science poppler-utils
+          sudo rm -rf /usr/share/fonts/woff/opendyslexic
+          sudo fc-cache
 
-    - name: Upload release assets
-      if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
-      id: upload-release-assets
-      uses: dwenegar/upload-release-assets@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        release_id: ${{ needs.create_draft_release.outputs.id }}
-        assets_path: assets/
+      - name: compile
+        run: |
+          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
+          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
+          bibtex hm
+          makeindex hm
+          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
+          lualatex -interaction=nonstopmode -shell-escape hm.tex
 
-    - name: Prepare for deployment
-      run: |
-        mkdir public
-        mv hm-images/ images/ chapter*.html index.html *.css public/
+      - name: rename tg
+        run: |
+          mkdir assets
+          mv hm.pdf assets/hm-tg.pdf
 
-    - name: Deploy release
-      if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        publish_branch: master
-        publish_dir: ./public
+      # - name: upload PDF
+      #   if: ${{ success() }}
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     path: assets/hm-tg.pdf
+      #     name: hm-tg-${{ env.BUILD_DATE }}-${{ env.GITHUB_TAG }}.pdf
+      #     if-no-files-found: error
+
+      - name: use OpenDyslxic
+        run: git apply ci0.patch
+
+      - name: compile again
+        run: |
+          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
+          bibtex hm
+          makeindex hm
+          lualatex -interaction=nonstopmode -shell-escape hm.tex || true
+          lualatex -interaction=nonstopmode -shell-escape hm.tex
+
+      - name: rename od
+        run: mv hm.pdf assets/hm-od.pdf
+
+      # - name: upload PDF
+      #   if: ${{ success() }}
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     path: assets/hm-tg.pdf
+      #     name: hm-tg-${{ env.BUILD_DATE }}-${{ env.GITHUB_TAG }}.pdf
+      #     if-no-files-found: error
+
+      - name: upload assets
+        if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
+        id: upload-release-assets
+        uses: dwenegar/upload-release-assets@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ needs.create_draft_release.outputs.id }}
+          assets_path: assets/
+
+      - name: remove font customization for html version
+        run: git apply ci1.patch
+
+      - name: compile html
+        run: |
+          lwarpmk html
+          lwarpmk limages
+          bibtex hm_html
+          lwarpmk printindex
+          lwarpmk html1
+
+      - name: prepare for deployment
+        run: |
+          mkdir public
+          mv hm-images/ images/ chapter*.html index.html *.css public/
+
+      - name: deploy release
+        if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_branch: master
+          publish_dir: ./public

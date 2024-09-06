@@ -1,0 +1,17 @@
+diff --git a/hm.tex b/hm.tex
+index b2bb316..093b3f9 100644
+--- a/hm.tex
++++ b/hm.tex
+@@ -8,9 +8,9 @@
+ \else
+   \usepackage{fontspec} % XeLaTeX or LuaLaTeX
+ 
+-  \setmainfont[Renderer=Basic, Numbers=OldStyle, Scale = 1.0]{TeX Gyre Pagella}
+-  \setsansfont[Renderer=Basic, Scale=0.90]{TeX Gyre Heros}
+-  \setmonofont[Renderer=Basic]{TeX Gyre Cursor}
++  \setmainfont{OpenDyslexic}
++  \setsansfont{OpenDyslexic}
++  \setmonofont{OpenDyslexicMono}
+ 
+ \fi
+ 
