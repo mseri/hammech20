@@ -1143,12 +1143,18 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{equation}
       t_2 - t_1 = \sqrt{\frac m2} \int_{x_1}^{x_2} \frac{\dd x}{\sqrt{E-U(x)}}.
     \end{equation}
-    This equation contains all the information we need to reconstruct the motion of the system in time.
+    This equation contains all the information that we need to reconstruct the motion of the system in time. Let's see how.
 
-    Given that the kinetic energy is always non-negative, $E \geq U(x)$, and thus, the point can move only in the intervals $\{ x\in\mathbb{R} \mid U(x) \leq E\}$. At the points $x^* = x^*(E)$ such that $U(x^*) = E$, we have $\dot x^* = 0$ and the system is stationary. If the motion is bounded between two such stationary points, say $x_1^*$ and $x_2^*$, then the motion has to be finite.
+    Given that the kinetic energy is always non-negative, $E \geq U(x)$, and thus, the point can move only in the intervals $\{ x\in\mathbb{R} \mid U(x) \leq E\}$. At the points $x^* = x^*(E)$ such that $U(x^*) = E$, we have $\dot x^* = 0$ and the system is stationary. If the motion is bounded between two such stationary points, say $x_1^*$ and $x_2^*$, then the motion has to be finite. See Figure~\ref{fig:potential-curve-bounds}.
     Furthermore, it must be \emph{oscillatory}: the point particles move inside the potential well between the points $x_1^*$ and $x_2^*$.
 
-    Thanks to time reversibility, the time of travel between $x_1^*$ and $x_2^*$ is the same as the time to return from $x_2^*$ to $x_1^*$, therefore the period of oscillation is given by
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.85\textwidth]{images/potential-curve-bounds.pdf}
+      \caption{Bounded motion in a potential well due to energy conservation.}\label{fig:potential-curve-bounds}
+    \end{figure}
+
+    Thanks to time reversibility, that is, the fact that the equations of motion ramain the same under the transformation $t\mapsto -t$, we can see that the time of travel between $x_1^*$ and $x_2^*$ has to be the same as the time to return from $x_2^*$ to $x_1^*$, therefore the period of oscillation is given by
     \begin{equation}\label{eq:osc}
       \mathcal{T}(E) = \sqrt{2m} \int_{x^*_1}^{x^*_2} \frac{\dd x}{\sqrt{E-U(x)}}.
     \end{equation}
@@ -1157,6 +1163,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{equation}
       \frac{\partial U}{\partial x}(x^*) = 0.
     \end{equation}
+    An example of this is the minimum of a potential, like the one denoted by the grey point in Figure~\ref{fig:potential-curve-bounds}.
     In this case, the phase curve is made of a single point on the $x$-axis: if we start with the initial conditions $x(0) = x^*$ and $\dot x(0) = 0$, the system will stay there forever. These points are called \emph{equilibrium points}.
     %
     Any other motion, not bounded by two points $x^*$, is going to be infinite (or semi-infinite).
@@ -1173,13 +1180,13 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
 
       We will see this in more generality once we deal with action--angle coordinates, but let's sketch the proof in this case.
 
-      From $H(x,y) = E$ we get $y = \pm \sqrt{2(U(x) - E)}$, where I considered unit mass for notational simplicity. Say that the curve intercepts the $x$-axis at the two return points $x_m < x_M$, then the area inside the curve, is given by
+      From $H(x,y) = E$ we get $y = \pm \sqrt{2(U(x) - E)}$, where I considered unit mass for notational simplicity. To stick with our previous notation, say that the curve intercepts the $x$-axis at the two return points $x^*_1 < x^*_2$, then the area inside the curve is given by
       \begin{equation}
-        A = 2\int_{x_m}^{x_M}\sqrt{2(E - U(x))} \dd x.
+        A = 2\int_{x^*_1}^{x^*_2}\sqrt{2(E - U(x))} \dd x.
       \end{equation}
       As we saw above, the period can be computed as
       \begin{equation}
-        \mathcal{T} = 2\int_{x_m}^{x_M} \frac{\dd x}{\sqrt{2(E - U(x))}}.
+        \mathcal{T} = 2\int_{x^*_1}^{x^*_2} \frac{\dd x}{\sqrt{2(E - U(x))}}.
       \end{equation}
       %
       With the above in mind, the result follows by taking the derivative of $A$ with respect to $E$.
@@ -1191,14 +1198,14 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
         L = \frac{ml^2 \dot x^2}2 + mgl \cos x,
       \end{equation}
       thus $E = \frac{ml^2 \dot x^2}2 - mgl \cos x$.
-      As one can see in Figure~\ref{fig:pendulum}, the motion is bounded for $|E| \leq mgl$. For any such motion, the angle of maximal oscillation corresponds to a solution of $U(x) = E$, thus is given by $E = -mgl \cos x^*_E$ for some $x^*_E$.
+      As one can see in Figure~\ref{fig:pendulum}, the motion is bounded for $|E| \leq mgl$. For any such motion, the angle of maximal oscillation corresponds to a solution of $U(x) = E$, thus is given by $E = -mgl \cos (x^*_E)$ for some $x^*_E$.
       Finally, \eqref{eq:osc} implies that the period of oscillation is
       \begin{equation}
         \mathcal{T}(E) = 4 \sqrt{\frac l{2g}} \int_0^{x^*_E} \frac{\dd x}{\sqrt{\cos(x) - \cos(x^*_E)}},
       \end{equation}
       which, as we briefly discussed previously, does not depend on the mass of the pendulum, but only on its length!
 
-      It is possible to use the previous formula to express the period of oscillation in terms of elliptic integrals
+      It is possible to use the previous formula to express the period of oscillation in terms of so-called elliptic integrals:
       \begin{equation}
         \mathcal{T} = 4 \sqrt{\frac lg} K\left (\sin(x^*/2)\right), \quad
         K(k):= \int_0^{\pi/2} \frac{\dd \theta}{\sqrt{1 - k^2\sin^2(\theta)}}.
