@@ -2,7 +2,7 @@
 
 \usepackage{iftex}
 \ifPDFTeX
-  \usepackage{lmodern} % pdflatex or dvi latex
+  \usepackage{fourier} % pdflatex or dvi latex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
 \else
@@ -47,13 +47,6 @@ makeindex
 \usepackage{amsmath, amssymb, amsthm}
 \numberwithin{equation}{chapter}
 \usepackage{physics} % documentation at https://mirror.koddos.net/CTAN/macros/latex/contrib/physics/physics.pdf
-\begin{warpprint}
-  \usepackage{fourier}
-\end{warpprint}
-\begin{warpHTML}
-  %\usepackage{amsbsy}
-  %\newcommand{\vb*}{\boldsymbol}
-\end{warpHTML}
 \usepackage{units}
 
 \usepackage{tikz}
