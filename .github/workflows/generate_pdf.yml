@@ -43,7 +43,7 @@ jobs:
       - name: Install fonts and texlive
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra texlive-luatex texlive-latex-recommended texlive-latex-extra texlive-science
+          packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra texlive-luatex texlive-latex-recommended texlive-latex-extra texlive-fonts-extra texlive-science
 
       - name: Prepare env
         run: |
