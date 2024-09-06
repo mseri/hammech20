@@ -46,60 +46,10 @@ jobs:
           sudo apt install fonts-opendyslexic fonts-texgyre
           sudo rm -rf /usr/share/fonts/woff/opendyslexic
           sudo fc-cache
-
-      - name: Setup TexLive
-        uses: teatimeguest/setup-texlive-action@v3
-        with:
-          # Obtained with
-          #   rg '%?\\usepackage\[?.*\]?\{(.*)\}.*$' --trim -r '$1' --no-line-number
-          # Without lmodern, amssymb, tikz which seem to hgave problems
-
-          packages: |
-            scheme-medium
-            iftex
-            fontenc
-            inputenc
-            fontspec
-            makeidx
-            babel
-            hyperref
-            booktabs
-            xcolor
-            graphicx
-            amsmath
-            amsthm
-            physics
-            fourier
-            amsbsy
-            units
-            pgfplots
-            tikz-3dplot
-            tcolorbox
-            todonotes
-            showlabels
-            doclicense
-            biblatex
-            autonum
-            natbib
-            doi
-            appendix
-            subfiles
-            scrhack
+          sudo apt install texlive-bibtex-extra texlive-luatex texlive-latex-recommended
 
       # - name: Check and TG are installed
       #  run: ./check.sh
-
-      # - name: compile.sh
-      #   uses: dante-ev/latex-action@latest
-      #   with:
-      #     extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
-      #     entrypoint: ./check.sh
-
-      # - name: compile.sh
-      #   uses: dante-ev/latex-action@latest
-      #   with:
-      #     extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
-      #     entrypoint: ./compile.sh
 
       - name: full compile
         run: ./compile.sh
@@ -140,14 +90,6 @@ jobs:
           makeindex hm
           lualatex -interaction=nonstopmode -shell-escape hm.tex
           lualatex -interaction=nonstopmode -shell-escape hm.tex
-
-      # - name: compile the notes again
-      #   uses: dante-ev/latex-action@latest
-      #   with:
-      #     root_file: hm.tex
-      #     compiler: lualatex
-      #     args: -interaction=nonstopmode -shell-escape
-      #     extra_system_packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra biber texlive-luatex texlive-latex-recommended
 
       - name: rename od
         run: mv hm.pdf assets/hm-od.pdf
