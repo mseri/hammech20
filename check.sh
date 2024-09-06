@@ -1,3 +1,4 @@
 #!/bin/sh
 
-fc-list :outline -f "%{family}\n" | grep Open
+fc-cache
+fc-list :outline -f "%{family}\n" | grep -i Open
