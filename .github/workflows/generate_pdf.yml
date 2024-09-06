@@ -44,14 +44,10 @@ jobs:
         run: |
           rm -rf .texlive2021
 
-      - name: Install fonts and texlive
-        uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          execute_install_scripts: true
-          packages: fonts-opendyslexic fonts-texgyre bibtex texlive-bibtex-extra texlive-luatex texlive-latex texlive-latex-recommended texlive-latex-extra texlive-fonts-extra texlive-science
-
       - name: Prepare env
         run: |
+          sudo apt update
+          sudo apt install fonts-opendyslexic fonts-texgyre bibtex texlive-bibtex-extra texlive-luatex texlive-latex texlive-latex-recommended texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-science
           sudo rm -rf /usr/share/fonts/woff/opendyslexic
           sudo fc-cache
 
