@@ -47,6 +47,9 @@ jobs:
           sudo rm -rf /usr/share/fonts/woff/opendyslexic
           sudo fc-cache
 
+      - name: show Open* fonts
+        run: fc-list :outline -f "%{family}\n" | grep Open
+
       - name: compile
         run: |
           lualatex -interaction=nonstopmode -shell-escape hm.tex || true
