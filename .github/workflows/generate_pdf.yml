@@ -51,10 +51,11 @@ jobs:
         with:
           # Obtained with
           #   rg '%?\\usepackage\[?.*\]?\{(.*)\}.*$' --trim -r '$1' --no-line-number
+          # Without lmodern, amssymb, tikz which seem to hgave problems
+
           packages: |
             scheme-medium
             iftex
-            lmodern
             fontenc
             inputenc
             fontspec
@@ -65,13 +66,11 @@ jobs:
             xcolor
             graphicx
             amsmath
-            amssymb
             amsthm
             physics
             fourier
             amsbsy
             units
-            tikz
             pgfplots
             tikz-3dplot
             tcolorbox
