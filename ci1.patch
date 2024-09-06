@@ -1,0 +1,16 @@
+diff --git a/hm.tex b/hm.tex
+index 093b3f9..8696218 100644
+--- a/hm.tex
++++ b/hm.tex
+@@ -7,11 +7,6 @@
+   \usepackage[utf8]{inputenc}
+ \else
+   \usepackage{fontspec} % XeLaTeX or LuaLaTeX
+-
+-  \setmainfont{OpenDyslexic}
+-  \setsansfont{OpenDyslexic}
+-  \setmonofont{OpenDyslexicMono}
+-
+ \fi
+ 
+ \usepackage[
