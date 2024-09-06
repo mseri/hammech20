@@ -40,16 +40,15 @@ jobs:
           echo "GITHUB_TAG=$(git describe --always --tags)" >> $GITHUB_ENV
           echo "BUILD_DATE=$(date +'%Y_%m_%d')" >> $GITHUB_ENV
 
+      - name: Install fonts and texlive
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: fonts-opendyslexic fonts-texgyre texlive-bibtex-extra texlive-luatex texlive-latex-recommended texlive-latex-extra
+
       - name: Prepare env
         run: |
-          sudo apt update
-          sudo apt install fonts-opendyslexic fonts-texgyre
           sudo rm -rf /usr/share/fonts/woff/opendyslexic
           sudo fc-cache
-          sudo apt install texlive-bibtex-extra texlive-luatex texlive-latex-recommended
-
-      # - name: Check and TG are installed
-      #  run: ./check.sh
 
       - name: full compile
         run: ./compile.sh
