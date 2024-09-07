@@ -1,0 +1,2785 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for Hamiltonian Mechanics" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<title>Hamiltonian Mechanics — Hamiltonian perturbation theory</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+         load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+         ready() {
+             //      These would be replaced by import commands if you wanted to make
+             //      a proper extension.
+             const Configuration = MathJax._.input.tex.Configuration.Configuration;
+             const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+             const Macro = MathJax._.input.tex.Symbol.Macro;
+             const TexError = MathJax._.input.tex.TexError.default;
+             const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+             const expandable = MathJax._.util.Options.expandable;
+
+
+             //      Insert the replacement string into the TeX string, and check
+             //      that there haven't been too many maxro substitutions (prevents
+             //      infinite loops).
+             const useArgument = (parser, text) => {
+                 parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                 parser.i = 0;
+                 if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                     throw new TexError('MaxMacroSub1',
+                     'MathJax maximum macro substitution count exceeded; ' +
+                     'is there a recursive macro call?');
+                 }
+             }
+
+
+             //      Create the command map for:
+             //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \seteqnumber
+             new CommandMap('Lwarp-macros', {
+                 ifstar: 'IfstarFunction',
+                 ifnextchar: 'IfnextcharFunction',
+                 ifblank: 'IfblankFunction',
+                 ifstrequal: 'IfstrequalFunction',
+                 seteqnumber: 'SeteqnumberFunction'
+             }, {
+                 //      This function implements an ifstar macro.
+                 IfstarFunction(parser, name) {
+                     const resultstar = parser.GetArgument(name);
+                     const resultnostar = parser.GetArgument(name);
+                     const star = parser.GetStar();                        // true if there is a *
+                     useArgument(parser, star ? resultstar : resultnostar);
+                 },
+
+
+                 //      This function implements an ifnextchar macro.
+                 IfnextcharFunction(parser, name) {
+                     let whichchar = parser.GetArgument(name);
+                     if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                         // $ syntax highlighting
+                         whichchar = String.fromCodePoint(parseInt(whichchar));
+                     }
+                     const resultnextchar = parser.GetArgument(name);
+                     const resultnotnextchar = parser.GetArgument(name);
+                     const gotchar = (parser.GetNext() === whichchar);
+                     useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                 },
+
+
+                 // This function implements an ifblank macro.
+                 IfblankFunction(parser, name) {
+                     const blankarg = parser.GetArgument(name);
+                     const resultblank = parser.GetArgument(name);
+                     const resultnotblank = parser.GetArgument(name);
+                     const isblank = (blankarg.trim() == "");
+                     useArgument(parser, isblank ? resultblank : resultnotblank);
+                 },
+
+
+                 // This function implements an ifstrequal macro.
+                 IfstrequalFunction(parser, name) {
+                     const strequalfirst = parser.GetArgument(name);
+                     const strequalsecond = parser.GetArgument(name);
+                     const resultequal = parser.GetArgument(name);
+                     const resultnotequal = parser.GetArgument(name);
+                     const isequal = (strequalfirst == strequalsecond);
+                     useArgument(parser, isequal ? resultequal : resultnotequal);
+                 },
+
+
+                 //      This function modifies the equation numbers.
+                 SeteqnumberFunction(parser, name) {
+                         //   Get the macro parameters
+                         const star = parser.GetStar();                       // true if there is a *
+                         const optBrackets = parser.GetBrackets(name);        // contents of optional brackets
+                         const newsubequations = parser.GetArgument(name);       // the subequations argument
+                         const neweqsection = parser.GetArgument(name);       // the eq section argument
+                         const neweqnumber = parser.GetArgument(name);        // the eq number argument
+                         MathJax.config.subequations=newsubequations ;        // a string with boolean meaning
+                         MathJax.config.section=neweqsection ;                // a string with numeric meaning
+                         parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                 }
+
+
+             });
+
+
+             //      Create the Lwarp-macros package
+             Configuration.create('Lwarp-macros', {
+                 handler: {macro: ['Lwarp-macros']}
+             });
+
+
+             MathJax.startup.defaultReady();
+
+
+             // For forward references:
+             MathJax.startup.input[0].preFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         MathJax.config.subequations = math.inputData.recompile.subequations;
+                         MathJax.config.section = math.inputData.recompile.section;
+                 }
+             });
+             MathJax.startup.input[0].postFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         math.inputData.recompile.subequations = MathJax.config.subequations;
+                         math.inputData.recompile.section = MathJax.config.section;
+                 }
+             });
+
+
+                 // For \left, \right with unicode-math:
+                 const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                 const {Symbol} = MathJax._.input.tex.Symbol;
+                 const {MapHandler} = MathJax._.input.tex.MapHandler;
+                 const delimiter = MapHandler.getMap('delimiter');
+                 delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                 delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                 delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                 delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                 delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                 delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                 delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                 delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                 delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                 delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                 delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                 delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                 delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                 delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                 delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                 delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                 delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                 delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                 delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                 delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                 delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                 delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                 delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                 delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                 delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                 delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                 delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                 delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                 delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                 delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                 delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                 delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                 delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                 delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                 delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                 delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                 delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                 delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                 delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+         }       // ready
+    },           // startup
+
+
+    tex: {
+         packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+         tags: "ams",
+                 tagformat: {
+                         number: function (n) {
+                              if(MathJax.config.subequations==0)
+                                     return(MathJax.config.section + n);
+                              else
+                                     return(MathJax.config.section + String.fromCharCode(96+n));
+                         },
+                 },
+    }
+}
+</script>
+
+
+<script
+         id="MathJax-script"
+         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="hm-autopage-334"></a>
+<nav class="topnavigation"><a href="index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">Hamiltonian Mechanics</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-7" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Classical mechanics</a>
+</p>
+
+
+<p>
+<a href="chapter-1.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Newtonian mechanics of point particles</a>
+</p>
+
+
+<p>
+<a href="chapter-1.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;Hamilton’s variational principle</a>
+</p>
+
+
+<p>
+<a href="chapter-1.html#autosec-46" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;First steps with conserved quantities</a>
+</p>
+
+
+<p>
+<a href="chapter-1.html#autosec-71" class="tocsection" >
+<span class="sectionnumber">1.4</span>&#x2003;Euler-Lagrange equations on smooth manifolds</a>
+</p>
+
+
+<p>
+<a href="chapter-2.html#autosec-82" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Conservation Laws</a>
+</p>
+
+
+<p>
+<a href="chapter-2.html#autosec-83" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;Noether theorem</a>
+</p>
+
+
+<p>
+<a href="chapter-2.html#autosec-113" class="tocsection" >
+<span class="sectionnumber">2.2</span>&#x2003;The spherical pendulum</a>
+</p>
+
+
+<p>
+<a href="chapter-2.html#autosec-116" class="tocsection" >
+<span class="sectionnumber">2.3</span>&#x2003;Intermezzo: small oscillations</a>
+</p>
+
+
+<p>
+<a href="chapter-2.html#autosec-127" class="tocsection" >
+<span class="sectionnumber">2.4</span>&#x2003;Motion in a central potential</a>
+</p>
+
+
+<p>
+<a href="chapter-2.html#autosec-146" class="tocsection" >
+<span class="sectionnumber">2.5</span>&#x2003;D’Alembert principle and systems with constraints</a>
+</p>
+
+
+<p>
+<a href="chapter-3.html#autosec-161" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Hamiltonian mechanics</a>
+</p>
+
+
+<p>
+<a href="chapter-3.html#autosec-162" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;The Legendre Transform in the euclidean plane</a>
+</p>
+
+
+<p>
+<a href="chapter-3.html#autosec-164" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Intermezzo: cotangent bundle and differential forms</a>
+</p>
+
+
+<p>
+<a href="chapter-3.html#autosec-165" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;The Legendre Transform</a>
+</p>
+
+
+<p>
+<a href="chapter-3.html#autosec-186" class="tocsection" >
+<span class="sectionnumber">3.4</span>&#x2003;Poisson brackets and first integrals of motion</a>
+</p>
+
+
+<p>
+<a href="chapter-3.html#autosec-199" class="tocsection" >
+<span class="sectionnumber">3.5</span>&#x2003;Variational principles of hamiltonian mechanics</a>
+</p>
+
+
+<p>
+<a href="chapter-3.html#autosec-212" class="tocsection" >
+<span class="sectionnumber">3.6</span>&#x2003;Canonical transformations</a>
+</p>
+
+
+<p>
+<a href="chapter-3.html#autosec-234" class="tocsection" >
+<span class="sectionnumber">3.7</span>&#x2003;The symplectic structure on the cotangent bundle</a>
+</p>
+
+
+<p>
+<a href="chapter-4.html#autosec-269" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Integrable systems</a>
+</p>
+
+
+<p>
+<a href="chapter-4.html#autosec-270" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Lagrangian submanifolds</a>
+</p>
+
+
+<p>
+<a href="chapter-4.html#autosec-279" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Canonical transformations revisited</a>
+</p>
+
+
+<p>
+<a href="chapter-4.html#autosec-302" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Hamilton-Jacobi equations</a>
+</p>
+
+
+<p>
+<a href="chapter-4.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">4.4</span>&#x2003;The Liouville-Arnold theorem</a>
+</p>
+
+
+<p>
+<a href="chapter-5.html#autosec-335" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Hamiltonian perturbation theory</a>
+</p>
+
+
+<p>
+<a href="chapter-5.html#autosec-336" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Small oscillations revisited</a>
+</p>
+
+
+<p>
+<a href="chapter-5.html#autosec-344" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Birkhoff normal forms</a>
+</p>
+
+
+<p>
+<a href="chapter-5.html#autosec-348" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;A brief look at KAM theory</a>
+</p>
+
+
+<p>
+<a href="chapter-5.html#autosec-352" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Nekhoroshev theorem</a>
+</p>
+
+
+<p>
+<a href="chapter-6.html#autosec-355" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Conclusion</a>
+</p>
+
+
+<p>
+<a href="chapter-6.html#autosec-355" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+<p>
+<a href="index.html#autosec-356" class="tocchapter" >
+Index</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>Hamiltonian Mechanics</h1>
+
+<!--MathJax customizations:-->
+
+
+<div class="hidden">
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\toprule }[1][]{\hline }\)
+
+\(\let \midrule \toprule \)
+
+\(\let \bottomrule \toprule \)
+
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+
+\(\newcommand {\morecmidrules }{}\)
+
+\(\newcommand {\specialrule }[3]{\hline }\)
+
+\(\newcommand {\addlinespace }[1][]{}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {physics}\)
+
+\(\newcommand {\nicefrac }[3][]{\mathinner {{}^{#2}\!/\!_{#3}}}\)
+
+\(\newcommand {\unit }[2][]{#1 \mathinner {#2}}\)
+
+\(\newcommand {\unitfrac }[3][]{#1 \mathinner {{}^{#2}\!/\!_{#3}}}\)
+
+\(\newcommand {\tcbset }[1]{}\)
+
+\(\newcommand {\tcbsetforeverylayer }[1]{}\)
+
+\(\newcommand {\tcbox }[2][]{\boxed {\text {#2}}}\)
+
+\(\newcommand {\tcboxfit }[2][]{\boxed {#2}}\)
+
+\(\newcommand {\tcblower }{}\)
+
+\(\newcommand {\tcbline }{}\)
+
+\(\newcommand {\tcbtitle }{}\)
+
+\(\newcommand {\tcbsubtitle [2][]{\mathrm {#2}}}\)
+
+\(\newcommand {\tcboxmath }[2][]{\boxed {#2}}\)
+
+\(\newcommand {\tcbhighmath }[2][]{\boxed {#2}}\)
+
+\( \DeclareMathOperator {\D }{D} \DeclareMathOperator {\Id }{Id} \DeclareMathOperator {\diag }{diag} \DeclareMathOperator {\mod }{mod} \DeclareMathOperator {\Vol }{Vol} \)
+
+</div>
+
+<p>
+<!--................................-->
+<h3 id="autosec-335"><span class="sectionnumber">5&#x2003;</span>Hamiltonian perturbation theory</h3>
+<a id="hm-autopage-335"></a>
+<a id="hm-autofile-5"></a>
+
+<p>
+In this chapter we will briefly review perturbation theory for hamiltonian systems. We will start revisiting the small oscillations approach, and then give a brief glimpse of the powerful tools available when perturbing integrable systems. For a nice
+and compact overview of perturbation theory you can refer to [<a href="index.html#??">Cel09</a>], also available from arXiv.
+</p>
+
+<p>
+For brevity, I decided to omit a discussion of parametric resonances and adiabatic invariants. For those, refer respectively to [<a href="index.html#??">Arn89</a>, Chapter 25] and [<a href="index.html#??">Kna18</a>, Chapter 5.4] and to [<a
+href="index.html#??">Kna18</a>, Chapter 15.1].
+</p>
+<!--................................-->
+<h4 id="autosec-336"><span class="sectionnumber">5.1&#x2003;</span>Small oscillations revisited</h4>
+<a id="hm-autopage-336"></a>
+
+
+<p>
+For convenience, let’s assume \(M=\mathbb {R}^n\). Given a hamiltonian \(H=H(q,p)\), \((q,p)\in \mathbb {R}^{2n}\), we say that \((q_0, p_0)\) is an <em>equilibrium point</em> if
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{0}\)</span>
+
+<!--
+
+                                                                                                                        ∂H              ∂H
+                                                                                                                           (q0 , p0 ) =    (q0 , p0 ) = 0.                                                                                       (5.1)
+                                                                                                                        ∂q              ∂p
+
+-->
+
+<p>
+
+\begin{equation}
+\frac {\partial H}{\partial q}(q_0, p_0) = \frac {\partial H}{\partial p}(q_0, p_0) = 0.
+\end{equation}
+
+</p>
+
+<p>
+In this case, \((q(t), p(t)) = (q_0, p_0)\) is a solution of the equations of motion of the hamiltonian \(H\).
+</p>
+
+<p>
+Without loss of generality, let’s assume \(H\) has an equilibrium at the origin \((q_0, p_0) = (0,0)\). As in the Lagrangian case, to study the stability of the system we linearize it, i.e., we represent the hamiltonian in the form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{1}\)</span>
+
+<!--
+
+
+                                                            H(q, p) = H0 (q0 , p0 ) + H2 (q, p) + H3 (q, p) + · · ·                                                     (5.2)                                          --><a id="eq:hamidevl"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:hamidevl} H(q,p) = H_0(q_0,p_0) + H_2(q,p) + H_3(q,p) + \cdots
+\end{equation}
+
+</p>
+
+<p>
+where each \(H_k(q,p)\) is a polynomial in \((q,p)\) homogeneous of degree \(k\). Here, for convenience, we are implicitly assuming \(H\) analytic in \((q_0,p_0)\). Furthermore, we will set the constant term \(H_0(q_0,p_0) = 0\): it does not
+contribute to the dynamics in any case.
+</p>
+
+<p>
+The hamiltonian system <span class="textup">(<a href="chapter-3.html#eq:Hamsys">3.31</a>)</span> with hamiltonian \(H_2\),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{2}\)</span>
+
+<!--
+
+                                                                    
+                                                                    
+                                                                    
+                                                                            ∂H2
+                                                                     q̇i = ∂p
+                                                                               i
+                                                                                   ,    i = 1, . . . , n,                                                            (5.3)                                         --><a id="eq:lienarizedH"></a><!--
+                                                                    
+                                                                            ∂H
+                                                                    ṗi = −     2
+                                                                              ∂qi
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:lienarizedH} \left \lbrace \begin{aligned} \dot q_i &amp;= \frac {\partial H_2}{\partial p_i} \\ \dot p_i &amp;= -\frac {\partial H_2}{\partial q_i} \end {aligned} \right .,\quad i=1,\ldots ,n,
+\end{equation}
+
+</p>
+
+<p>
+is the <em>linearization</em> of the hamiltonian system with hamiltonian \(H\) on the equilibrium \((q,p)\). Being it linear in both \(q\) and \(p\), we can represent it as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{3}\)</span>
+
+<!--
+
+
+                                                                           ẋ = Bx,    x = (q, p),                                                                      (5.4)                                          --><a id="eq:hamsoivp"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:hamsoivp} \dot x = B x,\quad x =(q,p),
+\end{equation}
+
+</p>
+
+<p>
+where \(B\) is a constant \(2n\times 2n\) matrix.
+</p>
+
+<p>
+The solution of the initial value problem <span class="textup">(<a href="chapter-5.html#eq:hamsoivp">5.4</a>)</span> with initial condition \(x(0) = x_0\) is then immediately obtained by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                                                                     X
+                                                                                                                                                     ∞
+                                                                                                                                                       B k tk
+                                                                                                                      x(t) = eBt x0 ,    eBt =                   ,                                                                               (5.5)
+                                                                                                                                                           k!
+                                                                                                                                                     k=0
+
+
+-->
+
+<p>
+
+\begin{equation}
+x(t) = e^{Bt} x_0, \qquad e^{Bt} = \sum _{k=0}^\infty \frac {B^k t^k}{k!},
+\end{equation}
+
+</p>
+
+<p>
+and its dynamic behavior is fully characterized by the eigenvalues of the matrix \(B\).
+</p>
+
+<p>
+We can always find a symmetric matrix \(A\) to rewrite the quadratic polynomial \(H_2 = H_2(x)\) in the form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{5}\)</span>
+
+<!--
+
+                                                                                                                                         1
+                                                                                                                              H2 (x) =     hAx, xi.                                                                                              (5.6)
+                                                                                                                                         2
+-->
+
+<p>
+
+\begin{equation}
+H_2(x) = \frac 12 \langle Ax, x\rangle .
+\end{equation}
+
+</p>
+
+<p>
+Then, it follows by <span class="textup">(<a href="chapter-3.html#eq:hamsysJ">3.90</a>)</span> that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{6}\)</span>
+
+<!--
+
+                                                                                                                                                          
+                                                                                                                                               0       Idn
+                                                                                                                       B = JA,      J=                       .                                                                                   (5.7)
+                                                                                                                                             − Idn      0
+
+-->
+
+<p>
+
+\begin{equation}
+B = J A, \quad J = \begin{pmatrix} 0 &amp; \Id _n \\-\Id _n&amp;0 \end {pmatrix}.
+\end{equation}
+
+</p>
+<div class="amsthmbodyplain">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-337"></a>
+<span class="amsthmnameplain">Lemma</span><span class="amsthmnumberplain"> <span class="textup">5.1</span></span>.     <a id="eq:lemmaCP"></a> Let \(A\) be a symmetric matrix and \(J\) be the symplectic matrix. The
+characteristic polynomial of the matrix \(B=JA\) has the form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{7}\)</span>
+
+<!--
+
+
+
+                                                                                           det(B − λI) = det(A − λJ) = Pn (λ2 )                                                                                          (5.8)
+
+-->
+
+<p>
+
+
+\begin{equation}
+\det (B-\lambda I) = \det (A-\lambda J) = P_n(\lambda ^2)
+\end{equation}
+
+
+</p>
+
+<p>
+where \(P_n\) is a polynomial of degree \(n\).
+</p>
+
+</li>
+
+</ul>
+
+</div>
+<div class="amsthmproof">
+
+<a id="hm-autopage-338"></a>
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<span class="amsthmproofname">Proof.</span> We use \(J^2 = \Id \) and \(\det J= 1\) to write
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{8}\)</span>
+
+<!--
+
+
+                                                                                                                     
+                                                                                          det(B − λI) = det JA − λJ 2 = det(J) det(A − λJ) = det(A − λJ).                                                                                         (5.9)
+
+-->
+
+<p>
+
+
+\begin{equation}
+\det (B-\lambda I) = \det (JA - \lambda J^2) = \det (J) \det (A-\lambda J) = \det (A-\lambda J).
+\end{equation}
+
+
+</p>
+
+<p>
+Using the invariance of the characteristic polynomials by transposition, we have
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{9}\)</span>
+
+<!--
+
+                                                                                                                              
+                                                                                                    det(A − λJ) = det AT − λJ T = det(A + λJ),                                                                                                   (5.10)
+
+-->
+
+<p>
+
+
+\begin{equation}
+\det (A-\lambda J) = \det (A^T -\lambda J^T) = \det (A + \lambda J),
+\end{equation}
+
+
+</p>
+
+<p>
+which implies that the characteristic polynomial of the matrix \(B\) has to be an even function, i.e., a polynomial in \(\lambda ^2\). As its degree must be \(2n\), we can always rewrite it as a polynomial of degree \(n\) in \(\lambda ^2\). <span
+class="theoremendmark">&#x25A1;</span>
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+In the <em>generic</em> case of \(n\) distinct roots of the polynomial \(P_n\), we have practically proved the following theorem.
+</p>
+<div class="amsthmbodyplain">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-339"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.2</span></span>.           Let \(H_2(x) = \frac 12\langle Ax,x\rangle \) be a generic quadratic hamiltonian. The the solution
+\((q(t), p(t)) = (0,0)\) of the linear system <span class="textup">(<a href="chapter-5.html#eq:lienarizedH">5.3</a>)</span> is stable if and only if all the roots of the polynomial \(P_n(z)\) from the Lemma&nbsp;<a
+href="chapter-5.html#eq:lemmaCP">5.1</a> are real and negative.
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+More precisely, one can prove the following.
+</p>
+<div class="amsthmbodyplain">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-340"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.3</span></span>.                                        Let \(H(x) = \frac 12\langle Ax,x \rangle \) be a quadratic hamiltonian in \(\mathbb {R}^{2n}\) such
+that the characteristic polynomial has the form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{10}\)</span>
+
+<!--
+
+
+                                                                                                                        Y
+                                                                                                                        n
+                                                                                                      det(A − λJ) =           (λ + ωi2 ),       ω1 , . . . , ωn ∈ R+ , ωi 6= ωj .                                                                             (5.11)
+                                                                                                                        i=1
+
+
+-->
+
+<p>
+
+
+\begin{equation}
+\det (A-\lambda J) = \prod _{i=1}^n(\lambda + \omega _i^2), \quad \omega _1, \ldots , \omega _n \in \mathbb {R}_+, \omega _i\neq \omega _j.
+\end{equation}
+
+
+</p>
+
+<p>
+Then, there exists a linear canonical transformation
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{11}\)</span>
+
+<!--
+
+                                                                                                                   !            !               !
+                                                                                                               q              qe            q
+                                                                                                                       7→           =Q              ,   QJQT = J,                                                                                             (5.12)
+                                                                                                               p              pe            p
+
+-->
+
+<p>
+
+
+\begin{equation}
+\begin{pmatrix} q \\ p \end {pmatrix} \mapsto \begin{pmatrix} \widetilde q \\ \widetilde p \end {pmatrix} = Q \begin{pmatrix} q \\ p \end {pmatrix}, \quad QJQ^T = J,
+\end{equation}
+
+
+</p>
+
+<p>
+which reduces the hamiltonian to the following <em>normal form</em>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{12}\)</span>
+
+<!--
+
+
+                                                                            1X
+                                                                               n
+                                                                       H=             p2i + qei2 ).
+                                                                                  ωi (e                                                                                                  (5.13)                                      --><a id="eq:HamNF"></a><!--
+                                                                            2 i=1
+
+-->
+
+<p>
+
+
+\begin{equation}
+\label {eq:HamNF} H = \frac 12 \sum _{i=1}^n \omega _i(\widetilde p_i^2 + \widetilde q_i^2).
+\end{equation}
+
+
+</p>
+
+<p>
+
+
+</p>
+
+</li>
+
+</ul>
+
+</div>
+<div class="amsthmbodydefinition">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-341"></a>
+<span class="amsthmnamedefinition">Example</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span>.                                                   If we consider the lagrangian
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{13}\)</span>
+
+<!--
+
+
+                                                                                                                                        1 X
+                                                                                                                                            n
+                                                                                                                         L(x, ẋ) =             gij ẋi ẋj − U (x)                                                                           (5.14)
+                                                                                                                                        2 i,j=1
+
+-->
+
+<p>
+
+
+\begin{equation}
+L(x,\dot x) = \frac 12 \sum _{i,j=1}^n g_{ij}\dot x_i \dot x_j - U(x)
+\end{equation}
+
+
+</p>
+
+<p>
+as in Section&nbsp;<a href="chapter-2.html#sec:soc">2.3</a>, then we have already seen that we can reduce it to
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{14}\)</span>
+
+<!--
+
+
+                                                                                                                                           1X 2
+                                                                                                                                                n
+                                                                                                                          L0 (y, ẏ) =           (ẏi − λi yi2 ).                                                                             (5.15)
+                                                                                                                                           2 i=1
+
+-->
+
+<p>
+
+
+\begin{equation}
+L_0(y,\dot y) = \frac 12 \sum _{i=1}^n(\dot y_i^2 - \lambda _i y_i^2).
+\end{equation}
+
+
+</p>
+
+<p>
+If all the eigenvalues are positive, \(\lambda _i = \omega _i^2\), \(\omega _i &gt; 0\), then the hamiltonian associated to the lagrangian is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{15}\)</span>
+
+<!--
+
+
+                                                                                                                      1X 2
+                                                                                                                           n
+                                                                                                                 H=         (pi + ωi2 qi2 ),         (qi , pi ) = (yi , ẏi ).                                                                (5.16)
+                                                                                                                      2 n=1
+
+-->
+
+<p>
+
+
+\begin{equation}
+H = \frac 12 \sum _{n=1}^n(p_i^2 + \omega _i^2 q_i^2), \qquad (q_i, p_i) = (y_i, \dot y_i).
+\end{equation}
+
+
+</p>
+
+<p>
+Then, the canonical transformation
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{16}\)</span>
+
+<!--
+
+
+                                                                                                                         √                     1
+                                                                                                                 pi 7→       ωi p i ,   qi 7→ √ q i ,     i = 1, . . . , n                                                                    (5.17)
+                                                                                                                                               ωi
+
+-->
+
+<p>
+
+
+\begin{equation}
+p_i \mapsto \sqrt {\omega _i}p_i, \quad q_i \mapsto \frac {1}{\sqrt {\omega _i}}q^i, \quad i=1,\ldots ,n
+\end{equation}
+
+
+</p>
+
+<p>
+reduces \(H\) to the normal form <span class="textup">(<a href="chapter-5.html#eq:HamNF">5.13</a>)</span>
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+Solutions of the hamiltonian system with hamiltonian <span class="textup">(<a href="chapter-5.html#eq:HamNF">5.13</a>)</span> can be explicitly computed as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{17}\)</span>
+
+<!--
+
+                                                            (                            
+                                                                qi = ρi sin ωi t + ϕ0i
+                                                                                         ,   i = 1, . . . , n                                                                                (5.18)             --><a id="eq:easycomplint"></a><!--
+                                                                pi = ρi cos ωi t + ϕ0i
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:easycomplint} \left \lbrace \begin{aligned} q_i = \rho _i \sin (\omega _it +\phi _i^0) \\ p_i = \rho _i \cos (\omega _it +\phi _i^0) \end {aligned} \right .,\quad i=1,\ldots ,n
+\end{equation}
+
+</p>
+
+<p>
+where \(\rho _i\geq 0\) and \(\phi _i^0\) are constants of integration.
+</p>
+<div class="amsthmbodydefinition">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-342"></a>
+<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span>.                                  The hamiltonian systems with hamiltonian <span class="textup">(<a
+href="chapter-5.html#eq:HamNF">5.13</a>)</span> is completely integrable. With the notation of <span class="textup">(<a href="chapter-5.html#eq:easycomplint">5.18</a>)</span>, the invariant tori \(\mathbb {T}^n\) are defined by the
+equations
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{18}\)</span>
+
+<!--
+
+
+
+                                                                                                           p2k + qk2 = ρ2k ,      k = 1, . . . , n,                                                                                (5.19)
+
+-->
+
+<p>
+
+
+\begin{equation}
+p_k^2 + q_k^2 = \rho _k^2, \quad k=1,\ldots ,n,
+\end{equation}
+
+
+</p>
+
+<p>
+the canonical actions then are
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{19}\)</span>
+
+<!--
+
+
+                                                                                                                     ρ2k
+                                                                                                              Ik =       ,     k = 1, . . . , n,                                                                                   (5.20)
+                                                                                                                     2
+
+-->
+
+<p>
+
+
+\begin{equation}
+I_k = \frac {\rho _k^2}2, \quad k=1,\ldots ,n,
+\end{equation}
+
+
+</p>
+
+<p>
+and the angular coordinates are introduced as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{20}\)</span>
+
+<!--
+
+
+                                                                                                  √                          √
+                                                                                           qk =       2Ik sin ϕk ,   pk =        2Ik cos ϕk ,      k = 1, . . . , n,                                                               (5.21)
+
+-->
+
+<p>
+
+
+\begin{equation}
+q^k = \sqrt {2I_k} \sin \phi _k, \quad p_k = \sqrt {2I_k} \cos \phi _k, \quad k=1,\ldots ,n,
+\end{equation}
+
+
+</p>
+
+<p>
+in the same way as the usual harmonic oscillator.
+</p>
+
+<p>
+Then, the hamiltonian \(H_2\) is the linear function of the actions
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{21}\)</span>
+
+<!--
+
+
+                                                                                                                             X
+                                                                                                                             n
+                                                                                                                     H2 =          ω k Ik                                                                                          (5.22)
+                                                                                                                             k=1
+
+
+-->
+
+<p>
+
+
+\begin{equation}
+H_2 = \sum _{k=1}^n \omega _k I_k
+\end{equation}
+
+
+</p>
+
+<p>
+
+
+</p>
+
+</li>
+
+</ul>
+
+</div>
+<div class="amsthmbodydefinition">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-343"></a>
+<span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">5.1</span></span><span class="amsthmnotedefinition"> (The linear triatomic molecule)</span>.                              Use the hamiltonian
+approach to small oscillations to compute the normal modes of the linear triatomic molecule from Section&nbsp;<a href="chapter-2.html#sec:triatomic">2.3.3</a>.
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+There is a beautiful duality between normal modes and creation and annihilation operators in quantum mechanics. For further information, refer to [<a href="index.html#??">Low12</a>, Chapter 2.10].
+</p>
+
+<p>
+In the first edition of these notes, I was going to conclude this section showing the stability of the Lagrange points for the restricted three body problem. This has been removed due to time constraints, but you can see it developed, with a similar
+approach, for the points \(L_4\) and \(L_5\) in [<a href="index.html#??">Low12</a>, Chapter 2.10] and slightly differently but without sparing details in [<a href="index.html#??">AKN06</a>; <a href="index.html#??">Arn10</a>].
+</p>
+<!--................................-->
+<h4 id="autosec-344"><span class="sectionnumber">5.2&#x2003;</span>Birkhoff normal forms</h4>
+<a id="hm-autopage-344"></a>
+
+
+<p>
+We will consider now the effect on the solutions of the contribution from higher order terms in <span class="textup">(<a href="chapter-5.html#eq:hamidevl">5.2</a>)</span>, under the assumptions that <em>the quadratic hamiltonian is
+generic and stable</em> and still in the case of <em>small oscillations near an equilibrium</em>. For convenience we can drop the constant term and write
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{22}\)</span>
+
+<!--
+
+
+                                                                                                                     H = H2 + H3 + · · · .                                                                                                           (5.23)
+
+-->
+
+<p>
+
+\begin{equation}
+H = H_2 + H_3 + \cdots .
+\end{equation}
+
+</p>
+
+<p>
+In this case, it is natural to consider \(H_2\) as the principal term, and treat the successive terms as <em>small perturbations</em>.
+</p>
+
+<p>
+The rescaling
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{23}\)</span>
+
+<!--
+
+
+                                                                                                                (q, p) 7→ (ϵq, ϵp),   H 7→ ϵ−2 H,                                                                                                    (5.24)
+
+-->
+
+<p>
+
+\begin{equation}
+(q, p)\mapsto (\epsilon q, \epsilon p), \quad H \mapsto \epsilon ^{-2} H,
+\end{equation}
+
+</p>
+
+<p>
+where \(\epsilon &gt; 0\) is a small parameter, transforms the hamiltonian into
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{24}\)</span>
+
+<!--
+
+
+                                                                                                                H = H2 + ϵH3 + ϵ2 H4 + · · · .                                                                                                       (5.25)
+
+-->
+
+<p>
+
+\begin{equation}
+H = H_2 + \epsilon H_3 + \epsilon ^2 H_4 + \cdots .
+\end{equation}
+
+</p>
+
+<p>
+The behavior of the solutions of the perturbed hamiltonian system can then be studied using a family of canonical transformations suggested by Birkhoff. For a more detailed account, please refer to [<a href="index.html#??">Arn10</a>, Chapter
+6.5], [<a href="index.html#??">AKN06</a>, Chapter 8.3] and [<a href="index.html#??">Kna18</a>, Chapters 15.2 and 15.3].
+</p>
+
+<p>
+We look for a canonical transformation
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{25}\)</span>
+
+<!--
+
+                                                                                                                                              X i
+                                                                                                           x = (q, p) 7→ x
+                                                                                                                         e = (e
+                                                                                                                              q , pe) = x +    ϵ ∆i x,                                                                                               (5.26)
+                                                                                                                                              i>0
+
+
+-->
+
+<p>
+
+\begin{equation}
+x = (q,p) \mapsto \widetilde x = (\widetilde q, \widetilde p) = x + \sum _{i&gt;0} \epsilon ^i \Delta _i x,
+\end{equation}
+
+</p>
+
+<p>
+expressed as a formal series in \(\epsilon \) which cancels the first cubic term of the perturbation. Since infinitesimal canonical coordinates have the form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{26}\)</span>
+
+<!--
+
+                                                                                                                             
+                                                                                                                   x 7→ x + ϵ x, F + O(ϵ2 )                                                                                                          (5.27)
+
+-->
+
+<p>
+
+\begin{equation}
+x \mapsto x + \epsilon \big \{x, F\big \} + O(\epsilon ^2)
+\end{equation}
+
+</p>
+
+<p>
+for some hamiltonian \(F\), we can compute the shift due to \(F\) in the transformed hamiltonian explicitly by expanding in Taylor series around \(\epsilon =0\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{27}\)</span>
+
+<!--
+
+                                                                                                                                            
+                                                                                                H 7→ H − ϵ H, F + O(ϵ2 ) = H2 + ϵ H3 − H2 , F + O(ϵ2 ).                                                                                              (5.28)
+
+-->
+
+<p>
+
+\begin{equation}
+H \mapsto H - \epsilon \big \{H,F\big \} + O(\epsilon ^2) = H_2 + \epsilon \left (H_3 - \big \{H_2,F\big \}\right ) + O(\epsilon ^2).
+\end{equation}
+
+</p>
+
+<p>
+We are left to find a <em>cubic</em> hamiltonian \(F\) that solves
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{28}\)</span>
+
+<!--
+
+                                                                          
+                                                                              H2 , F   = H3 .                                                                     (5.29)                                         --><a id="eq:linearmapH_2"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:linearmapH_2} \big \{H_2,F\big \} = H_3.
+\end{equation}
+
+</p>
+
+<p>
+This is due to the fact that \(H_2\) is quadratic and \(H_3\) is cubic by hypothesis. To solve the equation, we need to invert the map \(F \mapsto \big \{H_2,F\big \}\) induced by \(H_2\) on polynomials of degree \(3\). To understand how
+reasonable is this task, let’s first consider an artificial example.
+</p>
+
+<p>
+The idea sketched in this section has been thoroughly developed in multiple flavours in the last century. Its consequences percolated in perturbative analysis in semiclassical theory and more generally in spectral theory, where, once coupled with
+pseudodifferential calculus, it provides an incredibly powerful tool.
+</p>
+<div class="amsthmbodydefinition">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-345"></a>
+<span class="amsthmnamedefinition">Example</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>.                            Consider the following hamiltonian for a system with one degree of freedom
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{29}\)</span>
+
+<!--
+
+
+                                                                                                   ω 2
+                                                                                            H=       (p + q 2 ) + ϵ(C1 p3 + C2 p2 q + C3 pq 2 + C4 q 3 ) + O(ϵ2 ),                                                                      (5.30)
+                                                                                                   2
+
+-->
+
+<p>
+
+
+\begin{equation}
+H = \frac \omega 2 (p^2 + q^2) + \epsilon (C_1 p^3 + C_2 p^2 q + C_3 p q^2 + C_4 q^3) + O(\epsilon ^2),
+\end{equation}
+
+
+</p>
+
+<p>
+where \(\omega &gt;0\). Choosing
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{30}\)</span>
+
+<!--
+
+                                                                                                                                              
+                                                                                                    1       C2 + 2C4 3 C1 2    C4 2 C3 + 2C1 3
+                                                                                              F =                   p −   p q+   pq −       q ,                                                                                         (5.31)
+                                                                                                    ω           6       2      2        6
+
+-->
+
+<p>
+
+
+\begin{equation}
+F = \frac {1}{\omega }\left ( \frac {C_2 + 2 C_4}{6} p^3 - \frac {C_1}2 p^2 q + \frac {C_4}{2} p q^2 -\frac {C_3 + 2 C_1}{6} q^3 \right ),
+\end{equation}
+
+
+</p>
+
+<p>
+and applying the infinitesimal canonical transformation discussed above, our hamiltonian becomes
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{31}\)</span>
+
+<!--
+
+
+                                                                                                                   ω 2
+                                                                                                              H=     (p + q 2 ) + ϵ2 H4 + O(ϵ3 ).                                                                                       (5.32)
+                                                                                                                   2
+
+-->
+
+<p>
+
+
+\begin{equation}
+H = \frac {\omega }{2}(p^2 + q^2) + \epsilon ^2 H_4 + O(\epsilon ^3).
+\end{equation}
+
+
+</p>
+
+<p>
+We can now look for a fourth oder polynomial \(G\) such that the canonical transformation
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{32}\)</span>
+
+<!--
+
+
+                                                                                                                           
+                                                                                                                x 7→ x + ϵ2 x, G + O(ϵ3 )                                                                                               (5.33)
+
+-->
+
+<p>
+
+
+\begin{equation}
+x \mapsto x + \epsilon ^2 \big \{x, G\big \} + O(\epsilon ^3)
+\end{equation}
+
+
+</p>
+
+<p>
+cancels the fourth order terms in the new hamiltonian. You can try it out for yourselves, but you will rapidly stumble upon an insurmountable obstacle: the linear map <span class="textup">(<a
+href="chapter-5.html#eq:linearmapH_2">5.29</a>)</span> on the space of fourth order polynomials has a non–trivial kernel! This can be verified immediately by observing that the polynomial \((p^2+q^2)^2\) commutes with \(H_2=\frac
+\omega 2(p^2+q^2)\) and, therefore, belongs to the kernel.
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+For systems with one degree of freedom, we can summarize the situation as follows
+</p>
+<div class="amsthmbodydefinition">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-346"></a>
+<span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>.                                 Let \(H\) be an hamiltonian of the form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{33}\)</span>
+
+<!--
+
+
+                                                                                                                           ω 2            X k−2
+                                                                                                            H(p, q; ϵ) =     (p + q 2 ) +  ϵ    Hk (q, p),                                                                              (5.34)
+                                                                                                                           2
+                                                                                                                                          k≥3
+
+
+-->
+
+<p>
+
+
+\begin{equation}
+H(p,q; \epsilon ) = \frac {\omega }{2}(p^2 + q^2) + \sum _{k\geq 3} \epsilon ^{k-2} H_k(q,p),
+\end{equation}
+
+
+</p>
+
+<p>
+where \(H_k(q,p)\) is a polynomial in \((q,p)\) homogeneous of degree \(k\), \(k\geq 3\) and \(\omega \neq 0\). Prove the existence of a <em>formal series</em>
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{34}\)</span>
+
+<!--
+
+
+                                                                                                                                    X k−3
+                                                                                                                    F (q, p; ϵ) =    ϵ    Fk (q, p),                                                                                    (5.35)
+                                                                                                                                    k≥3
+
+
+-->
+
+<p>
+
+
+\begin{equation}
+F(q,p; \epsilon ) = \sum _{k\geq 3} \epsilon ^{k-3} F_k(q,p),
+\end{equation}
+
+
+</p>
+
+<p>
+where \(F_k(q,p)\) is a polynomial in \((q,p)\) homogeneous of degree \(k\), \(k\geq 3\), such that the canonical transformation
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{35}\)</span>
+
+<!--
+
+
+                                                                       ϵ2             ϵ3 
+                                                  x 7→ x
+                                                       e = x + ϵ x, F +       x, F , F +        x, F , F , F + · · ·                                                                (5.36)                       --><a id="eq:ictbnf"></a><!--
+                                                                        2!               3!
+
+-->
+
+<p>
+
+
+\begin{equation}
+\label {eq:ictbnf} x \mapsto \widetilde x = x + \epsilon \big \{x, F\big \} + \frac {\epsilon ^2}{2!} \big \{\big \{x, F\big \}, F\big \} + \frac {\epsilon ^3}{3!} \big \{\big \{\big \{x, F\big \}, F\big \}, F\big
+\} + \cdots
+\end{equation}
+
+
+</p>
+
+<p>
+transforms the hamiltonian \(H\) into
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{36}\)</span>
+
+<!--
+
+
+                                                                                         ω    X 2k−2
+                                                            p2 + qe2 ; ϵ),
+                                                      H = h(e                h(z; ϵ) =     z+  ϵ     Ck (ϵ)z k ,                                                              (5.37)                       --><a id="eq:bnormalform"></a><!--
+                                                                                         2
+                                                                                              k≥2
+
+
+-->
+
+<p>
+
+
+\begin{equation}
+\label {eq:bnormalform} H = h(\widetilde p^2 + \widetilde q^2; \epsilon ),\quad h(z;\epsilon ) = \frac \omega 2 z + \sum _{k\geq 2} \epsilon ^{2k-2}C_k(\epsilon ) z^k,
+\end{equation}
+
+
+</p>
+
+<p>
+where \((\widetilde q, \widetilde p) = \widetilde x\) and the coeﬀicients \(C_k(\epsilon )\) are defined by formal series in \(\epsilon \).
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+Formula <span class="textup">(<a href="chapter-5.html#eq:bnormalform">5.37</a>)</span> is called <em>normal form</em> of the perturbed hamiltonian with one degree of freedom.
+</p>
+
+<p>
+The trajectories of the perturbed system are then the deformed circles
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{37}\)</span>
+
+<!--
+
+
+                                                                                                                             p2 + qe2 ; ϵ) = E,
+                                                                                                                           h(e                                                                                                          (5.38)
+
+-->
+
+<p>
+
+\begin{equation}
+h(\widetilde p^2 + \widetilde q^2; \epsilon ) = E,
+\end{equation}
+
+</p>
+
+<p>
+over which the particle moves uniformly as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{38}\)</span>
+
+<!--
+
+                                                                                                                                             ∂
+                                                                                                           e (E; ϵ)t + ϕ0 ,
+                                                                                                    ϕ(t) = ω                  e (E; ϵ) = 2
+                                                                                                                              ω                 h(z; ϵ),   h(z; ϵ) = E.                                                                 (5.39)
+                                                                                                                                             ∂z
+-->
+
+<p>
+
+\begin{equation}
+\phi (t) = \widetilde \omega (E;\epsilon ) t + \phi _0, \quad \widetilde \omega (E; \epsilon ) = 2\frac {\partial }{\partial z}h(z;\epsilon ), \quad h(z;\epsilon ) = E.
+\end{equation}
+
+</p>
+
+<p>
+The generalization to \(n&gt;1\) degrees of freedom is less straightforward. We will mention here only the case of non–resonant frequencies \(\omega _1,\ldots ,\omega _n\), which for \(n=1\) coincides with \(\omega \neq 0\). See
+Remark&nbsp;<a href="chapter-4.html#rmk:nonresonant">4.8</a>.
+</p>
+<div class="amsthmbodyplain">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-347"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.4</span></span><span class="amsthmnoteplain"> (Birkhoff)</span>.                         Let \(H\) be an hamiltonian of the form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{39}\)</span>
+
+<!--
+
+
+                                                                                                                      1X                      X k−2
+                                                                                                                            n
+                                                                                                    H(p, q; ϵ) =            ωi (p2i + qi2 ) +  ϵ    Hk (q, p),                                                                                    (5.40)
+                                                                                                                      2 i=1
+                                                                                                                                                 k≥3
+
+
+-->
+
+<p>
+
+
+\begin{equation}
+H(p,q; \epsilon ) = \frac 12 \sum _{i=1}^n \omega _i(p_i^2 + q_i^2) + \sum _{k\geq 3} \epsilon ^{k-2} H_k(q,p),
+\end{equation}
+
+
+</p>
+
+<p>
+where \(H_k(q,p)\) is a polynomial in \((q,p)\) homogeneous of degree \(k\) and the frequencies \(\omega _1,\ldots ,\omega _n\) are non–resonant. Then, there exists a canonical transformation of the form <span class="textup">(<a
+href="chapter-5.html#eq:ictbnf">5.36</a>)</span> which transforms the hamiltonian to the following normal form
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{40}\)</span>
+
+
+
+<!--
+
+
+
+                                                                                                                 H = h(z1 , . . . , zn ; ϵ),                                                                                                      (5.41)
+                                                                                                                           1 X
+                                                                                                                             n            X 2k−2
+                                                                                                h(z1 , . . . , zn ; ϵ) =         ω i zi +  ϵ     hk (z1 , . . . , zn ; ϵ),                                                                        (5.42)
+                                                                                                                           2 i=1
+                                                                                                                                          k≥2
+
+                                                                                                                 zi = pe2i + qei2 ,    i = 1, . . . , n,                                                                                          (5.43)
+
+
+
+-->
+
+
+
+<p>
+
+
+\begin{align}
+H &amp; = h(z_1, \ldots , z_n; \epsilon ), \\ h(z_1,\ldots ,z_n;\epsilon ) &amp; = \frac 12 \sum _{i=1}^n \omega _i z_i + \sum _{k\geq 2} \epsilon ^{2k-2} h_k(z_1, \ldots , z_n; \epsilon ), \\ z_i &amp; =
+\widetilde p_i^2 + \widetilde q_i^2,\quad i=1,\ldots ,n,
+\end{align}
+where \(h_k(z_1, \ldots , z_n; \epsilon )\) is a polynomial in \(z_1, \ldots , z_n\) homogeneous of degree \(k\).
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+The non–resonance condition is essential for the existence of the canonical transformation even as a formal series. In the resonant case, the map \(F \mapsto \big \{H_2, F\big \}\) always has a non–trivial kernel on polynomial spaces and cannot
+be inverted. There is a full classification of normal form for resonant systems due to Moser, but we don’t have the time to enter into details.
+</p>
+
+<p>
+If you formally write down the equations of motion, you can convince yourself that if all the series were to be convergent, the hamiltonian system could be easily integrated. In fact, the question of convergence of <span class="textup">(<a
+href="chapter-5.html#eq:ictbnf">5.36</a>)</span> for \(n&gt;1\) is a rather delicate problem, related to the existence of first integrals with certain analyticity properties.
+</p>
+
+<p>
+For further details, please refer to [<a href="index.html#??">Bro09</a>], [<a href="index.html#??">Arn10</a>, Chapter 6.5], [<a href="index.html#??">AKN06</a>, Chapter 8.3] or [<a href="index.html#??">Kna18</a>, Chapters 15.2 and
+15.3], as suggested also at the beginning of this section.
+</p>
+<!--................................-->
+<h4 id="autosec-348"><span class="sectionnumber">5.3&#x2003;</span>A brief look at KAM theory</h4>
+<a id="hm-autopage-348"></a>
+
+
+<p>
+We saw multiple times by now that every hamiltonian system with one–degree of freedom is integrable by quadrature. Moreover, if for some \(E\) the curve \(H^{-1}(E) = \{(p,q)\mid H(p,q) = E\}\) is compact, then the solution \((q(t),p(t))\)
+of the equations of motion with initial data on \(H^{-1}(E)\), i.e., \((q(0), p(0)) = (q_0, p_0)\) with \(H(q_0,p_0)=E\), is periodic. <em>Small</em> enough changes of the initial condition or of the energy do not change the periodic nature of
+the motion.
+</p>
+
+<p>
+For hamiltonian systems with \(n&gt;1\) degrees of freedom, the behavior of the solutions under small perturbations can be much more complicated. The simplest case is the case of completely integrable systems, as the ones investigated in sections
+<a href="chapter-4.html#sec:sepsys">4.3.1</a> and <a href="chapter-4.html#sec:intsys">4.4</a>. For completely integrable systems, Liouville-Arnold theorem tells us that the motion on compact connected level surfaces is equivalent to a
+conditionally periodic motion on a Liouville \(n\)-torus. Even better, we constructed the action–angle coordinates \(I_1, \ldots , I_n, \phi _1, \ldots , \phi _n\) on a small neighborhood of a Liouville torus in such a way that the equations
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{43}\)</span>
+
+<!--
+
+
+                                                                                                                                            I1 = I10 , . . . , In = In0                                                                            (5.44)
+
+-->
+
+<p>
+
+\begin{equation}
+I_1 = I_1^0, \ldots , I_n = I_n^0
+\end{equation}
+
+</p>
+
+<p>
+identify a Liouville torus with its standard angular coordinates \(\phi _1, \ldots , \phi _n\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{44}\)</span>
+
+<!--
+
+
+                                                                                                                              Tn = {(ϕ1 , . . . , ϕn ) ∈ Rn | ϕk ∼ ϕk + 2π} .                                                                      (5.45)
+
+-->
+
+<p>
+
+\begin{equation}
+\mathbb {T}^n = \left \{(\phi _1, \ldots , \phi _n)\in \mathbb {R}^n \;\mid \; \phi _k\sim \phi _k + 2\pi \right \}.
+\end{equation}
+
+</p>
+
+<p>
+In the \((I,\phi )\) coordinates, the hamiltonian is independent of the angular variables,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{45}\)</span>
+
+<!--
+
+
+                                                                                                                                             H = H(I1 , . . . , In ),                                                                              (5.46)
+
+-->
+
+<p>
+
+\begin{equation}
+H = H(I_1, \ldots , I_n),
+\end{equation}
+
+</p>
+
+<p>
+and the corresponding equations of motion
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{46}\)</span>
+
+<!--
+
+                                                                                                                                         ∂H(I)
+                                                                                                                                 ϕ̇j =         ,      I˙j = 0,       j = 1, . . . , n,                                                             (5.47)
+                                                                                                                                          ∂Ij
+
+-->
+
+<p>
+
+\begin{equation}
+\dot \phi _j = \frac {\partial H(I)}{\partial I_j}, \quad \dot I_j = 0, \quad j=1,\ldots ,n,
+\end{equation}
+
+</p>
+
+<p>
+are immediately solved as linear motions on the torus:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{47}\)</span>
+
+<!--
+
+                                                                                                                                                                               ∂H(I)
+                                                                                                                                ϕj (t) = ωj (I)t + ϕ0j ,       ωj (I) =              ,                                                             (5.48)
+                                                                                                                                                                                ∂Ij
+
+-->
+
+<p>
+
+\begin{equation}
+\phi _j(t) = \omega _j(I) t + \phi _j^0, \quad \omega _j(I) = \frac {\partial H(I)}{\partial I_j},
+\end{equation}
+
+</p>
+
+<p>
+where the frequencies \(\omega _1(I), \ldots , \omega _n(I)\) only depend on the Liouville torus.
+</p>
+
+<p>
+The motion is periodic with period \(T\) if all the frequencies are resonant (that is, they are all rational multiples of \(2\pi /T\)), otherwise the trajectory is dense on the torus.
+</p>
+
+<p>
+Sadly, a typical hamiltonian system with \(n&gt;1\) degrees of freedom is <em>not</em> integrable. In non–integrable systems, the motion within the \((2n-1)\)-dimensional energy shell is not confined to \(n\)-dimensional tori for a positive
+Liouville measure of initial conditions, and it can look quite complex. Entirely new notions had to be developed to describe the long term behavior of the orbits in this case.
+</p>
+
+<p>
+We now focus on systems that are <em>almost</em> integrable, in the sense that their hamiltonian has the form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{48}\)</span>
+
+<!--
+
+
+                                                                                                                                         Hϵ = H0 (I) + ϵHpert (I, ϕ),                                                                              (5.49)
+
+-->
+
+<p>
+
+\begin{equation}
+H_\epsilon = H_0(I) + \epsilon H_{\mathrm {pert}}(I,\phi ),
+\end{equation}
+
+</p>
+
+<p>
+where \(H_0\) is the hamiltonian of a completely integrable system ib action–angle coordinates, \(\epsilon \) is the small parameter of the perturbation and the perturbation itself is given by the hamiltonian \(H_{\mathrm {pert}}(I,\phi )\)
+defined on
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{49}\)</span>
+
+<!--
+
+
+                                                                                                                                         (I, ϕ) ∈ I × Tn ⊆ Rn × Tn .                                                                               (5.50)
+
+-->
+
+<p>
+
+\begin{equation}
+(I,\phi ) \in \mathcal {I} \times \mathbb {T}^n \subseteq \mathbb {R}^n\times \mathbb {T}^n.
+\end{equation}
+
+</p>
+
+<p>
+For \(\epsilon =0\) the motion is a conditionally periodic motion on a Liouville torus, the quest now is to describe the nature of the motion for small values of \(\epsilon \).
+</p>
+
+<p>
+If we fix one torus
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{50}\)</span>
+
+<!--
+
+
+                                                                                                                                            I1 = I10 , . . . , In = In0 ,                                                                          (5.51)
+
+-->
+
+<p>
+
+\begin{equation}
+I_1 = I_1^0, \ldots , I_n = I_n^0,
+\end{equation}
+
+</p>
+
+<p>
+for the unperturbed system, we can try to apply Birkhoff’s transformation \((\phi , I)\mapsto (\widetilde \phi ,\widetilde I)\) from the previous section to reduce the hamiltonian \(H_\epsilon \) to a normal form \(H_\epsilon =
+H_\epsilon (\widetilde I; \epsilon )\). As we saw, the necessary canonical transformation does not exist even just as formal series when the frequencies \(\omega _1^0, \ldots , \omega _n^0\) are resonant. Further from being just a problem
+of the method, it can be shown that resonant tori are destroyed by arbitrarily small values of \(\epsilon \). Furthermore, the survival of the invariant tori under small perturbation in the non–resonant case has been unclear for a very long time.
+Indeed, a careful development of the normal form approach around non–resonant frequencies presents the appearance of denominators of the form \((\vb * k, \omega )\) with large \(\vb * k \in \mathbb {Z}^n\setminus \{0\}\): it is often
+possible to find \(\vb * k\) that makes such denominators arbitrarily small. If that was not enough, frequencies which are unaffected by the small denominators problem are always arbitrarily close to “bad” frequencies.
+</p>
+
+<p>
+This problem was so bad that Poincaré called it the “fundamental problem” of classical mechanics, and it was so pervasive tht in the middle of the last century people formulated an “ergodic hypothesis” according to which the trajectories of the
+motion behave chaotically on generically perturbed energy surfaces.
+</p>
+
+<p>
+The turning point in this story was made by Kolmogorov in 1954. According to him, <em>most of the invariant tori survives</em> any suﬀiciently small perturbation of the hamiltonian and the surviving tori can be characterized rather explicitly in
+terms of a diophantine condition on the frequencies. Shortly afterwards, Arnold and Moser proved this intuition in the case of analytical and then suﬀiciently smooth hamiltonians, leading to the modern name of <em>KAM theorem</em> (from
+Kolmogorov, Arnold and Moser).
+</p>
+
+<p>
+To begin, let’s describe the <em>diophantine conditions</em> for the non–resonant frequencies \(\omega _1, \ldots , \omega _n\).
+</p>
+
+
+<div
+    class="tcolorbox"
+    style=" border: 1px solid #404040; background: #F2F2F2; "
+>
+
+
+<div
+    class="tcolorboxupper"
+    style=" color: #000000; "
+>
+
+<p>
+Let \(\alpha &gt;0\), \(\tau &gt;0\) be two fixed positive numbers, we say that the frequency satisfy the \((\alpha ,\tau )\) diophantine condition if
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{51}\)</span>
+
+<!--
+
+                                                          X
+                                                          n
+                                                                            α
+                                                                ki ω i ≥                  ∀k = (k1 , . . . , kn ) ∈ Zn ,                                                                           (5.52)                 --><a id="eq:diophat"></a><!--
+                                                          i=1
+                                                                           |k|τ
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:diophat} \left |\sum _{i=1}^n k_i \omega _i \right | \geq \frac {\alpha }{|\vb * k|^\tau } \qquad \forall \vb * k=(k_1, \ldots , k_n)\in \mathbb {Z}^n,
+\end{equation}
+
+</p>
+
+<p>
+where \(|\vb * k| = \sum _{i=1}^n |k_i|\). We denote \(\Delta _\alpha ^\tau \subset \mathbb {R}^n\) the set of vectors \(\omega \) satisfying <span class="textup">(<a href="chapter-5.html#eq:diophat">5.52</a>)</span>.
+</p>
+</div>
+
+</div>
+
+<p>
+First of all observe that for any fixed \(\alpha &gt;0\), \(\tau &gt;0\), the set \(\Delta _\alpha ^\tau \) is not empty. Indeed, its complement in \(\mathbb {R}^n\) is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{52}\)</span>
+
+<!--
+
+                                                                                                                                                                                                      
+                                                                                                                                                                                                 α
+                                                                                                                τ
+                                                                                                               Rα := ∪k∈Zn \{0} Rα
+                                                                                                                                 τ
+                                                                                                                                   (k),           τ
+                                                                                                                                                 Rα (k) :=         ω ∈ Rn | |hk, ωi| <                     .                                       (5.53)
+                                                                                                                                                                                                |k|τ
+
+-->
+
+<p>
+
+\begin{equation}
+R_{\alpha }^\tau := \cup _{\vb * k \in \mathbb {Z}^n\setminus \{0\}} R_{\alpha }^\tau (\vb * k),\quad R_{\alpha }^\tau (\vb * k) := \left \{ \omega \in \mathbb {R}^n \;\mid \; |\langle \vb * k, \omega \rangle |
+&lt; \frac {\alpha }{|\vb * k|^\tau } \right \}.
+\end{equation}
+
+</p>
+
+<p>
+For any bounded \(\Omega \subset \mathbb {R}^n\), the Lebesgue measure \(\mu \) of \(\Omega \cap R_{\alpha }^\tau (\vb * k)\) can be estimated explicitly as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{53}\)</span>
+
+<!--
+
+                                                                                                                                                                              
+                                                                                                                                                                       α
+                                                                                                                                     µ(Ω ∩ Rα
+                                                                                                                                            τ
+                                                                                                                                              (k)) = O                             .                                                               (5.54)
+                                                                                                                                                                     |k|τ +1
+
+-->
+
+<p>
+
+\begin{equation}
+\mu (\Omega \cap R_{\alpha }^\tau (\vb * k)) = O\left (\frac {\alpha }{|\vb * k|^{\tau +1}}\right ).
+\end{equation}
+
+</p>
+
+<p>
+If \(\tau &gt; n-1\),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{54}\)</span>
+
+<!--
+
+                                                                                                                                                     X
+                                                                                                                           µ (Rn \ ∆τα ) ∩ Ω) ≤            µ (∆τα (k) ∩ Ω) = O(α),                                                                 (5.55)
+                                                                                                                                                    k∈Zn
+
+
+-->
+
+<p>
+
+\begin{equation}
+\mu \left (\mathbb {R}^n\setminus \Delta _\alpha ^\tau )\cap \Omega \right )\leq \sum _{\vb * k\in \mathbb {Z}^n} \mu \left (\Delta _{\alpha }^\tau (\vb * k)\cap \Omega \right ) = O(\alpha ),
+\end{equation}
+
+</p>
+
+<p>
+and since
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{55}\)</span>
+
+<!--
+
+                                                                                                                                                       τ
+                                                                                                                                              µ (∩α>0 Rα ) = 0,                                                                                    (5.56)
+
+-->
+
+<p>
+
+\begin{equation}
+\mu \left (\cap _{\alpha &gt;0}R_{\alpha }^\tau \right )=0,
+\end{equation}
+
+</p>
+
+<p>
+the set \(\Delta ^\tau = \cup _{\alpha &gt;0}\Delta _\alpha ^\tau \) is of full measure in \(\mathbb {R}^n\) for any \(\tau &gt; n-1\). i.e., for almost every \(\omega \in \mathbb {R}^n\) there is \(\alpha &gt;0\) such that \(\omega
+\in \Delta ^\tau _\alpha \). For the curious reader, the set of missing frequencies can be explicitly characterized in terms of diophantine approximation.
+</p>
+
+<p>
+From now on, we assume that a number \(\tau &gt; n-1\) is fixed and we drop it from the notation: \(\Delta _\alpha = \Delta _\alpha ^\tau \).
+</p>
+
+<p>
+Sadly, the parameter \(\alpha \) in the non–resonance condition will limit the size of the perturbation parameter \(\epsilon \), so before stating the theorem we need some more hypotheses.
+</p>
+
+<p>
+Let’s go back to hamiltonian systems. In what follows, we assume that the unperturbed hamiltonian \(H_0(I)\) is <em>non–degenerate</em>, that is, the matrix of second derivatives is not singular:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{56}\)</span>
+
+<!--
+
+                                                                          
+                                                              ∂ 2 H0 (I)
+                                                    det                        6= 0,     ∀I = (I1 , . . . , In ) ∈ I ⊂ Rn .                                                                        (5.57)                 --><a id="eq:Hnondeg"></a><!--
+                                                               ∂Ij ∂Ik
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Hnondeg} \det \left (\frac {\partial ^2 H_0(I)}{\partial I_j \partial I_k}\right ) \neq 0, \quad \forall I = (I_1, \ldots , I_n)\in \mathcal {I}\subset \mathbb {R}^n.
+\end{equation}
+
+</p>
+
+<p>
+Similarly as we have seen for Legendre transformations, non–degenerate hamiltonians induce a local diffeomorphism
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{57}\)</span>
+
+<!--
+
+                                                                                       ∂H0 (I)
+                                                                 I 7→ ω(I) =                   .                                                                                       (5.58)                  --><a id="eq:H0omegalocaldiffeo"></a><!--
+                                                                                         ∂I
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:H0omegalocaldiffeo} I \mapsto \omega (I) = \frac {\partial H_0(I)}{\partial I}.
+\end{equation}
+
+</p>
+
+<p>
+By eventually restricting the domain of definition of the actions \(\mathcal {I}\), we can assume that <span class="textup">(<a href="chapter-5.html#eq:H0omegalocaldiffeo">5.58</a>)</span> is a diffeomorphism of \(\mathcal {I}\) on
+some domain \(\Omega \subset \mathbb {R}^n\) which we assume to have piecewise smooth boundary \(\partial \Omega \). From a different perspective, we are saying that, given a non–degenerate hamiltonian, we can use the frequencies
+\(\omega \in \Omega \) to parametrize the unperturbed invariant tori.
+</p>
+
+<p>
+Fix \(\alpha &gt;0\) and denote \(\Omega _\alpha \subset \Omega \) the subset of frequencies \(\omega \) in \(\Delta _\alpha \) whose distance from the boundary \(\partial \Omega \) is at least \(\alpha \).
+</p>
+
+<p>
+The set \(\Omega _\alpha \), as the set \(\Delta _\alpha \), is a Cantor set: closed, perfect and nowhere dense. However, the Lebesgue measure of \(\Omega _\alpha \) is rather large since the measure of a boundary layer of size \(\alpha \) is
+\(O(\alpha )\) and thus
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{58}\)</span>
+
+<!--
+
+
+                                                                                                                                             µ(Ω \ Ωα ) = O(α).                                                                                    (5.59)
+
+-->
+
+<p>
+
+\begin{equation}
+\mu (\Omega \setminus \Omega _\alpha ) = O(\alpha ).
+\end{equation}
+
+</p>
+
+<p>
+We are finally ready to state the KAM theorem.
+</p>
+<div class="amsthmbodyplain">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-349"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.5</span></span><span class="amsthmnoteplain"> (KAM theorem)</span>.                          Let \(H_0(I)\), \(I\in \mathcal {I}\subset
+\mathbb {R}^n\), be a non–degenerate hamiltonian such that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{59}\)</span>
+
+<!--
+
+
+                                                                                                                                       ∂H0 (I)
+                                                                                                        I → Ω ⊂ Rn ,     I 7→ ω(I) =                                                                                                           (5.60)
+                                                                                                                                         ∂I
+
+-->
+
+<p>
+
+
+\begin{equation}
+\mathcal {I} \to \Omega \subset \mathbb {R}^n, \quad I\mapsto \omega (I) = \frac {\partial H_0(I)}{\partial I}
+\end{equation}
+
+
+</p>
+
+<p>
+is a diffeomorphism. Assume that the perturbed hamiltonian
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{60}\)</span>
+
+<!--
+
+
+
+                                                                                                             Hϵ = H0 (I) + ϵHpert (I, ϕ),                                                                                                      (5.61)
+
+-->
+
+<p>
+
+
+\begin{equation}
+H_{\epsilon } = H_0(I) + \epsilon H_{\mathrm {pert}}(I,\phi ),
+\end{equation}
+
+
+</p>
+
+<p>
+is real analytic on \(\overline {\mathcal {I}}\times \mathbb {T}^n\). Then, there exist a constant \(\delta &gt;0\) such that for
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{61}\)</span>
+
+<!--
+
+
+
+                                                                                                                       |ϵ| < δα2                                                                                                               (5.62)
+
+-->
+
+<p>
+
+
+\begin{equation}
+|\epsilon | &lt; \delta \alpha ^2
+\end{equation}
+
+
+</p>
+
+<p>
+all the invariant tori of the unperturbed system with \(\omega \in \Omega _\alpha \) persist as Lagrangian tori, being only slightly deformed. Moreover, they depend in a Lipschitz continuous way on \(\omega \) and fill the phase space \(\mathcal
+{I}\times \mathbb {T}^n\) up to a set of measure \(O(\alpha )\).
+</p>
+
+</li>
+
+</ul>
+
+</div>
+<div class="amsthmbodydefinition">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-350"></a>
+<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.2</span></span>.                      Here, by being real analytic on \(\overline {\mathcal {I}}\times \mathbb {T}^n\) we mean that
+the analyticity extends to a uniform neighborhood of \(\mathcal {I}\).
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+An immediate and important consequence of the KAM theorem is that the ergodic hypothesis is wrong: the KAM tori form an invariant subset, yes, but it is neither of full nor of zero measure.
+</p>
+
+<p>
+Another tricky point of the KAM theorem comes from the fact that the invariant set \(\Omega _\alpha \) is a Cantor set and, as such, has no interior points. This means that, given an initial condition in phase space, we cannot tell whether the
+trajectory for a given initial position falls onto an invariant torus or wanders into a gap between such tori. From the physical point of view, the KAM theorem makes a probabilistic statement: a randomly chosen orbit lies on an invariant torus with
+probability \(1-O(\alpha )\).
+</p>
+<div class="amsthmbodydefinition">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-351"></a>
+<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">5.3</span></span>.                        The hamiltonian nature of the equations is almost indispensable. Analogous results are true for
+reversible systems, but in all cases the system has to be conservative: any kind of dissipation immediately destroys the Cantor family of tori, although isolated ones may persist as attractors.
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+Every proof of KAM theorem is complicated. After all, KAM theory is “one of the big mathematical achievements” of the 20th century, as commented by Winfried Scharlau in 1992 on the occasion of the award of the Cantor medal to Jürgen Moser.
+We will omit the proof here, and refer the interested reader to [<a href="index.html#??">Kna18</a>, Chapter 15] and [<a href="index.html#??">P0̈1</a>]. For a nice and readable account of KAM theory and its developments, you can refer to
+[<a href="index.html#??">Bro04</a>].
+</p>
+<!--................................-->
+<h4 id="autosec-352"><span class="sectionnumber">5.4&#x2003;</span>Nekhoroshev theorem</h4>
+<a id="hm-autopage-352"></a>
+
+
+<p>
+In this section we will briefly discuss another approach to the perturbation theory of integrable systems developed by Nekhoroshev at the end of the 1970s. This is a less known but extremely useful result for perturbation theory which deals with long
+time stability of the perturbed orbits. We will state a simpler version of the original theorem, as presented in [<a href="index.html#??">BGG85</a>]. An accessible proof of a slightly more general statement can be found in [<a
+href="index.html#??">P9̈3</a>]. For a more detailed and general account, including applications to celestial mechanics, please refer to [<a href="index.html#??">Arn10</a>, Chapter 8] and [<a href="index.html#??">AKN06</a>, Chapter 6].
+</p>
+
+<p>
+KAM theorem guarantees the persistance of certain Liouville tori: the trajectories remain on the invariant tori for <em>all</em> times. The result is, however, not so explicit in terms of which tori persist and for which weights of the perturbations,
+these particular issues are still active areas of research. Nekhoroshev took a slightly different point of view: forget about the persistence of the tori, can we give estimates on how long the trajectories of a perturbed integrable system remain close to
+the original invariant tori?
+</p>
+
+<p>
+It turns out that the answer is yes, and the result is stronger than one may expect at first: <em>all trajectories</em> remain close to the unperturbed invariant tori for exponentially long times
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{62}\)</span>
+
+<!--
+
+
+                                                                                                                        |t| < T (ϵ) ∼ e1/ϵ .                                                                                                             (5.63)
+
+-->
+
+<p>
+
+\begin{equation}
+|t| &lt; T(\epsilon ) \sim e^{1/\epsilon }.
+\end{equation}
+
+</p>
+
+<p>
+The starting point is an analytical hamiltonian of the usual form
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{63}\)</span>
+
+<!--
+
+
+                                                       Hϵ = H0 (I) + ϵHpert (I, ϕ),   (I, ϕ) ∈ I × Tn ,                                                      (5.64)                                                         --><a id="eq:hamneko"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:hamneko} H_\epsilon = H_0(I) + \epsilon H_{\mathrm {pert}}(I, \phi ), \quad (I,\phi )\in \mathcal {I}\times \mathbb {T}^n,
+\end{equation}
+
+</p>
+
+<p>
+where \((I,\phi )\) are the action–angle coordinates for \(H_0\), \(n&gt;1\) and \(\mathcal {I}\subset \mathbb {R}^n\) is open and bounded.
+</p>
+
+<p>
+Before stating the theorem, we need some more definitions.
+</p>
+
+<p>
+We say that the unperturbed hamiltonian \(H_0\) is a <em>uniformly convex</em> function if there exist \(\lambda &gt;0\) such that for all \(I\in \mathcal {I}\) and for all \((X_1, \ldots , X_n)\in \mathbb {R}^n\)
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{64}\)</span>
+
+<!--
+
+                                                                                                                X
+                                                                                                                n
+                                                                                                                  ∂ 2 H0 (I)                   X
+                                                                                                                                               n
+                                                                                                                                 Xi Xj ≥ λ           Xi2 .                                                                                               (5.65)
+                                                                                                               i,j=1
+                                                                                                                       ∂Ii ∂Ij                 i=1
+
+
+-->
+
+<p>
+
+\begin{equation}
+\left | \sum _{i,j=1}^n \frac {\partial ^2 H_0(I)}{\partial I_i \partial I_j} X_i X_j\right | \geq \lambda \sum _{i=1}^n X_i^2.
+\end{equation}
+
+</p>
+
+<p>
+Note that the assumption above implies that \(H_0\) is not convex, but the inverse implication is false.
+</p>
+
+<p>
+Finally, given a positive number \(\delta &gt;0\), we denote \(\mathcal {I}_\delta \subset \mathcal {I}\) the subset of points in \(\mathcal {I}\) that are contained in it alongside a ball of radius \(\delta \).
+</p>
+<div class="amsthmbodyplain">
+
+<ul style="list-style-type:none">
+
+
+
+<li>
+<p>
+<a id="hm-autopage-353"></a>
+<span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">5.6</span></span><span class="amsthmnoteplain"> (Nekhoroshev)</span>.                            Let \(H_\epsilon \) be an hamiltonian of the form
+<span class="textup">(<a href="chapter-5.html#eq:hamneko">5.64</a>)</span> with \(H_0\) uniformly convex. Then there exists positive numbers \(a,b,\alpha ,\beta ,\epsilon _0\in \mathbb {R}_+\) such that for any \(|\epsilon
+|&lt; \epsilon _0\) and for any solution \((\phi (t), I(t))\) of Hamilton’s equations
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{65}\)</span>
+
+<!--
+
+
+                                                                                                                ∂Hϵ             ∂Hϵ
+                                                                                                        ϕ̇k =       ,   I˙k = −     ,        k = 1, . . . , n,                                                                                      (5.66)
+                                                                                                                ∂Ik             ∂ϕk
+
+-->
+
+<p>
+
+
+\begin{equation}
+\dot \phi _k = \frac {\partial H_\epsilon }{\partial I_k}, \quad \dot I_k = - \frac {\partial H_\epsilon }{\partial \phi _k}, \quad k=1,\ldots ,n,
+\end{equation}
+
+
+</p>
+
+<p>
+it holds that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{66}\)</span>
+
+<!--
+
+
+
+                                                                                                                    |I(t) − I(0)| < α|ϵ|a                                                                                                           (5.67)
+
+-->
+
+<p>
+
+
+\begin{equation}
+|I(t)-I(0)| &lt; \alpha |\epsilon |^a
+\end{equation}
+
+
+</p>
+
+<p>
+for all initial conditions \((\phi (0), I(0))\) satisfying
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{67}\)</span>
+
+<!--
+
+
+
+                                                                                                                 I(0) ∈ Iδ       for   δ = α|ϵ|a                                                                                                    (5.68)
+
+-->
+
+<p>
+
+
+\begin{equation}
+I(0) \in \mathcal {I}_\delta \quad \mbox {for}\quad \delta = \alpha |\epsilon |^a
+\end{equation}
+
+
+</p>
+
+<p>
+and for all \(t\) such that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{68}\)</span>
+
+<!--
+
+                                                                                                                             r             b
+                                                                                                                                 ϵ0        ϵ0
+                                                                                                                   |t| ≤ β          exp        .                                                                                                    (5.69)
+                                                                                                                                  ϵ        ϵb
+
+-->
+
+<p>
+
+
+\begin{equation}
+|t| \leq \beta \sqrt {\frac {\epsilon _0}\epsilon } \exp \left (\frac {\epsilon ^b_0}{\epsilon ^b}\right ).
+\end{equation}
+
+
+</p>
+
+<p>
+
+
+</p>
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+This theorem does not exclude the chaotic motion of the variables \(I\), but guarantees that their variation remains small for extremely long times – which may for example surpass the lifetime of the physical system itself. In fact, one of the most
+important outcomes of Nekhoroshev is the long–term stability of various celestial systems. To cite a few, it helped understand motions observed in the asteroid belt and to show the stability of the motion of some restricted planetary problems (for
+example, the Sun-Jupiter-Saturn system or the planar Sun-Jupiter-Saturn-Uranus system), for which it implies that they remain close to an invariant torus of the system for times comparable to Solar System lifetime [<a
+href="index.html#??">Guz15</a>]. Indeed, one of the motivations behind Nekhoroshev idea is the analysis of the stability of the Trojan asteroids and the \(L_4, L_5\) Lagrange points of equilibiria.
+</p>
+
+<p>
+The KAM theorem can be considered the turning point in the study of deterministic chaos, a broad and lively topic that had huge impact also outside classical mechanics. Many of the ideas in these chapters are at the hearth of ideas in perturbation
+theory of operators and semi-classical mechanics. For an overview of the classical aspects of deterministic chaos, with an emphasis on the influence of KAM theory, you can refer to the beautiful paper [<a href="index.html#??">MR11</a>].
+</p>
+
+</section>
+
+</main>
+
+</div>
+
+
+<nav class="botnavigation"><a href="index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

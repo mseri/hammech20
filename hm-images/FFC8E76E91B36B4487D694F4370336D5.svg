@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="6.174" height="5.842" viewBox="0 0 6.174 5.842">
+<defs>
+<g>
+<g id="glyph-0-0">
+</g>
+<g id="glyph-0-1">
+<path d="M 4.828125 -2.71875 C 4.828125 -3.890625 3.875 -4.84375 2.71875 -4.84375 C 1.53125 -4.84375 0.609375 -3.875 0.609375 -2.71875 C 0.609375 -1.5625 1.578125 -0.609375 2.71875 -0.609375 C 3.90625 -0.609375 4.828125 -1.578125 4.828125 -2.71875 Z M 4.828125 -2.71875 "/>
+</g>
+</g>
+<clipPath id="clip-0">
+<path clip-rule="nonzero" d="M 0 0 L 5.761719 0 L 5.761719 5.761719 L 0 5.761719 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-1">
+<path clip-rule="nonzero" d="M 0 0 L 5 0 L 5 5.761719 L 0 5.761719 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-2">
+<rect x="0" y="0" width="6" height="6"/>
+</clipPath>
+<g id="source-11" clip-path="url(#clip-2)">
+<g clip-path="url(#clip-1)">
+<g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
+<use xlink:href="#glyph-0-1" x="-0.173" y="5.763"/>
+</g>
+</g>
+</g>
+</defs>
+<g clip-path="url(#clip-0)">
+<use xlink:href="#source-11"/>
+</g>
+</svg>

@@ -1,7 +1,0 @@
-# Default value of indentation
-defaultIndent: "  "
-
-# environments that have tab delimiters, add more
-# as needed
-lookForAlignDelims:
-    tabbing: 1

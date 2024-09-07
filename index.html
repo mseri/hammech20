@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for Hamiltonian Mechanics" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<title>Hamiltonian Mechanics</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+         load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+         ready() {
+             //      These would be replaced by import commands if you wanted to make
+             //      a proper extension.
+             const Configuration = MathJax._.input.tex.Configuration.Configuration;
+             const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+             const Macro = MathJax._.input.tex.Symbol.Macro;
+             const TexError = MathJax._.input.tex.TexError.default;
+             const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+             const expandable = MathJax._.util.Options.expandable;
+
+
+             //      Insert the replacement string into the TeX string, and check
+             //      that there haven't been too many maxro substitutions (prevents
+             //      infinite loops).
+             const useArgument = (parser, text) => {
+                 parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                 parser.i = 0;
+                 if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                     throw new TexError('MaxMacroSub1',
+                     'MathJax maximum macro substitution count exceeded; ' +
+                     'is there a recursive macro call?');
+                 }
+             }
+
+
+             //      Create the command map for:
+             //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \seteqnumber
+             new CommandMap('Lwarp-macros', {
+                 ifstar: 'IfstarFunction',
+                 ifnextchar: 'IfnextcharFunction',
+                 ifblank: 'IfblankFunction',
+                 ifstrequal: 'IfstrequalFunction',
+                 seteqnumber: 'SeteqnumberFunction'
+             }, {
+                 //      This function implements an ifstar macro.
+                 IfstarFunction(parser, name) {
+                     const resultstar = parser.GetArgument(name);
+                     const resultnostar = parser.GetArgument(name);
+                     const star = parser.GetStar();                        // true if there is a *
+                     useArgument(parser, star ? resultstar : resultnostar);
+                 },
+
+
+                 //      This function implements an ifnextchar macro.
+                 IfnextcharFunction(parser, name) {
+                     let whichchar = parser.GetArgument(name);
+                     if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                         // $ syntax highlighting
+                         whichchar = String.fromCodePoint(parseInt(whichchar));
+                     }
+                     const resultnextchar = parser.GetArgument(name);
+                     const resultnotnextchar = parser.GetArgument(name);
+                     const gotchar = (parser.GetNext() === whichchar);
+                     useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                 },
+
+
+                 // This function implements an ifblank macro.
+                 IfblankFunction(parser, name) {
+                     const blankarg = parser.GetArgument(name);
+                     const resultblank = parser.GetArgument(name);
+                     const resultnotblank = parser.GetArgument(name);
+                     const isblank = (blankarg.trim() == "");
+                     useArgument(parser, isblank ? resultblank : resultnotblank);
+                 },
+
+
+                 // This function implements an ifstrequal macro.
+                 IfstrequalFunction(parser, name) {
+                     const strequalfirst = parser.GetArgument(name);
+                     const strequalsecond = parser.GetArgument(name);
+                     const resultequal = parser.GetArgument(name);
+                     const resultnotequal = parser.GetArgument(name);
+                     const isequal = (strequalfirst == strequalsecond);
+                     useArgument(parser, isequal ? resultequal : resultnotequal);
+                 },
+
+
+                 //      This function modifies the equation numbers.
+                 SeteqnumberFunction(parser, name) {
+                         //   Get the macro parameters
+                         const star = parser.GetStar();                       // true if there is a *
+                         const optBrackets = parser.GetBrackets(name);        // contents of optional brackets
+                         const newsubequations = parser.GetArgument(name);       // the subequations argument
+                         const neweqsection = parser.GetArgument(name);       // the eq section argument
+                         const neweqnumber = parser.GetArgument(name);        // the eq number argument
+                         MathJax.config.subequations=newsubequations ;        // a string with boolean meaning
+                         MathJax.config.section=neweqsection ;                // a string with numeric meaning
+                         parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                 }
+
+
+             });
+
+
+             //      Create the Lwarp-macros package
+             Configuration.create('Lwarp-macros', {
+                 handler: {macro: ['Lwarp-macros']}
+             });
+
+
+             MathJax.startup.defaultReady();
+
+
+             // For forward references:
+             MathJax.startup.input[0].preFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         MathJax.config.subequations = math.inputData.recompile.subequations;
+                         MathJax.config.section = math.inputData.recompile.section;
+                 }
+             });
+             MathJax.startup.input[0].postFilters.add(({math}) => {
+                 if (math.inputData.recompile){
+                         math.inputData.recompile.subequations = MathJax.config.subequations;
+                         math.inputData.recompile.section = MathJax.config.section;
+                 }
+             });
+
+
+                 // For \left, \right with unicode-math:
+                 const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                 const {Symbol} = MathJax._.input.tex.Symbol;
+                 const {MapHandler} = MathJax._.input.tex.MapHandler;
+                 const delimiter = MapHandler.getMap('delimiter');
+                 delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                 delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                 delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                 delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                 delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                 delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                 delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                 delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                 delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                 delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                 delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                 delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                 delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                 delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                 delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                 delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                 delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                 delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                 delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                 delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                 delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                 delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                 delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                 delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                 delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                 delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                 delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                 delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                 delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                 delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                 delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                 delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                 delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                 delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                 delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                 delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                 delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                 delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                 delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+         }       // ready
+    },           // startup
+
+
+    tex: {
+         packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+         tags: "ams",
+                 tagformat: {
+                         number: function (n) {
+                              if(MathJax.config.subequations==0)
+                                     return(MathJax.config.section + n);
+                              else
+                                     return(MathJax.config.section + String.fromCharCode(96+n));
+                         },
+                 },
+    }
+}
+</script>
+
+
+<script
+         id="MathJax-script"
+         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+></script>
+
+</head>
+<body>
+
+
+<div class="bodywithoutsidetoc">
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<a id="hm-autofile-0"></a>
+
+<!--MathJax customizations:-->
+
+
+<div class="hidden">
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\toprule }[1][]{\hline }\)
+
+\(\let \midrule \toprule \)
+
+\(\let \bottomrule \toprule \)
+
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+
+\(\newcommand {\morecmidrules }{}\)
+
+\(\newcommand {\specialrule }[3]{\hline }\)
+
+\(\newcommand {\addlinespace }[1][]{}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {physics}\)
+
+\(\newcommand {\nicefrac }[3][]{\mathinner {{}^{#2}\!/\!_{#3}}}\)
+
+\(\newcommand {\unit }[2][]{#1 \mathinner {#2}}\)
+
+\(\newcommand {\unitfrac }[3][]{#1 \mathinner {{}^{#2}\!/\!_{#3}}}\)
+
+\(\newcommand {\tcbset }[1]{}\)
+
+\(\newcommand {\tcbsetforeverylayer }[1]{}\)
+
+\(\newcommand {\tcbox }[2][]{\boxed {\text {#2}}}\)
+
+\(\newcommand {\tcboxfit }[2][]{\boxed {#2}}\)
+
+\(\newcommand {\tcblower }{}\)
+
+\(\newcommand {\tcbline }{}\)
+
+\(\newcommand {\tcbtitle }{}\)
+
+\(\newcommand {\tcbsubtitle [2][]{\mathrm {#2}}}\)
+
+\(\newcommand {\tcboxmath }[2][]{\boxed {#2}}\)
+
+\(\newcommand {\tcbhighmath }[2][]{\boxed {#2}}\)
+
+\( \DeclareMathOperator {\D }{D} \DeclareMathOperator {\Id }{Id} \DeclareMathOperator {\diag }{diag} \DeclareMathOperator {\mod }{mod} \DeclareMathOperator {\Vol }{Vol} \)
+
+</div>
+
+<a id="hm-autopage-1"></a>
+<div class="titlepage">
+
+<h1>Hamiltonian Mechanics</h1>
+
+
+<div class="author">
+
+
+<div class="oneauthor">
+
+<p>
+Marcello Seri<br />
+Bernoulli Institute<br />
+University of Groningen<br />
+<a href="mailto:m.seri@rug.nl" target="_blank" >m.seri (at) rug.nl</a>
+</p>
+</div>
+
+</div>
+
+
+<div class="titledate">
+
+</div>
+
+</div>
+<div class="center">
+
+<p>
+Version 1.20 alpha<br />
+September 7, 2024
+</p>
+</div>
+<!--................................-->
+<h3 id="autosec-4">Contents</h3>
+<a id="hm-autopage-4"></a>
+
+
+
+<nav class="toc">
+<p>
+<a href="chapter-1.html#autosec-7" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Classical mechanics</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Newtonian mechanics of point particles</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-14" class="tocsubsection" >
+<span class="sectionnumber">1.1.1</span>&#x2003;From particles to systems of particles</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;Hamilton’s variational principle</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-28" class="tocsubsection" >
+<span class="sectionnumber">1.2.1</span>&#x2003;From Lagrange back to Newton</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-46" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;First steps with conserved quantities</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-47" class="tocsubsection" >
+<span class="sectionnumber">1.3.1</span>&#x2003;One degree of freedom</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-54" class="tocsubsection" >
+<span class="sectionnumber">1.3.2</span>&#x2003;Conservation of energy</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-59" class="tocsubsection" >
+<span class="sectionnumber">1.3.3</span>&#x2003;The phase portrait strikes back</a>
+</p>
+
+<p>
+<a href="chapter-1.html#autosec-71" class="tocsection" >
+<span class="sectionnumber">1.4</span>&#x2003;Euler-Lagrange equations on smooth manifolds</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-82" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Conservation Laws</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-83" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;Noether theorem</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-95" class="tocsubsection" >
+<span class="sectionnumber">2.1.1</span>&#x2003;Homogeneity of space: total momentum</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-99" class="tocsubsection" >
+<span class="sectionnumber">2.1.2</span>&#x2003;Isotropy of space: angular momentum</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-106" class="tocsubsection" >
+<span class="sectionnumber">2.1.3</span>&#x2003;Homogeneity of time: the energy</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-107" class="tocsubsection" >
+<span class="sectionnumber">2.1.4</span>&#x2003;Scale invariance: Kepler’s third law</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-113" class="tocsection" >
+<span class="sectionnumber">2.2</span>&#x2003;The spherical pendulum</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-116" class="tocsection" >
+<span class="sectionnumber">2.3</span>&#x2003;Intermezzo: small oscillations</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-121" class="tocsubsection" >
+<span class="sectionnumber">2.3.1</span>&#x2003;Decomposition into characteristic oscillations</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-123" class="tocsubsection" >
+<span class="sectionnumber">2.3.2</span>&#x2003;The double pendulum</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-124" class="tocsubsection" >
+<span class="sectionnumber">2.3.3</span>&#x2003;The linear triatomic molecule</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-125" class="tocsubsection" >
+<span class="sectionnumber">2.3.4</span>&#x2003;Zero modes</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-127" class="tocsection" >
+<span class="sectionnumber">2.4</span>&#x2003;Motion in a central potential</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-136" class="tocsubsection" >
+<span class="sectionnumber">2.4.1</span>&#x2003;Kepler’s problem</a>
+</p>
+
+<p>
+<a href="chapter-2.html#autosec-146" class="tocsection" >
+<span class="sectionnumber">2.5</span>&#x2003;D’Alembert principle and systems with constraints</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-161" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Hamiltonian mechanics</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-162" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;The Legendre Transform in the euclidean plane</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-164" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Intermezzo: cotangent bundle and differential forms</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-165" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;The Legendre Transform</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-186" class="tocsection" >
+<span class="sectionnumber">3.4</span>&#x2003;Poisson brackets and first integrals of motion</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-197" class="tocsubsection" >
+<span class="sectionnumber">3.4.1</span>&#x2003;The symplectic matrix</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-198" class="tocsubsection" >
+<span class="sectionnumber">3.4.2</span>&#x2003;A brief detour on time-dependent hamiltonians</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-199" class="tocsection" >
+<span class="sectionnumber">3.5</span>&#x2003;Variational principles of hamiltonian mechanics</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-212" class="tocsection" >
+<span class="sectionnumber">3.6</span>&#x2003;Canonical transformations</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-218" class="tocsubsection" >
+<span class="sectionnumber">3.6.1</span>&#x2003;Hamiltonian vector fields</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-226" class="tocsubsection" >
+<span class="sectionnumber">3.6.2</span>&#x2003;The hamiltonian Noether theorem</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-234" class="tocsection" >
+<span class="sectionnumber">3.7</span>&#x2003;The symplectic structure on the cotangent bundle</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-248" class="tocsubsection" >
+<span class="sectionnumber">3.7.1</span>&#x2003;Symplectomorphisms and generating functions</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-256" class="tocsubsection" >
+<span class="sectionnumber">3.7.2</span>&#x2003;Darboux Theorem</a>
+</p>
+
+<p>
+<a href="chapter-3.html#autosec-261" class="tocsubsection" >
+<span class="sectionnumber">3.7.3</span>&#x2003;Liouville theorem</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-269" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Integrable systems</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-270" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Lagrangian submanifolds</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-279" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Canonical transformations revisited</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-281" class="tocsubsection" >
+<span class="sectionnumber">4.2.1</span>&#x2003;The generating function \(S_1\)</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-286" class="tocsubsection" >
+<span class="sectionnumber">4.2.2</span>&#x2003;The generating functions \(S_2\) and \(S_3\)</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-291" class="tocsubsection" >
+<span class="sectionnumber">4.2.3</span>&#x2003;Infinitesimal canonical transformations</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-295" class="tocsubsection" >
+<span class="sectionnumber">4.2.4</span>&#x2003;Time-dependent hamiltonian systems</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-302" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Hamilton-Jacobi equations</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-305" class="tocsubsection" >
+<span class="sectionnumber">4.3.1</span>&#x2003;Separable hamiltonians</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-310" class="tocsubsection" >
+<span class="sectionnumber">4.3.2</span>&#x2003;A few exercises</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">4.4</span>&#x2003;The Liouville-Arnold theorem</a>
+</p>
+
+<p>
+<a href="chapter-4.html#autosec-327" class="tocsubsection" >
+<span class="sectionnumber">4.4.1</span>&#x2003;Action-angle variables</a>
+</p>
+
+<p>
+<a href="chapter-5.html#autosec-335" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Hamiltonian perturbation theory</a>
+</p>
+
+<p>
+<a href="chapter-5.html#autosec-336" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Small oscillations revisited</a>
+</p>
+
+<p>
+<a href="chapter-5.html#autosec-344" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Birkhoff normal forms</a>
+</p>
+
+<p>
+<a href="chapter-5.html#autosec-348" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;A brief look at KAM theory</a>
+</p>
+
+<p>
+<a href="chapter-5.html#autosec-352" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Nekhoroshev theorem</a>
+</p>
+
+<p>
+<a href="chapter-6.html#autosec-355" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Conclusion</a>
+</p>
+
+<p>
+<a href="chapter-6.html#autosec-355" class="tocchapter" >
+Bibliography</a>
+</p>
+
+<p>
+<a href="index.html#autosec-356" class="tocchapter" >
+Index</a>
+</p>
+
+</nav>
+<!--................................-->
+<h3 id="autosec-5">Preface</h3>
+<a id="hm-autopage-5"></a>
+
+
+<a id="autoid-1" ></a >
+
+<p>
+<span
+    class="fcolorbox"
+    style="border:1pt solid #000000 ; padding:3pt ; background:#FF8000"
+>1</span> <span role="note" class="marginpar">1: <span
+    class="fcolorbox"
+    style="border:1pt solid #000000 ; padding:3pt ; background:#FF8000"
+>Rewrite</span></span>
+</p>
+
+<p>
+The literature on classical (or analytical, as it was called by Lagrange) mechanics is full of good material. Different sources present the topic from different perspectives and with different points of view, and may suite different people differently. In
+these lecture notes I am iterating on my perspective. The approach I am taking has been heavily influenced by [<a href="index.html#??">Arn89</a>; <a href="index.html#??">Kna18</a>; <a href="index.html#??">Dub10</a>; <a
+href="index.html#??">Low12</a>; <a href="index.html#??">MR99</a>; <a href="index.html#??">Ton05</a>; <a href="index.html#??">Lan+76</a>].
+</p>
+
+<p>
+The book [<a href="index.html#??">Kna18</a>] will be a good extra reference for the course. In addition to being a good introduction to many topics in classical mechanics that we will not have time to discuss during the lectures, it covers almost
+all the material that we will treat in chapters 1, 6, 8, 10, 11, 13, 15. Furthermore, the book can be freely and legally accessed via the University proxy using the <a href="https://link.springer.com/book/10.1007%2F978-3-662-55774-7"
+target="_blank" >SpringerLink</a> service.
+</p>
+
+<p>
+I had lots of fun reading [<a href="index.html#??">Sch19</a>], if none of the references above satisfies you, consider having a look at that. And for an unusual approach to the topic, centered around the idea that everything should be explicit
+enough to be directly computable by a computer, you can have a look at the marvellous [<a href="index.html#??">SW15</a>]. Finally, a good and enjoyable classical reference is [<a href="index.html#??">GPS13</a>].
+</p>
+
+<p>
+These notes are not (yet?) exhaustive. They will be updated throughout the course, and it will likely take a few years of course iterations before they fully stabilize. Some topics, examples and exercises discussed in class will not be in these notes, but
+may appear as examples, exercises or problems in the literature presented above or on the material posted in the course webpage.
+</p>
+
+<p>
+Throughout the course, we will discuss the main ideas in Newtonian, Lagrangian and Hamiltonian mechanics and the relations between them. This will include symmetries and elementary phase space reduction, normal modes and small oscillations.
+We will then move to study action–angle coordinates and integrability, and finally we will discuss elementary perturbation theory. On the latter, we will only briefly discuss resonances and mostly focus on the meaning of the
+Kolmogorov-Arnold-Moser theorem and the Nekhoroshev theorem.
+</p>
+
+<p>
+Topics that I intend to add over time include: contact mechanics, non-holonomic mechanics, sub-riemannian geometry, numerical methods, rigid bodies, mathematical billiards, integrability via Lax pairs... I don’t know if this is just whishful thinking
+or if it will happen at some point, but I welcome any contribution in these directions.
+</p>
+
+<p>
+A number of extra references covering some of the topics mentioned above is <a href="https://www.mseri.me/links-from-hm/" target="_blank" >collected on my blog</a>. I will make sure to keep the post updated and the links working.
+</p>
+
+<p>
+Please don’t be afraid to send me comments to improve the course or the text and to fix the many typos that will surely be in this first draft. They will be very appreciated.
+</p>
+
+<p>
+I am extremely grateful to Nithesh Balasubramanian, Senan Bird, Riccardo Bonetto, Josephine van Driel, Ramsay Duff, Mollie Jagoe-Brown, Jesse Mulder, Dijs de Neeling, Anouk Pelzer, Iisekki Rotko, Danique de Ruiter, Robbert Scholtens, Felix
+Semler, Albert Šilvans, Marit van Straaten and Jermain Wallé for their careful reading of the notes and their useful comments and corrections.
+</p>
+
+<p>
+Last but not least, I owe a huge debt of gratitude to <a href="https://crojasmolina.com" target="_blank" >Constanza Rojas-Molina</a>, who kindly allowed me to use some of her beautiful artworks in these notes.
+</p>
+
+</section>
+
+</main>
+
+</div>
+
+</body>
+</html>
