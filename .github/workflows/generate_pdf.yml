@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   create_draft_release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     outputs:
       id: ${{ steps.create_draft_release.outputs.id }}
@@ -43,7 +43,7 @@ jobs:
       - name: prepare env
         run: |
           sudo apt update
-          sudo apt install fonts-opendyslexic fonts-texgyre texlive-bibtex-extra texlive-luatex texlive-latex-recommended texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-science poppler-utils
+          sudo apt install fonts-opendyslexic fonts-texgyre texlive-bibtex-extra texlive-luatex texlive-xelatex texlive-latex-recommended texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-science poppler-utils
           sudo rm -rf /usr/share/fonts/woff/opendyslexic
           sudo fc-cache
 
@@ -52,11 +52,11 @@ jobs:
 
       - name: compile
         run: |
-          lualatex -interaction=nonstopmode hm.tex || true
+          xelatex -interaction=nonstopmode hm.tex || true
           bibtex hm
           makeindex hm
-          lualatex -interaction=nonstopmode hm.tex || true
-          lualatex -interaction=nonstopmode hm.tex
+          xelatex -interaction=nonstopmode hm.tex || true
+          xelatex -interaction=nonstopmode hm.tex
 
       - name: rename tg
         run: |
@@ -76,11 +76,11 @@ jobs:
 
       - name: compile again
         run: |
-          lualatex -interaction=nonstopmode hm.tex || true
+          xelatex -interaction=nonstopmode hm.tex || true
           bibtex hm
           makeindex hm
-          lualatex -interaction=nonstopmode hm.tex || true
-          lualatex -interaction=nonstopmode hm.tex
+          xelatex -interaction=nonstopmode hm.tex || true
+          xelatex -interaction=nonstopmode hm.tex
 
       - name: rename od
         run: mv hm.pdf assets/hm-od.pdf
