@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   create_draft_release:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-20.04
 
     outputs:
       id: ${{ steps.create_draft_release.outputs.id }}
