@@ -120,6 +120,13 @@ jobs:
           mkdir public
           mv hm-images/ images/ chapter*.html index.html *.css public/
 
+      - name: Print Folder Tree
+        uses: jaywcjlove/github-action-folder-tree@main
+        with:
+          exclude: ".git"
+          path: ./
+          depth: 3
+
       - name: deploy release
         if: ${{ success() && startsWith(github.ref, 'refs/tags/') }}
         uses: peaceiris/actions-gh-pages@v3
