@@ -77,6 +77,7 @@ makeindex
 \let\forlistloop\etoolboxforlistloop
 
 \begin{warpprint}
+  \usepackage{picins}
   %\usepackage[numbers, sort]{natbib}
   %\setlength{\bibsep}{3pt}
   %\renewcommand{\bibfont}{\small}
@@ -860,12 +861,12 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{remark}
       Often in physics, the kinetic energy is instead defined as \emph{the work required to bring the mass from rest to some speed~$\dot{\vb{x}}$}.
       One can then perform the computation above backwards
-      \begin{equation}
+      \begin{align}
         \int_{x_0}^{x^1} \left\langle\vb*{F}(\vb*{x}), \dd{\vb*{x}}\right\rangle
-        = \int_{t_0}^{t_1} \left\langle\dot{\vb*{x}}(t), \vb*{F}(\vb*{x}(t))\right\rangle\; \dd t
-        = \int_{t_0}^{t_1} m \langle\dot{\vb*{x}}(t), \ddot{\vb*{x}}(t)\rangle\; \dd t
+        &= \int_{t_0}^{t_1} \left\langle\dot{\vb*{x}}(t), \vb*{F}(\vb*{x}(t))\right\rangle\; \dd t \\
+        &= \int_{t_0}^{t_1} m \langle\dot{\vb*{x}}(t), \ddot{\vb*{x}}(t)\rangle\; \dd t
         = \int_{t_0}^{t_1} \dv{t} \frac{m}{2} \langle\dot{\vb*{x}}(t), \dot{\vb*{x}}(t)\rangle \; \dd t,
-      \end{equation},
+      \end{align},
       leading to the definition of kinetic energy as $T = \frac{m}{2} \|\dot{\vb{x}}\|^2$.
     \end{remark}
 
@@ -1239,9 +1240,8 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \begin{example}[Double pendulum]\label{ex:2pendulum}
       A double pendulum consists of two point particles of masses $m_1$ and $m_2$, connected by massless rods of lengths $l_1$ and $l_2$. The first pendulum is attached to the ceiling by a fixed pivot while the second one is attached to the point particle of the first pendulum.
       \warpprintonly{
-      \InsertBoxR{0}{
-        \includegraphics[width=0.3\textwidth]{images/HM-1-12.pdf}
-      }%
+      \parpic[r]{\includegraphics[width=0.3\textwidth]{images/HM-1-12.pdf}}
+      %
       }
       \warpHTMLonly{
       \begin{figure}[htbp]
@@ -1320,7 +1320,7 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
 
       \begin{figure}[ht]
         \centering
-        \includegraphics[width=.75\linewidth,trim={0 50pt 0 50pt},clip]{images/lissajous.pdf}
+        \includegraphics[width=.75\linewidth]{images/lissajous.pdf}
         \caption{Some casually selected Lissajous figures. The top right example (in orange) and the one in the center at the bottom (in purple) are degenerate closed curves squeezed to a line.}
         \label{img:lissajous}
       \end{figure}
@@ -1448,11 +1448,11 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     Mapping $\frac{\partial}{\partial q^i}$ to the $i$-th Euclidean basis versor $e_i$ of $\mathbb{R}^n$ allows you to consider tangent vectors in coordinates as genuine euclidean vectors applied at a specific point $q$.
 
     The most immediate way to compute the components $\dot q^i$ is by using the definition of tangent vectors as class of equivalence of tangents to curves \cite[Chapter 2.5]{lectures:aom:seri}.
-    Let $\gamma:\mathbb{R} \to M$ be a curve such that $\gamma(0) = q$ and $\dv{\gamma}{t}|_{t=0} = v$, then $\dot q^i = \dv{}{t}(q^i\circ\gamma)|_{t=0}$ is given by the $i$th component of $\dv{}{t}(\phi\circ\gamma)|_{t=0}$.
+    Let $\gamma:\mathbb{R} \to M$ be a curve such that $\gamma(0) = q$ and $\dv{\gamma}{t}|_{t=0} = v$, then $\dot q^i = \dv{}{t}\/(q^i\circ\gamma)|_{t=0}$ is given by the $i$th component of $\dv{}{t}\/(\phi\circ\gamma)|_{t=0}$.
 
     The notation used for the basis versors of the tangent space in coordinates is not casual: in differential geometry tangent vectors are also \emph{derivations}. If $f\in C^\infty(M)$, the space of smooth functions from $M$ to $\mathbb{R}$, one can compute that for any tangent vector $v\in T_qM$,
     \begin{equation}
-      v(f)=\dv{}{t}(f\circ\gamma)\big|_{t=0}, \qquad \gamma(0) = q, \; \dot \gamma(0) = v.
+      v(f)=\dv{}{t}\/(f\circ\gamma) \big|_{t=0}, \qquad \gamma(0) = q, \; \dot \gamma(0) = v.
     \end{equation}
     In local coordinates this corresponds to computing the directional derivative of $f$ in the direction of $v$ at the point $q$: i.e. $v(f)$ can be identified with $\langle Df(q),v\rangle$.
 
