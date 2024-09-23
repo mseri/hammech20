@@ -1387,11 +1387,12 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
     \end{equation}
     where the non-boldface coordinates $\vb*{x} = (\vb*{x}_1, \ldots, \vb*{x}_N) =: (x_1, \ldots, x_{3N})$ stand for the coordinates of the $N$ points as a unique vector in $\mathbb{R}^{3N}$ and, again, we used Einstein summation convention.
 
-    If, for example, we consider a free one-particle lagrangian in cartesian coordinates $\vb*{x} = (x,y,z)$,
+    Consider, for example, a free one-particle lagrangian in cartesian coordinates $\vb*{x} = (x,y,z)$,
     \begin{equation}
-      L = \frac 12 (\dot x^2 + \dot y^2 + \dot z^2),
+      L = \frac 12 (\dot x^2 + \dot y^2 + \dot z^2).
     \end{equation}
-    in cylindrical coordinates $(r,\phi,z)$ it would read
+    You have likely seen in previous courses that in
+    cylindrical coordinates $(r,\phi,z)$ it would read
     \begin{equation}
       L = \frac 12 (\dot r^2 + r^2 \dot \phi^2 + \dot z^2),
     \end{equation}
@@ -1400,14 +1401,21 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       L = \frac 12 (\dot r^2 + r^2 \dot \theta^2 + r^2 \sin^2(\theta) \dot \phi^2).
     \end{equation}
 
-    The term $g_{kl} (q)$ should also ring a bell in the context of this example: the arc length $s$ of a parametrized curve $q(t) : [t_1,t_2] \to \mathbb{R}^3$, is computed as
+    In the example above, the metric in cartesian coordinates is given via the identity matrix, so $g_{kl}=\delta_{kl}$, while the cylindrical coordinates are $x(r, \phi, z) = r\cos\phi$, $y(r, \phi, z) = r\sin\phi$ and $z(r, \phi, z) = z$. You can use this not just to compute the langrangian in different coordinates, but also to read off the corresponding matrix elements $g_{kl}$ in the new coordinates.
+
+    The appearance of the $g_{kl}(q)$ term at the beginning of this section will probably ring a bell if you studied some riemannian geometry or general relativity.
+    Without going into the details of the theory, let's summarize some of the most important elements.
+    The so called \emph{arc-length} $s$ of a parametrized curve $q(t) : [t_1,t_2] \to \mathbb{R}^3$, is computed as
     \begin{equation}\label{eq:arclen}
       \begin{aligned}
         s = \int_{t_1}^{t_2} \sqrt{\dd s^2} = \int_{t_1}^{t_2} \sqrt{g_{kl}(q)\dot q^k \dot q^l} \;\dd t,\quad
         g_{kl} (q) = \left\langle\frac{\partial\vb*{x}}{\partial q^k}, \frac{\partial \vb*{x}}{\partial q^l}\right\rangle.
       \end{aligned}
     \end{equation}
-    The strange looking object $\dd s^2$, called line element or first fundamental form, is just a short-hand notation for the $g$-dependent scalar product of generalized velocities that we obtained above\footnote{If you interpret $\dd q^k \dd q^l := \dd q^k \otimes \dd q^l$ as the tensor product of the two one-forms, then this is just the metric tensor $g$.}: $\dd s^2 = g_{kl}(q)\, \dd q^k \dd q^l$.
+    The strange looking object $\dd s^2$, called \emph{line element} or \emph{first fundamental form}, is just a short-hand notation for the $g$-dependent scalar product of generalized velocities that we obtained above\footnote{If you interpret $\dd q^k \dd q^l := \dd q^k \otimes \dd q^l$ as the tensor product of the two one-forms, then this is just the metric tensor $g$ in coordinates.}:
+    \begin{equation}
+      \dd s^2 = g_{kl}(q)\, \dd q^k \dd q^l.
+    \end{equation}
     For example, in cartesian coordinates, we have
     \begin{equation}
       \dd s^2 = \dd x^2 + \dd y^2 + \dd z^2,
