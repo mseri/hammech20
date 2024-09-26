@@ -3583,45 +3583,45 @@ This principle, introduced by Hamilton in 1834, suggests that a mechanical syste
       \dot x = J \frac{\partial H}{\partial x}.
     \end{equation}
 
-    \subsection{A brief detour on time-dependent hamiltonians}\label{sec:timedepH}
-    \textcolor{red}{TODO: Imprecise and partially incorrect, rewrite}
+   % \subsection{A brief detour on time-dependent hamiltonians}\label{sec:timedepH}
+   % \textcolor{red}{TODO: Imprecise and partially incorrect, rewrite}
 
-    Let $L=L(q,\dot q,t): TM\times\mathbb{R}\to\mathbb{R}$, $q=(q^1,\ldots,q^n)\in M$, be the time-dependent lagrangian of some mechanical system as in Exercise~\ref{exe:timedep}.
+   % Let $L=L(q,\dot q,t): TM\times\mathbb{R}\to\mathbb{R}$, $q=(q^1,\ldots,q^n)\in M$, be the time-dependent lagrangian of some mechanical system as in Exercise~\ref{exe:timedep}.
 
-    Also in this case we can arrive to canonical equations of the form \eqref{eq:Hamsys}, however these will be on the extended space $T^*M\times\mathbb{R}^2$. The local coordinates $(q^1,\ldots,q^n, p_1, \ldots,p_n, q^{n+1}, p_{n+1})$ on $T^*M\times\mathbb{R}^2$ are such that $q^i, p_i$ remain the same for $i\leq n$,
-    \begin{equation}
-      q^{n+1} = t, \quad\mbox{and}\quad
-      p_{n+1} = E,
-    \end{equation}
-    where $E$ is a new independent variable, and the new hamiltonian is
-    \begin{align}
-      \hat H & = H(q^1, \ldots, q^n, p_1, \ldots, p_n, t) - p_{n+1}\dot q^{n+1} \\
-             & = H(q^1, \ldots, q^n, p_1, \ldots, p_n, t) - E.
-    \end{align}
-    Here, $H$ is given by the usual formula
-    \begin{equation}
-      H = \sum_{i=1}^n p_i \dot q^i - L(q, \dot q, t), \quad \dot q^i = \dot q^i(q,p,t).
-    \end{equation}
+   % Also in this case we can arrive to canonical equations of the form \eqref{eq:Hamsys}, however these will be on the extended space $T^*M\times\mathbb{R}^2$. The local coordinates $(q^1,\ldots,q^n, p_1, \ldots,p_n, q^{n+1}, p_{n+1})$ on $T^*M\times\mathbb{R}^2$ are such that $q^i, p_i$ remain the same for $i\leq n$,
+   % \begin{equation}
+   %   q^{n+1} = t, \quad\mbox{and}\quad
+   %   p_{n+1} = E,
+   % \end{equation}
+   % where $E$ is a new independent variable, and the new hamiltonian is
+   % \begin{align}
+   %   \hat H & = H(q^1, \ldots, q^n, p_1, \ldots, p_n, t) - p_{n+1}\dot q^{n+1} \\
+   %          & = H(q^1, \ldots, q^n, p_1, \ldots, p_n, t) - E.
+   % \end{align}
+   % Here, $H$ is given by the usual formula
+   % \begin{equation}
+   %   H = \sum_{i=1}^n p_i \dot q^i - L(q, \dot q, t), \quad \dot q^i = \dot q^i(q,p,t).
+   % \end{equation}
 
-    The corresponding hamiltonian system is
-    \begin{align}
-   & \dot q^i = \frac{\partial \hat H}{\partial p_i}, \quad
-   \dot p_i = -\frac{\partial \hat H}{\partial q^i}, \quad
-   i=1,\ldots,n                                                                                              \\
-   & \dot t = \frac{\partial \hat H}{\partial E} = 1, \quad {\dot E} = -\frac{\partial \hat H}{\partial t}.
-    \end{align}
-    The first $2n$ equations above are equivalent to the Euler-Lagrange equations for $L$, the equation for $q^{n+1} = t$ tells us that $t$ is the same as in the original lagrangian and the final equation is simply the variation of the energy
-    \begin{equation}
-      \dot E = \frac{\partial H}{\partial t}.
-    \end{equation}
+   % The corresponding hamiltonian system is
+   % \begin{align}
+   %& \dot q^i = \frac{\partial \hat H}{\partial p_i}, \quad
+   %\dot p_i = -\frac{\partial \hat H}{\partial q^i}, \quad
+   %i=1,\ldots,n                                                                                              \\
+   %& \dot t = \frac{\partial \hat H}{\partial E} = 1, \quad {\dot E} = -\frac{\partial \hat H}{\partial t}.
+   % \end{align}
+   % The first $2n$ equations above are equivalent to the Euler-Lagrange equations for $L$, the equation for $q^{n+1} = t$ tells us that $t$ is the same as in the original lagrangian and the final equation is simply the variation of the energy
+   % \begin{equation}
+   %   \dot E = \frac{\partial H}{\partial t}.
+   % \end{equation}
 
-    If we restrict ourselves to the zero levelset $\hat H = H - E = 0$, then the hamiltonian system is equivalent to the Euler-Lagrange equations for $L$ and the equation
-    \begin{equation}
-      E = \sum_{i=1}^n p_i \dot q^i - L(q, \dot q, t),
-    \end{equation}
-    which completes the recovering of the original dynamics.
+   % If we restrict ourselves to the zero levelset $\hat H = H - E = 0$, then the hamiltonian system is equivalent to the Euler-Lagrange equations for $L$ and the equation
+   % \begin{equation}
+   %   E = \sum_{i=1}^n p_i \dot q^i - L(q, \dot q, t),
+   % \end{equation}
+   % which completes the recovering of the original dynamics.
 
-    The duality between time and energy and the reason they enter in this picture with a negative sign becomes clearer once one looks at variational principles from the hamiltonian point of view, coming up in the next section.
+   % The duality between time and energy and the reason they enter in this picture with a negative sign becomes clearer once one looks at variational principles from the hamiltonian point of view, coming up in the next section.
 
     \section{Variational principles of hamiltonian mechanics}
 
