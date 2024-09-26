@@ -3238,33 +3238,37 @@ unique up to an additive constant, such that \(\vb *{F} = -\frac {\partial U}{\p
 <li>
 <p>
 <a id="hm-autopage-43"></a>
-<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">1.9</span></span>.                                         Often in physics, the kinetic energy is instead defined as <em>the work required to bring the mass from
+<span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">1.9</span></span>.                                      Often in physics, the kinetic energy is instead defined as <em>the work required to bring the mass from
 rest to some speed&nbsp;\(\dot {\vb {x}}\)</em>. One can then perform the computation above backwards
 </p>
-
 <span class="hidden"> \(\seteqnumber{0}{1.}{66}\)</span>
+
+
 
 <!--
 
-                                                                                Z x1                   Z t1                            Z t1                          Z t1
-                                                                                                                                                                            d m
-                                                                                       hF (x), dxi =          hẋ(t), F (x(t))i dt =          mhẋ(t), ẍ(t)i dt =               hẋ(t), ẋ(t)i dt,                                                                    (1.67)
-                                                                                 x0                     t0                              t0                            t0    dt 2
+
+                                                                                             Z x1                   Z t1
+                                                                                                    hF (x), dxi =          hẋ(t), F (x(t))i dt                                                                                                                     (1.67)
+                                                                                              x0                     t0
+                                                                                                                    Z t1                          Z t1
+                                                                                                                                                         d m
+                                                                                                               =           mhẋ(t), ẍ(t)i dt =               hẋ(t), ẋ(t)i dt,                                                                                    (1.68)
+                                                                                                                     t0                            t0    dt 2
+
+
 
 -->
 
+
+
 <p>
 
 
-\begin{equation}
-\int _{x_0}^{x^1} \left \langle \vb *{F}(\vb *{x}), \dd {\vb *{x}}\right \rangle = \int _{t_0}^{t_1} \left \langle \dot {\vb *{x}}(t), \vb *{F}(\vb *{x}(t))\right \rangle \; \dd t = \int _{t_0}^{t_1} m \langle \dot
-{\vb *{x}}(t), \ddot {\vb *{x}}(t)\rangle \; \dd t = \int _{t_0}^{t_1} \dv {t} \frac {m}{2} \langle \dot {\vb *{x}}(t), \dot {\vb *{x}}(t)\rangle \; \dd t,
-\end{equation}
-
-
-</p>
-
-<p>
+\begin{align}
+\int _{x_0}^{x^1} \left \langle \vb *{F}(\vb *{x}), \dd {\vb *{x}}\right \rangle &amp;= \int _{t_0}^{t_1} \left \langle \dot {\vb *{x}}(t), \vb *{F}(\vb *{x}(t))\right \rangle \; \dd t \\ &amp;= \int _{t_0}^{t_1} m
+\langle \dot {\vb *{x}}(t), \ddot {\vb *{x}}(t)\rangle \; \dd t = \int _{t_0}^{t_1} \dv {t} \frac {m}{2} \langle \dot {\vb *{x}}(t), \dot {\vb *{x}}(t)\rangle \; \dd t,
+\end{align}
 , leading to the definition of kinetic energy as \(T = \frac {m}{2} \|\dot {\vb {x}}\|^2\).
 </p>
 
@@ -3296,17 +3300,17 @@ systems affected by an external magnetic field \(\vb * B\) can be described in t
 href="chapter-1.html#eq:mechlag">1.59</a>)</span>:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{67}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{68}\)</span>
 
 <!--
 
 
-                                                                                  X
-                                                                                  N
-                                                                       e =L+ e
-                                                                       L                hA(xk ), ẋk i.                                                                   (1.68)                                        --><a id="eq:magLag"></a><!--
-                                                                             c
-                                                                                  k=1
+                                                                        X
+                                                                        N
+                                                              e =L+ e
+                                                              L               hA(xk ), ẋk i.                                                   (1.69)                                                                  --><a id="eq:magLag"></a><!--
+                                                                    c
+                                                                        k=1
 
 
 -->
@@ -3326,7 +3330,7 @@ Here the constant \(e\) is the electric charge of the point particles and \(c\) 
 </p>
 
 <p>
-We will not see this in the course, but magnetic phenomenons have a natural description only in the relativistic approach. We see a hint of this fact here, in that <span class="textup">(<a href="chapter-1.html#eq:magLag">1.68</a>)</span> is
+We will not see this in the course, but magnetic phenomenons have a natural description only in the relativistic approach. We see a hint of this fact here, in that <span class="textup">(<a href="chapter-1.html#eq:magLag">1.69</a>)</span> is
 not invariant with respect to the galilean transformations.
 </p>
 <div class="amsthmbodydefinition">
@@ -3339,16 +3343,16 @@ not invariant with respect to the galilean transformations.
 <p>
 <a id="hm-autopage-45"></a>
 <span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">1.2</span></span>.                    <a id="exe:magnetic"></a> Show that the equations of motion <span class="textup">(<a
-href="chapter-1.html#eq:newton2">1.60</a>)</span> corresponding to a magnetic lagrangian <span class="textup">(<a href="chapter-1.html#eq:magLag">1.68</a>)</span> are given by
+href="chapter-1.html#eq:newton2">1.60</a>)</span> corresponding to a magnetic lagrangian <span class="textup">(<a href="chapter-1.html#eq:magLag">1.69</a>)</span> are given by
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{68}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{69}\)</span>
 
 <!--
 
 
                                                                                                                                e
-                                                                                                                 mk ẍk = F k + ẋk × B(xk )                                                                                                 (1.69)
+                                                                                                                 mk ẍk = F k + ẋk × B(xk )                                                                                                 (1.70)
                                                                                                                                c
 
 -->
@@ -3394,13 +3398,13 @@ For a beautiful geometric discussion of this problem, you can refer to [<a href=
 Note that the magnetic vector potential is not unique! For any function \(f\), the transformation
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{69}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{70}\)</span>
 
 <!--
 
 
                                                                                                                                     ∂f
-                                                                                                                         A 7→ A +                                                                                                            (1.70)
+                                                                                                                         A 7→ A +                                                                                                            (1.71)
                                                                                                                                     ∂x
 
 -->
@@ -3419,14 +3423,14 @@ Note that the magnetic vector potential is not unique! For any function \(f\), t
 will produce the same field. This is known as <a id="LWRindex-57"></a><em>gauge transformation</em>. Under this transformation the lagrangian is transformed as
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{70}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{71}\)</span>
 
 <!--
 
 
 
                                                                                                                         L    e + e df
-                                                                                                                        e 7→ L                                                                                                               (1.71)
+                                                                                                                        e 7→ L                                                                                                               (1.72)
                                                                                                                                  c dt
 
 -->
@@ -3464,12 +3468,12 @@ but we know that the equations of motion remain invariant under the addition of 
 Consider the one dimensional Newton’s equation for a point particle with unit mass and position \(x(t)\):
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{71}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{72}\)</span>
 
 <!--
 
 
-                                                                 ẍ = F (x),         F : R → R,   t ∈ R.                                                    (1.72)                                      --><a id="eq:oscillator"></a><!--
+                                                     ẍ = F (x),        F : R → R,   t ∈ R.                                                       (1.73)                                                --><a id="eq:oscillator"></a><!--
 
 -->
 
@@ -3482,17 +3486,17 @@ Consider the one dimensional Newton’s equation for a point particle with unit 
 </p>
 
 <p>
-Introducing the auxiliary variable \(y(t) = \dot x(t)\), <span class="textup">(<a href="chapter-1.html#eq:oscillator">1.72</a>)</span> is equivalent to the system of first order equations
+Introducing the auxiliary variable \(y(t) = \dot x(t)\), <span class="textup">(<a href="chapter-1.html#eq:oscillator">1.73</a>)</span> is equivalent to the system of first order equations
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{72}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{73}\)</span>
 
 <!--
 
-                                                                       (
-                                                                           ẋ = y
-                                                                                        .                                                         (1.73)                                      --><a id="eq:oscillatorfirstorder"></a><!--
-                                                                           ẏ = F (x)
+                                                          (
+                                                              ẋ = y
+                                                                           .                                                           (1.74)                                                 --><a id="eq:oscillatorfirstorder"></a><!--
+                                                              ẏ = F (x)
 
 -->
 
@@ -3505,7 +3509,7 @@ Introducing the auxiliary variable \(y(t) = \dot x(t)\), <span class="textup">(<
 </p>
 
 <p>
-The solutions of <span class="textup">(<a href="chapter-1.html#eq:oscillatorfirstorder">1.73</a>)</span> are parametric curves \((x(t),y(t)):\mathbb {R}\to \mathbb {R}^2\) in the \((x,y)\)-space. These curves are often called <a
+The solutions of <span class="textup">(<a href="chapter-1.html#eq:oscillatorfirstorder">1.74</a>)</span> are parametric curves \((x(t),y(t)):\mathbb {R}\to \mathbb {R}^2\) in the \((x,y)\)-space. These curves are often called <a
 id="LWRindex-58"></a><em>trajectories</em> of the system or <em>integral curves</em> of the ordinary differential equation.
 </p>
 
@@ -3513,13 +3517,13 @@ id="LWRindex-58"></a><em>trajectories</em> of the system or <em>integral curves<
 If \(y\neq 0\), we can apply the chain rule, \(\dv {y}{t} = \dv {y}{x} \dv {x}{t}\), to get
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{73}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{74}\)</span>
 
 <!--
 
-                                                                                    F (x)  ẏ dy
-                                                                                          = =    .                                                                   (1.74)                                     --><a id="eq:lef"></a><!--
-                                                                                      y    ẋ dx
+                                                                       F (x)  ẏ dy
+                                                                             = =    .                                                                      (1.75)                                               --><a id="eq:lef"></a><!--
+                                                                         y    ẋ dx
 
 -->
 
@@ -3532,14 +3536,14 @@ If \(y\neq 0\), we can apply the chain rule, \(\dv {y}{t} = \dv {y}{x} \dv {x}{t
 </p>
 
 <p>
-What is important here, is that this new equation does not depend on time. Although eliminating time and considering <span class="textup">(<a href="chapter-1.html#eq:lef">1.74</a>)</span> comes at a cost – the solution is now an implicit
+What is important here, is that this new equation does not depend on time. Although eliminating time and considering <span class="textup">(<a href="chapter-1.html#eq:lef">1.75</a>)</span> comes at a cost – the solution is now an implicit
 curve \(y(x)\) – it also presents a substantial benefit: this new equation can be solved exactly!
 </p>
 
 <p>
 How is that so? After a bit of algebra and integrating both sides with respect to \(x\), we can rewrite this as
 </p>
-<span class="hidden"> \(\seteqnumber{0}{1.}{74}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{75}\)</span>
 
 
 <!--
@@ -3550,7 +3554,7 @@ How is that so? After a bit of algebra and integrating both sides with respect t
                                                                                                                    y    dx − F (x) dx
                                                                                                                      dx
                                                                                                                    Z        Z
-                                                                                                                  = y dy − F (x) dx = 0                               (1.75)                         --><a id="eq:pp-notime-int"></a><!--
+                                                                                                                  = y dy − F (x) dx = 0                              (1.76)                          --><a id="eq:pp-notime-int"></a><!--
 
 
 
@@ -3565,13 +3569,13 @@ How is that so? After a bit of algebra and integrating both sides with respect t
 Integrating the integral on the left, we get
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{75}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{76}\)</span>
 
 <!--
 
                                                                                                                                    Z
                                                                                                                       1 2
-                                                                                                                        y + Cy =       F (x)dx.                                                                                        (1.76)
+                                                                                                                        y + Cy =       F (x)dx.                                                                                        (1.77)
                                                                                                                       2
 
 -->
@@ -3593,16 +3597,16 @@ Integrating the integral on the left, we get
 <p>
 <a id="hm-autopage-48"></a>
 <span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">1.10</span></span>.                   This identity in <span class="textup">(<a
-href="chapter-1.html#eq:pp-notime-int">1.75</a>)</span> is often expressed as
+href="chapter-1.html#eq:pp-notime-int">1.76</a>)</span> is often expressed as
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{76}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{77}\)</span>
 
 <!--
 
 
 
-                                                                                                                y dy − F (x) dx = 0.                                                                                                            (1.77)
+                                                                                                                y dy − F (x) dx = 0.                                                                                                            (1.78)
 
 -->
 
@@ -3631,12 +3635,12 @@ textbook on differential forms. For simplicity, we will limit ourselves to the f
 If \(U(x)\) is such that \(F(x) = -\dv {U}{x}\), we can further simplify the equation into
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{77}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{78}\)</span>
 
 <!--
 
                                                                                   1 2
-                                                                                    y = −U (x) + C,                                                                            (1.78)                          --><a id="eq:pp-energy"></a><!--
+                                                                                    y = −U (x) + C,                                                                            (1.79)                          --><a id="eq:pp-energy"></a><!--
                                                                                   2
 -->
 
@@ -3649,16 +3653,16 @@ If \(U(x)\) is such that \(F(x) = -\dv {U}{x}\), we can further simplify the equ
 </p>
 
 <p>
-where \(C = C_x - C_y \in \mathbb {R}\) is just a number due to the constants of integration. Varying \(C\), <span class="textup">(<a href="chapter-1.html#eq:pp-energy">1.78</a>)</span> describes a family of curves in the
+where \(C = C_x - C_y \in \mathbb {R}\) is just a number due to the constants of integration. Varying \(C\), <span class="textup">(<a href="chapter-1.html#eq:pp-energy">1.79</a>)</span> describes a family of curves in the
 \((x,y)\)-plane which correspond to different solutions of our original problem. We can also locally invert the equation above to get the explicit solution
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{78}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{79}\)</span>
 
 <!--
 
                                                                                                                          p
-                                                                                                              y(x) = ±       2(C − U (x)).                                                                                                      (1.79)
+                                                                                                              y(x) = ±       2(C − U (x)).                                                                                                      (1.80)
 
 -->
 
@@ -3671,7 +3675,7 @@ y(x) = \pm \sqrt {2(C-U(x))}.
 </p>
 
 <p>
-Equation <span class="textup">(<a href="chapter-1.html#eq:pp-energy">1.78</a>)</span> may already be familiar: \(\frac 12 y^2 + U(x)\) is the sum of the kinetic energy \(\frac 12 y^2 = \frac 12 {\dot x}^2\) of the particle and its
+Equation <span class="textup">(<a href="chapter-1.html#eq:pp-energy">1.79</a>)</span> may already be familiar: \(\frac 12 y^2 + U(x)\) is the sum of the kinetic energy \(\frac 12 y^2 = \frac 12 {\dot x}^2\) of the particle and its
 potential energy \(U\). In fact, the statement above is a theorem and we can prove it without the need of the formal step with the differentials.
 </p>
 <div class="amsthmbodyplain">
@@ -3684,7 +3688,7 @@ potential energy \(U\). In fact, the statement above is a theorem and we can pro
 <p>
 <a id="hm-autopage-49"></a>
 <span class="amsthmnameplain">Theorem</span><span class="amsthmnumberplain"> <span class="textup">1.6</span></span>.           <a id="thm:ham1"></a> Let \(H(x, y) := \frac 12 y^2 + U(x)\) where \(U:\mathbb {R}\to \mathbb {R}\)
-is such that \(F(x) = -\dv {U}{x}\). Then, the connected components of the level curves \(H(x,y) = C\) are the integral curves of <span class="textup">(<a href="chapter-1.html#eq:oscillatorfirstorder">1.73</a>)</span>.
+is such that \(F(x) = -\dv {U}{x}\). Then, the connected components of the level curves \(H(x,y) = C\) are the integral curves of <span class="textup">(<a href="chapter-1.html#eq:oscillatorfirstorder">1.74</a>)</span>.
 </p>
 
 </li>
@@ -3708,7 +3712,7 @@ The function \(H\) introduced in Theorem&nbsp;<a href="chapter-1.html#thm:ham1">
 <p>
 <span class="amsthmproofname">Proof.</span> The proof is surprisingly simple:
 </p>
-<span class="hidden"> \(\seteqnumber{0}{1.}{79}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{80}\)</span>
 
 
 
@@ -3717,10 +3721,10 @@ The function \(H\) introduced in Theorem&nbsp;<a href="chapter-1.html#thm:ham1">
 
 
                                                                                                         ∂H dx    ∂H dy
-                                                                                                    Ḣ =       +                                                                                                                            (1.80)
+                                                                                                    Ḣ =       +                                                                                                                            (1.81)
                                                                                                         ∂x dt     ∂y dt
                                                                                                         dU
-                                                                                                      =    y + yF (x) = −yF (x) + yF (x) = 0.                                                                                               (1.81)
+                                                                                                      =    y + yF (x) = −yF (x) + yF (x) = 0.                                                                                               (1.82)
                                                                                                         dx
 
 
@@ -3746,7 +3750,7 @@ The function \(H\) introduced in Theorem&nbsp;<a href="chapter-1.html#thm:ham1">
 
 <p>
 The fact that \(H(x,y)\) remains constant on the trajectories is crucial: when this happens we say that the total energy of the system is a <em>conserved quantity</em><a id="LWRindex-60"></a>. A curve \((x(t), y(t))\) spanned by a solution of
-<span class="textup">(<a href="chapter-1.html#eq:oscillatorfirstorder">1.73</a>)</span> is called a <a id="LWRindex-61"></a><em>phase curve</em>.
+<span class="textup">(<a href="chapter-1.html#eq:oscillatorfirstorder">1.74</a>)</span> is called a <a id="LWRindex-61"></a><em>phase curve</em>.
 </p>
 
 <figure id="autoid-6" class="figure ">
@@ -3850,12 +3854,12 @@ Let’s see how general is the phenomenon described in the previous section by f
 id="LWRindex-65"></a><em>conserved quantity</em>, of the system if the total derivative of the function \(I\) vanishes along the trajectories of the system. That is, if the following equation holds for all \(t\):
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{81}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{82}\)</span>
 
 <!--
 
                                                    d                                      ∂I i     ∂I        ∂I
-                                                      I(q, v, t) (q,v,t)=(q(t),q̇(t),t) =      q̇ + i q̈ i +    = 0.                                 (1.82)                                         --><a id="eq:firstintegralD"></a><!--
+                                                      I(q, v, t) (q,v,t)=(q(t),q̇(t),t) =      q̇ + i q̈ i +    = 0.                                 (1.83)                                         --><a id="eq:firstintegralD"></a><!--
                                                    dt                                     ∂q i     ∂ q̇      ∂t
 
 -->
@@ -3872,12 +3876,12 @@ id="LWRindex-65"></a><em>conserved quantity</em>, of the system if the total der
 In other words, the function \(I\) is conserved if it remains constant along the paths followed by the system:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{82}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{83}\)</span>
 
 <!--
 
 
-                                                                                                                       I(q(t), q̇(t), t) = const.                                                                                          (1.83)
+                                                                                                                       I(q(t), q̇(t), t) = const.                                                                                          (1.84)
 
 -->
 
@@ -3901,13 +3905,13 @@ I(q(t),\dot q(t), t) = \mathrm {const}.
 time, \(L \equiv L(q, \dot q) : \mathbb {R}^{2n}\to \mathbb {R}\), then the <a id="LWRindex-66"></a><em>energy</em> of the system
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{83}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{84}\)</span>
 
 <!--
 
 
                                                                                              ∂L
-                                                           E(q, q̇) = pi q̇ i − L,   pi :=                                                           (1.84)                                         --><a id="eq:energy1"></a><!--
+                                                           E(q, q̇) = pi q̇ i − L,   pi :=                                                           (1.85)                                         --><a id="eq:energy1"></a><!--
                                                                                              ∂ q̇ i
 
 -->
@@ -3944,13 +3948,13 @@ is conserved.
 <span class="amsthmproofname">Proof.</span> Using the Euler-Lagrange equation, we have
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{84}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{85}\)</span>
 
 <!--
 
                                                                                                                                                               
                                                                                          d     ∂L i     ∂L (EL) d ∂L              ∂L        d        ∂L i
-                                                                                            L=      q̇ + i q̈ i = q̇ i           + i q̈ i =                 q̇   ,                                               (1.85)
+                                                                                            L=      q̇ + i q̈ i = q̇ i           + i q̈ i =                 q̇   ,                                               (1.86)
                                                                                          dt    ∂q i     ∂ q̇           dt ∂ q̇ i  ∂ q̇      dt       ∂ q̇ i
 
 -->
@@ -3969,13 +3973,13 @@ is conserved.
 that is,
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{85}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{86}\)</span>
 
 <!--
 
                                                                                                                                      
                                                                                                              d        ∂L i
-                                                                                                                             q̇ − L       = 0.                                                                   (1.86)
+                                                                                                                             q̇ − L       = 0.                                                                   (1.87)
                                                                                                              dt       ∂ q̇ i
 
 -->
@@ -4012,13 +4016,13 @@ that is,
 lagrangian \(L = T - U\) as in <span class="textup">(<a href="chapter-1.html#eq:mechlag">1.59</a>)</span>. Then,
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{86}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{87}\)</span>
 
 <!--
 
 
                                                                                                                     ∂L
-                                                                                                             pk =         = mk ẋk ,                                                                                                            (1.87)
+                                                                                                             pk =         = mk ẋk ,                                                                                                            (1.88)
                                                                                                                     ∂ ẋk
 
 -->
@@ -4037,7 +4041,7 @@ lagrangian \(L = T - U\) as in <span class="textup">(<a href="chapter-1.html#eq:
 and therefore
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{87}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{88}\)</span>
 
 <!--
 
@@ -4045,7 +4049,7 @@ and therefore
                                                                                                     X
                                                                                                     N                     X
                                                                                                                           N
-                                                                                                          hpk , ẋk i =         mk kẋk2 = 2T                                                                                                   (1.88)
+                                                                                                          hpk , ẋk i =         mk kẋk2 = 2T                                                                                                   (1.89)
                                                                                                     k=1                   k=1
 
 
@@ -4065,13 +4069,13 @@ and therefore
 which implies that the energy of the mechanical system is
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{88}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{89}\)</span>
 
 <!--
 
 
 
-                                                              E = 2T − T + U = T + U.                                                                       (1.89)                                          --><a id="eq:energyFromL"></a><!--
+                                                              E = 2T − T + U = T + U.                                                                       (1.90)                                          --><a id="eq:energyFromL"></a><!--
 
 -->
 
@@ -4089,13 +4093,13 @@ which implies that the energy of the mechanical system is
 We call \(\vb *{p}_k := m_k \dot {\vb *{x}}_k\) the <em>(kinetic) momentum</em><a id="LWRindex-67"></a>, replacing it in the equation above we get that
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{89}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{90}\)</span>
 
 <!--
 
 
                                                                                                              1
-                                                                                                    E=         kp k2 + U =: H(q, p)                                                                                                             (1.90)
+                                                                                                    E=         kp k2 + U =: H(q, p)                                                                                                             (1.91)
                                                                                                             2mk k
 
 -->
@@ -4134,7 +4138,7 @@ nice historical account on how scientists came up with the principle of least ac
 </p>
 
 <p>
-Theorem&nbsp;<a href="chapter-1.html#thm:conservationEnergy">1.7</a> tells us that the total energy is conserved, and <span class="textup">(<a href="chapter-1.html#eq:energyFromL">1.89</a>)</span> tells us that for closed systems
+Theorem&nbsp;<a href="chapter-1.html#thm:conservationEnergy">1.7</a> tells us that the total energy is conserved, and <span class="textup">(<a href="chapter-1.html#eq:energyFromL">1.90</a>)</span> tells us that for closed systems
 this implies that the energy is transferred back and forth between the kinetic and the potential components. We saw towards the end of Section&nbsp;<a href="chapter-1.html#sec:dynamicspps">1.2.1</a> that while the kinetic energy measures
 how much the system is moving around, the potential energy measures the “potential” of the system to change, where “potential” is intended in the sense of yet unexpressed possibilities.
 </p>
@@ -4168,13 +4172,13 @@ As we observed in the previous sections, the conservation of energy has remarkab
 In cartesian coordinates \(q = x\), the natural lagrangian for a system with one degree of freedom is given by
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{90}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{91}\)</span>
 
 <!--
 
 
                                                                                                                               mẋ2
-                                                                                                                     L=            − U (x).                                                                                                   (1.91)
+                                                                                                                     L=            − U (x).                                                                                                   (1.92)
                                                                                                                                2
 -->
 
@@ -4194,13 +4198,13 @@ In this case we can easily observe that Theorem <a href="chapter-1.html#thm:ham1
 Then, as we have seen in Section&nbsp;<a href="chapter-1.html#sec:bdf">1.3.1</a>, the conservation of energy,
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{91}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{92}\)</span>
 
 <!--
 
 
                                                                   mẋ2
-                                                                       + U (x) = E ∈ R constant,                                                                    (1.92)                                           --><a id="eq:cenergy1"></a><!--
+                                                                       + U (x) = E ∈ R constant,                                                                    (1.93)                                           --><a id="eq:cenergy1"></a><!--
                                                                    2
 -->
 
@@ -4219,15 +4223,15 @@ the system to reconstruct some time–related properties.
 </p>
 
 <p>
-To begin with, we can use <span class="textup">(<a href="chapter-1.html#eq:cenergy1">1.92</a>)</span> to integrate the equations of motion
+To begin with, we can use <span class="textup">(<a href="chapter-1.html#eq:cenergy1">1.93</a>)</span> to integrate the equations of motion
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{92}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{93}\)</span>
 
 <!--
 
                                                                                                                                     dU (x)
-                                                                                                                     mẍ = −               .                                                                                                  (1.93)
+                                                                                                                     mẍ = −               .                                                                                                  (1.94)
                                                                                                                                      dx
 -->
 
@@ -4243,13 +4247,13 @@ m \ddot x = - \frac {\dd U(x)}{\dd x}.
 Indeed, we can rearrange its term into
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{93}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{94}\)</span>
 
 <!--
 
                                                                                                                              2
                                                                                                                  m       dx
-                                                                                                                                   = E − U (x),                                                                                               (1.94)
+                                                                                                                                   = E − U (x),                                                                                               (1.95)
                                                                                                                  2       dt
 
 -->
@@ -4266,13 +4270,13 @@ Indeed, we can rearrange its term into
 which can be then integrated to get
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{94}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{95}\)</span>
 
 <!--
 
                                                                                                                          r        Z x2
                                                                                                                               m                dx
-                                                                                                            t2 − t1 =                    p             .                                                                                      (1.95)
+                                                                                                            t2 − t1 =                    p             .                                                                                      (1.96)
                                                                                                                               2    x1        E − U (x)
 
 -->
@@ -4327,13 +4331,13 @@ Thanks to time reversibility, that is, the fact that the equations of motion ram
 \(x_2^*\) to \(x_1^*\), therefore the period of oscillation is given by
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{95}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{96}\)</span>
 
 <!--
 
                                                                                   √        Z x∗2
                                                                                                          dx
-                                                                        T (E) =       2m           p             .                                                      (1.96)                                           --><a id="eq:osc"></a><!--
+                                                                        T (E) =       2m           p             .                                                      (1.97)                                           --><a id="eq:osc"></a><!--
                                                                                             x∗
                                                                                              1
                                                                                                        E − U (x)
@@ -4352,12 +4356,12 @@ Thanks to time reversibility, that is, the fact that the equations of motion ram
 A special subset of these finite motions is the one at the critical points of the force, i.e., the points \(x^*\) such that
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{96}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{97}\)</span>
 
 <!--
 
                                                                                                                               ∂U ∗
-                                                                                                                                 (x ) = 0.                                                                                                       (1.97)
+                                                                                                                                 (x ) = 0.                                                                                                       (1.98)
                                                                                                                               ∂x
 -->
 
@@ -4391,13 +4395,13 @@ See also <a id="hm-autopage-60"></a>[<a href="index.html#??">Arn89</a>, Chapter 
 example that there is a remarkable relation between the period of an oscillation and the area of the integral curve \(H(x,y) = E\): if \(A\) is the area enclosed by the integral curve, then the period \(\mathcal {T}\) can be obtained as
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{97}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{98}\)</span>
 
 <!--
 
 
                                                                                                                                        dA
-                                                                                                                                T =       .                                                                                                         (1.98)
+                                                                                                                                T =       .                                                                                                         (1.99)
                                                                                                                                        dE
 
 -->
@@ -4421,12 +4425,12 @@ From \(H(x,y) = E\) we get \(y = \pm \sqrt {2(U(x) - E)}\), where I considered u
 then the area inside the curve is given by
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{98}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{99}\)</span>
 
 <!--
 
                                                                                                                        Z x∗2 p
-                                                                                                                A=2                2(E − U (x))dx.                                                                                                  (1.99)
+                                                                                                                A=2                2(E − U (x))dx.                                                                                                 (1.100)
                                                                                                                            x∗
                                                                                                                             1
 
@@ -4447,13 +4451,13 @@ A = 2\int _{x^*_1}^{x^*_2}\sqrt {2(E - U(x))} \dd x.
 As we saw above, the period can be computed as
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{99}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{100}\)</span>
 
 <!--
 
                                                                                                                            Z x∗2
                                                                                                                                           dx
-                                                                                                                 T =2              p                .                                                                                              (1.100)
+                                                                                                                 T =2              p                .                                                                                              (1.101)
                                                                                                                             x∗
                                                                                                                              1
                                                                                                                                        2(E − U (x))
@@ -4492,13 +4496,13 @@ With the above in mind, the result follows by taking the derivative of \(A\) wit
 href="chapter-1.html#ex:sprPen">1.1</a>, the lagrangian of a pendulum of length \(l\) and mass \(m\) is given by
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{100}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{101}\)</span>
 
 <!--
 
 
                                                                                                                                  ml2 ẋ2
-                                                                                                                         L=              + mgl cos x,                                                                                                         (1.101)
+                                                                                                                         L=              + mgl cos x,                                                                                                         (1.102)
                                                                                                                                    2
 
 -->
@@ -4515,16 +4519,16 @@ L = \frac {ml^2 \dot x^2}2 + mgl \cos x,
 
 <p>
 thus \(E = \frac {ml^2 \dot x^2}2 - mgl \cos x\). As one can see in Figure&nbsp;<a href="chapter-1.html#fig:pendulum">1.5</a>, the motion is bounded for \(|E| \leq mgl\). For any such motion, the angle of maximal oscillation
-corresponds to a solution of \(U(x) = E\), thus is given by \(E = -mgl \cos (x^*_E)\) for some \(x^*_E\). Finally, <span class="textup">(<a href="chapter-1.html#eq:osc">1.96</a>)</span> implies that the period of oscillation is
+corresponds to a solution of \(U(x) = E\), thus is given by \(E = -mgl \cos (x^*_E)\) for some \(x^*_E\). Finally, <span class="textup">(<a href="chapter-1.html#eq:osc">1.97</a>)</span> implies that the period of oscillation is
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{101}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{102}\)</span>
 
 <!--
 
                                                                                                                             s        Z x∗
                                                                                                                                  l        E             dx
-                                                                                                                T (E) = 4                     p                      ,                                                                                        (1.102)
+                                                                                                                T (E) = 4                     p                      ,                                                                                        (1.103)
                                                                                                                                 2g    0           cos(x) − cos(x∗E )
 
 -->
@@ -4547,13 +4551,13 @@ which, as we briefly discussed previously, does not depend on the mass of the pe
 It is possible to use the previous formula to express the period of oscillation in terms of so-called elliptic integrals:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{102}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{103}\)</span>
 
 <!--
 
                                                                                                             s                                         Z π/2
                                                                                                                 l                                                      dθ
-                                                                                                     T =4         K (sin(x∗ /2)) ,        K(k) :=              p                     .                                                                        (1.103)
+                                                                                                     T =4         K (sin(x∗ /2)) ,        K(k) :=              p                     .                                                                        (1.104)
                                                                                                                 g                                      0           1 − k2 sin2 (θ)
 
 -->
@@ -4572,13 +4576,13 @@ It is possible to use the previous formula to express the period of oscillation 
 If the oscillations are small, \(x^* = \epsilon \ll 1\), this form allows for an immediate expansion of the form
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{103}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{104}\)</span>
 
 <!--
 
                                                                         s                
                                                                          l     ϵ2
-                                                                Tp = 2π     1+    + O(ϵ4 ) .                                                                                         (1.104)                                 --><a id="eq:smallosc-preview"></a><!--
+                                                                Tp = 2π     1+    + O(ϵ4 ) .                                                                                         (1.105)                                 --><a id="eq:smallosc-preview"></a><!--
                                                                          g     16
 
 -->
@@ -4594,17 +4598,17 @@ If the oscillations are small, \(x^* = \epsilon \ll 1\), this form allows for an
 </p>
 
 <p>
-Equation <span class="textup">(<a href="chapter-1.html#eq:smallosc-preview">1.104</a>)</span> implies that for <em>small oscillations</em>, the period of oscillation is also independent of the amplitude (and thus on the energy \(E\)).
+Equation <span class="textup">(<a href="chapter-1.html#eq:smallosc-preview">1.105</a>)</span> implies that for <em>small oscillations</em>, the period of oscillation is also independent of the amplitude (and thus on the energy \(E\)).
 Which is the same result that you get by approximating the potential for small \(x\) by a second order polynomial
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{104}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{105}\)</span>
 
 <!--
 
 
                                                                                                                                                      mgl 2
-                                                                                                                U (x) = −mgl cos x = C +                x + O(x4 )                                                                                            (1.105)
+                                                                                                                U (x) = −mgl cos x = C +                x + O(x4 )                                                                                            (1.106)
                                                                                                                                                       2
 
 -->
@@ -4627,13 +4631,13 @@ and study the corresponding system.
 Indeed, ignoring the constant \(C\) for conciseness, one finds the harmonic oscillator lagrangian
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{105}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{106}\)</span>
 
 <!--
 
 
                                                                                                                                      ml2 ẋ2   mglx2
-                                                                                                                          Lho =              −       ,                                                                                                        (1.106)
+                                                                                                                          Lho =              −       ,                                                                                                        (1.107)
                                                                                                                                        2        2
 
 -->
@@ -4652,13 +4656,13 @@ L_{\mathrm {ho}} = \frac {ml^2 \dot x^2}{2} - \frac {mgl x^2}{2},
 which we already solved in Example <a href="chapter-1.html#ex:sprPen">1.1</a>. In this specific case \(\omega = \sqrt {g/l}\) and the corresponding period of oscillation is
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{106}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{107}\)</span>
 
 <!--
 
                                                                                                                                               s
                                                                                                                                2π                   l
-                                                                                                                         Tho =    = 2π                ∼ Tp .                                                                                                  (1.107)
+                                                                                                                         Tho =    = 2π                ∼ Tp .                                                                                                  (1.108)
                                                                                                                                ω                    g
 
 -->
@@ -4753,13 +4757,13 @@ Denote \(x_1\) and \(x_2\) the angles that each of the pendulums make with respe
 The lagrangian \(L_1 = T_1 - U_1\) of the first particle is the same as for a simple pendulum:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{107}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{108}\)</span>
 
 <!--
 
 
                                                                                                                m1 l12 ẋ21
-                                                                                                        T1 =               ,   and   U1 (x1 ) = −m1 gl1 cos x1 ,                                                                               (1.108)
+                                                                                                        T1 =               ,   and   U1 (x1 ) = −m1 gl1 cos x1 ,                                                                               (1.109)
                                                                                                                   2
 
 -->
@@ -4783,13 +4787,13 @@ The lagrangian corresponding to the second particle is a bit more involved. We s
 with \(\eta \) positive in the downward direction:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{108}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{109}\)</span>
 
 <!--
 
 
 
-                                                                                                  χ = l1 sin x1 + l2 sin x2 ,        and η = l1 cos x1 + l2 cos x2 .                                                                           (1.109)
+                                                                                                  χ = l1 sin x1 + l2 sin x2 ,        and η = l1 cos x1 + l2 cos x2 .                                                                           (1.110)
 
 -->
 
@@ -4807,13 +4811,13 @@ with \(\eta \) positive in the downward direction:
 We can substitute these values into the kinetic energy for the second particle in cartesian coordinates \((\chi ,\eta )\) to get
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{109}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{110}\)</span>
 
 <!--
 
 
                                                                                                      m2 (χ̇2 + η̇ 2 )   m2 2 2                                            
-                                                                                              T2 =                    =    l1 ẋ1 + l22 ẋ22 + 2l1 l2 cos(x1 − x2 )ẋ1 ẋ2 ,                                                                   (1.110)
+                                                                                              T2 =                    =    l1 ẋ1 + l22 ẋ22 + 2l1 l2 cos(x1 − x2 )ẋ1 ẋ2 ,                                                                   (1.111)
                                                                                                            2            2
 
 -->
@@ -4832,13 +4836,13 @@ T_2 = \frac {m_2 (\dot \chi ^2 + \dot \eta ^2)}2 = \frac {m_2}2 \left ( l_1^2 \d
 while the potential energy is given by
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{110}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{111}\)</span>
 
 <!--
 
 
 
-                                                                                                           U2 = −m2 gη = −m2 g(l1 cos x1 + l2 cos x2 ).                                                                                        (1.111)
+                                                                                                           U2 = −m2 gη = −m2 g(l1 cos x1 + l2 cos x2 ).                                                                                        (1.112)
 
 -->
 
@@ -4855,7 +4859,7 @@ U_2 = -m_2 g \eta = -m_2g (l_1\cos x_1 + l_2\cos x_2).
 <p>
 The full lagrangian is then given by
 </p>
-<span class="hidden"> \(\seteqnumber{0}{1.}{111}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{112}\)</span>
 
 
 
@@ -4863,11 +4867,11 @@ The full lagrangian is then given by
 
 
 
-                                                                                                L = T 1 + T 2 − U1 − U2                                                                                                                        (1.112)
+                                                                                                L = T 1 + T 2 − U1 − U2                                                                                                                        (1.113)
                                                                                                    1                    1
-                                                                                                  = (m1 + m2 )l12 ẋ21 + m2 l22 ẋ22 + m2 l1 l2 cos(x1 − x2 )ẋ1 ẋ2                                                                           (1.113)
+                                                                                                  = (m1 + m2 )l12 ẋ21 + m2 l22 ẋ22 + m2 l1 l2 cos(x1 − x2 )ẋ1 ẋ2                                                                           (1.114)
                                                                                                    2                    2
-                                                                                                      + (m1 + m2 )gl1 cos x1 + m2 gl2 cos x2 .                                                                                                 (1.114)
+                                                                                                      + (m1 + m2 )gl1 cos x1 + m2 gl2 cos x2 .                                                                                                 (1.115)
 
 
 
@@ -4913,13 +4917,13 @@ One final example, with two degrees of freedom, before jumping into variational 
 Consider the system of independent harmonic oscillators
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{114}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{115}\)</span>
 
 <!--
 
                                                                                                                         
                                                                                                                         ẍ1 = −x1
-                                                                                                                                         .                                                                                                          (1.115)
+                                                                                                                                         .                                                                                                          (1.116)
                                                                                                                         ẍ2 = −ω 2 x2
 
 -->
@@ -4946,13 +4950,13 @@ Together, the two equations define a 4 dimensional phase space. The curves in th
 We know from the previous part of this section that the energy of each oscillator is conserved, as well as the total energy:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{115}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{116}\)</span>
 
 <!--
 
 
                                                                                                          1 2 1 2               1 2 1 2 2
-                                                                                                  H1 =     ẋ1 + x1 ,   H2 =     ẋ2 + ω x2 ,   H = H1 + H2 .                                                                                       (1.116)
+                                                                                                  H1 =     ẋ1 + x1 ,   H2 =     ẋ2 + ω x2 ,   H = H1 + H2 .                                                                                       (1.117)
                                                                                                          2      2              2      2
 
 -->
@@ -5005,13 +5009,13 @@ Figure    1.8:&nbsp;Some    casually   selected   Lissajous   figures.   The   t
 On the configuration plane \((x_1, x_2)\), the motion that we observe is
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{116}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{117}\)</span>
 
 <!--
 
 
 
-                                                                                                        x(t) = (R1 cos(t + ϕ1 ), R2 cos(ωt + ϕ2 )) .                                                                                                     (1.117)
+                                                                                                        x(t) = (R1 cos(t + ϕ1 ), R2 cos(ωt + ϕ2 )) .                                                                                                     (1.118)
 
 -->
 
@@ -5052,13 +5056,13 @@ potentials, \(U(x) = U(-x)\), giving rise to <em>isochronal</em> oscillations, i
 Use your result to study the following problem. A point particle of mass \(m\) moves without friction under the effect of a gravitational potential with uniform acceleration \(g\) on the curve
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{117}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{118}\)</span>
 
 <!--
 
                                                                                                                                
                                                                                                                                ẋ(s) 6= 0,
-                                                                                             γ(s) = (x(s), y(s))   such that                                                                                                                (1.118)
+                                                                                             γ(s) = (x(s), y(s))   such that                                                                                                                (1.119)
                                                                                                                                x(−s) = −x(s), y(−s) = y(s)
 
 -->
@@ -5137,12 +5141,12 @@ We introduced the generalized coordinates in the first section of this chapter b
 \(\mathbb {R}^{3N}\). Assume that we already know that the system has \(n\) degrees of freedom. If we describe the motion in terms of generalized coordinates
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{118}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{119}\)</span>
 
 <!--
 
 
-                                                                                                                                          xk = xk (q 1 , . . . , q n ),              k = 1, . . . , N,                                              (1.119)
+                                                                                                                                       xk = xk (q 1 , . . . , q n ),              k = 1, . . . , N,                                                 (1.120)
 
 -->
 
@@ -5158,15 +5162,15 @@ We introduced the generalized coordinates in the first section of this chapter b
 a direct application of the chain rule will allow us to rewrite the lagrangian in terms of these new coordinates as
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{119}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{120}\)</span>
 
 <!--
 
-                                                                                                                                                                  (
-                                                                                                                                                                      T (q) := 12 gkl (q)q̇ k q̇ lD, U (q) =E U (x(q))
-                                                                                                       L(q, q̇) = T (q, q̇) − U (q),               where                         P                  ∂xj ∂xj                                         (1.120)
-                                                                                                                                                                      gkl (q) := N  j=1 mj              ,
-                                                                                                                                                                                                    ∂q k ∂q l
+                                                                                                                                                               (
+                                                                                                                                                                   T (q) := 12 gkl (q)q̇ k q̇ lD, U (q) =E U (x(q))
+                                                                                                     L(q, q̇) = T (q, q̇) − U (q),             where                          P                  ∂xj ∂xj                                            (1.121)
+                                                                                                                                                                   gkl (q) := N  j=1 mj              ,
+                                                                                                                                                                                                 ∂q k ∂q l
 
 
 -->
@@ -5186,37 +5190,37 @@ summation convention.
 </p>
 
 <p>
-If, for example, we consider a free one-particle lagrangian in cartesian coordinates \(\vb *{x} = (x,y,z)\),
-</p>
-
-<span class="hidden"> \(\seteqnumber{0}{1.}{120}\)</span>
-
-<!--
-
-                                                                                                                                                              1 2
-                                                                                                                                                     L=         (ẋ + ẏ 2 + ż 2 ),                                                                (1.121)
-                                                                                                                                                              2
--->
-
-<p>
-
-\begin{equation}
-L = \frac 12 (\dot x^2 + \dot y^2 + \dot z^2),
-\end{equation}
-
-</p>
-
-<p>
-in cylindrical coordinates \((r,\phi ,z)\) it would read
+Consider, for example, a free one-particle lagrangian in cartesian coordinates \(\vb *{x} = (x,y,z)\),
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{1.}{121}\)</span>
 
 <!--
 
-                                                                                                                                                            1 2
-                                                                                                                                                    L=        (ṙ + r2 ϕ̇2 + ż 2 ),                                                                (1.122)
-                                                                                                                                                            2
+                                                                                                                                                           1 2
+                                                                                                                                                 L=          (ẋ + ẏ 2 + ż 2 ).                                                                   (1.122)
+                                                                                                                                                           2
+-->
+
+<p>
+
+\begin{equation}
+L = \frac 12 (\dot x^2 + \dot y^2 + \dot z^2).
+\end{equation}
+
+</p>
+
+<p>
+You have likely seen in previous courses that in cylindrical coordinates \((r,\phi ,z)\) it would read
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{122}\)</span>
+
+<!--
+
+                                                                                                                                                         1 2
+                                                                                                                                                L=         (ṙ + r2 ϕ̇2 + ż 2 ),                                                                   (1.123)
+                                                                                                                                                         2
 -->
 
 <p>
@@ -5231,13 +5235,13 @@ L = \frac 12 (\dot r^2 + r^2 \dot \phi ^2 + \dot z^2),
 while in spherical coordinates \((r,\phi ,\theta )\), see also Figure&nbsp;<a href="chapter-1.html#fig:sphcoords">1.9</a>, it would become
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{122}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{123}\)</span>
 
 <!--
 
-                                                                                                                                                    1 2
-                                                                                                                                            L=        (ṙ + r2 θ̇2 + r2 sin2 (θ)ϕ̇2 ).                                                              (1.123)
-                                                                                                                                                    2
+                                                                                                                                                1 2
+                                                                                                                                         L=       (ṙ + r2 θ̇2 + r2 sin2 (θ)ϕ̇2 ).                                                                  (1.124)
+                                                                                                                                                2
 -->
 
 <p>
@@ -5249,17 +5253,23 @@ L = \frac 12 (\dot r^2 + r^2 \dot \theta ^2 + r^2 \sin ^2(\theta ) \dot \phi ^2)
 </p>
 
 <p>
-The term \(g_{kl} (q)\) should also ring a bell in the context of this example: the arc length \(s\) of a parametrized curve \(q(t) : [t_1,t_2] \to \mathbb {R}^3\), is computed as
+In the example above, the metric in cartesian coordinates is given via the identity matrix, so \(g_{kl}=\delta _{kl}\), while the cylindrical coordinates are \(x(r, \phi , z) = r\cos \phi \), \(y(r, \phi , z) = r\sin \phi \) and \(z(r, \phi
+, z) = z\). You can use this not just to compute the langrangian in different coordinates, but also to read off the corresponding matrix elements \(g_{kl}\) in the new coordinates.
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{123}\)</span>
+<p>
+The appearance of the \(g_{kl}(q)\) term at the beginning of this section will probably ring a bell if you studied some riemannian geometry or general relativity. Without going into the details of the theory, let’s summarize some of the most
+important elements. The so called <em>arc-length</em> \(s\) of a parametrized curve \(q(t) : [t_1,t_2] \to \mathbb {R}^3\), is computed as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{124}\)</span>
 
 <!--
 
-                                                  Z t2 √           Z t2 p                                                       
-                                                                                                                     ∂x ∂x
-                                             s=            ds2 =            gkl   (q)q̇ k q̇ l dt,   gkl (q) =           ,           .                                                                     (1.124)       --><a id="eq:arclen"></a><!--
-                                                   t1               t1                                               ∂q k ∂q l
+                                                  Z t2 √           Z t2 p                                                     
+                                                                                                                   ∂x ∂x
+                                             s=            ds2 =            gkl (q)q̇ k q̇ l dt,   gkl (q) =           ,           .                                                                    (1.125)          --><a id="eq:arclen"></a><!--
+                                                   t1               t1                                             ∂q k ∂q l
 
 -->
 
@@ -5273,16 +5283,36 @@ The term \(g_{kl} (q)\) should also ring a bell in the context of this example: 
 </p>
 
 <p>
-The strange looking object \(\dd s^2\), called line element or first fundamental form, is just a short-hand notation for the \(g\)-dependent scalar product of generalized velocities that we obtained above<sup>2</sup>: \(\dd s^2 = g_{kl}(q)\, \dd
-q^k \dd q^l\). For example, in cartesian coordinates, we have
+The strange looking object \(\dd s^2\), called <em>line element</em> or <em>first fundamental form</em>, is just a short-hand notation for the \(g\)-dependent scalar product of generalized velocities that we obtained above<sup>2</sup>:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{124}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{125}\)</span>
 
 <!--
 
 
-                                                                                                                                                    ds2 = dx2 + dy 2 + dz 2 ,                                                                       (1.125)
+                                                                                                                                                  ds2 = gkl (q) dq k dq l .                                                                         (1.126)
+
+-->
+
+<p>
+
+\begin{equation}
+\dd s^2 = g_{kl}(q)\, \dd q^k \dd q^l.
+\end{equation}
+
+</p>
+
+<p>
+For example, in cartesian coordinates, we have
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{126}\)</span>
+
+<!--
+
+
+                                                                                                                                                ds2 = dx2 + dy 2 + dz 2 ,                                                                           (1.127)
 
 -->
 
@@ -5298,12 +5328,12 @@ q^k \dd q^l\). For example, in cartesian coordinates, we have
 while in cylindrical coordinates
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{125}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{127}\)</span>
 
 <!--
 
 
-                                                                                                                                                 ds2 = dr2 + r2 dϕ2 + dz 2 ,                                                                        (1.126)
+                                                                                                                                               ds2 = dr2 + r2 dϕ2 + dz 2 ,                                                                          (1.128)
 
 -->
 
@@ -5319,12 +5349,12 @@ while in cylindrical coordinates
 and in spherical coordinates, see Figure&nbsp;<a href="chapter-1.html#fig:sphcoords">1.9</a>,
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{126}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{128}\)</span>
 
 <!--
 
 
-                                                             ds2 = dr2 + r2 sin2 (θ)dϕ2 + r2 dθ2 .                                                                                                         (1.127)       --><a id="eq:spharc"></a><!--
+                                                             ds2 = dr2 + r2 sin2 (θ)dϕ2 + r2 dθ2 .                                                                                                      (1.129)          --><a id="eq:spharc"></a><!--
 
 -->
 
@@ -5349,17 +5379,17 @@ href="index.html#??">Ser20</a>].
 <p>
 Local coordinates, or charts, on \(M\) are local homeomorphisms<sup>5</sup>
 </p>
-<span class="hidden"> \(\seteqnumber{0}{1.}{127}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{129}\)</span>
 
 
 <!--
 
 
 
-                                                                                                                                            ϕ :U ⊂ M → Rn ,                                                                                         (1.128)
-                                                                                                                                                p 7→ ϕ(p) = (q (p), . . . , q (p)),
-                                                                                                                                                                           1                n
-                                                                                                                                                                                                                                                    (1.129)
+                                                                                                                                         ϕ :U ⊂ M → Rn ,                                                                                            (1.130)
+                                                                                                                                              p 7→ ϕ(p) = (q (p), . . . , q (p)),
+                                                                                                                                                                        1                n
+                                                                                                                                                                                                                                                    (1.131)
 
 
 
@@ -5395,13 +5425,13 @@ Local coordinates on \(M\) naturally induce local coordinates
 on \(TM\): for all \(i=1,\ldots ,n\) the coordinate \(\dot q^i\) of the tangent vector \(v\in T_qM\) is defined as
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{129}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{131}\)</span>
 
 <!--
 
-                                                                                                                                                                                    ∂                ∂
-                                                                                                                                 q̇ i = v i ,      where v = v 1                        + · · · + vn n ,                                            (1.130)
-                                                                                                                                                                                   ∂q 1             ∂q
+                                                                                                                                                                                 ∂                ∂
+                                                                                                                               q̇ i = v i ,    where v = v 1                         + · · · + vn n ,                                               (1.132)
+                                                                                                                                                                                ∂q 1             ∂q
 
 -->
 
@@ -5420,7 +5450,7 @@ is the decomposition of the vector \(v\) in the local basis induced by the coord
 
 <p>
 The most immediate way to compute the components \(\dot q^i\) is by using the definition of tangent vectors as class of equivalence of tangents to curves [<a href="index.html#??">Ser20</a>, Chapter 2.5]. Let \(\gamma :\mathbb {R} \to M\)
-be a curve such that \(\gamma (0) = q\) and \(\dv {\gamma }{t}|_{t=0} = v\), then \(\dot q^i = \dv {}{t}(q^i\circ \gamma )|_{t=0}\) is given by the \(i\)th component of \(\dv {}{t}(\phi \circ \gamma )|_{t=0}\).
+be a curve such that \(\gamma (0) = q\) and \(\dv {\gamma }{t}|_{t=0} = v\), then \(\dot q^i = \dv {}{t}\/(q^i\circ \gamma )|_{t=0}\) is given by the \(i\)th component of \(\dv {}{t}\/(\phi \circ \gamma )|_{t=0}\).
 </p>
 
 <p>
@@ -5428,19 +5458,19 @@ The notation used for the basis versors of the tangent space in coordinates is n
 one can compute that for any tangent vector \(v\in T_qM\),
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{130}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{132}\)</span>
 
 <!--
 
-                                                                                                                                                    d
-                                                                                                                                         v(f ) =           ,               γ(0) = q, γ̇(0) = v.                                                     (1.131)
-                                                                                                                                                    dt t=0
+                                                                                                                                           d
+                                                                                                                           v(f ) =            (f ◦ γ) t=0 ,                     γ(0) = q, γ̇(0) = v.                                                (1.133)
+                                                                                                                                           dt
 -->
 
 <p>
 
 \begin{equation}
-v(f)=\dv {}{t}(f\circ \gamma )\big |_{t=0}, \qquad \gamma (0) = q, \; \dot \gamma (0) = v.
+v(f)=\dv {}{t}\/(f\circ \gamma ) \big |_{t=0}, \qquad \gamma (0) = q, \; \dot \gamma (0) = v.
 \end{equation}
 
 </p>
@@ -5454,14 +5484,14 @@ To emphasize once more the importance of the chain rule in this business, a loca
 on the fibers:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{131}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{133}\)</span>
 
 <!--
 
 
-                                                                                                                                                                               i      ∂ qei k
-                                                                                                                                                   qei = qei (q),          qė =           q̇ .                                                     (1.132)
-                                                                                                                                                                                      ∂q k
+                                                                                                                                                                            i      ∂ qei k
+                                                                                                                                               qei = qei (q),           qė =           q̇ .                                                        (1.134)
+                                                                                                                                                                                   ∂q k
 
 -->
 
@@ -5483,14 +5513,14 @@ to our previous definition in the euclidean setting. The manifold \(M\) is calle
 The lagrangian is called <em>non–degenerate</em> if
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{132}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{134}\)</span>
 
 <!--
 
-                                                                                                                                                                          
-                                                                                                                                                             ∂2L
-                                                                                                                                                 det                                      6= 0.                                                     (1.133)
-                                                                                                                                                           ∂ q̇ i ∂ q̇ j       1≤i,j≤n
+                                                                                                                                                                       
+                                                                                                                                                          ∂2L
+                                                                                                                                              det                                      6= 0.                                                        (1.135)
+                                                                                                                                                        ∂ q̇ i ∂ q̇ j       1≤i,j≤n
 
 
 -->
@@ -5507,7 +5537,7 @@ The lagrangian is called <em>non–degenerate</em> if
 <a id="hm-autopage-72"></a>
 
 <p>
-<sup>2</sup>&nbsp;If you interpret \(\dd q^k \dd q^l := \dd q^k \otimes \dd q^l\) as the tensor product of the two one-forms, then this is just the metric tensor \(g\).
+<sup>2</sup>&nbsp;If you interpret \(\dd q^k \dd q^l := \dd q^k \otimes \dd q^l\) as the tensor product of the two one-forms, then this is just the metric tensor \(g\) in coordinates.
 </p>
 
 <p>
@@ -5554,13 +5584,13 @@ letters to mean both the point and its coordinate representation, implicitly usi
 function. Show that the <em>linear momenta</em>, i.e., the derivatives
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{133}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{135}\)</span>
 
 <!--
 
 
                                                                                                                                  ∂L
-                                                                                                                  pi :=                 ,        i = 1, . . . , n,                                                                                           (1.134)
+                                                                                                                  pi :=                 ,        i = 1, . . . , n,                                                                                           (1.136)
                                                                                                                                  ∂ q̇ i
 
 -->
@@ -5579,13 +5609,13 @@ p_i := \pdv {L}{\dot q^i}, \quad i=1,\ldots ,n,
 transform in “the opposite way as \(\dot q\)” in the sense that:
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{134}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{136}\)</span>
 
 <!--
 
 
                                                                                                                             ∂q k
-                                                                                                                 pei =            pk ,            i = 1, . . . , n,                                                                                          (1.135)
+                                                                                                                 pei =            pk ,            i = 1, . . . , n,                                                                                          (1.137)
                                                                                                                             ∂ qei
 
 -->
@@ -5604,13 +5634,13 @@ transform in “the opposite way as \(\dot q\)” in the sense that:
 involves the inverse of the jacobian of \(q\mapsto \widetilde q(q)\). Furthermore, show that the matrix of second derivatives with respect to the coordinates \(\dot q\) of the lagrangian transforms as a \((0,2)\)-tensor, i.e.
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{135}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{137}\)</span>
 
 <!--
 
 
                                                                                                                     ∂2L                 ∂q k ∂q l ∂ 2 L
-                                                                                                                                   =                              .                                                                                          (1.136)
+                                                                                                                                   =                              .                                                                                          (1.138)
                                                                                                                       i
                                                                                                                   ∂ qė ∂ qė
                                                                                                                              j
@@ -5649,12 +5679,12 @@ To simplify the discussion and the geometrical description, we now assume that t
 the space of smooth curves \(q(t): [t_1,t_2] \to M\) with \(q(t_1) = q_1\) and \(q(t_2) = q_2\) as the integral
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{136}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{138}\)</span>
 
 <!--
 
                                                                                                                                        Z t2
-                                                                                                                      S[q] =                      L(q, q̇)dt.                                                                                                (1.137)
+                                                                                                                      S[q] =                      L(q, q̇)dt.                                                                                                (1.139)
                                                                                                                                             t1
 
 
@@ -5672,12 +5702,12 @@ S[q] = \int _{t_1}^{t_2} L(q,\dot q) \dd t.
 It turns out<sup>9</sup> that also in this case the critical points of the functional are determined by the Euler-Lagrange equations
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{137}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{139}\)</span>
 
 <!--
 
                                                                                                               d ∂L       ∂L
-                                                                                                                        − i = 0,                      i = 1, . . . , n,                                                                                      (1.138)
+                                                                                                                        − i = 0,                      i = 1, . . . , n,                                                                                      (1.140)
                                                                                                               dt ∂ q̇ i  ∂q
 
 -->
@@ -5705,12 +5735,12 @@ An important class of mechanical systems is defined on riemannian manifolds: a r
 \((0,2)\)-tensor on \(TM\) whose matrix representation \(g_{ij}(q)\) is positive definite. Locally, analogously to what we have described at the beginning of the chapter,
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{138}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{140}\)</span>
 
 <!--
 
 
-                                                                                                                   g = gij (q)dq i dq j =: ds2 .                                                                                                             (1.139)
+                                                                                                                   g = gij (q)dq i dq j =: ds2 .                                                                                                             (1.141)
 
 -->
 
@@ -5723,16 +5753,16 @@ g = g_{ij}(q) \dd q^i \dd q^j =: \dd s^2.
 </p>
 
 <p>
-The length of curves on \(M\) is then defined as in <span class="textup">(<a href="chapter-1.html#eq:arclen">1.124</a>)</span> and angles between tangent vectors are defined using a generalization of the law of cosines where the Euclidean
+The length of curves on \(M\) is then defined as in <span class="textup">(<a href="chapter-1.html#eq:arclen">1.125</a>)</span> and angles between tangent vectors are defined using a generalization of the law of cosines where the Euclidean
 scalar product is replaced by the inner product on \(T_qM\):
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{139}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{141}\)</span>
 
 <!--
 
 
-                                                                                                           hv, wig = gij (q)v i wj ,                      v, w ∈ Tq M.                                                                                       (1.140)
+                                                                                                           hv, wig = gij (q)v i wj ,                      v, w ∈ Tq M.                                                                                       (1.142)
 
 -->
 
@@ -5748,12 +5778,12 @@ scalar product is replaced by the inner product on \(T_qM\):
 As in the Euclidean space, arc lengths of curves are invariant with respect to monotonic changes of parametrization,
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{140}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{142}\)</span>
 
 <!--
 
                                                                                                                                                              dt
-                                                                                                             t = t(τ ),           τ 1 ≤ τ ≤ τ2 ,                6= 0.                                                                                        (1.141)
+                                                                                                             t = t(τ ),           τ 1 ≤ τ ≤ τ2 ,                6= 0.                                                                                        (1.143)
                                                                                                                                                              dτ
 -->
 
@@ -5769,12 +5799,12 @@ t = t(\tau ),\quad \tau _1\leq \tau \leq \tau _2, \quad \frac {\dd t}{\dd \tau }
 Replacing the scalar product, i.e., the inner product in the Euclidean space, we can define the kinetic energy of a point particle with mass \(m\) as
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{141}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{143}\)</span>
 
 <!--
 
                                                                                                                           m            m
-                                                                                                                T =         hq̇, q̇ig = gij (q)q̇ i q̇ j .                                                                                                   (1.142)
+                                                                                                                T =         hq̇, q̇ig = gij (q)q̇ i q̇ j .                                                                                                   (1.144)
                                                                                                                           2            2
 -->
 
@@ -5811,13 +5841,13 @@ T = \frac m2 \langle \dot q, \dot q\rangle _g = \frac {m}2 g_{ij}(q)\dot q^i\dot
 <span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">1.8</span></span>.                                                <a id="exe:geodesic1"></a> Show that the Euler-Lagrange equations for the functional
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{142}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{144}\)</span>
 
 <!--
 
                                                                                                                                        Z t2
                                                                                                                                               1
-                                                                                                                              S[q] =            gij (q)q̇ i q̇ j dt                                                                                                   (1.143)
+                                                                                                                              S[q] =            gij (q)q̇ i q̇ j dt                                                                                                   (1.145)
                                                                                                                                         t1    2
 
 -->
@@ -5836,13 +5866,13 @@ S[q] = \int _{t_1}^{t_2} \frac 12 g_{ij}(q) \dot q^i \dot q^j\; \dd t
 have the form
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{143}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{145}\)</span>
 
 <!--
 
 
 
-                                                                   q̈ k + Γkij (q)q̇ i q̇ j = 0,   k = 1, . . . , n,                                                                                   (1.144)                              --><a id="eq:geodesic"></a><!--
+                                                                   q̈ k + Γkij (q)q̇ i q̇ j = 0,   k = 1, . . . , n,                                                                                   (1.146)                              --><a id="eq:geodesic"></a><!--
 
 -->
 
@@ -5860,13 +5890,13 @@ have the form
 where \(\Gamma _{ij}^k(q)\) are the Christoffel symbols of the Levi-Civita connection associated with the metric \(\dd s^2\):
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{144}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{146}\)</span>
 
 <!--
 
                                                                                                                                                      
                                                                                                                 1 km       ∂gmj    ∂gim   ∂gij
-                                                                                                   Γkij (q) =     g              +       − m              ,       (g ij (q)) = (gij (q))−1 .                                                                          (1.145)
+                                                                                                   Γkij (q) =     g              +       − m              ,       (g ij (q)) = (gij (q))−1 .                                                                          (1.147)
                                                                                                                 2           ∂q i    ∂q j  ∂q
 
 -->
@@ -5893,7 +5923,7 @@ where \(\Gamma _{ij}^k(q)\) are the Christoffel symbols of the Levi-Civita conne
 </div>
 
 <p>
-Solutions of <span class="textup">(<a href="chapter-1.html#eq:geodesic">1.144</a>)</span> are the <em>geodesic curves</em> on the riemannian manifold \(M\). Locally, geodesics are not just minimizing the action \(S\), but also the lengths!
+Solutions of <span class="textup">(<a href="chapter-1.html#eq:geodesic">1.146</a>)</span> are the <em>geodesic curves</em> on the riemannian manifold \(M\). Locally, geodesics are not just minimizing the action \(S\), but also the lengths!
 </p>
 <div class="amsthmbodydefinition">
 
@@ -5911,7 +5941,7 @@ Solutions of <span class="textup">(<a href="chapter-1.html#eq:geodesic">1.144</a
 
 <li>
 <p>
-1. Derive formula <span class="textup">(<a href="chapter-1.html#eq:energyFromL">1.89</a>)</span> for a natural lagrangian on a riemannian manifold \((M,g)\).
+1. Derive formula <span class="textup">(<a href="chapter-1.html#eq:energyFromL">1.90</a>)</span> for a natural lagrangian on a riemannian manifold \((M,g)\).
 </p>
 
 
@@ -5920,7 +5950,7 @@ Solutions of <span class="textup">(<a href="chapter-1.html#eq:geodesic">1.144</a
 
 
 <p>
-2. Given any lagrangian of the form \(L = L(q, \dot q)\) on \(TM\), show that the definition of energy <span class="textup">(<a href="chapter-1.html#eq:energy1">1.84</a>)</span> does not depend on the choice of local coordinates on
+2. Given any lagrangian of the form \(L = L(q, \dot q)\) on \(TM\), show that the definition of energy <span class="textup">(<a href="chapter-1.html#eq:energy1">1.85</a>)</span> does not depend on the choice of local coordinates on
 \(M\).<br />
 <i>Hint: look at Exercise&nbsp;<a href="chapter-1.html#exe:coordinatesInd">1.7</a>.</i>
 </p>
@@ -5933,11 +5963,11 @@ Solutions of <span class="textup">(<a href="chapter-1.html#eq:geodesic">1.144</a
 <p>
 3. Consider the following free lagrangian on a riemannian manifold \((M, g)\):
 </p>
-<span class="hidden"> \(\seteqnumber{0}{1.}{145}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{147}\)</span>
 <!--
 
                                                                                                                     1
-                                                                                                               L=     gij (q)q̇ i q̇ j .                                                                                               (1.146)
+                                                                                                               L=     gij (q)q̇ i q̇ j .                                                                                               (1.148)
                                                                                                                     2
 -->
 <p>
@@ -5976,16 +6006,16 @@ i.e., a point particle of mass \(m\) moving without friction on the surface of a
 
 <p>
 The system has two degrees of freedom, its configuration space \(M\) is a 2-sphere \(S^2\) of radius \(l\). Using spherical coordinates \((\theta , \phi )\) – see also Figure&nbsp;<a href="chapter-1.html#fig:sphcoords">1.9</a> – and <span
-class="textup">(<a href="chapter-1.html#eq:spharc">1.127</a>)</span>, we find the free lagrangian
+class="textup">(<a href="chapter-1.html#eq:spharc">1.129</a>)</span>, we find the free lagrangian
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{146}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{148}\)</span>
 
 <!--
 
 
                                                                                m 2 2
-                                                                          L=     l (θ̇ + ϕ̇2 sin2 θ).                                                               (1.147)                              --><a id="eq:LsphericalP"></a><!--
+                                                                          L=     l (θ̇ + ϕ̇2 sin2 θ).                                                               (1.149)                              --><a id="eq:LsphericalP"></a><!--
                                                                                2
 
 -->
@@ -6019,7 +6049,7 @@ Due to the discussion above, we immediately can say that the point particle move
 <p>
 <a id="hm-autopage-76"></a>
 <span class="amsthmnamedefinition">Exercise</span><span class="amsthmnumberdefinition"> <span class="textup">1.10</span></span>.             Start from a free lagrangian in cartesian coordinates. As we are imposing that the particle lives on
-the surface of the sphere, change variables using the appropriate spherical coordinates to derive <span class="textup">(<a href="chapter-1.html#eq:LsphericalP">1.147</a>)</span>.
+the surface of the sphere, change variables using the appropriate spherical coordinates to derive <span class="textup">(<a href="chapter-1.html#eq:LsphericalP">1.149</a>)</span>.
 </p>
 
 </li>
@@ -6071,12 +6101,12 @@ Figure 1.9:&nbsp;Our choice of spherical coordinates
 In analogy with our discussion of natural lagrangians <span class="textup">(<a href="chapter-1.html#eq:mechlag">1.59</a>)</span>, on riemannian manifolds we call <em>natural</em> the lagrangians of the form
 </p>
 
-<span class="hidden"> \(\seteqnumber{0}{1.}{147}\)</span>
+<span class="hidden"> \(\seteqnumber{0}{1.}{149}\)</span>
 
 <!--
 
                                                                           1
-                                                                     L=     gij (q)q̇ i q̇ j − U (q),                                                           (1.148)                              --><a id="eq:LagrangianM"></a><!--
+                                                                     L=     gij (q)q̇ i q̇ j − U (q),                                                           (1.150)                              --><a id="eq:LagrangianM"></a><!--
                                                                           2
 -->
 
@@ -6102,7 +6132,7 @@ where \(U(q)\) is a smooth function on \(M\).
 <a id="hm-autopage-80"></a>
 <span class="amsthmnamedefinition">Remark</span><span class="amsthmnumberdefinition"> <span class="textup">1.13</span></span>.                       It is often necessary to deal with mechanical systems in which the interactions between different
 bodies take the form of constraints. These constraints can be very complicated and hard to incorporate when working directly with the differential equations of motion. It is often easier to construct a lagrangian out of the kinetic and potential energy
-of the system and derive the correct equations of motion from there. Mechanical lagrangians will often be of the form <span class="textup">(<a href="chapter-1.html#eq:LagrangianM">1.148</a>)</span>.
+of the system and derive the correct equations of motion from there. Mechanical lagrangians will often be of the form <span class="textup">(<a href="chapter-1.html#eq:LagrangianM">1.150</a>)</span>.
 </p>
 
 </li>
